@@ -5,91 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking.com | Official site | The best hotels, flights, car rentals & accommodations</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/6/66/Booking.com_logo.svg">
 </head>
 <body class="min-h-screen bg-white">
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <!-- Top header row -->
             <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
                 <div class="logo">
                     <a href="index.html" class="logo">Booking.com</a>
                 </div>
-                <!-- Right side actions -->
                 <div class="flex items-center space-x-4">
                     <div class="lg-flex items-center space-x-1 text-sm mobile-hidden">
                         <span class="currency-badge">ZAR</span>
                     </div>
-                    <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
-                        <span class="icon mr-1">?</span>
-                    </button>
-                    <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
-                        List your property
-                    </button>
                     <div class="flex items-center space-x-2">
-                        <button class="btn btn-outline btn-sm" onclick="openModal('register')">
-                            Register
-                        </button>
-                        <button class="btn btn-primary btn-sm" onclick="openModal('login')">
-                            Sign in
-                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="openModal('register')">Register</button>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('login')">Sign in</button>
                     </div>
-                    <!-- Mobile Menu Button -->
                     <button class="btn btn-ghost desktop-hidden" onclick="toggleMobileMenu()">
                         <span class="icon">☰</span>
                     </button>
                 </div>
             </div>
-            <!-- Navigation tabs -->
             <div class="border-t border-blue-700">
                 <nav class="flex items-center">
-                    <a href="#" class="nav-item active" onclick="setActiveTab('stays')">
-                        <span class="icon">🏨</span>
-                        <span>Stays</span>
-                    </a>
-                    <a href="flights.html" class="nav-item" onclick="setActiveTab('flights')">
-                        <span class="icon">✈️</span>
-                        <span>Flights</span>
-                    </a>
-                    <a href="#" class="nav-item" onclick="setActiveTab('cars')">
-                        <span class="icon">🚗</span>
-                        <span>Car rental</span>
-                    </a>
-                    <a href="#" class="nav-item" onclick="setActiveTab('attractions')">
-                        <span class="icon">⭐</span>
-                        <span>Attractions</span>
-                    </a>
-                    <a href="#" class="nav-item" onclick="setActiveTab('taxis')">
-                        <span class="icon">🚕</span>
-                        <span>Airport taxis</span>
-                    </a>
-                </nav>
-            </div>
-            <!-- Mobile Navigation -->
-            <div id="mobileMenu" class="mobile-menu desktop-hidden">
-                <nav class="flex flex-col space-y-2">
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">🏨</span>
-                        <span>Stays</span>
-                    </a>
-                    <a href="flights.html" class="mobile-menu-item">
-                        <span class="icon">✈️</span>
-                        <span>Flights</span>
-                    </a>
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">🚗</span>
-                        <span>Car rental</span>
-                    </a>
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">⭐</span>
-                        <span>Attractions</span>
-                    </a>
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">🚕</span>
-                        <span>Airport taxis</span>
-                    </a>
+                    <a href="#" class="nav-item active"><span class="icon">🏨</span><span>Stays</span></a>
+                    <a href="#" class="nav-item"><span class="icon">✈️</span><span>Flights</span></a>
+                    <a href="#" class="nav-item"><span class="icon">🚗</span><span>Car rental</span></a>
+                    <a href="#" class="nav-item"><span class="icon">⭐</span><span>Attractions</span></a>
+                    <a href="#" class="nav-item"><span class="icon">🚕</span><span>Airport taxis</span></a>
                 </nav>
             </div>
         </div>
@@ -99,12 +44,8 @@
     <div class="hero">
         <div class="container h-full flex items-center py-12">
             <div class="text-white max-w-2xl">
-                <h1 class="text-2xl md:text-4xl mb-3 font-bold">
-                    Find your next stay
-                </h1>
-                <p class="text-base md:text-lg opacity-90">
-                    Search deals on hotels, homes, and much more...
-                </p>
+                <h1 class="text-2xl md:text-4xl mb-3 font-bold">Find your next stay</h1>
+                <p class="text-base md:text-lg opacity-90">Search deals on hotels, homes, and much more...</p>
             </div>
         </div>
     </div>
@@ -118,21 +59,21 @@
                         <label class="form-label">Where are you going?</label>
                         <div class="input-group">
                             <span class="input-icon">📍</span>
-                            <input type="text" class="form-input form-input-icon" placeholder="Destination" value="">
+                            <input type="text" class="form-input form-input-icon" placeholder="Destination">
                         </div>
                     </div>
                     <div>
                         <label class="form-label">Check-in date</label>
                         <div class="input-group">
                             <span class="input-icon">📅</span>
-                            <input type="date" class="form-input form-input-icon" value="">
+                            <input type="date" class="form-input form-input-icon">
                         </div>
                     </div>
                     <div>
                         <label class="form-label">Check-out date</label>
                         <div class="input-group">
                             <span class="input-icon">📅</span>
-                            <input type="date" class="form-input form-input-icon" value="">
+                            <input type="date" class="form-input form-input-icon">
                         </div>
                     </div>
                     <div>
@@ -149,24 +90,20 @@
                     </div>
                 </div>
                 <div class="flex justify-end">
-                    <button class="btn btn-primary btn-lg" onclick="searchProperties()">
-                        <span class="icon mr-2">🔍</span>
-                        Search
-                    </button>
+                    <button class="btn btn-primary btn-lg">🔍 Search</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Search Results (initially hidden) -->
-    <div id="searchResults" class="container px-4 py-8" style="display: none;">
+    <!-- Search Results -->
+    <div class="container px-4 py-8">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl mb-6">Search Results</h2>
             <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-6">
-                <!-- Property cards will be updated dynamically -->
-                <div class="card hover-shadow-lg transition-shadow" id="property1">
+                <div class="card hover-shadow-lg transition-shadow">
                     <div class="relative h-48">
-                        <img class="property-image" alt="Property 1">
+                        <img class="property-image" src="https://images.unsplash.com/photo-1501117716987-c8e6cf54b99c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI0MTd8MHwxfHNlYXJjaHwxfHxob3RlbHxlbnwwfHx8fDE2OTUxNDc1MTk&ixlib=rb-4.0.3&q=80&w=400" alt="Property 1">
                         <span class="badge bg-green-600 absolute top-2 right-2">Hotel</span>
                     </div>
                     <div class="card-header">
@@ -178,8 +115,7 @@
                             </div>
                         </div>
                         <div class="flex items-center text-gray-600 text-sm">
-                            <span class="icon mr-1">📍</span>
-                            Cape Town, South Africa
+                            <span class="icon mr-1">📍</span>Cape Town, South Africa
                         </div>
                     </div>
                     <div class="card-content">
@@ -189,63 +125,41 @@
                                 <div class="price-display">ZAR 299</div>
                                 <div class="price-period">per night</div>
                             </div>
-                            <button class="btn btn-primary" onclick="selectBooking('stays')">
-                                Book now
-                            </button>
+                            <button class="btn btn-primary">Book now</button>
                         </div>
                     </div>
                 </div>
-                <!-- Add property2, property3 similarly with unique IDs -->
+                <div class="card hover-shadow-lg transition-shadow">
+                    <div class="relative h-48">
+                        <img class="property-image" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Property 2">
+                        <span class="badge bg-green-600 absolute top-2 right-2">Hotel</span>
+                    </div>
+                    <div class="card-header">
+                        <div class="flex items-start justify-between">
+                            <h3 class="text-lg">City Center Hotel</h3>
+                            <div class="flex items-center space-x-1">
+                                <span class="icon star-fill">⭐</span>
+                                <span class="text-sm">4.0</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <span class="icon mr-1">📍</span>Johannesburg, South Africa
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-gray-600 text-sm mb-4">Central location near attractions</p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-right">
+                                <div class="price-display">ZAR 199</div>
+                                <div class="price-period">per night</div>
+                            </div>
+                            <button class="btn btn-primary">Book now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more cards as needed -->
             </div>
         </div>
     </div>
-
-    <!-- All other sections stay the same, omitted here for brevity -->
-
-    <!-- Script to dynamically load images -->
-    <script>
-        async function loadImages() {
-            const res = await fetch('image-list.html');
-            const html = await res.text();
-            const temp = document.createElement('div');
-            temp.innerHTML = html;
-
-            // Example: Property images
-            document.querySelector('#property1 .property-image').src = temp.querySelector('#img-property1').src;
-            // Repeat similarly for property2, property3, featured destinations, etc.
-        }
-        loadImages();
-
-        // Existing functions
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-        }
-        function setActiveTab(tab) {
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            event.target.closest('.nav-item').classList.add('active');
-        }
-        function openModal(type) {
-            const modal = document.getElementById(type + 'Modal');
-            modal.style.display = 'flex';
-        }
-        function closeModal(type) {
-            const modal = document.getElementById(type + 'Modal');
-            modal.style.display = 'none';
-        }
-        function searchProperties() {
-            const results = document.getElementById('searchResults');
-            results.style.display = 'block';
-            results.scrollIntoView({ behavior: 'smooth' });
-        }
-        function selectBooking(type) {
-            alert('Booking functionality would be available in the full application. Please sign in to continue.');
-        }
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        }
-    </script>
 </body>
 </html>
