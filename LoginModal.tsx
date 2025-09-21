@@ -5,7 +5,7 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Separator } from './ui/separator';
 import { getSupabaseClient } from '../utils/supabase/client';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface LoginModalProps {
   open: boolean;
@@ -34,8 +34,11 @@ export function LoginModal({ open, onClose, onRegisterClick }: LoginModalProps) 
       } else {
         toast.success('Successfully signed in!');
         onClose();
+        setEmail('');
+        setPassword('');
       }
-    } catch (error) {
+    } catch (err) {
+      console.error(err);
       toast.error('An unexpected error occurred');
     } finally {
       setLoading(false);
@@ -43,6 +46,7 @@ export function LoginModal({ open, onClose, onRegisterClick }: LoginModalProps) 
   };
 
   const handleGoogleLogin = async () => {
+    setLoading(true);
     try {
       const supabase = getSupabaseClient();
       const { error } = await supabase.auth.signInWithOAuth({
@@ -55,8 +59,11 @@ export function LoginModal({ open, onClose, onRegisterClick }: LoginModalProps) 
       if (error) {
         toast.error('Google sign-in failed: ' + error.message);
       }
-    } catch (error) {
+    } catch (err) {
+      console.error(err);
       toast.error('An unexpected error occurred');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,11 +114,12 @@ export function LoginModal({ open, onClose, onRegisterClick }: LoginModalProps) 
           variant="outline"
           onClick={handleGoogleLogin}
           className="w-full"
+          disabled={loading}
         >
-          Continue with Google
+          {loading ? 'Redirecting...' : 'Continue with Google'}
         </Button>
 
-        <div className="text-center text-sm">
+        <div className="text-center text-sm mt-4">
           Don't have an account?{' '}
           <Button variant="link" className="p-0" onClick={onRegisterClick}>
             Create one here
