@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Checkbox } from './ui/checkbox';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { getSupabaseClient } from '../utils/supabase/client';
 import { toast } from 'sonner@2.0.3';
 
 interface RegisterModalProps {
@@ -41,42 +41,35 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
     setLoading(true);
 
     try {
-      const response = await fetch(`https://${projectId}.supabase.co/functions/v1/make-server-2c363e8a/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${publicAnonKey}`
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          subscribeNewsletter: formData.subscribeNewsletter
-        })
+      const supabase = getSupabaseClient();
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            subscribeNewsletter: formData.subscribeNewsletter
+          }
+        }
       });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        toast.success('Registration successful! Check your email for your 6-character verification code.');
-        onRegister(formData.email); // Pass email to next step (verify code)
+      if (error) {
+        toast.error('Registration failed: ' + error.message);
       } else {
-        toast.error('Registration failed: ' + (result.error || 'Unknown error'));
+        toast.success('Registration successful! Check your email to verify your account.');
+        onRegister(formData.email); // trigger EmailVerificationModal
       }
     } catch (error) {
-      toast.error('An unexpected error occurred during registration');
       console.error('Registration error:', error);
+      toast.error('An unexpected error occurred during registration');
     } finally {
       setLoading(false);
     }
   };
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   return (
