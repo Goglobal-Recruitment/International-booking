@@ -7,7 +7,8 @@ import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Checkbox } from './ui/checkbox';
-import { MapPin, Calendar as CalendarIcon, Users, Plane, ArrowLeftRight, Search } from 'lucide-react';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from './ui/command';
+import { MapPin, Calendar as CalendarIcon, Users, Plane, ArrowLeftRight, Search, ChevronDown } from 'lucide-react';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
 
 // Format date function
@@ -16,6 +17,40 @@ const format = (date: Date, formatStr: string) => {
   const day = date.getDate().toString().padStart(2, '0');
   return `${month} ${day}`;
 };
+
+// Popular destinations for autocomplete
+const popularDestinations = [
+  'New York, USA',
+  'London, UK',
+  'Paris, France',
+  'Tokyo, Japan',
+  'Dubai, UAE',
+  'Barcelona, Spain',
+  'Amsterdam, Netherlands',
+  'Rome, Italy',
+  'Bangkok, Thailand',
+  'Istanbul, Turkey',
+  'Singapore',
+  'Sydney, Australia',
+  'Berlin, Germany',
+  'Madrid, Spain',
+  'Vienna, Austria',
+  'Prague, Czech Republic',
+  'Budapest, Hungary',
+  'Stockholm, Sweden',
+  'Copenhagen, Denmark',
+  'Oslo, Norway',
+  'Cape Town, South Africa',
+  'Johannesburg, South Africa',
+  'Cairo, Egypt',
+  'Marrakech, Morocco',
+  'Mumbai, India',
+  'Delhi, India',
+  'Bangkok, Thailand',
+  'Seoul, South Korea',
+  'Hong Kong',
+  'Manila, Philippines',
+];
 
 interface SearchFormProps {
   onSearch: (results: any[]) => void;
@@ -30,6 +65,8 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
   const [checkOut, setCheckOut] = useState<Date>();
   const [guests, setGuests] = useState({ adults: 2, children: 0, rooms: 1 });
   const [showGuestsPopover, setShowGuestsPopover] = useState(false);
+  const [showDestinationDropdown, setShowDestinationDropdown] = useState(false);
+  const [addFlight, setAddFlight] = useState(false);
 
   // Flight search states
   const [fromLocation, setFromLocation] = useState('');
@@ -44,6 +81,10 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
   const [pickupLocation, setPickupLocation] = useState('');
   const [pickupDate, setPickupDate] = useState<Date>();
   const [dropoffDate, setDropoffDate] = useState<Date>();
+
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
 
   const handleSearch = async () => {
     if (!user) {
@@ -136,7 +177,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
               <RadioGroup value={tripType} onValueChange={setTripType} className="flex space-x-6">
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="round-trip" id="round-trip" className="text-[#003580]" />
-                  <Label htmlFor="round-trip" className="text-sm font-medium cursor-pointer">● Round trip</Label>
+                  <Label htmlFor="round-trip" className="text-sm font-medium cursor-pointer">Round trip</Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="one-way" id="one-way" className="text-[#003580]" />
@@ -154,15 +195,38 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
               {/* From */}
               <div className="relative">
                 <Label className="text-xs font-medium text-[#003580] mb-1 block">Leaving from</Label>
-                <div className="relative">
-                  <Plane className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    placeholder="Leaving from"
-                    value={fromLocation}
-                    onChange={(e) => setFromLocation(e.target.value)}
-                    className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
-                  />
-                </div>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <div className="relative">
+                      <Plane className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        placeholder="Leaving from"
+                        value={fromLocation}
+                        onChange={(e) => setFromLocation(e.target.value)}
+                        className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
+                      />
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="Search airports..." />
+                      <CommandEmpty>No airports found.</CommandEmpty>
+                      <CommandGroup>
+                        {popularDestinations.slice(0, 10).map((dest) => (
+                          <CommandItem
+                            key={dest}
+                            onSelect={() => {
+                              setFromLocation(dest);
+                            }}
+                          >
+                            <MapPin className="mr-2 h-4 w-4" />
+                            {dest}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
 
               {/* Swap button */}
@@ -184,15 +248,38 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
               {/* To */}
               <div className="relative">
                 <Label className="text-xs font-medium text-[#003580] mb-1 block">Going to</Label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    placeholder="Going to"
-                    value={toLocation}
-                    onChange={(e) => setToLocation(e.target.value)}
-                    className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
-                  />
-                </div>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        placeholder="Going to"
+                        value={toLocation}
+                        onChange={(e) => setToLocation(e.target.value)}
+                        className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
+                      />
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="Search destinations..." />
+                      <CommandEmpty>No destinations found.</CommandEmpty>
+                      <CommandGroup>
+                        {popularDestinations.slice(0, 10).map((dest) => (
+                          <CommandItem
+                            key={dest}
+                            onSelect={() => {
+                              setToLocation(dest);
+                            }}
+                          >
+                            <MapPin className="mr-2 h-4 w-4" />
+                            {dest}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
 
               {/* Travel dates */}
@@ -205,7 +292,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                         <CalendarIcon className="mr-2 h-4 w-4 text-gray-400" />
                         <div className="text-left">
                           <div className="text-sm font-medium text-gray-900">
-                            {departDate ? format(departDate, 'MMM dd') : 'Sat 18 Oct'}
+                            {departDate ? format(departDate, 'MMM dd') : format(today, 'MMM dd')}
                           </div>
                         </div>
                       </Button>
@@ -215,6 +302,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                         mode="single"
                         selected={departDate}
                         onSelect={setDepartDate}
+                        disabled={(date) => date < today}
                         initialFocus
                       />
                     </PopoverContent>
@@ -230,7 +318,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                           <CalendarIcon className="mr-2 h-4 w-4 text-gray-400" />
                           <div className="text-left">
                             <div className="text-sm font-medium text-gray-900">
-                              {returnDate ? format(returnDate, 'MMM dd') : 'Sat 25 Oct'}
+                              {returnDate ? format(returnDate, 'MMM dd') : format(tomorrow, 'MMM dd')}
                             </div>
                           </div>
                         </Button>
@@ -240,6 +328,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                           mode="single"
                           selected={returnDate}
                           onSelect={setReturnDate}
+                          disabled={(date) => date < (departDate || today)}
                           initialFocus
                         />
                       </PopoverContent>
@@ -257,7 +346,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                       <Users className="mr-2 h-4 w-4 text-gray-400" />
                       <div className="text-left">
                         <div className="text-sm font-medium text-gray-900">
-                          {guests.adults} adult{guests.adults !== 1 ? 's' : ''}
+                          {guests.adults + guests.children} passengers
                         </div>
                       </div>
                     </Button>
@@ -347,35 +436,6 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
               </Button>
             </div>
           </div>
-
-          {/* Features section */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-3">
-                <Search className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="font-medium text-gray-900 mb-2">Search a huge selection</h3>
-              <p className="text-sm text-gray-600">Easily compare flights, airlines and prices – all in one place</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-3">
-                <span className="text-2xl">💳</span>
-              </div>
-              <h3 className="font-medium text-gray-900 mb-2">Pay no hidden fees</h3>
-              <p className="text-sm text-gray-600">Get a clear price breakdown, every step of the way</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-3">
-                <span className="text-2xl">📅</span>
-              </div>
-              <h3 className="font-medium text-gray-900 mb-2">Get more flexibility</h3>
-              <p className="text-sm text-gray-600">Change your travel dates with the Flexible ticket option*</p>
-            </div>
-          </div>
-          
-          <p className="text-xs text-gray-500 mt-4 text-center">
-            *Flexible plane tickets are available for an additional cost on selected airfares.
-          </p>
         </div>
       </div>
     );
@@ -390,15 +450,38 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
               <div>
                 <Label className="text-xs font-medium text-[#003580] mb-1 block">Pick-up location</Label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    placeholder="City, airport, region, district or landmark"
-                    value={pickupLocation}
-                    onChange={(e) => setPickupLocation(e.target.value)}
-                    className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
-                  />
-                </div>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        placeholder="City, airport, region, district or landmark"
+                        value={pickupLocation}
+                        onChange={(e) => setPickupLocation(e.target.value)}
+                        className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
+                      />
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="Search locations..." />
+                      <CommandEmpty>No locations found.</CommandEmpty>
+                      <CommandGroup>
+                        {popularDestinations.slice(0, 8).map((dest) => (
+                          <CommandItem
+                            key={dest}
+                            onSelect={() => {
+                              setPickupLocation(dest);
+                            }}
+                          >
+                            <MapPin className="mr-2 h-4 w-4" />
+                            {dest}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
               
               <div>
@@ -419,6 +502,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                       mode="single"
                       selected={pickupDate}
                       onSelect={setPickupDate}
+                      disabled={(date) => date < today}
                       initialFocus
                     />
                   </PopoverContent>
@@ -443,6 +527,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                       mode="single"
                       selected={dropoffDate}
                       onSelect={setDropoffDate}
+                      disabled={(date) => date < (pickupDate || today)}
                       initialFocus
                     />
                   </PopoverContent>
@@ -489,15 +574,38 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
               <div>
                 <Label className="text-xs font-medium text-[#003580] mb-1 block">Destination</Label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    placeholder="Where are you going?"
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
-                    className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
-                  />
-                </div>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        placeholder="Where are you going?"
+                        value={destination}
+                        onChange={(e) => setDestination(e.target.value)}
+                        className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
+                      />
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="Search destinations..." />
+                      <CommandEmpty>No destinations found.</CommandEmpty>
+                      <CommandGroup>
+                        {popularDestinations.slice(0, 8).map((dest) => (
+                          <CommandItem
+                            key={dest}
+                            onSelect={() => {
+                              setDestination(dest);
+                            }}
+                          >
+                            <MapPin className="mr-2 h-4 w-4" />
+                            {dest}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
               
               <div>
@@ -518,6 +626,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                       mode="single"
                       selected={checkIn}
                       onSelect={setCheckIn}
+                      disabled={(date) => date < today}
                       initialFocus
                     />
                   </PopoverContent>
@@ -532,7 +641,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                       <Users className="mr-2 h-4 w-4 text-gray-400" />
                       <div className="text-left">
                         <div className="text-sm font-medium text-gray-900">
-                          {guests.adults} adult{guests.adults !== 1 ? 's' : ''}
+                          {guests.adults + guests.children} travelers
                         </div>
                       </div>
                     </Button>
@@ -601,48 +710,58 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
     );
   }
 
-  // Airport taxis form
+  // Taxis form
   if (activeTab === 'taxis') {
     return (
       <div className="container mx-auto px-4 -mt-24 relative z-10">
         <div className="max-w-5xl mx-auto">
           <div className="bg-white p-6 rounded-md shadow-lg border border-gray-200">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
               <div>
-                <Label className="text-xs font-medium text-[#003580] mb-1 block">From</Label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    placeholder="Airport, hotel, address"
-                    value={fromLocation}
-                    onChange={(e) => setFromLocation(e.target.value)}
-                    className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Label className="text-xs font-medium text-[#003580] mb-1 block">To</Label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    placeholder="Airport, hotel, address"
-                    value={toLocation}
-                    onChange={(e) => setToLocation(e.target.value)}
-                    className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
-                  />
-                </div>
+                <Label className="text-xs font-medium text-[#003580] mb-1 block">Pick-up location</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        placeholder="Enter pick-up location"
+                        value={pickupLocation}
+                        onChange={(e) => setPickupLocation(e.target.value)}
+                        className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
+                      />
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="Search locations..." />
+                      <CommandEmpty>No locations found.</CommandEmpty>
+                      <CommandGroup>
+                        {popularDestinations.slice(0, 8).map((dest) => (
+                          <CommandItem
+                            key={dest}
+                            onSelect={() => {
+                              setPickupLocation(dest);
+                            }}
+                          >
+                            <MapPin className="mr-2 h-4 w-4" />
+                            {dest}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
               
               <div>
-                <Label className="text-xs font-medium text-[#003580] mb-1 block">Date & time</Label>
+                <Label className="text-xs font-medium text-[#003580] mb-1 block">Pick-up date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button variant="outline" className="w-full justify-start h-12 bg-white border border-[#003580] rounded-sm hover:border-[#0071c2] px-3">
                       <CalendarIcon className="mr-2 h-4 w-4 text-gray-400" />
                       <div className="text-left">
                         <div className="text-sm font-medium text-gray-900">
-                          {checkIn ? format(checkIn, 'MMM dd') : 'Select date'}
+                          {pickupDate ? format(pickupDate, 'MMM dd') : 'Pick-up date'}
                         </div>
                       </div>
                     </Button>
@@ -650,8 +769,9 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                   <PopoverContent className="w-auto p-0">
                     <Calendar
                       mode="single"
-                      selected={checkIn}
-                      onSelect={setCheckIn}
+                      selected={pickupDate}
+                      onSelect={setPickupDate}
+                      disabled={(date) => date < today}
                       initialFocus
                     />
                   </PopoverContent>
@@ -666,7 +786,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                       <Users className="mr-2 h-4 w-4 text-gray-400" />
                       <div className="text-left">
                         <div className="text-sm font-medium text-gray-900">
-                          {guests.adults} passenger{guests.adults !== 1 ? 's' : ''}
+                          {guests.adults + guests.children} passengers
                         </div>
                       </div>
                     </Button>
@@ -735,25 +855,57 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
     );
   }
 
-  // Default stays form
+  // Default: Stays form
   return (
     <div className="container mx-auto px-4 -mt-24 relative z-10">
       <div className="max-w-5xl mx-auto">
         <div className="bg-white p-6 rounded-md shadow-lg border border-gray-200">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
-            <div>
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 mb-4">
+            {/* Destination */}
+            <div className="lg:col-span-2">
               <Label className="text-xs font-medium text-[#003580] mb-1 block">Where are you going?</Label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input
-                  placeholder="Destination"
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                  className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
-                />
-              </div>
+              <Popover open={showDestinationDropdown} onOpenChange={setShowDestinationDropdown}>
+                <PopoverTrigger asChild>
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Input
+                      placeholder="Where are you going?"
+                      value={destination}
+                      onChange={(e) => {
+                        setDestination(e.target.value);
+                        setShowDestinationDropdown(true);
+                      }}
+                      className="pl-10 h-12 bg-white border border-[#003580] rounded-sm focus:border-[#0071c2] focus:ring-1 focus:ring-[#0071c2]"
+                    />
+                  </div>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 p-0" align="start">
+                  <Command>
+                    <CommandInput placeholder="Search destinations..." />
+                    <CommandEmpty>No destinations found.</CommandEmpty>
+                    <CommandGroup>
+                      {popularDestinations
+                        .filter(dest => dest.toLowerCase().includes(destination.toLowerCase()))
+                        .slice(0, 8)
+                        .map((dest) => (
+                        <CommandItem
+                          key={dest}
+                          onSelect={() => {
+                            setDestination(dest);
+                            setShowDestinationDropdown(false);
+                          }}
+                        >
+                          <MapPin className="mr-2 h-4 w-4" />
+                          {dest}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
-            
+
+            {/* Check-in Date */}
             <div>
               <Label className="text-xs font-medium text-[#003580] mb-1 block">Check-in</Label>
               <Popover>
@@ -762,7 +914,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                     <CalendarIcon className="mr-2 h-4 w-4 text-gray-400" />
                     <div className="text-left">
                       <div className="text-sm font-medium text-gray-900">
-                        {checkIn ? format(checkIn, 'MMM dd') : 'Check-in date'}
+                        {checkIn ? format(checkIn, 'MMM dd') : format(today, 'MMM dd')}
                       </div>
                     </div>
                   </Button>
@@ -772,12 +924,14 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                     mode="single"
                     selected={checkIn}
                     onSelect={setCheckIn}
+                    disabled={(date) => date < today}
                     initialFocus
                   />
                 </PopoverContent>
               </Popover>
             </div>
-            
+
+            {/* Check-out Date */}
             <div>
               <Label className="text-xs font-medium text-[#003580] mb-1 block">Check-out</Label>
               <Popover>
@@ -786,7 +940,7 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                     <CalendarIcon className="mr-2 h-4 w-4 text-gray-400" />
                     <div className="text-left">
                       <div className="text-sm font-medium text-gray-900">
-                        {checkOut ? format(checkOut, 'MMM dd') : 'Check-out date'}
+                        {checkOut ? format(checkOut, 'MMM dd') : format(tomorrow, 'MMM dd')}
                       </div>
                     </div>
                   </Button>
@@ -796,12 +950,14 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                     mode="single"
                     selected={checkOut}
                     onSelect={setCheckOut}
+                    disabled={(date) => date < (checkIn || tomorrow)}
                     initialFocus
                   />
                 </PopoverContent>
               </Popover>
             </div>
 
+            {/* Guests & Rooms */}
             <div>
               <Label className="text-xs font-medium text-[#003580] mb-1 block">Guests & rooms</Label>
               <Popover open={showGuestsPopover} onOpenChange={setShowGuestsPopover}>
@@ -810,27 +966,34 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                     <Users className="mr-2 h-4 w-4 text-gray-400" />
                     <div className="text-left">
                       <div className="text-sm font-medium text-gray-900">
-                        {guests.adults} adult{guests.adults !== 1 ? 's' : ''}, {guests.rooms} room{guests.rooms !== 1 ? 's' : ''}
+                        {guests.adults + guests.children} guests, {guests.rooms} room{guests.rooms !== 1 ? 's' : ''}
                       </div>
                     </div>
+                    <ChevronDown className="ml-auto h-4 w-4 text-gray-400" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-80">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <Label>Adults</Label>
-                      <div className="flex items-center space-x-2">
+                      <div>
+                        <Label className="font-medium">Adults</Label>
+                        <p className="text-sm text-gray-500">Ages 18 or above</p>
+                      </div>
+                      <div className="flex items-center space-x-3">
                         <Button
                           variant="outline"
                           size="sm"
+                          className="h-8 w-8 rounded-full"
                           onClick={() => setGuests(prev => ({ ...prev, adults: Math.max(1, prev.adults - 1) }))}
+                          disabled={guests.adults <= 1}
                         >
                           -
                         </Button>
-                        <span className="w-8 text-center">{guests.adults}</span>
+                        <span className="w-8 text-center font-medium">{guests.adults}</span>
                         <Button
                           variant="outline"
                           size="sm"
+                          className="h-8 w-8 rounded-full"
                           onClick={() => setGuests(prev => ({ ...prev, adults: prev.adults + 1 }))}
                         >
                           +
@@ -838,19 +1001,25 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <Label>Children</Label>
-                      <div className="flex items-center space-x-2">
+                      <div>
+                        <Label className="font-medium">Children</Label>
+                        <p className="text-sm text-gray-500">Ages 0 to 17</p>
+                      </div>
+                      <div className="flex items-center space-x-3">
                         <Button
                           variant="outline"
                           size="sm"
+                          className="h-8 w-8 rounded-full"
                           onClick={() => setGuests(prev => ({ ...prev, children: Math.max(0, prev.children - 1) }))}
+                          disabled={guests.children <= 0}
                         >
                           -
                         </Button>
-                        <span className="w-8 text-center">{guests.children}</span>
+                        <span className="w-8 text-center font-medium">{guests.children}</span>
                         <Button
                           variant="outline"
                           size="sm"
+                          className="h-8 w-8 rounded-full"
                           onClick={() => setGuests(prev => ({ ...prev, children: prev.children + 1 }))}
                         >
                           +
@@ -858,19 +1027,25 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <Label>Rooms</Label>
-                      <div className="flex items-center space-x-2">
+                      <div>
+                        <Label className="font-medium">Rooms</Label>
+                        <p className="text-sm text-gray-500">How many rooms?</p>
+                      </div>
+                      <div className="flex items-center space-x-3">
                         <Button
                           variant="outline"
                           size="sm"
+                          className="h-8 w-8 rounded-full"
                           onClick={() => setGuests(prev => ({ ...prev, rooms: Math.max(1, prev.rooms - 1) }))}
+                          disabled={guests.rooms <= 1}
                         >
                           -
                         </Button>
-                        <span className="w-8 text-center">{guests.rooms}</span>
+                        <span className="w-8 text-center font-medium">{guests.rooms}</span>
                         <Button
                           variant="outline"
                           size="sm"
+                          className="h-8 w-8 rounded-full"
                           onClick={() => setGuests(prev => ({ ...prev, rooms: prev.rooms + 1 }))}
                         >
                           +
@@ -882,7 +1057,20 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
               </Popover>
             </div>
           </div>
-          
+
+          {/* Add flight checkbox */}
+          <div className="flex items-center space-x-2 mb-6">
+            <Checkbox 
+              id="add-flight" 
+              checked={addFlight}
+              onCheckedChange={setAddFlight}
+              className="data-[state=checked]:bg-[#003580] data-[state=checked]:border-[#003580]"
+            />
+            <Label htmlFor="add-flight" className="text-sm cursor-pointer">
+              I'm looking for an entire home or apartment
+            </Label>
+          </div>
+
           <div className="flex justify-end">
             <Button 
               onClick={handleSearch}

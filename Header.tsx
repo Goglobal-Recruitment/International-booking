@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { Plane, Car, Hotel, Settings, LogOut, Menu, MapPin, Globe, HelpCircle, Star } from 'lucide-react';
+import { Plane, Car, Hotel, Settings, LogOut, Menu, MapPin, Globe, HelpCircle, Star, ChevronDown } from 'lucide-react';
 import { getSupabaseClient } from '../utils/supabase/client';
 
 interface HeaderProps {
@@ -17,6 +17,25 @@ interface HeaderProps {
 
 export function Header({ user, onLoginClick, onRegisterClick, onPageChange, currentPage, activeTab = 'stays', onTabChange }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState('USD');
+
+  const currencies = [
+    { code: 'USD', symbol: '$', name: 'US Dollar' },
+    { code: 'EUR', symbol: '€', name: 'Euro' },
+    { code: 'GBP', symbol: '£', name: 'British Pound' },
+    { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
+    { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar' },
+    { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
+    { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc' },
+    { code: 'CNY', symbol: '¥', name: 'Chinese Yuan' },
+    { code: 'SEK', symbol: 'kr', name: 'Swedish Krona' },
+    { code: 'NZD', symbol: 'NZ$', name: 'New Zealand Dollar' },
+    { code: 'ZAR', symbol: 'R', name: 'South African Rand' },
+    { code: 'MXN', symbol: '$', name: 'Mexican Peso' },
+    { code: 'SGD', symbol: 'S$', name: 'Singapore Dollar' },
+    { code: 'HKD', symbol: 'HK$', name: 'Hong Kong Dollar' },
+    { code: 'NOK', symbol: 'kr', name: 'Norwegian Krone' },
+  ];
 
   const handleSignOut = async () => {
     const supabase = getSupabaseClient();
@@ -47,7 +66,27 @@ export function Header({ user, onLoginClick, onRegisterClick, onPageChange, curr
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-center space-x-1 text-sm">
-              <span className="bg-[#0071c2] px-2 py-1 rounded text-xs">ZAR</span>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="text-white hover:bg-blue-700 text-sm flex items-center space-x-1">
+                    <Globe className="w-4 h-4" />
+                    <span className="bg-[#0071c2] px-2 py-1 rounded text-xs">{selectedCurrency}</span>
+                    <ChevronDown className="w-3 h-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 max-h-64 overflow-y-auto" align="end">
+                  {currencies.map((currency) => (
+                    <DropdownMenuItem 
+                      key={currency.code}
+                      onClick={() => setSelectedCurrency(currency.code)}
+                      className={`flex justify-between ${selectedCurrency === currency.code ? 'bg-blue-50' : ''}`}
+                    >
+                      <span className="font-medium">{currency.code}</span>
+                      <span className="text-sm text-gray-500">{currency.name}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
             
             <Button variant="ghost" size="sm" className="hidden lg:flex text-white hover:bg-blue-700 text-sm">
