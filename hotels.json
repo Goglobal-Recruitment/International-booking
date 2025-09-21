@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Luxury Resort & Spa",
+    "city": "Cape Town",
+    "country": "South Africa",
+    "description": "5-star resort with ocean view",
+    "price": "ZAR 299",
+    "image": "images/luxury-resort.jpg"
+  },
+  {
+    "name": "Modern City Hotel",
+    "city": "Johannesburg",
+    "country": "South Africa",
+    "description": "Contemporary hotel in city center",
+    "price": "ZAR 199",
+    "image": "images/modern-hotel.jpg"
+  },
+  {
+    "name": "Boutique Hotel",
+    "city": "Stellenbosch",
+    "country": "South Africa",
+    "description": "Charming boutique hotel in wine country",
+    "price": "ZAR 349",
+    "image": "images/boutique-hotel.jpg"
+  }
+]
