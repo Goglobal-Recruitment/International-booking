@@ -4,17 +4,16 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Checkbox } from './ui/checkbox';
-import { getSupabaseClient } from '../utils/supabase/client';
 import { toast } from 'sonner@2.0.3';
 
 interface RegisterModalProps {
   open: boolean;
   onClose: () => void;
-  onRegister: (email: string) => void;
+  onRegisterSuccess: (user: { email: string }) => void; // returns user info after registration
   onLoginClick: () => void;
 }
 
-export function RegisterModal({ open, onClose, onRegister, onLoginClick }: RegisterModalProps) {
+export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }: RegisterModalProps) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -25,6 +24,10 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
     subscribeNewsletter: false
   });
   const [loading, setLoading] = useState(false);
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,35 +44,34 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
     setLoading(true);
 
     try {
-      const supabase = getSupabaseClient();
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          data: {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            subscribeNewsletter: formData.subscribeNewsletter
-          }
-        }
+      // Call your backend endpoint to create a user
+      const res = await fetch('https://YOUR_BACKEND_URL/functions/v1/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          subscribeNewsletter: formData.subscribeNewsletter
+        })
       });
 
-      if (error) {
-        toast.error('Registration failed: ' + error.message);
+      const result = await res.json();
+
+      if (res.ok) {
+        toast.success('Account created successfully!');
+        onRegisterSuccess({ email: formData.email }); // send user info to AppContent
+        onClose();
       } else {
-        toast.success('Registration successful! Check your email to verify your account.');
-        onRegister(formData.email); // trigger EmailVerificationModal
+        toast.error(result.error || 'Registration failed');
       }
-    } catch (error) {
-      console.error('Registration error:', error);
-      toast.error('An unexpected error occurred during registration');
+    } catch (err) {
+      console.error('Registration error:', err);
+      toast.error('Unexpected error during registration');
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -173,7 +175,7 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
           </Button>
         </form>
 
-        <div className="text-center text-sm">
+        <div className="text-center text-sm mt-2">
           Already have an account?{' '}
           <Button variant="link" className="p-0" onClick={onLoginClick}>
             Sign in
