@@ -1,0 +1,31 @@
+const SHEET_NAME = "Sheet1"; // your sheet tab name
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  const data = JSON.parse(e.postData.contents);
+  const action = data.action;
+
+  if (action === "register") {
+    const exists = sheet.getRange(2,1,sheet.getLastRow()-1,1).getValues()
+                     .flat().includes(data.email);
+    if (exists) {
+      return ContentService.createTextOutput(JSON.stringify({success: false, error: "Email already registered"}))
+                            .setMimeType(ContentService.MimeType.JSON);
+    }
+    sheet.appendRow([data.email, data.password, data.firstName, data.lastName]);
+    return ContentService.createTextOutput(JSON.stringify({success: true}))
+                          .setMimeType(ContentService.MimeType.JSON);
+  } 
+
+  if (action === "login") {
+    const users = sheet.getRange(2,1,sheet.getLastRow()-1,4).getValues();
+    const user = users.find(u => u[0] === data.email && u[1] === data.password);
+    if (user) {
+      return ContentService.createTextOutput(JSON.stringify({success: true, user: {email: user[0], firstName: user[2], lastName: user[3]}}))
+                            .setMimeType(ContentService.MimeType.JSON);
+    } else {
+      return ContentService.createTextOutput(JSON.stringify({success: false, error: "Invalid credentials"}))
+                            .setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+}
