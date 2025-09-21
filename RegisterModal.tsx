@@ -3,17 +3,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { Separator } from './ui/separator';
 import { Checkbox } from './ui/checkbox';
+import { projectId, publicAnonKey } from '../utils/supabase/info';
 import { toast } from 'sonner@2.0.3';
 
 interface RegisterModalProps {
   open: boolean;
   onClose: () => void;
-  onRegisterSuccess: (user: { email: string }) => void; // returns user info after registration
+  onRegister: (email: string) => void;
   onLoginClick: () => void;
 }
 
-export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }: RegisterModalProps) {
+export function RegisterModal({ open, onClose, onRegister, onLoginClick }: RegisterModalProps) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -25,17 +27,14 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
   });
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match');
       return;
     }
+
     if (!formData.agreeToTerms) {
       toast.error('Please agree to the terms and conditions');
       return;
@@ -44,10 +43,12 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
     setLoading(true);
 
     try {
-      // Call your backend endpoint to create a user
-      const res = await fetch('https://YOUR_BACKEND_URL/functions/v1/register', {
+      const response = await fetch(`https://${projectId}.supabase.co/functions/v1/make-server-2c363e8a/signup`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${publicAnonKey}`
+        },
         body: JSON.stringify({
           email: formData.email,
           password: formData.password,
@@ -57,21 +58,27 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
         })
       });
 
-      const result = await res.json();
+      const result = await response.json();
 
-      if (res.ok) {
-        toast.success('Account created successfully!');
-        onRegisterSuccess({ email: formData.email }); // send user info to AppContent
-        onClose();
+      if (response.ok) {
+        toast.success('Registration successful! Please check your email for verification.');
+        onRegister(formData.email);
       } else {
-        toast.error(result.error || 'Registration failed');
+        toast.error('Registration failed: ' + (result.error || 'Unknown error'));
       }
-    } catch (err) {
-      console.error('Registration error:', err);
-      toast.error('Unexpected error during registration');
+    } catch (error) {
+      toast.error('An unexpected error occurred during registration');
+      console.error('Registration error:', error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   return (
@@ -80,6 +87,7 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
         <DialogHeader>
           <DialogTitle>Create your account</DialogTitle>
         </DialogHeader>
+        
         <form onSubmit={handleRegister} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -103,7 +111,7 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
               />
             </div>
           </div>
-
+          
           <div>
             <Label htmlFor="email">Email address</Label>
             <Input
@@ -115,7 +123,7 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
               required
             />
           </div>
-
+          
           <div>
             <Label htmlFor="password">Password</Label>
             <Input
@@ -127,7 +135,7 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
               required
             />
           </div>
-
+          
           <div>
             <Label htmlFor="confirmPassword">Confirm password</Label>
             <Input
@@ -149,11 +157,12 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
               />
               <Label htmlFor="agreeToTerms" className="text-sm">
                 I agree to the{' '}
-                <a href="#" className="text-blue-600 hover:underline">Terms and Conditions</a> and{' '}
+                <a href="#" className="text-blue-600 hover:underline">Terms and Conditions</a>
+                {' '}and{' '}
                 <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>
               </Label>
             </div>
-
+            
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="subscribeNewsletter"
@@ -161,11 +170,11 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
                 onCheckedChange={(checked) => handleInputChange('subscribeNewsletter', checked as boolean)}
               />
               <Label htmlFor="subscribeNewsletter" className="text-sm">
-                Send me a newsletter with travel deals, tips, and other updates
+                Send me a newsletter with travel deals, tips, and other exciting updates
               </Label>
             </div>
           </div>
-
+          
           <Button 
             type="submit" 
             className="w-full bg-blue-600 hover:bg-blue-700"
@@ -175,7 +184,7 @@ export function RegisterModal({ open, onClose, onRegisterSuccess, onLoginClick }
           </Button>
         </form>
 
-        <div className="text-center text-sm mt-2">
+        <div className="text-center text-sm">
           Already have an account?{' '}
           <Button variant="link" className="p-0" onClick={onLoginClick}>
             Sign in

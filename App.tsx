@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
 import { SearchForm } from "./components/SearchForm";
@@ -6,62 +6,77 @@ import { PropertyGrid } from "./components/PropertyGrid";
 import { MainContent } from "./components/MainContent";
 import { LoginModal } from "./components/LoginModal";
 import { RegisterModal } from "./components/RegisterModal";
+import { EmailVerificationModal } from "./components/EmailVerificationModal";
 import { PaymentPage } from "./components/PaymentPage";
 import { FlightBookingFlow } from "./components/FlightBookingFlow";
 import { BookingManagement } from "./components/BookingManagement";
 import { AdminPanel } from "./components/AdminPanel";
 import { Footer } from "./components/Footer";
 import { Toaster } from "./components/ui/sonner";
+import {
+  SupabaseProvider,
+  useSupabase,
+} from "./contexts/SupabaseContext";
 
 function AppContent() {
+  const { supabase } = useSupabase();
   const [currentPage, setCurrentPage] = useState("home");
   const [activeTab, setActiveTab] = useState("stays");
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] =
+    useState(false);
+  const [showEmailVerification, setShowEmailVerification] =
+    useState(false);
   const [user, setUser] = useState(null);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
+  const [verificationEmail, setVerificationEmail] =
+    useState("");
 
-  // Handle registration via your backend template
-  const handleRegister = async (newUser) => {
-    try {
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser),
-      });
-      const data = await res.json();
+  useEffect(() => {
+    let mounted = true;
 
-      if (res.ok) {
-        setUser(data.user); // Automatically log in user
+    // Check for existing session
+    const checkSession = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (mounted && session?.user) {
+          setUser(session.user);
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+      }
+    };
+
+    checkSession();
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!mounted) return;
+
+      if (session?.user) {
+        setUser(session.user);
+        setShowLoginModal(false);
         setShowRegisterModal(false);
       } else {
-        console.error(data.error);
+        setUser(null);
       }
-    } catch (err) {
-      console.error("Registration error:", err);
-    }
-  };
+    });
 
-  // Handle login via your backend template
-  const handleLogin = async (credentials) => {
-    try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(credentials),
-      });
-      const data = await res.json();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, [supabase]);
 
-      if (res.ok) {
-        setUser(data.user);
-        setShowLoginModal(false);
-      } else {
-        console.error(data.error);
-      }
-    } catch (err) {
-      console.error("Login error:", err);
-    }
+  const handleRegister = (email) => {
+    setVerificationEmail(email);
+    setShowRegisterModal(false);
+    setShowEmailVerification(true);
   };
 
   const handleBookingSelect = (booking) => {
@@ -103,7 +118,10 @@ function AppContent() {
         );
       case "admin":
         return (
-          <AdminPanel user={user} onBack={() => setCurrentPage("home")} />
+          <AdminPanel
+            user={user}
+            onBack={() => setCurrentPage("home")}
+          />
         );
       default:
         return (
@@ -119,7 +137,10 @@ function AppContent() {
               onBookingSelect={handleBookingSelect}
               activeTab={activeTab}
             />
-            <MainContent activeTab={activeTab} searchResults={searchResults} />
+            <MainContent
+              activeTab={activeTab}
+              searchResults={searchResults}
+            />
           </>
         );
     }
@@ -144,7 +165,6 @@ function AppContent() {
       <LoginModal
         open={showLoginModal}
         onClose={() => setShowLoginModal(false)}
-        onLoginSuccess={handleLogin}
         onRegisterClick={() => {
           setShowLoginModal(false);
           setShowRegisterModal(true);
@@ -161,9 +181,21 @@ function AppContent() {
         }}
       />
 
+      <EmailVerificationModal
+        open={showEmailVerification}
+        onClose={() => setShowEmailVerification(false)}
+        email={verificationEmail}
+      />
+
       <Toaster />
     </div>
   );
 }
 
-export default AppContent;
+export default function App() {
+  return (
+    <SupabaseProvider>
+      <AppContent />
+    </SupabaseProvider>
+  );
+}
