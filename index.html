@@ -2,32 +2,31 @@
     // Toggle Mobile Menu
     function toggleMobileMenu() {
         const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('active');
+        if(menu) menu.classList.toggle('active');
     }
 
-    // Set Active Tab
-    function setActiveTab(tab, event) {
+    // Set Active Tab in navigation
+    function setActiveTab(tabName) {
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.remove('active');
         });
-        if(event) {
-            event.currentTarget.classList.add('active');
-        }
+        const clickedItem = Array.from(document.querySelectorAll('.nav-item')).find(item => item.textContent.toLowerCase().includes(tabName.toLowerCase()));
+        if(clickedItem) clickedItem.classList.add('active');
     }
 
-    // Open modal
+    // Open modal (login or register)
     function openModal(type) {
         const modal = document.getElementById(type + 'Modal');
         if(modal) modal.style.display = 'flex';
     }
 
-    // Close modal
+    // Close modal (login or register)
     function closeModal(type) {
         const modal = document.getElementById(type + 'Modal');
         if(modal) modal.style.display = 'none';
     }
 
-    // Show search results
+    // Show search results section
     function searchProperties() {
         const results = document.getElementById('searchResults');
         if(results) {
@@ -36,7 +35,7 @@
         }
     }
 
-    // Simulate booking action
+    // Simulated booking action
     function selectBooking(type) {
         alert('Booking functionality would be available in the full application. Please sign in to continue.');
     }
@@ -48,10 +47,13 @@
         }
     }
 
-    // Attach click events to navigation tabs dynamically (for safety)
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            setActiveTab(item.dataset.tab || '', e);
+    // Attach click listeners to nav items dynamically
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault(); // prevent default anchor behavior
+                setActiveTab(item.textContent.trim());
+            });
         });
     });
 </script>
