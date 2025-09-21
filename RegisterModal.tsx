@@ -3,7 +3,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { Separator } from './ui/separator';
 import { Checkbox } from './ui/checkbox';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
 import { toast } from 'sonner@2.0.3';
@@ -29,12 +28,11 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match');
       return;
     }
-
     if (!formData.agreeToTerms) {
       toast.error('Please agree to the terms and conditions');
       return;
@@ -61,8 +59,8 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
       const result = await response.json();
 
       if (response.ok) {
-        toast.success('Registration successful! Please check your email for verification.');
-        onRegister(formData.email);
+        toast.success('Registration successful! Check your email for your 6-character verification code.');
+        onRegister(formData.email); // Pass email to next step (verify code)
       } else {
         toast.error('Registration failed: ' + (result.error || 'Unknown error'));
       }
@@ -87,7 +85,6 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
         <DialogHeader>
           <DialogTitle>Create your account</DialogTitle>
         </DialogHeader>
-        
         <form onSubmit={handleRegister} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -111,7 +108,7 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
               />
             </div>
           </div>
-          
+
           <div>
             <Label htmlFor="email">Email address</Label>
             <Input
@@ -123,7 +120,7 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
               required
             />
           </div>
-          
+
           <div>
             <Label htmlFor="password">Password</Label>
             <Input
@@ -135,7 +132,7 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
               required
             />
           </div>
-          
+
           <div>
             <Label htmlFor="confirmPassword">Confirm password</Label>
             <Input
@@ -157,12 +154,11 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
               />
               <Label htmlFor="agreeToTerms" className="text-sm">
                 I agree to the{' '}
-                <a href="#" className="text-blue-600 hover:underline">Terms and Conditions</a>
-                {' '}and{' '}
+                <a href="#" className="text-blue-600 hover:underline">Terms and Conditions</a> and{' '}
                 <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>
               </Label>
             </div>
-            
+
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="subscribeNewsletter"
@@ -170,11 +166,11 @@ export function RegisterModal({ open, onClose, onRegister, onLoginClick }: Regis
                 onCheckedChange={(checked) => handleInputChange('subscribeNewsletter', checked as boolean)}
               />
               <Label htmlFor="subscribeNewsletter" className="text-sm">
-                Send me a newsletter with travel deals, tips, and other exciting updates
+                Send me a newsletter with travel deals, tips, and other updates
               </Label>
             </div>
           </div>
-          
+
           <Button 
             type="submit" 
             className="w-full bg-blue-600 hover:bg-blue-700"
