@@ -1,0 +1,27 @@
+name: Daily Hotel Data Update
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # Runs daily at 2:00 AM UTC
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  update-hotels:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Fetch hotel data
+        run: |
+          curl -s https://api.example.com/hotels > hotels.json
+          cat hotels.json
+
+      - name: Commit updated data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add hotels.json
+          git commit -m "Daily update of hotel data" || echo "No changes"
+          git push
