@@ -1,131 +1,23 @@
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Separator } from './ui/separator';
-import { getSupabaseClient } from '../utils/supabase/client';
-import { toast } from 'sonner';
-
-interface LoginModalProps {
-  open: boolean;
-  onClose: () => void;
-  onRegisterClick: () => void;
-}
-
-export function LoginModal({ open, onClose, onRegisterClick }: LoginModalProps) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const supabase = getSupabaseClient();
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        toast.error('Login failed: ' + error.message);
-      } else {
-        toast.success('Successfully signed in!');
-        onClose();
-        setEmail('');
-        setPassword('');
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error('An unexpected error occurred');
-    } finally {
-      setLoading(false);
+const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+  try {
+    const res = await fetch("YOUR_EDGE_FUNCTION_LOGIN_URL", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    const result = await res.json();
+    if (res.ok) {
+      toast.success("Login successful!");
+      onClose(); // Close modal
+      setUser(result.user); // <- pass this up to AppContent
+    } else {
+      toast.error(result.error);
     }
-  };
-
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    try {
-      const supabase = getSupabaseClient();
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin
-        }
-      });
-
-      if (error) {
-        toast.error('Google sign-in failed: ' + error.message);
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error('An unexpected error occurred');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>Sign in or create an account</DialogTitle>
-        </DialogHeader>
-        
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <Label htmlFor="email">Email address</Label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          
-          <Button 
-            type="submit" 
-            className="w-full bg-blue-600 hover:bg-blue-700"
-            disabled={loading}
-          >
-            {loading ? 'Signing in...' : 'Sign in'}
-          </Button>
-        </form>
-
-        <Separator className="my-4" />
-
-        <Button
-          variant="outline"
-          onClick={handleGoogleLogin}
-          className="w-full"
-          disabled={loading}
-        >
-          {loading ? 'Redirecting...' : 'Continue with Google'}
-        </Button>
-
-        <div className="text-center text-sm mt-4">
-          Don't have an account?{' '}
-          <Button variant="link" className="p-0" onClick={onRegisterClick}>
-            Create one here
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-}
+  } catch (err) {
+    toast.error("Unexpected error");
+  } finally {
+    setLoading(false);
+  }
+};
