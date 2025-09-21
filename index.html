@@ -1,329 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking.com | Official site | The best hotels, flights, car rentals & accommodations</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="images/favicon.png">
-</head>
-<body class="min-h-screen bg-white">
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <!-- Top header row -->
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <div class="logo">
-                    <a href="index.html" class="logo">Booking.com</a>
-                </div>
-
-                <!-- Right side actions -->
-                <div class="flex items-center space-x-4">
-                    <!-- Currency Dropdown -->
-                    <div class="lg-flex items-center space-x-1 text-sm mobile-hidden">
-                        <select id="currencySelect" class="form-input form-input-icon">
-                            <option value="ZAR" selected>ZAR</option>
-                            <option value="USD">USD</option>
-                            <option value="EUR">EUR</option>
-                            <option value="GBP">GBP</option>
-                            <option value="AUD">AUD</option>
-                            <option value="CAD">CAD</option>
-                        </select>
-                    </div>
-                    
-                    <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
-                        <span class="icon mr-1">?</span>
-                    </button>
-                    
-                    <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
-                        List your property
-                    </button>
-
-                    <div class="flex items-center space-x-2">
-                        <button class="btn btn-outline btn-sm" onclick="openModal('register')">
-                            Register
-                        </button>
-                        <button class="btn btn-primary btn-sm" onclick="openModal('login')">
-                            Sign in
-                        </button>
-                    </div>
-
-                    <!-- Mobile Menu Button -->
-                    <button class="btn btn-ghost desktop-hidden" onclick="toggleMobileMenu()">
-                        <span class="icon">☰</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Navigation tabs -->
-            <div class="border-t border-blue-700">
-                <nav class="flex items-center">
-                    <a href="#" class="nav-item active" onclick="setActiveTab('stays')">
-                        <span class="icon">🏨</span>
-                        <span>Stays</span>
-                    </a>
-                    <a href="flights.html" class="nav-item" onclick="setActiveTab('flights')">
-                        <span class="icon">✈️</span>
-                        <span>Flights</span>
-                    </a>
-                    <a href="#" class="nav-item" onclick="setActiveTab('cars')">
-                        <span class="icon">🚗</span>
-                        <span>Car rental</span>
-                    </a>
-                    <a href="#" class="nav-item" onclick="setActiveTab('attractions')">
-                        <span class="icon">⭐</span>
-                        <span>Attractions</span>
-                    </a>
-                    <a href="#" class="nav-item" onclick="setActiveTab('taxis')">
-                        <span class="icon">🚕</span>
-                        <span>Airport taxis</span>
-                    </a>
-                </nav>
-            </div>
-
-            <!-- Mobile Navigation -->
-            <div id="mobileMenu" class="mobile-menu desktop-hidden">
-                <nav class="flex flex-col space-y-2">
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">🏨</span>
-                        <span>Stays</span>
-                    </a>
-                    <a href="flights.html" class="mobile-menu-item">
-                        <span class="icon">✈️</span>
-                        <span>Flights</span>
-                    </a>
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">🚗</span>
-                        <span>Car rental</span>
-                    </a>
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">⭐</span>
-                        <span>Attractions</span>
-                    </a>
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">🚕</span>
-                        <span>Airport taxis</span>
-                    </a>
-                </nav>
-            </div>
+<!-- Header -->
+<header class="header">
+    <div class="container flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="index.html" class="logo">Booking.com</a>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <div class="hero">
-        <div class="container h-full flex items-center py-12">
-            <div class="text-white max-w-2xl">
-                <h1 class="text-2xl md:text-4xl mb-3 font-bold">
-                    Find your next stay
-                </h1>
-                <p class="text-base md:text-lg opacity-90">
-                    Search deals on hotels, homes, and much more...
-                </p>
+        <!-- Right side actions -->
+        <div class="flex items-center space-x-2">
+            <!-- Currency + flag -->
+            <div class="currency-dropdown flex items-center gap-2 border border-gray-300 rounded px-2 py-1 bg-white">
+                <img src="https://flagcdn.com/za.svg" alt="South Africa Flag" style="width:20px; height:14px;">
+                <select class="form-select" style="border:none; outline:none; background:none; height:32px;">
+                    <option value="ZAR" selected>ZAR</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                </select>
             </div>
+
+            <button class="btn btn-ghost" style="height:32px; padding:0 12px;">List your property</button>
+            <button class="btn btn-outline" style="height:32px; padding:0 12px;" onclick="openModal('register')">Register</button>
+            <button class="btn btn-primary" style="height:32px; padding:0 12px;" onclick="openModal('login')">Sign in</button>
+
+            <!-- Mobile Menu Button -->
+            <button class="btn btn-ghost desktop-hidden" onclick="toggleMobileMenu()">☰</button>
         </div>
     </div>
 
-    <!-- Search Form -->
-    <div class="container px-4 -mt-24 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <div class="search-form">
-                <div class="grid grid-cols-1 lg-grid-cols-4 gap-4 mb-6">
-                    <div>
-                        <label class="form-label">Where are you going?</label>
-                        <div class="input-group">
-                            <span class="input-icon">📍</span>
-                            <input 
-                                type="text" 
-                                class="form-input form-input-icon" 
-                                placeholder="Destination"
-                                value=""
-                            >
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="form-label">Check-in date</label>
-                        <div class="input-group">
-                            <span class="input-icon">📅</span>
-                            <input 
-                                type="date" 
-                                class="form-input form-input-icon"
-                                value=""
-                            >
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="form-label">Check-out date</label>
-                        <div class="input-group">
-                            <span class="input-icon">📅</span>
-                            <input 
-                                type="date" 
-                                class="form-input form-input-icon"
-                                value=""
-                            >
-                        </div>
-                    </div>
+    <!-- Navigation tabs (unchanged) -->
+    <div class="border-t border-blue-700">
+        <nav class="flex items-center">
+            <a href="#" class="nav-item active" onclick="setActiveTab('stays')">
+                <span class="icon">🏨</span> Stays
+            </a>
+            <a href="flights.html" class="nav-item" onclick="setActiveTab('flights')">
+                <span class="icon">✈️</span> Flights
+            </a>
+            <a href="#" class="nav-item" onclick="setActiveTab('cars')">
+                <span class="icon">🚗</span> Car rental
+            </a>
+            <a href="#" class="nav-item" onclick="setActiveTab('attractions')">
+                <span class="icon">⭐</span> Attractions
+            </a>
+            <a href="#" class="nav-item" onclick="setActiveTab('taxis')">
+                <span class="icon">🚕</span> Airport taxis
+            </a>
+        </nav>
+    </div>
+</header>
 
-                    <!-- Guests Selector -->
-                    <div class="guest-selector relative">
-                        <label class="form-label">Guests</label>
-                        <div class="input-group">
-                            <span class="input-icon">👥</span>
-                            <input type="text" readonly id="guestInput" value="2 adults · 0 children · 1 room" onclick="toggleGuestDropdown()">
-                        </div>
-
-                        <div id="guestDropdown" class="dropdown-panel absolute bg-white shadow-md rounded p-3 w-full mt-2" style="display:none; z-index:50;">
-                            <div class="guest-row flex justify-between items-center mb-2">
-                                <span>Adults</span>
-                                <div class="flex items-center space-x-2">
-                                    <button onclick="updateGuest('adults', -1)">-</button>
-                                    <span id="adultsCount">2</span>
-                                    <button onclick="updateGuest('adults', 1)">+</button>
-                                </div>
-                            </div>
-                            <div class="guest-row flex justify-between items-center mb-2">
-                                <span>Children</span>
-                                <div class="flex items-center space-x-2">
-                                    <button onclick="updateGuest('children', -1)">-</button>
-                                    <span id="childrenCount">0</span>
-                                    <button onclick="updateGuest('children', 1)">+</button>
-                                </div>
-                            </div>
-                            <div class="guest-row flex justify-between items-center">
-                                <span>Rooms</span>
-                                <div class="flex items-center space-x-2">
-                                    <button onclick="updateGuest('rooms', -1)">-</button>
-                                    <span id="roomsCount">1</span>
-                                    <button onclick="updateGuest('rooms', 1)">+</button>
-                                </div>
-                            </div>
-                        </div>
+<!-- Search Form -->
+<div class="container px-4 -mt-24 relative z-10">
+    <div class="max-w-5xl mx-auto">
+        <div class="search-form">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+                <div>
+                    <label class="form-label">Where are you going?</label>
+                    <div class="input-group">
+                        <span class="input-icon">📍</span>
+                        <input type="text" class="form-input form-input-icon" placeholder="Destination" value="">
                     </div>
-
                 </div>
                 
-                <div class="flex justify-end">
-                    <button class="btn btn-primary btn-lg" onclick="searchProperties()">
-                        <span class="icon mr-2">🔍</span>
-                        Search
-                    </button>
+                <div>
+                    <label class="form-label">Check-in date</label>
+                    <input type="date" class="form-input">
+                </div>
+
+                <div>
+                    <label class="form-label">Check-out date</label>
+                    <input type="date" class="form-input">
+                </div>
+
+                <div>
+                    <label class="form-label">Guests</label>
+                    <div class="flex gap-2">
+                        <select class="form-select">
+                            <option>2 adults</option>
+                            <option>1 adult</option>
+                            <option>3 adults</option>
+                        </select>
+                        <select class="form-select">
+                            <option>0 children</option>
+                            <option>1 child</option>
+                            <option>2 children</option>
+                        </select>
+                        <select class="form-select">
+                            <option>1 room</option>
+                            <option>2 rooms</option>
+                            <option>3 rooms</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Search Results (initially hidden) -->
-    <div id="searchResults" class="container px-4 py-8" style="display: none;">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-2xl mb-6">Search Results</h2>
             
-            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-6">
-                <!-- Property cards remain unchanged -->
-                <!-- Property 1 -->
-                <div class="card hover-shadow-lg transition-shadow">
-                    <div class="relative h-48">
-                        <img src="images/luxury-resort.jpg" alt="Luxury Resort & Spa" class="property-image">
-                        <span class="badge bg-green-600 absolute top-2 right-2">Hotel</span>
-                    </div>
-                    
-                    <div class="card-header">
-                        <div class="flex items-start justify-between">
-                            <h3 class="text-lg">Luxury Resort & Spa</h3>
-                            <div class="flex items-center space-x-1">
-                                <span class="icon star-fill">⭐</span>
-                                <span class="text-sm">4.5</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center text-gray-600 text-sm">
-                            <span class="icon mr-1">📍</span>
-                            Cape Town, South Africa
-                        </div>
-                    </div>
-                    
-                    <div class="card-content">
-                        <p class="text-gray-600 text-sm mb-4">5-star resort with ocean view</p>
-                        
-                        <div class="flex items-center justify-between">
-                            <div class="text-right">
-                                <div class="price-display">ZAR 299</div>
-                                <div class="price-period">per night</div>
-                            </div>
-                            
-                            <button class="btn btn-primary" onclick="selectBooking('stays')">
-                                Book now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 2 & 3 remain unchanged, same as your original index -->
+            <div class="flex justify-end">
+                <button class="btn btn-primary btn-lg" onclick="searchProperties()">
+                    🔍 Search
+                </button>
             </div>
         </div>
     </div>
-
-    <!-- Main content, footer, modals remain unchanged -->
-    <!-- Copy your original sections for Featured Destinations, Browse by Property Type, Deals and Offers, Footer, Login/Register modals -->
-
-    <script>
-        // Simple JS for existing functionality
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-        }
-
-        function setActiveTab(tab) {
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.target.closest('.nav-item').classList.add('active');
-        }
-
-        function openModal(type) {
-            const modal = document.getElementById(type + 'Modal');
-            modal.style.display = 'flex';
-        }
-
-        function closeModal(type) {
-            const modal = document.getElementById(type + 'Modal');
-            modal.style.display = 'none';
-        }
-
-        function searchProperties() {
-            const results = document.getElementById('searchResults');
-            results.style.display = 'block';
-            results.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function selectBooking(type) {
-            alert('Booking functionality would be available in the full application. Please sign in to continue.');
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        }
-
-        // Guests dropdown JS
-        let guests = { adults: 2, children: 0, rooms: 1 };
-
-        function toggleGuestDropdown() {
-            const panel = document.getElementById('guestDropdown');
-            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function updateGuest(type, delta) {
-            guests[type] = Math.max(0, guests[type] + delta);
-            document.getElementById(type + 'Count').textContent = guests[type];
-            document.getElementById('guestInput').value = `${guests.adults} adults · ${guests.children} children · ${guests.rooms} room${guests.rooms>1?'s':''}`;
-        }
-    </script>
-
-    <style>
-        /* Modal styles and any additional styles remain the same as your previous index */
-    </style>
-</body>
-</html>
+</div>
