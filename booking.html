@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation | Booking.com</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body class="min-h-screen bg-gray-100">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="flex items-center justify-between h-16">
+                <div class="logo">
+                    <a href="index.html" class="logo">Booking.com</a>
+                </div>
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="currency-badge">ZAR</span>
+                    <span>Booking Confirmation</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Booking Confirmation Content -->
+    <div class="container px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Success Header -->
+            <div class="text-center mb-8">
+                <div class="text-6xl mb-4">✅</div>
+                <h1 class="text-3xl font-bold text-green-600 mb-2">Booking Confirmed!</h1>
+                <p class="text-gray-600">Your reservation has been successfully confirmed</p>
+            </div>
+
+            <!-- Booking Details -->
+            <div class="grid grid-cols-1 lg-grid-cols-2 gap-8">
+                <!-- Main Booking Info -->
+                <div class="card">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold mb-4">Your Booking</h2>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4">
+                                <img src="images/emirates-logo.png" alt="Emirates" class="w-12 h-12">
+                                <div>
+                                    <h3 class="font-medium">Emirates Flight EK201</h3>
+                                    <p class="text-sm text-gray-600">Confirmation Number: BK123456789</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-4 rounded">
+                                <div class="grid grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <div class="font-medium">Departure</div>
+                                        <div>Oct 18, 2024</div>
+                                        <div>08:00 - Cape Town (CPT)</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Arrival</div>
+                                        <div>Oct 18, 2024</div>
+                                        <div>10:15 - Johannesburg (JNB)</div>
+                                    </div>
+                                </div>
+                                <div class="mt-3 pt-3 border-t">
+                                    <div class="text-sm">
+                                        <span class="font-medium">Duration:</span> 2h 15m (Direct flight)
+                                    </div>
+                                    <div class="text-sm">
+                                        <span class="font-medium">Passengers:</span> 1 Adult
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passenger Information -->
+                <div class="card">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold mb-4">Passenger Details</h2>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <div class="font-medium">Name</div>
+                                <div class="text-gray-600">John Doe</div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Email</div>
+                                <div class="text-gray-600">john.doe@email.com</div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Phone</div>
+                                <div class="text-gray-600">+27 12 345 6789</div>
+                            </div>
+                            <div>
+                                <div class="font-medium">Seat</div>
+                                <div class="text-gray-600">15A (Economy)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Summary -->
+                <div class="card">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold mb-4">Payment Summary</h2>
+                        
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between">
+                                <span>Flight ticket</span>
+                                <span>ZAR 899</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Taxes & fees</span>
+                                <span>ZAR 150</span>
+                            </div>
+                            <div class="flex justify-between text-green-600">
+                                <span>Discount (SAVE10)</span>
+                                <span>-ZAR 105</span>
+                            </div>
+                            <div class="border-t pt-2 flex justify-between font-bold">
+                                <span>Total Paid</span>
+                                <span>ZAR 944</span>
+                            </div>
+                        </div>
+                        
+                        <div class="text-sm text-gray-600">
+                            <div>Payment Method: **** 1234</div>
+                            <div>Transaction ID: TXN789123456</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Important Information -->
+                <div class="card">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold mb-4">Important Information</h2>
+                        
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-start space-x-2">
+                                <span class="text-green-600">✓</span>
+                                <span>Check-in opens 24 hours before departure</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-green-600">✓</span>
+                                <span>Free cancellation until 2 hours before departure</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-blue-600">ℹ️</span>
+                                <span>Arrive at airport at least 1 hour before domestic flights</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-blue-600">ℹ️</span>
+                                <span>Valid ID required for check-in</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 text-center space-y-4">
+                <div class="grid grid-cols-1 md-grid-cols-3 gap-4">
+                    <button class="btn btn-primary" onclick="downloadTicket()">
+                        📄 Download E-Ticket
+                    </button>
+                    <button class="btn btn-outline" onclick="addToCalendar()">
+                        📅 Add to Calendar
+                    </button>
+                    <button class="btn btn-outline" onclick="shareBooking()">
+                        📤 Share Booking
+                    </button>
+                </div>
+                
+                <div class="pt-4">
+                    <a href="index.html" class="btn btn-ghost">
+                        ← Return to Homepage
+                    </a>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="card mt-8">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold mb-4">What's Next?</h2>
+                    
+                    <div class="grid grid-cols-1 md-grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-medium mb-2">📧 Confirmation Email</h3>
+                            <p class="text-sm text-gray-600">
+                                You'll receive a confirmation email with your e-ticket within the next few minutes.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-2">📱 Mobile Check-in</h3>
+                            <p class="text-sm text-gray-600">
+                                Check in online starting 24 hours before your flight departure.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-2">🧳 Baggage Info</h3>
+                            <p class="text-sm text-gray-600">
+                                Review the airline's baggage policy and fees on their website.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-2">🏨 Need Accommodation?</h3>
+                            <p class="text-sm text-gray-600">
+                                <a href="index.html" class="text-blue-600 hover:underline">Book a hotel</a> for your destination.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Support -->
+    <div class="bg-blue-50 py-8 mt-8">
+        <div class="container px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="font-bold mb-4">Need Help?</h2>
+                <p class="text-gray-600 mb-4">
+                    Our customer service team is available 24/7 to assist you with any questions.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4">
+                    <button class="btn btn-outline">📞 Call Support</button>
+                    <button class="btn btn-outline">💬 Live Chat</button>
+                    <button class="btn btn-outline">📧 Email Us</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadTicket() {
+            alert('Downloading your e-ticket... (In the full app, this would download a PDF ticket)');
+        }
+
+        function addToCalendar() {
+            // Create a basic calendar event
+            const event = {
+                title: 'Flight EK201 - Cape Town to Johannesburg',
+                start: '2024-10-18T08:00:00',
+                end: '2024-10-18T10:15:00',
+                description: 'Emirates Flight EK201, Confirmation: BK123456789'
+            };
+            
+            // In a real app, this would integrate with calendar APIs
+            alert('Calendar event created! (In the full app, this would add to your device calendar)');
+        }
+
+        function shareBooking() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Flight Booking',
+                    text: 'Flight EK201 on Oct 18, 2024 - Confirmation: BK123456789',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const text = 'Flight EK201 on Oct 18, 2024 - Confirmation: BK123456789';
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Booking details copied to clipboard!');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

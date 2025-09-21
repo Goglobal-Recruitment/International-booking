@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheap Flights - Search and Compare Flight Deals | Booking.com</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <!-- Top header row -->
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html" class="logo">Booking.com</a>
+                </div>
+
+                <!-- Right side actions -->
+                <div class="flex items-center space-x-4">
+                    <div class="lg-flex items-center space-x-1 text-sm mobile-hidden">
+                        <span class="currency-badge">ZAR</span>
+                    </div>
+                    
+                    <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
+                        <span class="icon mr-1">?</span>
+                    </button>
+                    
+                    <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
+                        List your property
+                    </button>
+
+                    <div class="flex items-center space-x-2">
+                        <button class="btn btn-outline btn-sm" onclick="openModal('register')">
+                            Register
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('login')">
+                            Sign in
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button class="btn btn-ghost desktop-hidden" onclick="toggleMobileMenu()">
+                        <span class="icon">☰</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation tabs -->
+            <div class="border-t border-blue-700">
+                <nav class="flex items-center">
+                    <a href="index.html" class="nav-item" onclick="setActiveTab('stays')">
+                        <span class="icon">🏨</span>
+                        <span>Stays</span>
+                    </a>
+                    <a href="#" class="nav-item active" onclick="setActiveTab('flights')">
+                        <span class="icon">✈️</span>
+                        <span>Flights</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="setActiveTab('cars')">
+                        <span class="icon">🚗</span>
+                        <span>Car rental</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="setActiveTab('attractions')">
+                        <span class="icon">⭐</span>
+                        <span>Attractions</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="setActiveTab('taxis')">
+                        <span class="icon">🚕</span>
+                        <span>Airport taxis</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="mobile-menu desktop-hidden">
+                <nav class="flex flex-col space-y-2">
+                    <a href="index.html" class="mobile-menu-item">
+                        <span class="icon">🏨</span>
+                        <span>Stays</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item">
+                        <span class="icon">✈️</span>
+                        <span>Flights</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item">
+                        <span class="icon">🚗</span>
+                        <span>Car rental</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item">
+                        <span class="icon">⭐</span>
+                        <span>Attractions</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item">
+                        <span class="icon">🚕</span>
+                        <span>Airport taxis</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero hero-flights">
+        <div class="container h-full flex items-center py-12">
+            <div class="text-white max-w-2xl">
+                <h1 class="text-2xl md:text-4xl mb-3 font-bold">
+                    Discover your next flight
+                </h1>
+                <p class="text-base md:text-lg opacity-90">
+                    Discover your next dream destination
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flight Search Form -->
+    <div class="container px-4 -mt-24 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="search-form">
+                <!-- Trip type selection -->
+                <div class="mb-6">
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="round-trip" name="tripType" value="round-trip" class="radio-input" checked>
+                            <label for="round-trip" class="radio-label">● Round trip</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="one-way" name="tripType" value="one-way" class="radio-input">
+                            <label for="one-way" class="radio-label">One way</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="multi-city" name="tripType" value="multi-city" class="radio-input">
+                            <label for="multi-city" class="radio-label">Multi-city</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight search form -->
+                <div class="grid grid-cols-1 lg-grid-cols-5 gap-3 mb-4">
+                    <!-- From -->
+                    <div class="relative">
+                        <label class="form-label">Leaving from</label>
+                        <div class="input-group">
+                            <span class="input-icon">✈️</span>
+                            <input 
+                                type="text" 
+                                class="form-input form-input-icon" 
+                                placeholder="Leaving from"
+                                value="Cape Town (CPT)"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Swap button -->
+                    <div class="flex items-end justify-center pb-3 lg:pb-0 lg:items-center">
+                        <button class="swap-btn" onclick="swapLocations()">
+                            <span class="icon text-blue-600">⇄</span>
+                        </button>
+                    </div>
+
+                    <!-- To -->
+                    <div class="relative">
+                        <label class="form-label">Going to</label>
+                        <div class="input-group">
+                            <span class="input-icon">📍</span>
+                            <input 
+                                type="text" 
+                                class="form-input form-input-icon" 
+                                placeholder="Going to"
+                                value="Johannesburg (JNB)"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Travel dates -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="form-label">Travel dates</label>
+                            <div class="input-group">
+                                <span class="input-icon">📅</span>
+                                <input 
+                                    type="date" 
+                                    class="form-input form-input-icon"
+                                    value="2024-10-18"
+                                >
+                            </div>
+                        </div>
+
+                        <div id="returnDate">
+                            <label class="form-label">&nbsp;</label>
+                            <div class="input-group">
+                                <span class="input-icon">📅</span>
+                                <input 
+                                    type="date" 
+                                    class="form-input form-input-icon"
+                                    value="2024-10-25"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Travellers -->
+                    <div>
+                        <label class="form-label">Travellers</label>
+                        <div class="input-group">
+                            <span class="input-icon">👥</span>
+                            <select class="form-input form-input-icon">
+                                <option>2 adults</option>
+                                <option>1 adult</option>
+                                <option>3 adults</option>
+                                <option>4 adults</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional options -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                    <div class="flex items-center space-x-4">
+                        <select class="select w-32">
+                            <option value="economy">Economy</option>
+                            <option value="premium">Premium Economy</option>
+                            <option value="business">Business</option>
+                            <option value="first">First Class</option>
+                        </select>
+
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="direct-flights" class="checkbox">
+                            <label for="direct-flights" class="text-sm cursor-pointer">Direct flights only</label>
+                        </div>
+                    </div>
+
+                    <!-- Search button -->
+                    <button class="btn btn-primary btn-lg" onclick="searchFlights()">
+                        <span class="icon mr-2">🔍</span>
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Flight Features section -->
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon bg-blue-100">
+                        <span class="text-blue-600">🔍</span>
+                    </div>
+                    <h3 class="font-medium text-gray-900 mb-2">Search a huge selection</h3>
+                    <p class="text-sm text-gray-600">Easily compare flights, airlines and prices – all in one place</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon bg-orange-100">
+                        <span>💳</span>
+                    </div>
+                    <h3 class="font-medium text-gray-900 mb-2">Pay no hidden fees</h3>
+                    <p class="text-sm text-gray-600">Get a clear price breakdown, every step of the way</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon bg-blue-100">
+                        <span>📅</span>
+                    </div>
+                    <h3 class="font-medium text-gray-900 mb-2">Get more flexibility</h3>
+                    <p class="text-sm text-gray-600">Change your travel dates with the Flexible ticket option*</p>
+                </div>
+            </div>
+            
+            <p class="text-xs text-gray-500 mt-4 text-center">
+                *Flexible plane tickets are available for an additional cost on selected airfares.
+            </p>
+        </div>
+    </div>
+
+    <!-- Flight Results (initially hidden) -->
+    <div id="flightResults" class="container px-4 py-8" style="display: none;">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl mb-6">Flight Search Results</h2>
+            
+            <div class="space-y-4">
+                <!-- Flight 1 -->
+                <div class="card">
+                    <div class="p-6">
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <img src="images/emirates-logo.png" alt="Emirates" class="w-8 h-8">
+                                    <div>
+                                        <h3 class="font-medium">Emirates EK201</h3>
+                                        <p class="text-sm text-gray-600">Direct flight</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <div class="font-medium">08:00</div>
+                                        <div class="text-sm text-gray-600">CPT</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-gray-600">2h 15m</div>
+                                        <div class="text-xs text-gray-500">Direct</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">10:15</div>
+                                        <div class="text-sm text-gray-600">JNB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 lg:mt-0 lg:ml-8 text-right">
+                                <div class="price-display">ZAR 899</div>
+                                <div class="price-period">per person</div>
+                                <button class="btn btn-primary mt-2" onclick="selectFlight('EK201')">
+                                    Select flight
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight 2 -->
+                <div class="card">
+                    <div class="p-6">
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <img src="images/qatar-logo.png" alt="Qatar Airways" class="w-8 h-8">
+                                    <div>
+                                        <h3 class="font-medium">Qatar Airways QR101</h3>
+                                        <p class="text-sm text-gray-600">1 stop</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <div class="font-medium">14:30</div>
+                                        <div class="text-sm text-gray-600">CPT</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-gray-600">5h 45m</div>
+                                        <div class="text-xs text-gray-500">1 stop</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">20:15</div>
+                                        <div class="text-sm text-gray-600">JNB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 lg:mt-0 lg:ml-8 text-right">
+                                <div class="price-display">ZAR 1,299</div>
+                                <div class="price-period">per person</div>
+                                <button class="btn btn-primary mt-2" onclick="selectFlight('QR101')">
+                                    Select flight
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight 3 -->
+                <div class="card">
+                    <div class="p-6">
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <img src="images/saa-logo.png" alt="South African Airways" class="w-8 h-8">
+                                    <div>
+                                        <h3 class="font-medium">South African Airways SA305</h3>
+                                        <p class="text-sm text-gray-600">Direct flight</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <div class="font-medium">16:45</div>
+                                        <div class="text-sm text-gray-600">CPT</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-gray-600">2h 10m</div>
+                                        <div class="text-xs text-gray-500">Direct</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">18:55</div>
+                                        <div class="text-sm text-gray-600">JNB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 lg:mt-0 lg:ml-8 text-right">
+                                <div class="price-display">ZAR 749</div>
+                                <div class="price-period">per person</div>
+                                <button class="btn btn-primary mt-2" onclick="selectFlight('SA305')">
+                                    Select flight
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flight Booking Modal -->
+    <div id="flightBookingModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>Flight Booking</h3>
+                <button class="modal-close" onclick="closeModal('flightBooking')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="selectedFlightDetails">
+                    <!-- Flight details will be populated here -->
+                </div>
+                
+                <form>
+                    <h4 class="mb-4">Passenger Details</h4>
+                    
+                    <div class="grid grid-cols-1 md-grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-input" placeholder="First name" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-input" placeholder="Last name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md-grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" placeholder="Email address" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-input" placeholder="Phone number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-input" required>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary w-full" onclick="proceedToPayment()">
+                        Continue to Payment
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sign in</h3>
+                <button class="modal-close" onclick="closeModal('login')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-4">
+                        <label class="form-label">Email address</label>
+                        <input type="email" class="form-input" placeholder="Enter your email">
+                    </div>
+                    <div class="mb-6">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full mb-4">Sign in</button>
+                </form>
+                <p class="text-center text-sm">
+                    Don't have an account? 
+                    <a href="#" onclick="openModal('register')" class="text-blue-600">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create your account</h3>
+                <button class="modal-close" onclick="closeModal('register')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-4">
+                        <label class="form-label">Email address</label>
+                        <input type="email" class="form-input" placeholder="Enter your email">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="Create a password">
+                    </div>
+                    <div class="mb-6">
+                        <label class="form-label">Confirm password</label>
+                        <input type="password" class="form-input" placeholder="Confirm your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full mb-4">Create account</button>
+                </form>
+                <p class="text-center text-sm">
+                    Already have an account? 
+                    <a href="#" onclick="openModal('login')" class="text-blue-600">Sign in here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedFlight = null;
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        function setActiveTab(tab) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+        }
+
+        function openModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.style.display = 'none';
+        }
+
+        function swapLocations() {
+            const fromInput = document.querySelector('input[placeholder="Leaving from"]');
+            const toInput = document.querySelector('input[placeholder="Going to"]');
+            const temp = fromInput.value;
+            fromInput.value = toInput.value;
+            toInput.value = temp;
+        }
+
+        function searchFlights() {
+            const results = document.getElementById('flightResults');
+            results.style.display = 'block';
+            results.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectFlight(flightCode) {
+            const flights = {
+                'EK201': {
+                    airline: 'Emirates',
+                    code: 'EK201',
+                    departure: '08:00',
+                    arrival: '10:15',
+                    duration: '2h 15m',
+                    price: 899,
+                    type: 'Direct'
+                },
+                'QR101': {
+                    airline: 'Qatar Airways',
+                    code: 'QR101',
+                    departure: '14:30',
+                    arrival: '20:15',
+                    duration: '5h 45m',
+                    price: 1299,
+                    type: '1 stop'
+                },
+                'SA305': {
+                    airline: 'South African Airways',
+                    code: 'SA305',
+                    departure: '16:45',
+                    arrival: '18:55',
+                    duration: '2h 10m',
+                    price: 749,
+                    type: 'Direct'
+                }
+            };
+
+            selectedFlight = flights[flightCode];
+            
+            const detailsDiv = document.getElementById('selectedFlightDetails');
+            detailsDiv.innerHTML = `
+                <div class="bg-gray-50 p-4 rounded mb-4">
+                    <h4 class="font-medium mb-2">${selectedFlight.airline} ${selectedFlight.code}</h4>
+                    <div class="grid grid-cols-3 gap-4 text-center text-sm">
+                        <div>
+                            <div class="font-medium">${selectedFlight.departure}</div>
+                            <div class="text-gray-600">CPT</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-600">${selectedFlight.duration}</div>
+                            <div class="text-gray-500">${selectedFlight.type}</div>
+                        </div>
+                        <div>
+                            <div class="font-medium">${selectedFlight.arrival}</div>
+                            <div class="text-gray-600">JNB</div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <span class="text-xl font-bold">ZAR ${selectedFlight.price}</span>
+                        <span class="text-gray-600 ml-2">per person</span>
+                    </div>
+                </div>
+            `;
+            
+            openModal('flightBooking');
+        }
+
+        function proceedToPayment() {
+            alert('Proceeding to payment page. In the full application, this would redirect to the secure payment process.');
+            closeModal('flightBooking');
+        }
+
+        // Handle trip type changes
+        document.querySelectorAll('input[name="tripType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const returnDate = document.getElementById('returnDate');
+                if (this.value === 'one-way') {
+                    returnDate.style.display = 'none';
+                } else {
+                    returnDate.style.display = 'block';
+                }
+            });
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 1.5rem 0;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+    </style>
+</body>
+</html>
