@@ -8,95 +8,59 @@
     <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body class="min-h-screen bg-white">
+
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <!-- Top header row -->
             <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
                 <div class="logo">
                     <a href="index.html" class="logo">Booking.com</a>
                 </div>
-
-                <!-- Right side actions -->
                 <div class="flex items-center space-x-4">
                     <div class="lg-flex items-center space-x-1 text-sm mobile-hidden">
                         <span class="currency-badge">ZAR</span>
                     </div>
-                    
                     <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
                         <span class="icon mr-1">?</span>
                     </button>
-                    
                     <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
                         List your property
                     </button>
-
                     <div class="flex items-center space-x-2">
-                        <button class="btn btn-outline btn-sm" onclick="openModal('register')">
-                            Register
-                        </button>
-                        <button class="btn btn-primary btn-sm" onclick="openModal('login')">
-                            Sign in
-                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="openModal('register')">Register</button>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('login')">Sign in</button>
                     </div>
-
-                    <!-- Mobile Menu Button -->
                     <button class="btn btn-ghost desktop-hidden" onclick="toggleMobileMenu()">
                         <span class="icon">☰</span>
                     </button>
                 </div>
             </div>
-
-            <!-- Navigation tabs -->
             <div class="border-t border-blue-700">
                 <nav class="flex items-center">
                     <a href="#" class="nav-item active" onclick="setActiveTab('stays')">
-                        <span class="icon">🏨</span>
-                        <span>Stays</span>
+                        <span class="icon">🏨</span> <span>Stays</span>
                     </a>
                     <a href="flights.html" class="nav-item" onclick="setActiveTab('flights')">
-                        <span class="icon">✈️</span>
-                        <span>Flights</span>
+                        <span class="icon">✈️</span> <span>Flights</span>
                     </a>
                     <a href="#" class="nav-item" onclick="setActiveTab('cars')">
-                        <span class="icon">🚗</span>
-                        <span>Car rental</span>
+                        <span class="icon">🚗</span> <span>Car rental</span>
                     </a>
                     <a href="#" class="nav-item" onclick="setActiveTab('attractions')">
-                        <span class="icon">⭐</span>
-                        <span>Attractions</span>
+                        <span class="icon">⭐</span> <span>Attractions</span>
                     </a>
                     <a href="#" class="nav-item" onclick="setActiveTab('taxis')">
-                        <span class="icon">🚕</span>
-                        <span>Airport taxis</span>
+                        <span class="icon">🚕</span> <span>Airport taxis</span>
                     </a>
                 </nav>
             </div>
-
-            <!-- Mobile Navigation -->
             <div id="mobileMenu" class="mobile-menu desktop-hidden">
                 <nav class="flex flex-col space-y-2">
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">🏨</span>
-                        <span>Stays</span>
-                    </a>
-                    <a href="flights.html" class="mobile-menu-item">
-                        <span class="icon">✈️</span>
-                        <span>Flights</span>
-                    </a>
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">🚗</span>
-                        <span>Car rental</span>
-                    </a>
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">⭐</span>
-                        <span>Attractions</span>
-                    </a>
-                    <a href="#" class="mobile-menu-item">
-                        <span class="icon">🚕</span>
-                        <span>Airport taxis</span>
-                    </a>
+                    <a href="#" class="mobile-menu-item">🏨 Stays</a>
+                    <a href="flights.html" class="mobile-menu-item">✈️ Flights</a>
+                    <a href="#" class="mobile-menu-item">🚗 Car rental</a>
+                    <a href="#" class="mobile-menu-item">⭐ Attractions</a>
+                    <a href="#" class="mobile-menu-item">🚕 Airport taxis</a>
                 </nav>
             </div>
         </div>
@@ -106,10 +70,8 @@
     <div class="hero">
         <div class="container h-full flex items-center py-12">
             <div class="text-white max-w-2xl">
-                <h1 class="text-2xl md:text-4xl mb-3 font-bold">
-                    Find your next stay
-                </h1>
-                <!-- Fixed line -->
+                <h1 class="text-2xl md:text-4xl mb-3 font-bold">Find your next stay</h1>
+                <!-- Corrected search line -->
                 <p class="text-lg md:text-xl font-semibold leading-snug opacity-90">
                     Search deals on hotels, homes, and much more...
                 </p>
@@ -126,48 +88,31 @@
                         <label class="form-label">Where are you going?</label>
                         <div class="input-group">
                             <span class="input-icon">📍</span>
-                            <input 
-                                type="text" 
-                                class="form-input form-input-icon" 
-                                placeholder="Destination"
-                                value=""
-                            >
+                            <input type="text" class="form-input form-input-icon" placeholder="Destination" value="">
                         </div>
                     </div>
-                    
                     <div>
                         <label class="form-label">Check-in date</label>
                         <div class="input-group">
                             <span class="input-icon">📅</span>
-                            <input 
-                                type="date" 
-                                class="form-input form-input-icon"
-                                value=""
-                            >
+                            <input type="date" class="form-input form-input-icon" value="">
                         </div>
                     </div>
-                    
                     <div>
                         <label class="form-label">Check-out date</label>
                         <div class="input-group">
                             <span class="input-icon">📅</span>
-                            <input 
-                                type="date" 
-                                class="form-input form-input-icon"
-                                value=""
-                            >
+                            <input type="date" class="form-input form-input-icon" value="">
                         </div>
                     </div>
 
-                    <!-- Booking.com Guests Block -->
+                    <!-- Guests block (unchanged) -->
                     <div class="guests-block relative">
                         <label class="form-label">Guests</label>
                         <div class="input-group cursor-pointer" onclick="toggleGuestsDropdown()">
                             <span class="input-icon">👥</span>
                             <input type="text" class="form-input form-input-icon" id="guestsInput" readonly value="2 adults · 0 children · 1 room">
                         </div>
-
-                        <!-- Dropdown -->
                         <div id="guestsDropdown" class="guests-dropdown hidden absolute bg-white border rounded shadow-lg mt-2 p-4 w-full z-50">
                             <div class="flex items-center justify-between mb-3">
                                 <span>Adults</span>
@@ -197,56 +142,76 @@
                     </div>
 
                 </div>
-                
                 <div class="flex justify-end">
                     <button class="btn btn-primary btn-lg" onclick="searchProperties()">
-                        <span class="icon mr-2">🔍</span>
-                        Search
+                        <span class="icon mr-2">🔍</span> Search
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-<div id="searchResults" class="container px-4 py-8" style="display: none;"></div>
+    <!-- Popular Destinations -->
+    <section class="container px-4 py-8">
+        <h2 class="text-2xl font-bold mb-4">Explore South Africa</h2>
+        <p class="mb-6 text-gray-700">These popular destinations have a lot to offer</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="destination-card">
+                <img src="https://cf.bstatic.com/xdata/images/city/600x600/688056.jpg?k=abcdef123" alt="Cape Town" class="rounded-lg w-full h-40 object-cover">
+                <h3 class="mt-2 font-semibold">Cape Town</h3>
+                <p>7,440 properties</p>
+            </div>
+            <div class="destination-card">
+                <img src="https://cf.bstatic.com/xdata/images/city/600x600/688057.jpg?k=abcdef123" alt="Durban" class="rounded-lg w-full h-40 object-cover">
+                <h3 class="mt-2 font-semibold">Durban</h3>
+                <p>1,981 properties</p>
+            </div>
+            <div class="destination-card">
+                <img src="https://cf.bstatic.com/xdata/images/city/600x600/688058.jpg?k=abcdef123" alt="Johannesburg" class="rounded-lg w-full h-40 object-cover">
+                <h3 class="mt-2 font-semibold">Johannesburg</h3>
+                <p>3,045 properties</p>
+            </div>
+            <div class="destination-card">
+                <img src="https://cf.bstatic.com/xdata/images/city/600x600/688059.jpg?k=abcdef123" alt="Pretoria" class="rounded-lg w-full h-40 object-cover">
+                <h3 class="mt-2 font-semibold">Pretoria</h3>
+                <p>1,620 properties</p>
+            </div>
+        </div>
+    </section>
 
-<!-- ...rest of your code remains unchanged... -->
+    <!-- Other sections like Hotels, Weekend Deals, Homes guests love... -->
+    <!-- Add similar blocks with live images and info from Booking.com -->
+    <!-- You can repeat this pattern for all the sections -->
 
 <script>
-    // Your existing scripts
+    // Guests script (unchanged)
     let guests = { adults: 2, children: 0, rooms: 1 };
 
     function toggleGuestsDropdown() {
         document.getElementById('guestsDropdown').classList.toggle('hidden');
     }
-
     function updateGuestsInput() {
         document.getElementById('guestsInput').value = 
             `${guests.adults} adults · ${guests.children} children · ${guests.rooms} room${guests.rooms>1?'s':''}`;
     }
-
     function increaseGuests(type) {
         if (type === 'adults' && guests.adults < 30) guests.adults++;
         if (type === 'children' && guests.children < 10) guests.children++;
         if (type === 'rooms' && guests.rooms < 30) guests.rooms++;
         updateGuestsDisplay();
     }
-
     function decreaseGuests(type) {
         if (type === 'adults' && guests.adults > 1) guests.adults--;
         if (type === 'children' && guests.children > 0) guests.children--;
         if (type === 'rooms' && guests.rooms > 1) guests.rooms--;
         updateGuestsDisplay();
     }
-
     function updateGuestsDisplay() {
         document.getElementById('adultsCount').innerText = guests.adults;
         document.getElementById('childrenCount').innerText = guests.children;
         document.getElementById('roomsCount').innerText = guests.rooms;
         updateGuestsInput();
     }
-
-    // Close dropdown if clicked outside
     window.addEventListener('click', function(e){
         if(!document.querySelector('.guests-block').contains(e.target)){
             document.getElementById('guestsDropdown').classList.add('hidden');
