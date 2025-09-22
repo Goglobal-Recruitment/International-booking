@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking.com | Official site | The best hotels, flights, car rentals & accommodations</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <!-- Top header row -->
+           <div class="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-16">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html" class="logo">Booking.com</a>
+                </div>
+
+                <!-- Right side actions -->
+                <div class="flex items-center space-x-4">
+                    <div class="lg-flex items-center space-x-1 text-sm mobile-hidden">
+                        <span class="currency-badge">ZAR</span>
+                    </div>
+                    
+                    <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
+                        <span class="icon mr-1">?</span>
+                    </button>
+                    
+                    <button class="btn btn-ghost btn-sm lg-flex text-white mobile-hidden">
+                        List your property
+                    </button>
+
+                    <div class="flex items-center space-x-2">
+                        <button class="btn btn-outline btn-sm" onclick="openModal('register')">
+                            Register
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('login')">
+                            Sign in
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button class="btn btn-ghost desktop-hidden" onclick="toggleMobileMenu()">
+                        <span class="icon">☰</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation tabs -->
+            <div class="border-t border-blue-700">
+                <nav class="flex items-center">
+                    <a href="#" class="nav-item active" onclick="setActiveTab('stays')">
+                        <span class="icon">🏨</span>
+                        <span>Stays</span>
+                    </a>
+                    <a href="flights.html" class="nav-item" onclick="setActiveTab('flights')">
+                        <span class="icon">✈️</span>
+                        <span>Flights</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="setActiveTab('cars')">
+                        <span class="icon">🚗</span>
+                        <span>Car rental</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="setActiveTab('attractions')">
+                        <span class="icon">⭐</span>
+                        <span>Attractions</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="setActiveTab('taxis')">
+                        <span class="icon">🚕</span>
+                        <span>Airport taxis</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="mobile-menu desktop-hidden">
+                <nav class="flex flex-col space-y-2">
+                    <a href="#" class="mobile-menu-item">
+                        <span class="icon">🏨</span>
+                        <span>Stays</span>
+                    </a>
+                    <a href="flights.html" class="mobile-menu-item">
+                        <span class="icon">✈️</span>
+                        <span>Flights</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item">
+                        <span class="icon">🚗</span>
+                        <span>Car rental</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item">
+                        <span class="icon">⭐</span>
+                        <span>Attractions</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item">
+                        <span class="icon">🚕</span>
+                        <span>Airport taxis</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container h-full flex items-center py-12">
+            <div class="text-white max-w-2xl">
+                <h1 class="text-2xl md:text-4xl mb-3 font-bold">
+                    Find your next stay
+                </h1>
+                <p class="text-base md:text-lg opacity-90">
+                    Search deals on hotels, homes, and much more...
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="container px-4 -mt-24 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="search-form">
+                <div class="grid grid-cols-1 lg-grid-cols-4 gap-4 mb-6">
+                    <div>
+                        <label class="form-label">Where are you going?</label>
+                        <div class="input-group">
+                            <span class="input-icon">📍</span>
+                            <input 
+                                type="text" 
+                                class="form-input form-input-icon" 
+                                placeholder="Destination"
+                                value=""
+                            >
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="form-label">Check-in date</label>
+                        <div class="input-group">
+                            <span class="input-icon">📅</span>
+                            <input 
+                                type="date" 
+                                class="form-input form-input-icon"
+                                value=""
+                            >
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="form-label">Check-out date</label>
+                        <div class="input-group">
+                            <span class="input-icon">📅</span>
+                            <input 
+                                type="date" 
+                                class="form-input form-input-icon"
+                                value=""
+                            >
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Guests</label>
+                        <div class="input-group">
+                            <span class="input-icon">👥</span>
+                            <select class="form-input form-input-icon">
+                                <option>2 adults</option>
+                                <option>1 adult</option>
+                                <option>3 adults</option>
+                                <option>4 adults</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end">
+                    <button class="btn btn-primary btn-lg" onclick="searchProperties()">
+                        <span class="icon mr-2">🔍</span>
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results (initially hidden) -->
+    <div id="searchResults" class="container px-4 py-8" style="display: none;">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl mb-6">Search Results</h2>
+            
+            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-6">
+                <!-- Property 1 -->
+                <div class="card hover-shadow-lg transition-shadow">
+                    <div class="relative h-48">
+                        <img src="images/luxury-resort.jpg" alt="Luxury Resort & Spa" class="property-image">
+                        <span class="badge bg-green-600 absolute top-2 right-2">Hotel</span>
+                    </div>
+                    
+                    <div class="card-header">
+                        <div class="flex items-start justify-between">
+                            <h3 class="text-lg">Luxury Resort & Spa</h3>
+                            <div class="flex items-center space-x-1">
+                                <span class="icon star-fill">⭐</span>
+                                <span class="text-sm">4.5</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <span class="icon mr-1">📍</span>
+                            Cape Town, South Africa
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p class="text-gray-600 text-sm mb-4">5-star resort with ocean view</p>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="text-right">
+                                <div class="price-display">ZAR 299</div>
+                                <div class="price-period">per night</div>
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="selectBooking('stays')">
+                                Book now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 2 -->
+                <div class="card hover-shadow-lg transition-shadow">
+                    <div class="relative h-48">
+                        <img src="images/modern-hotel.jpg" alt="Modern City Hotel" class="property-image">
+                        <span class="badge bg-green-600 absolute top-2 right-2">Hotel</span>
+                    </div>
+                    
+                    <div class="card-header">
+                        <div class="flex items-start justify-between">
+                            <h3 class="text-lg">Modern City Hotel</h3>
+                            <div class="flex items-center space-x-1">
+                                <span class="icon star-fill">⭐</span>
+                                <span class="text-sm">4.2</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <span class="icon mr-1">📍</span>
+                            Johannesburg, South Africa
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p class="text-gray-600 text-sm mb-4">Contemporary hotel in city center</p>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="text-right">
+                                <div class="price-display">ZAR 199</div>
+                                <div class="price-period">per night</div>
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="selectBooking('stays')">
+                                Book now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 3 -->
+                <div class="card hover-shadow-lg transition-shadow">
+                    <div class="relative h-48">
+                        <img src="images/boutique-hotel.jpg" alt="Boutique Hotel" class="property-image">
+                        <span class="badge bg-green-600 absolute top-2 right-2">Hotel</span>
+                    </div>
+                    
+                    <div class="card-header">
+                        <div class="flex items-start justify-between">
+                            <h3 class="text-lg">Boutique Hotel</h3>
+                            <div class="flex items-center space-x-1">
+                                <span class="icon star-fill">⭐</span>
+                                <span class="text-sm">4.7</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <span class="icon mr-1">📍</span>
+                            Stellenbosch, South Africa
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p class="text-gray-600 text-sm mb-4">Charming boutique hotel in wine country</p>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="text-right">
+                                <div class="price-display">ZAR 349</div>
+                                <div class="price-period">per night</div>
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="selectBooking('stays')">
+                                Book now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="container px-4 py-8">
+        <!-- Featured Destinations -->
+        <div class="max-w-6xl mx-auto mb-16">
+            <h2 class="text-2xl mb-6">Trending destinations</h2>
+            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-4 gap-6">
+                <div class="card">
+                    <img src="images/cape-town.jpg" alt="Cape Town" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-medium">Cape Town</h3>
+                        <p class="text-sm text-gray-600">1,234 properties</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/johannesburg.jpg" alt="Johannesburg" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-medium">Johannesburg</h3>
+                        <p class="text-sm text-gray-600">856 properties</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/durban.jpg" alt="Durban" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-medium">Durban</h3>
+                        <p class="text-sm text-gray-600">642 properties</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/stellenbosch.jpg" alt="Stellenbosch" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-medium">Stellenbosch</h3>
+                        <p class="text-sm text-gray-600">298 properties</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browse by Property Type -->
+        <div class="max-w-6xl mx-auto mb-16">
+            <h2 class="text-2xl mb-6">Browse by property type</h2>
+            <div class="grid grid-cols-2 md-grid-cols-3 lg-grid-cols-5 gap-4">
+                <div class="card text-center">
+                    <img src="images/hotels.jpg" alt="Hotels" class="w-full h-32 object-cover">
+                    <div class="p-3">
+                        <h4 class="font-medium">Hotels</h4>
+                        <p class="text-xs text-gray-600">573,893 hotels</p>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <img src="images/apartments.jpg" alt="Apartments" class="w-full h-32 object-cover">
+                    <div class="p-3">
+                        <h4 class="font-medium">Apartments</h4>
+                        <p class="text-xs text-gray-600">869,102 apartments</p>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <img src="images/resorts.jpg" alt="Resorts" class="w-full h-32 object-cover">
+                    <div class="p-3">
+                        <h4 class="font-medium">Resorts</h4>
+                        <p class="text-xs text-gray-600">17,468 resorts</p>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <img src="images/villas.jpg" alt="Villas" class="w-full h-32 object-cover">
+                    <div class="p-3">
+                        <h4 class="font-medium">Villas</h4>
+                        <p class="text-xs text-gray-600">424,345 villas</p>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <img src="images/cabins.jpg" alt="Cabins" class="w-full h-32 object-cover">
+                    <div class="p-3">
+                        <h4 class="font-medium">Cabins</h4>
+                        <p class="text-xs text-gray-600">35,642 cabins</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deals and Offers -->
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl mb-6">Deals and offers</h2>
+            <div class="grid grid-cols-1 md-grid-cols-2 gap-6">
+                <div class="card">
+                    <div class="relative">
+                        <img src="images/weekend-deals.jpg" alt="Weekend Deals" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <h3 class="text-xl font-bold mb-2">Weekend Deals</h3>
+                                <p class="mb-4">Save up to 30% on weekend getaways</p>
+                                <button class="btn btn-primary">
+                                    Explore deals
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="relative">
+                        <img src="images/last-minute.jpg" alt="Last Minute Deals" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <h3 class="text-xl font-bold mb-2">Last Minute</h3>
+                                <p class="mb-4">Book tonight, save more</p>
+                                <button class="btn btn-primary">
+                                    Find deals
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container py-12">
+            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-5 gap-8">
+                <div>
+                    <h4>Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#">Customer Service</a></li>
+                        <li><a href="#">Partner Help</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Press Center</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Discover</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#">Genius loyalty program</a></li>
+                        <li><a href="#">Seasonal and holiday deals</a></li>
+                        <li><a href="#">Travel articles</a></li>
+                        <li><a href="#">Booking.com for Business</a></li>
+                        <li><a href="#">Traveller Review Awards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Terms and settings</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#">Privacy & cookies</a></li>
+                        <li><a href="#">Terms & conditions</a></li>
+                        <li><a href="#">Partner dispute</a></li>
+                        <li><a href="#">Modern Slavery Statement</a></li>
+                        <li><a href="#">Human Rights Statement</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Partners</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#">Extranet login</a></li>
+                        <li><a href="#">Partner Hub</a></li>
+                        <li><a href="#">List your property</a></li>
+                        <li><a href="#">Become an affiliate</a></li>
+                        <li><a href="#">Connectivity partners</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>About</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#">About Booking International</a></li>
+                        <li><a href="#">How We Work</a></li>
+                        <li><a href="#">Investor relations</a></li>
+                        <li><a href="#">Corporate contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-separator"></div>
+
+            <div class="flex flex-col lg-flex-row justify-between items-center space-y-4">
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <span class="icon">🌐</span>
+                        <span>English (US)</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span>ZAR</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="btn btn-ghost btn-sm text-white hover-bg-blue-800">
+                        <span class="icon">📘</span>
+                    </a>
+                    <a href="#" class="btn btn-ghost btn-sm text-white hover-bg-blue-800">
+                        <span class="icon">🐦</span>
+                    </a>
+                    <a href="#" class="btn btn-ghost btn-sm text-white hover-bg-blue-800">
+                        <span class="icon">📷</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center text-sm text-blue-200">
+                <p>Copyright © 1996–2024 Booking International™. All rights reserved.</p>
+                <p class="mt-2">
+                    Booking International is part of Booking Holdings Inc., the world leader in online travel and related services.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sign in</h3>
+                <button class="modal-close" onclick="closeModal('login')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-4">
+                        <label class="form-label">Email address</label>
+                        <input type="email" class="form-input" placeholder="Enter your email">
+                    </div>
+                    <div class="mb-6">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full mb-4">Sign in</button>
+                </form>
+                <p class="text-center text-sm">
+                    Don't have an account? 
+                    <a href="#" onclick="openModal('register')" class="text-blue-600">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create your account</h3>
+                <button class="modal-close" onclick="closeModal('register')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-4">
+                        <label class="form-label">Email address</label>
+                        <input type="email" class="form-input" placeholder="Enter your email">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="Create a password">
+                    </div>
+                    <div class="mb-6">
+                        <label class="form-label">Confirm password</label>
+                        <input type="password" class="form-input" placeholder="Confirm your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full mb-4">Create account</button>
+                </form>
+                <p class="text-center text-sm">
+                    Already have an account? 
+                    <a href="#" onclick="openModal('login')" class="text-blue-600">Sign in here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript for basic interactivity
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        function setActiveTab(tab) {
+            // Update navigation active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+        }
+
+        function openModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.style.display = 'none';
+        }
+
+        function searchProperties() {
+            const results = document.getElementById('searchResults');
+            results.style.display = 'block';
+            results.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectBooking(type) {
+            alert('Booking functionality would be available in the full application. Please sign in to continue.');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 1.5rem 0;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+    </style>
+</body>
+</html>
