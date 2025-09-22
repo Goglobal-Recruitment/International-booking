@@ -1,107 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Booking</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking.com Clone</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="container flex justify-between items-center">
-      <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Booking.com_logo.svg" alt="Logo" height="40">
-      </div>
-      <nav>
-        <ul class="nav-list flex gap-4">
-          <li><a href="#">Stays</a></li>
-          <li><a href="#">Flights</a></li>
-          <li><a href="#">Car Rentals</a></li>
-          <li><a href="#">Attractions</a></li>
-          <li><a href="#">Deals</a></li>
-        </ul>
-      </nav>
-      <div class="user-actions flex gap-2">
-        <button>Sign in</button>
-        <button>Register</button>
-      </div>
+<!-- Header -->
+<header class="header">
+  <div class="header-top">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Booking.com_logo.svg" alt="Booking.com Logo" class="logo">
+    <nav class="nav">
+      <button class="btn">Stays</button>
+      <button class="btn">Flights</button>
+      <button class="btn">Car Rentals</button>
+      <button class="btn">Attractions</button>
+      <button class="btn">Airport Taxis</button>
+    </nav>
+    <div class="user-actions">
+      <button class="btn">Sign in</button>
+      <button class="btn">Register</button>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <img class="hero-image" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&w=1200&h=500" alt="Travel Hero">
-    <div class="hero-content">
-      <h1>Find your perfect trip</h1>
-      <form class="search-form flex">
-        <input type="text" placeholder="Destination, hotel, flight..." class="search-input">
-        <input type="date" class="search-date">
-        <select class="search-guests">
-          <option>1 Guest</option>
-          <option>2 Guests</option>
-          <option>3 Guests</option>
-        </select>
-        <button type="submit">Search</button>
-      </form>
-    </div>
-  </section>
+<!-- Hero / Search -->
+<section class="hero">
+  <h1>Find your next stay</h1>
+  <p>Search deals on hotels, homes, and much more…</p>
+  <form class="search-form">
+    <input type="text" placeholder="Destination / Property name" class="input">
+    <input type="date" class="input">
+    <input type="date" class="input">
+    <select class="input">
+      <option>1 Room, 2 Guests</option>
+      <option>2 Rooms, 4 Guests</option>
+    </select>
+    <button type="submit" class="btn-search">Search</button>
+  </form>
+</section>
 
-  <!-- Deals Section -->
-  <section class="deals container">
-    <h2>Top Deals</h2>
-    <div class="deals-grid flex gap-4">
-      <div class="deal-card">
-        <img src="https://images.unsplash.com/photo-1560347876-aeef00ee58a1?crop=entropy&cs=tinysrgb&fit=max&w=400&h=250" alt="Hotel 1">
-        <h3>Luxury Hotel Paris</h3>
-        <p>$200/night</p>
-      </div>
-      <div class="deal-card">
-        <img src="https://images.unsplash.com/photo-1582719478175-dc6b2c16f432?crop=entropy&cs=tinysrgb&fit=max&w=400&h=250" alt="Hotel 2">
-        <h3>Beach Resort Bali</h3>
-        <p>$150/night</p>
-      </div>
-      <div class="deal-card">
-        <img src="https://images.unsplash.com/photo-1551882547-ff0d6f66ee1b?crop=entropy&cs=tinysrgb&fit=max&w=400&h=250" alt="Hotel 3">
-        <h3>City Hotel New York</h3>
-        <p>$180/night</p>
-      </div>
+<!-- Deals Section -->
+<section class="deals">
+  <h2>Top deals</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?hotel" alt="Hotel">
+      <h3>Hotel Luxury</h3>
+      <p>From $120/night</p>
     </div>
-  </section>
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?resort" alt="Resort">
+      <h3>Resort Paradise</h3>
+      <p>From $180/night</p>
+    </div>
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?apartment" alt="Apartment">
+      <h3>City Apartment</h3>
+      <p>From $90/night</p>
+    </div>
+  </div>
+</section>
 
-  <!-- Destinations Section -->
-  <section class="destinations container">
-    <h2>Popular Destinations</h2>
-    <div class="destinations-grid flex gap-4">
-      <div class="destination-card">
-        <img src="https://images.unsplash.com/photo-1526779259212-5d57f25d2f1c?crop=entropy&cs=tinysrgb&fit=max&w=300&h=200" alt="Rome">
-        <p>Rome</p>
-      </div>
-      <div class="destination-card">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&w=300&h=200" alt="Maldives">
-        <p>Maldives</p>
-      </div>
-      <div class="destination-card">
-        <img src="https://images.unsplash.com/photo-1549893070-2d5d8316de8b?crop=entropy&cs=tinysrgb&fit=max&w=300&h=200" alt="New York">
-        <p>New York</p>
-      </div>
-      <div class="destination-card">
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&w=300&h=200" alt="Tokyo">
-        <p>Tokyo</p>
-      </div>
+<!-- Destinations -->
+<section class="destinations">
+  <h2>Popular destinations</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?paris" alt="Paris">
+      <h3>Paris</h3>
     </div>
-  </section>
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?london" alt="London">
+      <h3>London</h3>
+    </div>
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?newyork" alt="New York">
+      <h3>New York</h3>
+    </div>
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?tokyo" alt="Tokyo">
+      <h3>Tokyo</h3>
+    </div>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container flex justify-between">
-      <p>&copy; 2025 Travel Booking. All rights reserved.</p>
-      <ul class="flex gap-2">
-        <li><a href="#">Privacy</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="#">Support</a></li>
-      </ul>
-    </div>
-  </footer>
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#">About Booking.com</a>
+    <a href="#">Customer Service</a>
+    <a href="#">Terms & Conditions</a>
+    <a href="#">Privacy & Cookie Statement</a>
+  </div>
+  <p>&copy; 2025 Booking.com Clone</p>
+</footer>
 </body>
 </html>
