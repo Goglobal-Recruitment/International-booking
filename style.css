@@ -1,31 +1,193 @@
-/* Reset */
-* { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #222;
+  background-color: #fff;
+  line-height: 1.5;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 /* Header */
-.header { background: #003580; color:#fff; padding: 10px 50px; display:flex; flex-direction:column; }
-.header-top { display:flex; align-items:center; justify-content:space-between; }
-.logo { height:40px; }
-.nav .btn { background:none; border:none; color:#fff; margin:0 10px; cursor:pointer; font-size:16px; }
-.user-actions .btn { background:#fff; color:#003580; padding:5px 12px; margin-left:10px; border-radius:4px; cursor:pointer; font-weight:bold; }
+.header {
+  background: #003580;
+  color: #fff;
+  padding: 1rem 0;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .logo {
+  height: 40px;
+}
+.nav a {
+  color: #fff;
+  margin-right: 1.5rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+.nav a:last-child {
+  margin-right: 0;
+}
+.user-actions button {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+}
 
 /* Hero */
-.hero { background:#f5f5f5; padding:60px 50px; text-align:center; }
-.hero h1 { font-size:48px; margin-bottom:10px; }
-.hero p { font-size:18px; margin-bottom:30px; }
-.search-form { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; }
-.search-form .input { padding:10px; width:200px; border:1px solid #ccc; border-radius:4px; }
-.btn-search { background:#0071c2; color:#fff; padding:10px 20px; border:none; border-radius:4px; cursor:pointer; font-weight:bold; }
+.hero {
+  background: url('https://source.unsplash.com/1600x600/?hotel,lobby') center/cover no-repeat;
+  color: #fff;
+  text-align: center;
+  padding: 5rem 1rem;
+}
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+.search-input {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  min-width: 150px;
+}
+.search-btn {
+  padding: 0.75rem 1.5rem;
+  background: #0071c2;
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-/* Deals & Destinations */
-.deals, .destinations { padding:50px; background:#fff; }
-.deals h2, .destinations h2 { font-size:32px; margin-bottom:30px; }
-.cards { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
-.card { background:#f5f5f5; border-radius:8px; overflow:hidden; width:250px; text-align:center; }
-.card img { width:100%; height:150px; object-fit:cover; }
-.card h3 { padding:10px 0 5px 0; font-size:18px; }
-.card p { padding-bottom:10px; font-weight:bold; color:#0071c2; }
+/* Deals */
+.deals {
+  padding: 4rem 0;
+}
+.deals h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.deals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 1.5rem;
+}
+.deal-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+.deal-card h3 {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+}
+.deal-card p {
+  font-size: 0.9rem;
+  color: #0071c2;
+}
+
+/* Destinations */
+.destinations {
+  padding: 4rem 0;
+  background: #f7f7f7;
+}
+.destinations h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 1.5rem;
+}
+.destination-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+.destination-card h3 {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Property Types */
+.property-types {
+  padding: 4rem 0;
+}
+.property-types h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 1.5rem;
+}
+.property-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+.property-card h3 {
+  margin-top: 0.5rem;
+  text-align: center;
+}
 
 /* Footer */
-.footer { background:#003580; color:#fff; padding:30px 50px; text-align:center; }
-.footer-links a { color:#fff; margin:0 10px; text-decoration:none; font-size:14px; }
-.footer p { margin-top:15px; font-size:12px; }
+.footer {
+  background: #003580;
+  color: #fff;
+  padding: 2rem 0;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.footer p {
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
