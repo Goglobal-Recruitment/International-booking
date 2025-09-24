@@ -11,6 +11,9 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '
 import { MapPin, Calendar as CalendarIcon, Users, Plane, ArrowLeftRight, Search, ChevronDown } from 'lucide-react';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
 
+// Import hotels data
+import hotelsData from './hotels.json';
+
 // Format date function
 const format = (date: Date, formatStr: string) => {
   const month = date.toLocaleString('en', { month: 'short' });
@@ -118,41 +121,54 @@ export function SearchForm({ onSearch, user, activeTab = 'stays' }: SearchFormPr
         }
       }
 
+      // For stays, use hotels.json data
+      if (activeTab === 'stays') {
+        const hotelResults = hotelsData.map((hotel, index) => ({
+          id: index + 1,
+          type: 'stays',
+          title: hotel.name,
+          description: hotel.description,
+          price: parseInt(hotel.price.replace('ZAR ', '')),
+          image: hotel.image + '?not-from-cache-please=' + Date.now(), // Add cache-busting parameter for CORS
+          rating: 4.5 + (Math.random() * 0.5), // Random rating between 4.5-5.0
+          location: `${hotel.city}, ${hotel.country}`
+        }));
+        
+        onSearch(hotelResults);
+        return;
+      }
+
       // Fallback to mock results for other services
       const mockResults = [
         {
           id: 1,
           type: activeTab,
-          title: activeTab === 'stays' ? 'Luxury Resort & Spa' : activeTab === 'flights' ? 'Emirates Flight EK201' : activeTab === 'cars' ? 'BMW 3 Series' : activeTab === 'attractions' ? 'Table Mountain Tour' : 'Airport Transfer',
-          description: activeTab === 'stays' ? '5-star resort with ocean view' : activeTab === 'flights' ? 'Dubai to New York' : activeTab === 'cars' ? 'Premium sedan' : activeTab === 'attractions' ? 'Guided cable car experience' : 'Reliable airport taxi',
-          price: activeTab === 'stays' ? 299 : activeTab === 'flights' ? 899 : activeTab === 'cars' ? 89 : activeTab === 'attractions' ? 45 : 35,
-          image: activeTab === 'stays' 
-            ? 'https://images.unsplash.com/photo-1731080647266-85cf1bc27162?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMHJlc29ydHxlbnwxfHx8fDE3NTgyNjcwMTd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-            : activeTab === 'flights'
+          title: activeTab === 'flights' ? 'Emirates Flight EK201' : activeTab === 'cars' ? 'BMW 3 Series' : activeTab === 'attractions' ? 'Table Mountain Tour' : 'Airport Transfer',
+          description: activeTab === 'flights' ? 'Dubai to New York' : activeTab === 'cars' ? 'Premium sedan' : activeTab === 'attractions' ? 'Guided cable car experience' : 'Reliable airport taxi',
+          price: activeTab === 'flights' ? 899 : activeTab === 'cars' ? 89 : activeTab === 'attractions' ? 45 : 35,
+          image: (activeTab === 'flights'
             ? 'https://images.unsplash.com/photo-1647363377737-8d0ad7c2f494?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhaXJwbGFuZSUyMGZseWluZyUyMGJsdWUlMjBza3klMjBjbG91ZHN8ZW58MXx8fHwxNzU4MzAwOTA4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
             : activeTab === 'cars'
             ? 'https://images.unsplash.com/photo-1639060016125-dfde31ca1af8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBjYXIlMjByZW50YWwlMjB2ZWhpY2xlfGVufDF8fHx8MTc1ODMwMTA1MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
             : activeTab === 'attractions'
             ? 'https://images.unsplash.com/photo-1725291975516-a67056a8b519?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0b3VyaXN0JTIwYXR0cmFjdGlvbnMlMjBsYW5kbWFya3N8ZW58MXx8fHwxNzU4MzAxMDU1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-            : 'https://images.unsplash.com/photo-1564294913443-70baba520b36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhaXJwb3J0JTIwdGF4aSUyMHRyYW5zZmVyfGVufDF8fHx8MTc1ODI3MzkyN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+            : 'https://images.unsplash.com/photo-1564294913443-70baba520b36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhaXJwb3J0JTIwdGF4aSUyMHRyYW5zZmVyfGVufDF8fHx8MTc1ODI3MzkyN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral') + '?not-from-cache-please=' + Date.now(),
           rating: 4.5,
           location: destination || fromLocation || pickupLocation || 'Various locations'
         },
         {
           id: 2,
           type: activeTab,
-          title: activeTab === 'stays' ? 'Modern City Hotel' : activeTab === 'flights' ? 'Qatar Airways QR101' : activeTab === 'cars' ? 'Mercedes E-Class' : activeTab === 'attractions' ? 'Wine Tasting Tour' : 'Luxury Transfer',
-          description: activeTab === 'stays' ? 'Contemporary hotel in city center' : activeTab === 'flights' ? 'Doha to London' : activeTab === 'cars' ? 'Luxury sedan' : activeTab === 'attractions' ? 'Stellenbosch wine estates' : 'Premium airport service',
-          price: activeTab === 'stays' ? 199 : activeTab === 'flights' ? 1299 : activeTab === 'cars' ? 129 : activeTab === 'attractions' ? 75 : 55,
-          image: activeTab === 'stays' 
-            ? 'https://images.unsplash.com/photo-1694595437436-2ccf5a95591f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxtb2Rlcm4lMjBjaXR5JTIwaG90ZWx8ZW58MXx8fHwxNzU4Mjk5OTM2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-            : activeTab === 'flights'
+          title: activeTab === 'flights' ? 'Qatar Airways QR101' : activeTab === 'cars' ? 'Mercedes E-Class' : activeTab === 'attractions' ? 'Wine Tasting Tour' : 'Luxury Transfer',
+          description: activeTab === 'flights' ? 'Doha to London' : activeTab === 'cars' ? 'Luxury sedan' : activeTab === 'attractions' ? 'Stellenbosch wine estates' : 'Premium airport service',
+          price: activeTab === 'flights' ? 1299 : activeTab === 'cars' ? 129 : activeTab === 'attractions' ? 75 : 55,
+          image: (activeTab === 'flights'
             ? 'https://images.unsplash.com/photo-1647363377737-8d0ad7c2f494?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhaXJwbGFuZSUyMGZseWluZyUyMGJsdWUlMjBza3klMjBjbG91ZHN8ZW58MXx8fHwxNzU4MzAwOTA4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
             : activeTab === 'cars'
             ? 'https://images.unsplash.com/photo-1639060016125-dfde31ca1af8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBjYXIlMjByZW50YWwlMjB2ZWhpY2xlfGVufDF8fHx8MTc1ODMwMTA1MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
             : activeTab === 'attractions'
             ? 'https://images.unsplash.com/photo-1725291975516-a67056a8b519?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0b3VyaXN0JTIwYXR0cmFjdGlvbnMlMjBsYW5kbWFya3N8ZW58MXx8fHwxNzU4MzAxMDU1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-            : 'https://images.unsplash.com/photo-1564294913443-70baba520b36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhaXJwb3J0JTIwdGF4aSUyMHRyYW5zZmVyfGVufDF8fHx8MTc1ODI3MzkyN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+            : 'https://images.unsplash.com/photo-1564294913443-70baba520b36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhaXJwb3J0JTIwdGF4aSUyMHRyYW5zZmVyfGVufDF8fHx8MTc1ODI3MzkyN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral') + '?not-from-cache-please=' + Date.now(),
           rating: 4.2,
           location: destination || fromLocation || pickupLocation || 'Various locations'
         }
