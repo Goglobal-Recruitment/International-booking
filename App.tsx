@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
-import { Header } from "./components/Header";
-import { HeroSection } from "./components/HeroSection";
-import { SearchForm } from "./components/SearchForm";
-import { PropertyGrid } from "./components/PropertyGrid";
-import { MainContent } from "./components/MainContent";
-import { LoginModal } from "./components/LoginModal";
-import { RegisterModal } from "./components/RegisterModal";
-import { EmailVerificationModal } from "./components/EmailVerificationModal";
-import { PaymentPage } from "./components/PaymentPage";
-import { FlightBookingFlow } from "./components/FlightBookingFlow";
-import { BookingManagement } from "./components/BookingManagement";
-import { AdminPanel } from "./components/AdminPanel";
-import { Footer } from "./components/Footer";
-import { Toaster } from "./components/ui/sonner";
+import { Header } from "./Header";
+import { HeroSection } from "./HeroSection";
+import { SearchForm } from "./SearchForm";
+import { PropertyGrid } from "./PropertyGrid";
+import { MainContent } from "./MainContent";
+import { LoginModal } from "./LoginModal";
+import { RegisterModal } from "./RegisterModal";
+import { EmailVerificationModal } from "./EmailVerificationModal";
+import { PaymentPage } from "./PaymentPage";
+import { FlightBookingFlow } from "./FlightBookingFlow";
+import { BookingManagement } from "./BookingManagement";
+import { AdminPanel } from "./AdminPanel";
+import { Footer } from "./Footer";
+import { Toaster } from "./ui/sonner";
 import {
   SupabaseProvider,
   useSupabase,
-} from "./contexts/SupabaseContext";
+} from "./SupabaseContext";
 
 function AppContent() {
   const { supabase } = useSupabase();
