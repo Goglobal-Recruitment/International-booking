@@ -20,36 +20,56 @@ export function ExploreDestinations({ activeTab }: ExploreDestinationsProps) {
     }
   };
 
+  // Reliable image URLs with multiple fallbacks
   const destinations = [
     {
       name: 'Cape Town',
       properties: '2,543 properties',
-      image: `https://images.unsplash.com/photo-1679128991434-0c2e03d61bc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxDYXBlJTIwVG93biUyMFNvdXRoJTIwQWZyaWNhJTIwc2t5bGluZSUyMFRhYmxlJTIwTW91bnRhaW58ZW58MXx8fHwxNzU4MzU4NjQzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral&not-from-cache-please=${Date.now()}`
+      image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400&h=300&fit=crop&crop=center',
+      fallbacks: [
+        'https://images.unsplash.com/photo-1576485290814-1c72aa4bbb8e?w=400&h=300&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1555400082-8c5cd5b3c3d1?w=400&h=300&fit=crop&crop=center'
+      ]
     },
     {
       name: 'Durban',
       properties: '1,298 properties',
-      image: `https://images.unsplash.com/photo-1714573071461-7ba1c1d14982?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxEdXJiYW4lMjBTb3V0aCUyMEFmcmljYSUyMGJlYWNoZnJvbnR8ZW58MXx8fHwxNzU4MzU4NjQ3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral&not-from-cache-please=${Date.now()}`
+      image: 'https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=400&h=300&fit=crop&crop=center',
+      fallbacks: [
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center'
+      ]
     },
     {
       name: 'Johannesburg',
       properties: '1,892 properties',
-      image: `https://images.unsplash.com/photo-1636706519609-988babca3dd5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxKb2hhbm5lc2J1cmclMjBTb3V0aCUyMEFmcmljYSUyMHNreWxpbmV8ZW58MXx8fHwxNzU4MzU4NjUyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral&not-from-cache-please=${Date.now()}`
+      image: 'https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=400&h=300&fit=crop&crop=center',
+      fallbacks: [
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center'
+      ]
     },
     {
       name: 'Pretoria',
       properties: '743 properties',
-      image: `https://images.unsplash.com/photo-1646502407568-5a58572c5b3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxQcmV0b3JpYSUyMFNvdXRoJTIwQWZyaWNhJTIwVW5pb24lMjBCdWlsZGluZ3N8ZW58MXx8fHwxNzU4MzU4NjU2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral&not-from-cache-please=${Date.now()}`
+      image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&h=300&fit=crop&crop=center',
+      fallbacks: [
+        'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop&crop=center'
+      ]
     },
     {
       name: 'Bloemfontein',
       properties: '234 properties',
-      image: `https://images.unsplash.com/photo-1653505914751-93e8ac1123be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxCbG9lbWZvbnRlaW4lMjBTb3V0aCUyMEFmcmljYSUyMGNpdHlzY2FwZXxlbnwxfHx8fDE3NTgzNTg2NjF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral&not-from-cache-please=${Date.now()}`
+      image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop&crop=center',
+      fallbacks: [
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center'
+      ]
     },
     {
       name: 'Port Elizabeth',
       properties: '567 properties',
-      image: `https://images.unsplash.com/photo-1674918790398-9174123c1a2b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxQb3J0JTIwRWxpemFiZXRoJTIwU291dGglMjBBZnJpY2ElMjBiZWFjaGZyb250fGVufDF8fHx8MTc1ODM1ODY2NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral&not-from-cache-please=${Date.now()}`
+      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center',
+      fallbacks: [
+        'https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=400&h=300&fit=crop&crop=center'
+      ]
     }
   ];
 
@@ -62,17 +82,20 @@ export function ExploreDestinations({ activeTab }: ExploreDestinationsProps) {
       
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {destinations.map((destination, index) => (
-          <div key={index} className="relative group cursor-pointer">
-            <div className="relative overflow-hidden rounded-lg">
+          <div key={index} className="relative group cursor-pointer hover:transform hover:scale-105 transition-all duration-300">
+            <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-lg">
               <ImageWithFallback
                 src={destination.image}
-                alt={destination.name}
+                alt={`${destination.name} - Beautiful destination in South Africa`}
                 className="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-300"
+                propertyType="destination"
+                aspectRatio="landscape"
+                lazy={true}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-2 left-2 text-white">
-                <h3 className="font-semibold text-sm md:text-base">{destination.name}</h3>
-                <p className="text-xs opacity-90">{destination.properties}</p>
+                <h3 className="font-semibold text-sm md:text-base drop-shadow-lg">{destination.name}</h3>
+                <p className="text-xs opacity-90 drop-shadow">{destination.properties}</p>
               </div>
             </div>
           </div>
