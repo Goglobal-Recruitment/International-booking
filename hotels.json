@@ -5,7 +5,7 @@
     "country": "South Africa",
     "description": "5-star resort with ocean view",
     "price": "ZAR 299",
-    "image": "images/luxury-resort.jpg"
+    "image": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
   },
   {
     "name": "Modern City Hotel",
@@ -13,7 +13,7 @@
     "country": "South Africa",
     "description": "Contemporary hotel in city center",
     "price": "ZAR 199",
-    "image": "images/modern-hotel.jpg"
+    "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
   },
   {
     "name": "Boutique Hotel",
@@ -21,6 +21,6 @@
     "country": "South Africa",
     "description": "Charming boutique hotel in wine country",
     "price": "ZAR 349",
-    "image": "images/boutique-hotel.jpg"
+    "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
   }
 ]
