@@ -28,31 +28,34 @@ export function ExploreDestinations({ activeTab }: ExploreDestinationsProps) {
       image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400&h=300&fit=crop&crop=center',
       fallbacks: [
         'https://images.unsplash.com/photo-1576485290814-1c72aa4bbb8e?w=400&h=300&fit=crop&crop=center',
-        'https://images.unsplash.com/photo-1555400082-8c5cd5b3c3d1?w=400&h=300&fit=crop&crop=center'
+        'https://cf.bstatic.com/xdata/images/city/600x600/685532.jpg'
       ]
     },
     {
       name: 'Durban',
       properties: '1,298 properties',
-      image: 'https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=400&h=300&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1580746738099-78c2eebfd8a8?w=400&h=300&fit=crop&crop=center',
       fallbacks: [
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center'
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center',
+        'https://cf.bstatic.com/xdata/images/city/600x600/685535.jpg'
       ]
     },
     {
       name: 'Johannesburg',
       properties: '1,892 properties',
-      image: 'https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=400&h=300&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1577948000111-9c970dfe3743?w=400&h=300&fit=crop&crop=center',
       fallbacks: [
-        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center'
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center',
+        'https://cf.bstatic.com/xdata/images/city/600x600/685534.jpg'
       ]
     },
     {
       name: 'Pretoria',
       properties: '743 properties',
-      image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&h=300&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=400&h=300&fit=crop&crop=center',
       fallbacks: [
-        'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop&crop=center'
+        'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop&crop=center',
+        'https://cf.bstatic.com/xdata/images/city/600x600/685538.jpg'
       ]
     },
     {
@@ -60,18 +63,25 @@ export function ExploreDestinations({ activeTab }: ExploreDestinationsProps) {
       properties: '234 properties',
       image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop&crop=center',
       fallbacks: [
-        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center'
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=300&fit=crop&crop=center'
       ]
     },
     {
       name: 'Port Elizabeth',
       properties: '567 properties',
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop&crop=center',
       fallbacks: [
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center',
         'https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=400&h=300&fit=crop&crop=center'
       ]
     }
   ];
+
+  const handleDestinationClick = (destinationName: string) => {
+    console.log(`Searching for ${destinationName}...`);
+    // Add your navigation logic here
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -79,10 +89,14 @@ export function ExploreDestinations({ activeTab }: ExploreDestinationsProps) {
         <h2 className="text-2xl font-bold text-gray-900 mb-2">{getRegionName()}</h2>
         <p className="text-gray-600">These popular destinations have a lot to offer</p>
       </div>
-      
+       
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {destinations.map((destination, index) => (
-          <div key={index} className="relative group cursor-pointer hover:transform hover:scale-105 transition-all duration-300">
+          <div 
+            key={index} 
+            className="relative group cursor-pointer hover:transform hover:scale-105 transition-all duration-300"
+            onClick={() => handleDestinationClick(destination.name)}
+          >
             <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-lg">
               <ImageWithFallback
                 src={destination.image}
