@@ -4,13 +4,16 @@
   "description": "A comprehensive travel booking platform that replicates Booking.com's functionality",
   "private": true,
   "type": "module",
+  "homepage": "https://goglobal-recruitment.github.io/International-booking",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
