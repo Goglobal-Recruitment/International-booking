@@ -1,7 +1,7 @@
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { Clock, Tag, Star, MapPin, Percent } from 'lucide-react';
+import { Clock, Tag, Star, MapPin, Percent, Heart } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface Deal {
@@ -98,112 +98,133 @@ export function DealsOffers({ onDealSelect }: DealsOffersProps) {
     {
       id: 6,
       title: 'Urban Boutique Hotel',
-      description: 'Stylish boutique hotel with rooftop terrace',
-      image: 'https://images.unsplash.com/photo-1652286957792-3dc0e68fae83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsb25kb24lMjB0cmF2ZWwlMjBkZXN0aW5hdGlvbnxlbnwxfHx8fDE3NTgzMDA1MTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      originalPrice: 280,
-      discountedPrice: 210,
+      description: 'Stylish boutique hotel in trendy neighborhood',
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxib3V0aXF1ZSUyMGhvdGVsJTIwbG9iYnl8ZW58MXx8fHwxNzU4MzAwNTI2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      originalPrice: 200,
+      discountedPrice: 150,
       discountPercentage: 25,
-      location: 'London, UK',
+      location: 'Berlin, Germany',
       rating: 4.4,
-      dealType: 'flash',
-      expiresIn: '6 hours',
+      dealType: 'member',
+      expiresIn: '4 days',
       featured: false
     }
   ];
 
-  const getDealTypeInfo = (dealType: string) => {
-    switch (dealType) {
-      case 'flash':
-        return { label: 'Flash Sale', color: 'bg-red-500', icon: Clock };
-      case 'early-bird':
-        return { label: 'Early Bird', color: 'bg-green-500', icon: Tag };
-      case 'last-minute':
-        return { label: 'Last Minute', color: 'bg-orange-500', icon: Clock };
-      case 'member':
-        return { label: 'Member Deal', color: 'bg-purple-500', icon: Star };
-      default:
-        return { label: 'Special Deal', color: 'bg-blue-500', icon: Percent };
-    }
-  };
-
   const featuredDeals = deals.filter(deal => deal.featured);
   const regularDeals = deals.filter(deal => !deal.featured);
 
+  const getDealTypeInfo = (type: Deal['dealType']) => {
+    switch (type) {
+      case 'flash':
+        return { label: 'Flash Sale', color: 'bg-red-600', icon: Clock };
+      case 'early-bird':
+        return { label: 'Early Bird', color: 'bg-green-600', icon: Tag };
+      case 'last-minute':
+        return { label: 'Last Minute', color: 'bg-orange-600', icon: Clock };
+      case 'member':
+        return { label: 'Member Deal', color: 'bg-purple-600', icon: Star };
+      default:
+        return { label: 'Special Offer', color: 'bg-blue-600', icon: Percent };
+    }
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-6xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="text-center">
-          <h2 className="text-3xl mb-4">Special deals & offers</h2>
-          <p className="text-gray-600 text-lg">Limited time offers you don't want to miss</p>
+    <div className="container mx-auto px-4 py-8 bg-gray-50">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Deals & Offers</h2>
+          <p className="text-gray-600">Promotions, deals, and special offers for you</p>
         </div>
 
         {/* Featured Deals */}
         {featuredDeals.length > 0 && (
-          <div>
-            <h3 className="text-xl mb-6">🔥 Featured deals</h3>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="mb-12">
+            <h3 className="text-xl font-bold mb-6 text-gray-900">Featured deals</h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {featuredDeals.map((deal) => {
                 const dealInfo = getDealTypeInfo(deal.dealType);
                 const Icon = dealInfo.icon;
                 
                 return (
-                  <Card key={deal.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 border-yellow-200">
+                  <Card key={deal.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 group cursor-pointer bg-white border-0 shadow-lg">
                     <div className="relative">
-                      <div className="relative h-64">
-                        <ImageWithFallback
-                          src={deal.image}
-                          alt={deal.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                        <div className="absolute top-4 left-4 flex space-x-2">
-                          <Badge className={`${dealInfo.color} text-white`}>
-                            <Icon className="w-3 h-3 mr-1" />
-                            {dealInfo.label}
-                          </Badge>
-                          <Badge className="bg-red-600 text-white">
-                            -{deal.discountPercentage}%
-                          </Badge>
-                        </div>
-                        <div className="absolute top-4 right-4">
-                          <Badge variant="secondary" className="bg-white/90 text-gray-900">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {deal.expiresIn} left
-                          </Badge>
-                        </div>
-                        <div className="absolute bottom-4 left-4 text-white">
-                          <h3 className="text-xl font-bold mb-1">{deal.title}</h3>
-                          <div className="flex items-center space-x-2 text-sm">
+                      <ImageWithFallback
+                        src={deal.image}
+                        alt={deal.title}
+                        className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                        propertyType="hotel"
+                        aspectRatio="landscape"
+                      />
+                      
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      
+                      {/* Top badges */}
+                      <div className="absolute top-4 left-4 flex space-x-2">
+                        <Badge className={`${dealInfo.color} text-white text-sm font-medium`}>
+                          <Icon className="w-4 h-4 mr-1" />
+                          {dealInfo.label}
+                        </Badge>
+                        <Badge className="bg-red-600 text-white text-sm font-bold">
+                          -{deal.discountPercentage}%
+                        </Badge>
+                      </div>
+                      
+                      {/* Timer */}
+                      <div className="absolute top-4 right-4">
+                        <Badge className="bg-white/95 text-gray-900 text-sm font-medium">
+                          <Clock className="w-4 h-4 mr-1" />
+                          {deal.expiresIn}
+                        </Badge>
+                      </div>
+                      
+                      {/* Heart icon */}
+                      <button className="absolute top-4 right-20 p-2 bg-white/80 rounded-full hover:bg-white transition-colors">
+                        <Heart className="w-4 h-4 text-gray-600" />
+                      </button>
+                      
+                      {/* Bottom content overlay */}
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="text-white font-bold text-xl mb-2 group-hover:text-[#ffd700] transition-colors">
+                          {deal.title}
+                        </h3>
+                        <div className="flex items-center space-x-4 text-white/90 text-sm">
+                          <div className="flex items-center space-x-1">
                             <MapPin className="w-4 h-4" />
                             <span>{deal.location}</span>
-                            <div className="flex items-center space-x-1">
-                              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                              <span>{deal.rating}</span>
-                            </div>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <Star className="w-4 h-4 fill-current text-yellow-400" />
+                            <span>{deal.rating}</span>
                           </div>
                         </div>
                       </div>
                     </div>
                     
                     <CardContent className="p-6">
-                      <p className="text-gray-600 mb-4">{deal.description}</p>
+                      <p className="text-gray-600 mb-4 text-sm overflow-hidden" style={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical' as const,
+                        lineHeight: '1.4em',
+                        maxHeight: '2.8em'
+                      }}>{deal.description}</p>
                       
                       <div className="flex items-center justify-between">
                         <div>
-                          <div className="flex items-center space-x-2">
-                            <span className="text-2xl font-bold text-green-600">${deal.discountedPrice}</span>
-                            <span className="text-lg text-gray-500 line-through">${deal.originalPrice}</span>
+                          <div className="flex items-baseline space-x-2">
+                            <span className="text-2xl font-bold text-[#0071c2]">ZAR {deal.discountedPrice}</span>
+                            <span className="text-lg text-gray-500 line-through">ZAR {deal.originalPrice}</span>
                           </div>
                           <span className="text-sm text-gray-600">per night</span>
                         </div>
                         
                         <Button 
                           onClick={() => onDealSelect(deal)}
-                          className="bg-blue-600 hover:bg-blue-700"
-                          size="lg"
+                          className="bg-[#0071c2] hover:bg-[#003580] text-white font-medium px-6 py-2"
                         >
-                          Book now
+                          See availability
                         </Button>
                       </div>
                     </CardContent>
@@ -216,56 +237,85 @@ export function DealsOffers({ onDealSelect }: DealsOffersProps) {
 
         {/* Regular Deals */}
         <div>
-          <h3 className="text-xl mb-6">More great deals</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <h3 className="text-xl font-bold mb-6 text-gray-900">More great deals</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {regularDeals.map((deal) => {
               const dealInfo = getDealTypeInfo(deal.dealType);
               const Icon = dealInfo.icon;
               
               return (
-                <Card key={deal.id} className="overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer">
-                  <div className="relative h-48">
+                <Card key={deal.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer bg-white border border-gray-200">
+                  <div className="relative">
                     <ImageWithFallback
                       src={deal.image}
                       alt={deal.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      propertyType="hotel"
+                      aspectRatio="landscape"
                     />
+                    
+                    {/* Top badges */}
                     <div className="absolute top-3 left-3 flex space-x-2">
-                      <Badge className={`${dealInfo.color} text-white text-xs`}>
+                      <Badge className={`${dealInfo.color} text-white text-xs font-medium`}>
                         <Icon className="w-3 h-3 mr-1" />
                         {dealInfo.label}
                       </Badge>
-                      <Badge className="bg-red-600 text-white text-xs">
+                      <Badge className="bg-red-600 text-white text-xs font-bold">
                         -{deal.discountPercentage}%
                       </Badge>
                     </div>
+                    
+                    {/* Timer */}
                     <div className="absolute top-3 right-3">
-                      <Badge variant="secondary" className="bg-white/90 text-gray-900 text-xs">
+                      <Badge className="bg-white/95 text-gray-900 text-xs font-medium">
                         <Clock className="w-3 h-3 mr-1" />
                         {deal.expiresIn}
                       </Badge>
                     </div>
+                    
+                    {/* Heart icon */}
+                    <button className="absolute top-3 right-16 p-1.5 bg-white/80 rounded-full hover:bg-white transition-colors">
+                      <Heart className="w-3 h-3 text-gray-600" />
+                    </button>
                   </div>
                   
                   <CardContent className="p-4">
                     <div className="mb-3">
-                      <h3 className="font-medium text-lg mb-1">{deal.title}</h3>
-                      <div className="flex items-center space-x-2 text-sm text-gray-600 mb-2">
+                      <h3 className="font-semibold text-sm text-gray-900 mb-1 overflow-hidden group-hover:text-[#0071c2] transition-colors" style={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical' as const,
+                        lineHeight: '1.4em',
+                        maxHeight: '2.8em'
+                      }}>
+                        {deal.title}
+                      </h3>
+                      <div className="flex items-center space-x-2 text-xs text-gray-600 mb-2">
                         <MapPin className="w-3 h-3" />
-                        <span>{deal.location}</span>
+                        <span className="truncate">{deal.location}</span>
                         <div className="flex items-center space-x-1">
-                          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                          <span>{deal.rating}</span>
+                          <div className="bg-[#003580] text-white text-xs px-1 py-0.5 rounded font-bold">
+                            {deal.rating}
+                          </div>
+                          <span className="text-xs">
+                            {deal.rating >= 4.5 ? 'Superb' : 'Very good'}
+                          </span>
                         </div>
                       </div>
-                      <p className="text-gray-600 text-sm">{deal.description}</p>
+                      <p className="text-gray-600 text-xs overflow-hidden" style={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical' as const,
+                        lineHeight: '1.4em',
+                        maxHeight: '2.8em'
+                      }}>{deal.description}</p>
                     </div>
                     
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-end justify-between">
                       <div>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-xl font-bold text-green-600">${deal.discountedPrice}</span>
-                          <span className="text-sm text-gray-500 line-through">${deal.originalPrice}</span>
+                        <div className="flex items-baseline space-x-1">
+                          <span className="text-lg font-bold text-[#0071c2]">ZAR {deal.discountedPrice}</span>
+                          <span className="text-sm text-gray-500 line-through">ZAR {deal.originalPrice}</span>
                         </div>
                         <span className="text-xs text-gray-600">per night</span>
                       </div>
@@ -273,9 +323,9 @@ export function DealsOffers({ onDealSelect }: DealsOffersProps) {
                       <Button 
                         onClick={() => onDealSelect(deal)}
                         size="sm"
-                        className="bg-blue-600 hover:bg-blue-700"
+                        className="bg-[#0071c2] hover:bg-[#003580] text-white font-medium text-xs px-3 py-1"
                       >
-                        Book
+                        Book now
                       </Button>
                     </div>
                   </CardContent>
@@ -285,22 +335,14 @@ export function DealsOffers({ onDealSelect }: DealsOffersProps) {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-          <CardContent className="p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">Don't miss out on these amazing deals!</h3>
-            <p className="text-lg mb-6 opacity-90">
-              Sign up for our newsletter to get notified about exclusive offers and flash sales
-            </p>
-            <Button 
-              variant="secondary" 
-              size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100"
-            >
-              Subscribe to deals
-            </Button>
-          </CardContent>
-        </Card>
+        {/* Call to action */}
+        <div className="text-center mt-12 bg-gradient-to-r from-[#0071c2] to-[#003580] rounded-lg p-8 text-white">
+          <h3 className="text-2xl font-bold mb-2">Don't miss out on these amazing deals!</h3>
+          <p className="mb-4 text-blue-100">Sign up for our newsletter to get exclusive offers and early access to flash sales.</p>
+          <Button className="bg-white text-[#0071c2] hover:bg-gray-100 font-medium px-8 py-3">
+            Subscribe now
+          </Button>
+        </div>
       </div>
     </div>
   );

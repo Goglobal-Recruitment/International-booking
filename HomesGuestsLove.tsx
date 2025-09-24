@@ -1,5 +1,5 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { Heart } from 'lucide-react';
+import { Heart, Star } from 'lucide-react';
 
 interface HomesGuestsLoveProps {
   activeTab: string;
@@ -17,7 +17,8 @@ export function HomesGuestsLove({ activeTab }: HomesGuestsLoveProps) {
       rating: 9.0,
       reviews: 128,
       price: 'ZAR 1,451',
-      priceUnit: 'night'
+      priceUnit: 'night',
+      genius: true
     },
     {
       id: 2,
@@ -27,7 +28,8 @@ export function HomesGuestsLove({ activeTab }: HomesGuestsLoveProps) {
       rating: 8.9,
       reviews: 243,
       price: 'ZAR 1,820',
-      priceUnit: 'night'
+      priceUnit: 'night',
+      genius: false
     },
     {
       id: 3,
@@ -37,7 +39,8 @@ export function HomesGuestsLove({ activeTab }: HomesGuestsLoveProps) {
       rating: 9.5,
       reviews: 87,
       price: 'ZAR 3,200',
-      priceUnit: 'night'
+      priceUnit: 'night',
+      genius: true
     },
     {
       id: 4,
@@ -47,60 +50,98 @@ export function HomesGuestsLove({ activeTab }: HomesGuestsLoveProps) {
       rating: 8.7,
       reviews: 156,
       price: 'ZAR 1,890',
-      priceUnit: 'night'
+      priceUnit: 'night',
+      genius: false
     }
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">Homes guests love</h2>
-        </div>
-        <a href="#" className="text-sm text-[#0071c2] hover:underline">Show more</a>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {homes.map((home) => (
-          <div key={home.id} className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-            <div className="relative">
-              <ImageWithFallback
-                src={home.image}
-                alt={home.name}
-                className="w-full h-48 object-cover"
-              />
-              <button className="absolute top-3 right-3 p-2 bg-white/80 rounded-full hover:bg-white transition-colors">
-                <Heart className="w-4 h-4 text-gray-600" />
-              </button>
-            </div>
-            
-            <div className="p-4">
-              <h3 className="font-semibold text-sm text-gray-900 mb-1 line-clamp-2">
-                {home.name}
-              </h3>
-              <p className="text-xs text-gray-600 mb-2">{home.location}</p>
-              
-              <div className="flex items-center gap-2 mb-3">
-                <div className="flex items-center gap-1">
-                  <div className="bg-[#003580] text-white text-xs px-1.5 py-0.5 rounded">
-                    {home.rating}
-                  </div>
-                  <span className="text-xs text-gray-600">Superb</span>
-                </div>
-                <span className="text-xs text-gray-500">• {home.reviews} reviews</span>
-              </div>
-              
-              <div className="flex items-end justify-between">
-                <div></div>
-                <div className="text-right">
-                  <div className="text-xs text-gray-500">Starting from</div>
-                  <div className="font-bold text-sm text-gray-900">{home.price}</div>
-                  <div className="text-xs text-gray-500">per {home.priceUnit}</div>
-                </div>
-              </div>
-            </div>
+    <div className="container mx-auto px-4 py-8 bg-white">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Homes guests love</h2>
           </div>
-        ))}
+          <a href="#" className="text-sm text-[#0071c2] hover:underline font-medium">Show all properties</a>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {homes.map((home) => (
+            <div key={home.id} className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group border border-gray-200">
+              <div className="relative">
+                <ImageWithFallback
+                  src={home.image}
+                  alt={home.name}
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  propertyType="apartment"
+                  aspectRatio="landscape"
+                />
+                
+                {/* Heart button */}
+                <button className="absolute top-3 right-3 p-2 bg-white/80 rounded-full hover:bg-white transition-colors shadow-sm">
+                  <Heart className="w-4 h-4 text-gray-600 hover:text-red-500 transition-colors" />
+                </button>
+                
+                {/* Genius badge */}
+                {home.genius && (
+                  <div className="absolute top-3 left-3">
+                    <div className="bg-[#0071c2] text-white px-2 py-1 rounded text-xs font-bold flex items-center">
+                      <Star className="w-3 h-3 mr-1 fill-current" />
+                      Genius
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <div className="p-4">
+                <h3 className="font-semibold text-sm text-gray-900 mb-1 overflow-hidden" style={{
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical' as const,
+                  lineHeight: '1.4em',
+                  maxHeight: '2.8em'
+                }}>
+                  {home.name}
+                </h3>
+                <p className="text-xs text-gray-600 mb-3 truncate">{home.location}</p>
+                
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center gap-1">
+                    <div className="bg-[#003580] text-white text-xs px-1.5 py-0.5 rounded font-bold">
+                      {home.rating}
+                    </div>
+                    <span className="text-xs text-gray-600 font-medium">
+                      {home.rating >= 9 ? 'Superb' : home.rating >= 8.5 ? 'Fabulous' : home.rating >= 8 ? 'Very good' : 'Good'}
+                    </span>
+                  </div>
+                  <span className="text-xs text-gray-500">• {home.reviews} reviews</span>
+                </div>
+                
+                <div className="flex items-end justify-between">
+                  <div className="flex-1">
+                    {home.genius && (
+                      <div className="text-xs text-green-600 font-medium mb-1">
+                        10% Genius discount
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs text-gray-500 mb-1">Starting from</div>
+                    <div className="font-bold text-sm text-gray-900">{home.price}</div>
+                    <div className="text-xs text-gray-500">per {home.priceUnit}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Show more button */}
+        <div className="text-center mt-8">
+          <button className="bg-[#0071c2] hover:bg-[#003580] text-white font-medium px-8 py-3 rounded transition-colors">
+            Show more properties
+          </button>
+        </div>
       </div>
     </div>
   );
