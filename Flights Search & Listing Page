@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flights — Booking.com International</title>
+<link rel="stylesheet" href="css/flights.css">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <img src="img/booking-logo.png" alt="Booking.com" class="logo">
+        <nav class="nav-links">
+            <a href="#">Register</a>
+            <a href="#">Sign in</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <!-- Flight Search Form -->
+    <section class="search-section">
+        <form id="flight-search-form">
+            <div class="form-row">
+                <div class="field">
+                    <label for="from">From</label>
+                    <input type="text" id="from" placeholder="City or airport" required>
+                </div>
+                <div class="field">
+                    <label for="to">To</label>
+                    <input type="text" id="to" placeholder="City or airport" required>
+                </div>
+                <div class="field">
+                    <label for="depart">Departure</label>
+                    <input type="date" id="depart" required>
+                </div>
+                <div class="field return-field">
+                    <label for="return">Return</label>
+                    <input type="date" id="return">
+                </div>
+                <div class="field">
+                    <label for="passengers">Passengers</label>
+                    <select id="passengers">
+                        <option value="1">1 adult</option>
+                        <option value="2">2 adults</option>
+                        <option value="3">3 adults</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="cabin">Class</label>
+                    <select id="cabin">
+                        <option value="economy">Economy</option>
+                        <option value="business">Business</option>
+                        <option value="first">First</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <label><input type="checkbox" id="direct"> Direct flights only</label>
+                <button type="submit" class="btn primary">Search</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Filters & Sorting -->
+    <section class="filters-section">
+        <div class="filters">
+            <label><input type="checkbox" class="stops-filter" value="0"> Non-stop</label>
+            <label><input type="checkbox" class="stops-filter" value="1"> 1 Stop</label>
+            <label><input type="checkbox" class="stops-filter" value="2"> 2+ Stops</label>
+        </div>
+        <div class="filters">
+            <label><input type="checkbox" class="airline-filter" value="South African Airways"> South African Airways</label>
+            <label><input type="checkbox" class="airline-filter" value="Emirates"> Emirates</label>
+            <label><input type="checkbox" class="airline-filter" value="British Airways"> British Airways</label>
+        </div>
+        <div class="sort">
+            <label for="sort">Sort by:</label>
+            <select id="sort">
+                <option value="price">Price</option>
+                <option value="duration">Duration</option>
+                <option value="departure">Departure</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Flights Results -->
+    <section class="flights-results container">
+        <!-- Flight cards populated dynamically -->
+    </section>
+</main>
+
+<footer>
+    <img src="img/booking-logo.png" alt="Booking.com Logo">
+    <p>&copy; 2025 Booking.com™ International</p>
+</footer>
+
+<script src="js/flights.js"></script>
+</body>
+</html>
