@@ -4,257 +4,175 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Flights — Search</title>
-<!-- Scoped styles only inside #booking-mirror -->
 <style>
-#booking-mirror{font-family: "Helvetica Neue", Arial, sans-serif;color:#222}
-#booking-mirror .hero{background:linear-gradient(180deg,#0b4a84,#0b3b72);color:#fff;padding:56px 12px 36px;text-align:center}
-#booking-mirror .container{max-width:1100px;margin:0 auto;padding:20px}
-#booking-mirror .search-card{background:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(12,35,64,0.12);padding:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;transform:translateY(-36px)}
-#booking-mirror .field{flex:1;min-width:160px}
-#booking-mirror label{display:block;font-size:12px;color:#667;letter-spacing:.02em;margin-bottom:6px}
-#booking-mirror input, #booking-mirror select, #booking-mirror button{width:100%;padding:10px;border-radius:6px;border:1px solid #d9e2ec;font-size:14px;background:#fff}
-#booking-mirror button.primary{background:#ffb400;border:none;color:#0b2b4a;font-weight:700;cursor:pointer}
-#booking-mirror .results{margin-top:18px}
-#booking-mirror .flight-card{display:flex;gap:12px;align-items:center;border-radius:8px;padding:14px;background:#fff;border:1px solid #eef6fb;margin-bottom:12px;justify-content:space-between}
-#booking-mirror .flight-left{display:flex;gap:12px;align-items:center}
-#booking-mirror .airline-badge{background:#f1f8ff;padding:8px 10px;border-radius:6px;font-weight:700;color:#0b4a84}
-#booking-mirror .flight-meta{min-width:180px;text-align:right}
-#booking-mirror .small{font-size:13px;color:#666}
-#booking-mirror .pill{background:#eef7ff;padding:6px 8px;border-radius:6px;font-size:13px;color:#0b4a84;display:inline-block}
-#booking-mirror .filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-#booking-mirror .filter{padding:8px 12px;border-radius:6px;border:1px solid #e7eef8;background:#fbfeff;cursor:pointer;font-size:14px}
-#booking-mirror .seat-btn{display:inline-block;padding:9px 12px;border-radius:6px;border:0;background:#0b4a84;color:#fff;cursor:pointer}
-@media (max-width:820px){ #booking-mirror .search-card{flex-direction:column;align-items:stretch;padding:14px} #booking-mirror .flight-meta{text-align:left} }
+/* Global */
+body {margin:0;font-family:"Helvetica Neue",Arial,sans-serif;color:#222;background:#f4f6f8;}
+#booking-mirror{max-width:1100px;margin:0 auto;padding:20px;}
+.hero{background:linear-gradient(180deg,#0b4a84,#0b3b72);color:#fff;padding:56px 12px 36px;text-align:center;}
+.hero h1{margin:0;font-size:32px;letter-spacing:.01em;}
+.hero p{margin:6px 0 0;opacity:.95;}
+.search-card{background:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(12,35,64,0.12);padding:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;transform:translateY(-36px);}
+.search-card .field{flex:1;min-width:160px;}
+.search-card label{display:block;font-size:12px;color:#667;letter-spacing:.02em;margin-bottom:6px;}
+.search-card input, .search-card select, .search-card button{width:100%;padding:10px;border-radius:6px;border:1px solid #d9e2ec;font-size:14px;background:#fff;}
+.search-card button.primary{background:#ffb400;border:none;color:#0b2b4a;font-weight:700;cursor:pointer;}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;}
+.filter{padding:8px 12px;border-radius:6px;border:1px solid #e7eef8;background:#fbfeff;cursor:pointer;font-size:14px;}
+.results{margin-top:18px;}
+.flight-card{display:flex;justify-content:space-between;gap:12px;padding:16px;background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition: transform 0.15s ease, box-shadow 0.15s ease;align-items:center;}
+.flight-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.12);}
+.flight-left{display:flex;gap:12px;align-items:center;min-width:360px;}
+.airline-badge{display:flex;align-items:center;gap:8px;font-weight:700;color:#0b4a84;}
+.airline-badge img{height:28px;width:auto;border-radius:4px;}
+.flight-info{display:flex;flex-direction:column;gap:6px;}
+.flight-info .small{font-size:13px;color:#666;}
+.flight-meta{text-align:right;min-width:140px;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;}
+.seat-btn{min-width:90px;text-align:center;display:inline-block;padding:9px 12px;border-radius:6px;border:0;background:#0b4a84;color:#fff;cursor:pointer;font-weight:700;}
+@media (max-width:820px){
+  .search-card{flex-direction:column;align-items:stretch;}
+  .flight-card{flex-direction:column;align-items:stretch;}
+  .flight-meta{text-align:left;align-items:flex-start;}
+}
 </style>
 </head>
 <body>
 <div id="booking-mirror">
   <header class="hero" role="banner">
-    <div class="container">
-      <div style="max-width:880px;margin:0 auto">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
-          <div style="text-align:left">
-            <h1 style="margin:0;font-size:32px;letter-spacing:.01em">Compare and book flights with ease</h1>
-            <p style="margin:6px 0 0;opacity:.95">Search and choose — live-like demo (dummy data updated daily at 06:00 local time)</p>
-          </div>
-          <div style="min-width:120px;text-align:right">
-            <!-- small nav placeholders to visually mirror booking header -->
-            <div style="color:#cfe7ff;font-weight:700;padding:6px 10px;border-radius:6px;background:rgba(255,255,255,0.06);display:inline-block">Flights</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <h1>Compare and book flights with ease</h1>
+    <p>Search and choose — live-like demo (dummy data updated daily at 06:00 local time)</p>
   </header>
 
-  <main class="container" role="main" aria-label="Flight booking area">
-    <form id="flight-search-form" class="search-card" aria-label="Flight search" novalidate>
-      <div class="field">
-        <label for="from">From</label>
-        <input id="from" name="from" placeholder="City or airport (e.g. Johannesburg)" autocomplete="off" />
-      </div>
-      <div class="field">
-        <label for="to">To</label>
-        <input id="to" name="to" placeholder="City or airport (e.g. London)" autocomplete="off" />
-      </div>
-      <div style="min-width:140px">
-        <label for="depart">Depart</label>
-        <input id="depart" name="depart" type="date" />
-      </div>
-      <div style="min-width:140px">
-        <label for="return">Return</label>
-        <input id="return" name="return" type="date" />
-      </div>
-      <div style="width:140px">
-        <label for="passengers">Passengers</label>
-        <select id="passengers" name="passengers"><option value="1">1 adult</option><option value="2">2 adults</option><option value="3">3 adults</option></select>
-      </div>
-      <div style="width:120px">
-        <label for="cabin">Class</label>
-        <select id="cabin" name="cabin"><option>Economy</option><option>Premium Economy</option><option>Business</option></select>
-      </div>
-      <div style="width:120px">
-        <label style="visibility:hidden">search</label>
-        <button id="searchBtn" class="primary" type="submit">Search</button>
-      </div>
-    </form>
+  <form id="flight-search-form" class="search-card" aria-label="Flight search" novalidate>
+    <div class="field"><label for="from">From</label><input id="from" name="from" placeholder="City or airport" autocomplete="off"/></div>
+    <div class="field"><label for="to">To</label><input id="to" name="to" placeholder="City or airport" autocomplete="off"/></div>
+    <div style="min-width:140px"><label for="depart">Depart</label><input id="depart" name="depart" type="date"/></div>
+    <div style="min-width:140px"><label for="return">Return</label><input id="return" name="return" type="date"/></div>
+    <div style="width:140px"><label for="passengers">Passengers</label><select id="passengers" name="passengers"><option value="1">1 adult</option><option value="2">2 adults</option><option value="3">3 adults</option></select></div>
+    <div style="width:120px"><label for="cabin">Class</label><select id="cabin" name="cabin"><option>Economy</option><option>Premium Economy</option><option>Business</option></select></div>
+    <div style="width:120px"><label style="visibility:hidden">search</label><button id="searchBtn" class="primary" type="submit">Search</button></div>
+  </form>
 
-    <div class="filters" role="toolbar" aria-label="Filters">
-      <div class="filter" data-filter="all">All</div>
-      <div class="filter" data-filter="direct">Direct</div>
-      <div class="filter" data-filter="1stop">1 stop</div>
-      <div class="filter" data-filter="cheapest">Cheapest</div>
-      <div class="filter" data-filter="shortest">Shortest</div>
-    </div>
+  <div class="filters" role="toolbar" aria-label="Filters">
+    <div class="filter" data-filter="all">All</div>
+    <div class="filter" data-filter="direct">Direct</div>
+    <div class="filter" data-filter="1stop">1 stop</div>
+    <div class="filter" data-filter="cheapest">Cheapest</div>
+    <div class="filter" data-filter="shortest">Shortest</div>
+  </div>
 
-    <section id="results" class="results" aria-live="polite" aria-label="Search results">
-      <!-- results inserted here -->
-    </section>
-  </main>
+  <section id="results" class="results" aria-live="polite"></section>
 </div>
 
 <script>
-/*
-  Encapsulated flight search + result UI.
-  - Uses localStorage to store generated dummy flights + last refresh timestamp.
-  - Refreshes dataset automatically if last refresh < today at 06:00 local time.
-  - Does NOT write to the global document other than children of #booking-mirror.
-*/
 (function(){
-  const STORAGE_KEY = 'booking_mirror_flights_v1';
-  const TS_KEY = 'booking_mirror_last_refresh_v1';
+  const STORAGE_KEY = 'booking_mirror_flights_v2';
+  const TS_KEY = 'booking_mirror_last_refresh_v2';
   const resultsEl = document.getElementById('results');
+  const airlines = [
+    {name:'AirElite', logo:'https://i.ibb.co/qxk1Dz2/airelite.png'},
+    {name:'BlueSky Air', logo:'https://i.ibb.co/tXtF6Np/bluesky.png'},
+    {name:'Atlas Wings', logo:'https://i.ibb.co/qk6G8mJ/atlaswings.png'},
+    {name:'SkyConnect', logo:'https://i.ibb.co/dkK4Xy1/skyconnect.png'}
+  ];
+  const airportsSA = ['Johannesburg (JNB)','Cape Town (CPT)','Durban (DUR)'];
+  const foreign = ['London (LHR)','Paris (CDG)','Dubai (DXB)','Amsterdam (AMS)','Frankfurt (FRA)','Nairobi (NBO)'];
 
-  function generateDummyFlights(){
-    const airportsSA = ['Johannesburg (JNB)','Cape Town (CPT)','Durban (DUR)'];
-    const foreign = ['London (LHR)','Paris (CDG)','Dubai (DXB)','Amsterdam (AMS)','Frankfurt (FRA)','Nairobi (NBO)'];
-    const airlines = ['AirElite','BlueSky Air','Atlas Wings','SkyConnect'];
-    const out = [];
-    const now = new Date();
+  function todayAt6(){const now=new Date();return new Date(now.getFullYear(), now.getMonth(), now.getDate(),6,0,0,0);}
+  function shouldRefresh(){const lastRaw=localStorage.getItem(TS_KEY);if(!lastRaw) return true;return new Date(lastRaw)<todayAt6();}
+  
+  function generateFlights(){
+    const out=[]; const now=new Date();
     for(let i=0;i<18;i++){
-      const depart = new Date(now.getTime() + (i+1)*3600*1000*4 + Math.floor(Math.random()*6)*3600000);
-      const duration = 8 + Math.floor(Math.random()*10);
-      const base = 125000 + Math.floor(Math.random()*80000);
+      const depart=new Date(now.getTime()+((i+1)*4*3600000)+Math.floor(Math.random()*6)*3600000);
+      const duration=8+Math.floor(Math.random()*10);
+      const base=125000+Math.floor(Math.random()*80000);
+      const airline=airlines[i%airlines.length];
       out.push({
-        id: 'f'+Date.now().toString(36)+'_'+i,
-        airline: airlines[i % airlines.length],
-        from: airportsSA[i % airportsSA.length],
-        to: foreign[(i+2) % foreign.length],
-        departISO: depart.toISOString(),
-        arriveISO: new Date(depart.getTime() + duration*3600000).toISOString(),
-        duration: duration + 'h',
-        stops: Math.random()>0.65 ? 'Direct' : (Math.random()>0.5 ? '1 stop' : '2+ stops'),
-        price: base,
-        baggage: '1 x 23kg',
-        cabinOptions: ['Economy','Business'],
-        seatMap: createSeatMap()
+        id:'f'+Date.now().toString(36)+'_'+i,
+        airline:airline.name,
+        logo:airline.logo,
+        from:airportsSA[i%airportsSA.length],
+        to:foreign[(i+2)%foreign.length],
+        departISO:depart.toISOString(),
+        arriveISO:new Date(depart.getTime()+duration*3600000).toISOString(),
+        duration:duration+'h',
+        stops:Math.random()>0.65?'Direct':(Math.random()>0.5?'1 stop':'2+ stops'),
+        price:base,
+        baggage:'1 x 23kg'
       });
     }
     return out;
   }
 
-  function createSeatMap(){
-    const rows = [];
-    for(let r=1;r<=20;r++){
-      const row = { row: r, seats: {} };
-      ['A','B','C','D','E','F'].forEach(s => row.seats[s] = { available: Math.random() > 0.08 } );
-      rows.push(row);
-    }
-    return rows;
-  }
-
-  function todayAt6(){
-    const now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6,0,0,0);
-  }
-
-  function shouldRefresh(){
-    const lastRaw = localStorage.getItem(TS_KEY);
-    if(!lastRaw) return true;
-    const last = new Date(lastRaw);
-    return last < todayAt6();
-  }
-
-  function refreshDataIfNeeded(){
+  function refreshData(){
     if(shouldRefresh()){
-      const data = generateDummyFlights();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      localStorage.setItem(TS_KEY, new Date().toISOString());
+      const data=generateFlights();
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+      localStorage.setItem(TS_KEY,new Date().toISOString());
       return data;
     }
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw=localStorage.getItem(STORAGE_KEY);
     if(raw) return JSON.parse(raw);
-    const data = generateDummyFlights();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    localStorage.setItem(TS_KEY, new Date().toISOString());
+    const data=generateFlights();
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+    localStorage.setItem(TS_KEY,new Date().toISOString());
     return data;
   }
 
-  // Render helpers
-  function formatCurrency(n){ return 'ZAR ' + n.toLocaleString(); }
-  function formatTime(iso){
-    const d = new Date(iso);
-    return d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) + ' • ' + d.toLocaleDateString();
-  }
+  function formatCurrency(n){ return 'ZAR '+n.toLocaleString(); }
+  function formatTime(iso){ const d=new Date(iso); return d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+' • '+d.toLocaleDateString(); }
 
   function renderList(list){
-    resultsEl.innerHTML = '';
-    if(!list || list.length === 0){
-      resultsEl.innerHTML = '<p class="small" style="padding:18px">No flights found for that route.</p>'; return;
-    }
-    list.forEach(f => {
-      const wrap = document.createElement('article');
-      wrap.className = 'flight-card';
-      wrap.innerHTML = `
-        <div class="flight-left" style="min-width:360px">
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div class="airline-badge">${escapeHtml(f.airline)}</div>
-              <div>
-                <div style="font-weight:700">${formatTime(f.departISO)} → ${formatTime(f.arriveISO)}</div>
-                <div class="small">${escapeHtml(f.from)} → ${escapeHtml(f.to)} • ${escapeHtml(f.stops)}</div>
-              </div>
-            </div>
-            <div class="small" style="margin-top:6px">Baggage: ${escapeHtml(f.baggage)} • Duration: ${escapeHtml(f.duration)}</div>
+    resultsEl.innerHTML='';
+    if(!list||!list.length){resultsEl.innerHTML='<p class="small" style="padding:18px">No flights found for that route.</p>';return;}
+    list.forEach(f=>{
+      const wrap=document.createElement('article');
+      wrap.className='flight-card';
+      wrap.innerHTML=`
+        <div class="flight-left">
+          <div class="airline-badge"><img src="${f.logo}" alt="${f.airline}"/>${f.airline}</div>
+          <div class="flight-info">
+            <div style="font-weight:700">${formatTime(f.departISO)} → ${formatTime(f.arriveISO)}</div>
+            <div class="small">${f.from} → ${f.to} • ${f.stops}</div>
+            <div class="small">Baggage: ${f.baggage} • Duration: ${f.duration}</div>
           </div>
         </div>
         <div class="flight-meta">
           <div style="font-size:18px;font-weight:800">${formatCurrency(f.price)}</div>
-          <div style="margin-top:8px">
-            <button class="seat-btn" data-flightid="${f.id}" aria-label="Select flight">Select</button>
-          </div>
+          <button class="seat-btn" data-flightid="${f.id}">Select</button>
         </div>
       `;
       resultsEl.appendChild(wrap);
     });
-
-    // wire up select buttons
     resultsEl.querySelectorAll('.seat-btn').forEach(btn=>{
-      btn.addEventListener('click', function(){
-        const fid = this.dataset.flightid;
-        const params = new URLSearchParams({
-          flight: fid
-        });
-        // Navigate to selection page (keeps flow before payment)
-        // Ensure flight-selection.html exists or change to your select-flight path
-        location.href = new URL('flight-selection.html?'+params.toString(), location.href).toString();
-      });
+      btn.addEventListener('click',()=>location.href='flight-selection.html?flight='+btn.dataset.flightid);
     });
   }
 
-  function escapeHtml(str){ return String(str).replace(/[&<>"']/g, (m)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
-
-  // Simple search that filters by from/to if provided
-  function runSearch(e){
-    if(e && e.preventDefault) e.preventDefault();
-    const from = (document.getElementById('from').value || '').trim().toLowerCase();
-    const to = (document.getElementById('to').value || '').trim().toLowerCase();
-    let list = (flightsData || []).slice();
-    if(from) list = list.filter(x => x.from.toLowerCase().includes(from) || x.from.toLowerCase().indexOf(from) === 0);
-    if(to) list = list.filter(x => x.to.toLowerCase().includes(to) || x.to.toLowerCase().indexOf(to) === 0);
-    list.sort((a,b)=> a.price - b.price);
+  function runSearch(e){if(e&&e.preventDefault)e.preventDefault();
+    const from=(document.getElementById('from').value||'').trim().toLowerCase();
+    const to=(document.getElementById('to').value||'').trim().toLowerCase();
+    let list=(flightsData||[]).slice();
+    if(from) list=list.filter(x=>x.from.toLowerCase().includes(from));
+    if(to) list=list.filter(x=>x.to.toLowerCase().includes(to));
+    list.sort((a,b)=>a.price-b.price);
     renderList(list.slice(0,30));
   }
 
-  // Filters toolbar
   function applyFilter(name){
-    if(name === 'all') renderList(flightsData);
-    else if(name === 'direct') renderList(flightsData.filter(x=>x.stops.toLowerCase().includes('direct')));
-    else if(name === '1stop') renderList(flightsData.filter(x=>x.stops.toLowerCase().includes('1 stop')));
-    else if(name === 'cheapest') renderList(flightsData.slice().sort((a,b)=>a.price-b.price));
-    else if(name === 'shortest') renderList(flightsData.slice().sort((a,b)=>parseInt(a.duration)-parseInt(b.duration)));
+    if(name==='all') renderList(flightsData);
+    else if(name==='direct') renderList(flightsData.filter(x=>x.stops.toLowerCase().includes('direct')));
+    else if(name==='1stop') renderList(flightsData.filter(x=>x.stops.toLowerCase().includes('1 stop')));
+    else if(name==='cheapest') renderList(flightsData.slice().sort((a,b)=>a.price-b.price));
+    else if(name==='shortest') renderList(flightsData.slice().sort((a,b)=>parseInt(a.duration)-parseInt(b.duration)));
   }
 
-  // Init
-  let flightsData = refreshDataIfNeeded();
+  const flightsData=refreshData();
   renderList(flightsData.slice(0,8));
 
-  // Wire handlers
-  document.getElementById('flight-search-form').addEventListener('submit', runSearch);
-  document.getElementById('searchBtn').addEventListener('click', runSearch);
-  document.querySelectorAll('#booking-mirror .filter').forEach(el => {
-    el.addEventListener('click', function(){ applyFilter(this.dataset.filter); });
-  });
-
+  document.getElementById('flight-search-form').addEventListener('submit',runSearch);
+  document.getElementById('searchBtn').addEventListener('click',runSearch);
+  document.querySelectorAll('.filter').forEach(el=>el.addEventListener('click',()=>applyFilter(el.dataset.filter)));
 })();
 </script>
 </body>
