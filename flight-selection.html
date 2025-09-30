@@ -3,118 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seat Selection — Booking.com International</title>
-<link rel="stylesheet" href="css/style.css">
-<style>
-body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222;}
-header{background:#003580;color:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
-header img{height:40px;}
-.nav-links a{color:#fff;margin-left:16px;text-decoration:none;font-weight:700;}
-.main-container{max-width:1200px;margin:24px auto;padding:16px;}
-h2{color:#003580;margin-bottom:16px;}
-.seat-row{display:flex;gap:8px;margin-bottom:12px;}
-.seat{padding:12px 14px;border-radius:6px;border:1px solid #d9e2ec;cursor:pointer;transition:0.2s;text-align:center;}
-.seat.available:hover{background:#ffb400;color:#003580;}
-.seat.selected{background:#ffb400;color:#003580;font-weight:700;}
-.seat.unavailable{background:#eee;color:#999;cursor:not-allowed;}
-.summary{margin-top:24px;background:#fff;padding:16px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.05);}
-button.primary{background:#ffb400;color:#003580;font-weight:700;border:none;cursor:pointer;padding:10px 18px;border-radius:6px;margin-top:12px;}
-.footer{background:#003580;color:#fff;padding:32px 24px;text-align:center;margin-top:32px;}
-.footer img{height:40px;margin-bottom:16px;}
-</style>
+<title>Select Seats — Booking.com International</title>
+<link rel="stylesheet" href="css/booking.css">
 </head>
 <body>
-
 <header>
-<img src="img/booking-logo.png" alt="Booking.com Logo">
-<div class="nav-links"><a href="#">Register</a><a href="#">Sign in</a></div>
+  <img src="img/booking-logo.png" alt="Booking.com Logo" class="logo">
+  <nav class="nav-links">
+    <a href="#">Register</a>
+    <a href="#">Sign in</a>
+  </nav>
 </header>
 
 <main class="main-container">
-<h2>Select Your Seats</h2>
-<div id="seat-map"></div>
+  <h2>Select Your Seats</h2>
+  <div id="seat-map"></div>
 
-<div class="summary">
-<h3>Flight Summary</h3>
-<p><strong>Airline:</strong> <span id="summary-airline"></span></p>
-<p><strong>Class:</strong> <span id="summary-class"></span></p>
-<p><strong>Price per passenger:</strong> ZAR <span id="summary-price"></span></p>
-<p><strong>Passengers:</strong> <span id="summary-passengers"></span></p>
-<p><strong>Total:</strong> ZAR <span id="summary-total"></span></p>
-<button class="primary" id="continueBtn">Continue to Payment</button>
-</div>
+  <div class="summary">
+    <h3>Flight Summary</h3>
+    <p><strong>Airline:</strong> <span id="summary-airline"></span></p>
+    <p><strong>Class:</strong> <span id="summary-class"></span></p>
+    <p><strong>Price per passenger:</strong> ZAR <span id="summary-price"></span></p>
+    <p><strong>Passengers:</strong> <span id="summary-passengers"></span></p>
+    <p><strong>Total:</strong> ZAR <span id="summary-total"></span></p>
+    <button class="primary" id="continueBtn">Continue to Payment</button>
+  </div>
 </main>
 
-<footer class="footer">
-<img src="img/booking-logo-footer.png" alt="Booking.com Logo">
-<p>&copy; 2025 Booking.com™ International</p>
+<footer>
+  <img src="img/booking-logo.png" alt="Booking.com Logo">
+  <p>&copy; 2025 Booking.com™ International</p>
 </footer>
 
+<script src="js/booking.js"></script>
 <script>
-// Get flight data from query parameters
-const params = new URLSearchParams(window.location.search);
-const airline = params.get('airline');
-const cabinClass = params.get('class');
-const pricePer = parseInt(params.get('price')) || 0;
-const passengers = parseInt(document.getElementById('summary-passengers')?.textContent || 1) || 1;
-
-// Set summary info
-document.getElementById('summary-airline').textContent = airline;
-document.getElementById('summary-class').textContent = cabinClass;
-document.getElementById('summary-price').textContent = pricePer.toLocaleString();
-document.getElementById('summary-passengers').textContent = passengers;
-document.getElementById('summary-total').textContent = (pricePer * passengers).toLocaleString();
-
-// Generate seat map based on class
-function generateSeats(classType){
-  const seatMap = document.getElementById('seat-map');
-  seatMap.innerHTML='';
-  let rows=classType==='First'?5:classType==='Business'?10:20;
-  for(let r=1;r<=rows;r++){
-    const row = document.createElement('div');
-    row.className='seat-row';
-    ['A','B','C','D','E','F'].forEach(s=>{
-      const seat = document.createElement('div');
-      seat.className='seat available';
-      seat.dataset.seat = r+s;
-      seat.textContent = r+s;
-      // Randomly make some unavailable
-      if(Math.random()<0.1) seat.classList.replace('available','unavailable');
-      row.appendChild(seat);
-    });
-    seatMap.appendChild(row);
-  }
-}
-generateSeats(cabinClass);
-
-// Seat selection logic
-let selectedSeats = [];
-document.getElementById('seat-map').addEventListener('click', e=>{
-  if(!e.target.classList.contains('seat') || e.target.classList.contains('unavailable')) return;
-  if(selectedSeats.includes(e.target.dataset.seat)){
-    e.target.classList.remove('selected');
-    selectedSeats = selectedSeats.filter(s=>s!==e.target.dataset.seat);
-  } else {
-    if(selectedSeats.length>=passengers){ alert('You have already selected all passengers'); return; }
-    e.target.classList.add('selected');
-    selectedSeats.push(e.target.dataset.seat);
-  }
-});
-
-// Continue button
-document.getElementById('continueBtn').addEventListener('click', ()=>{
-  if(selectedSeats.length<passengers){ alert('Please select seats for all passengers'); return; }
-  const seatParam = selectedSeats.join(',');
-  const query = new URLSearchParams({
-    airline: airline,
-    class: cabinClass,
-    price: pricePer,
-    passengers: passengers,
-    seats: seatParam
-  });
-  window.location.href='payment.html?'+query.toString();
+document.addEventListener('DOMContentLoaded', () => {
+  initSeatSelection();
 });
 </script>
-
 </body>
 </html>
