@@ -1,0 +1,12 @@
+International-booking/
+├─ booking-flights/
+│  ├─ flights.html        <- Flight search page
+│  ├─ flight-selection.html <- Seat selection
+│  ├─ payment.html        <- Payment page
+│  ├─ css/
+│  │  └─ booking.css
+│  ├─ img/
+│  │  ├─ booking-logo.png
+│  │  └─ airline-logos/  <- airline badges
+│  └─ js/
+│     └─ booking.js
