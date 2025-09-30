@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>International Booking — Flights</title>
+<title>Flights — International Booking</title>
+<link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/flights.css">
 </head>
 <body>
 <header class="header">
-  <div class="nav-container">
-    <a href="index.html" class="logo">International Booking</a>
+  <div class="container">
+    <div class="logo">International Booking</div>
     <nav>
       <a href="#">Sign in</a>
       <a href="#">Register</a>
@@ -17,69 +18,41 @@
   </div>
 </header>
 
-<div class="container">
+<main class="container">
   <section class="search-summary">
-    <div class="summary-content">
-      <div class="route-info">
-        <span class="airport-code">CPT</span>
-        <span class="route-arrow">→</span>
-        <span class="airport-code">JNB</span>
-      </div>
-      <div class="trip-details">
-        <span>Mon 30 Sep – Tue 01 Oct</span>
-        <span class="separator">|</span>
-        <span>1 adult, Economy</span>
-      </div>
-      <button class="change-search">Change search</button>
+    <h2>CPT → JNB</h2>
+    <p>Mon 30 Sep – Tue 01 Oct | 1 adult, Economy</p>
+    <button class="change-search">Change search</button>
+  </section>
+
+  <section class="filters">
+    <div class="stops-filter">
+      <label><input type="checkbox" value="0" checked> Non-stop</label>
+      <label><input type="checkbox" value="1"> 1 Stop</label>
+      <label><input type="checkbox" value="2"> 2+ Stops</label>
+    </div>
+    <div class="airline-filter">
+      <label><input type="checkbox" value="South African Airways" checked> South African Airways</label>
+      <label><input type="checkbox" value="Emirates" checked> Emirates</label>
+      <label><input type="checkbox" value="British Airways" checked> British Airways</label>
+    </div>
+    <div class="sort">
+      Sort by: <select id="sort">
+        <option value="price">Price</option>
+        <option value="duration">Duration</option>
+        <option value="departure">Departure</option>
+      </select>
     </div>
   </section>
 
-  <section class="flight-selection">
-    <div class="selection-content">
-      <!-- Filters Sidebar -->
-      <aside class="filters-sidebar">
-        <div class="filter-section">
-          <h4>Stops</h4>
-          <label><input type="checkbox" class="stops-filter" value="0"> Non-stop</label>
-          <label><input type="checkbox" class="stops-filter" value="1"> 1 Stop</label>
-          <label><input type="checkbox" class="stops-filter" value="2"> 2+ Stops</label>
-        </div>
-        <div class="filter-section">
-          <h4>Airlines</h4>
-          <label><input type="checkbox" class="airline-filter" value="South African Airways"> South African Airways</label>
-          <label><input type="checkbox" class="airline-filter" value="Emirates"> Emirates</label>
-          <label><input type="checkbox" class="airline-filter" value="British Airways"> British Airways</label>
-        </div>
-        <div class="filter-section">
-          <h4>Price Range</h4>
-          <input type="range" min="100" max="1000" id="price-slider">
-          <div class="price-labels">
-            <span>ZAR 100</span>
-            <span>ZAR 1000</span>
-          </div>
-        </div>
-        <div class="filter-section">
-          <h4>Sort by</h4>
-          <select id="sort">
-            <option value="">Default</option>
-            <option value="price">Price</option>
-            <option value="duration">Duration</option>
-            <option value="departure">Departure</option>
-          </select>
-        </div>
-      </aside>
-
-      <!-- Flight Results -->
-      <div class="flights-list">
-        <!-- Flight cards will populate via JS -->
-      </div>
-    </div>
+  <section class="flights-results">
+    <!-- flight cards dynamically inserted here -->
   </section>
-</div>
+</main>
 
 <footer>
-  <div class="nav-container">
-    <p>&copy; 2025 International Booking</p>
+  <div class="container">
+    <p>© 2025 International Booking</p>
   </div>
 </footer>
 
