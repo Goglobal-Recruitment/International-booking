@@ -1,1665 +1,261 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compare and book cheap flights - Booking.com</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f5f5f5; }
-
-        /* Header */
-        .header { background: #003580; color: white; padding: 15px 0; }
-        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { font-size: 24px; font-weight: bold; color: white; text-decoration: none; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-link { color: white; text-decoration: none; padding: 10px 15px; border-radius: 4px; }
-        .nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.1); }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid white;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: white;
-            border: 1px solid white;
-            color: #003580;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(135deg, #003580 0%, #0057b8 100%);
-            color: white;
-            padding: 60px 20px 120px;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: 20px;
-            opacity: 0.9;
-            font-weight: 400;
-        }
-
-        /* Search Section */
-        .search-section {
-            margin-top: -80px;
-            padding: 0 20px 60px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .search-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-            overflow: hidden;
-        }
-
-        /* Trip Type Tabs */
-        .search-tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
-            padding: 0 24px;
-        }
-
-        .tab-btn {
-            background: transparent;
-            border: none;
-            padding: 16px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #6c757d;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .tab-btn:hover {
-            background-color: rgba(0,53,128,0.05);
-            color: #003580;
-        }
-
-        .tab-btn.active {
-            color: #003580;
-            background-color: white;
-            border-bottom-color: #003580;
-        }
-
-        /* Search Form */
-        .search-form {
-            background: white;
-            padding: 24px;
-        }
-
-        .search-row {
-            display: flex;
-            align-items: stretch;
-        }
-
-        .search-field {
-            flex: 1;
-            position: relative;
-            border-right: 1px solid #e9ecef;
-        }
-
-        .search-field:last-child {
-            border-right: none;
-        }
-
-        .search-field label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #003580;
-            padding: 8px 16px 4px;
-            text-transform: uppercase;
-        }
-
-        .input-wrapper {
-            display: flex;
-            align-items: center;
-            padding: 8px 16px 16px;
-            cursor: pointer;
-        }
-
-        .input-icon {
-            color: #0071c2;
-            margin-right: 8px;
-            font-size: 16px;
-        }
-
-        .search-field input {
-            border: none;
-            outline: none;
-            font-size: 16px;
-            font-weight: 500;
-            color: #262626;
-            background: transparent;
-            width: 100%;
-            cursor: pointer;
-        }
-
-        .search-field input::placeholder {
-            color: #6c757d;
-        }
-
-        .swap-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            background: white;
-            border-right: 1px solid #e0e0e0;
-        }
-
-        .swap-btn {
-            background: #0071c2;
-            color: white;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .swap-btn:hover {
-            background: #005999;
-        }
-
-        .search-button-container {
-            display: flex;
-            align-items: center;
-            background: #febb02;
-            padding: 0;
-        }
-
-        .search-btn {
-            background: transparent;
-            border: none;
-            color: #003580;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 16px 24px;
-            white-space: nowrap;
-        }
-
-        .search-btn:hover {
-            background: rgba(0,0,0,0.05);
-        }
-
-        /* Location Dropdown */
-        .location-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
-            display: none;
-            max-height: 300px;
-            overflow-y: auto;
-            margin-top: 4px;
-        }
-
-        .airport-option {
-            padding: 12px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid #f8f9fa;
-            transition: background-color 0.2s;
-        }
-
-        .airport-option:hover {
-            background-color: #f8f9fa;
-        }
-
-        .airport-option:last-child {
-            border-bottom: none;
-        }
-
-        .airport-code {
-            font-weight: 600;
-            color: #003580;
-        }
-
-        .airport-name {
-            font-size: 14px;
-            color: #6c757d;
-            margin-top: 2px;
-        }
-
-        /* Passengers Dropdown */
-        .passengers-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #e9ecef;
-            border-top: none;
-            border-radius: 0 0 6px 6px;
-            padding: 20px;
-            z-index: 1000;
-            display: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .passenger-controls {
-            margin-bottom: 20px;
-        }
-
-        .passenger-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .passenger-row:last-child {
-            border-bottom: none;
-        }
-
-        .passenger-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .passenger-type {
-            font-weight: 600;
-            color: #262626;
-        }
-
-        .passenger-desc {
-            font-size: 12px;
-            color: #6c757d;
-        }
-
-        .counter-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .counter-btn {
-            width: 32px;
-            height: 32px;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: 600;
-            color: #003580;
-            transition: all 0.2s;
-        }
-
-        .counter-btn:hover {
-            background: #f0f0f0;
-            border-color: #003580;
-        }
-
-        .counter-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .counter-value {
-            font-weight: 600;
-            font-size: 16px;
-            min-width: 24px;
-            text-align: center;
-        }
-
-        .class-selection {
-            border-top: 1px solid #e9ecef;
-            padding-top: 20px;
-            margin-top: 20px;
-        }
-
-        .class-selection h4 {
-            margin-bottom: 16px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #262626;
-        }
-
-        .class-options {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .class-option {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            padding: 12px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
-            position: relative;
-        }
-
-        .class-option:hover {
-            background-color: #f8f9fa;
-            border-color: #e9ecef;
-        }
-
-        .class-option input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #003580;
-            cursor: pointer;
-        }
-
-        .class-option input[type="radio"]:checked + .class-info {
-            color: #003580;
-        }
-
-        .class-option:has(input[type="radio"]:checked) {
-            background-color: #f0f6ff;
-            border-color: #003580;
-        }
-
-        .class-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            flex: 1;
-        }
-
-        .class-name {
-            font-weight: 500;
-            font-size: 14px;
-            color: #262626;
-        }
-
-        .class-desc {
-            font-size: 12px;
-            color: #6c757d;
-            line-height: 1.3;
-        }
-
-        .class-option:has(input[type="radio"]:checked) .class-name {
-            color: #003580;
-            font-weight: 600;
-        }
-
-        .class-option:has(input[type="radio"]:checked) .class-desc {
-            color: #0056b3;
-        }
-
-        .done-btn {
-            background: #003580;
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 16px;
-            width: 100%;
-        }
-
-        .done-btn:hover {
-            background: #0057b8;
-        }
-
-
-
-
-
-        /* Loading Overlay */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #003580;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #dc3545;
-            color: white;
-            padding: 16px 20px;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 10000;
-            display: none;
-            max-width: 400px;
-        }
-
-        .notification.success {
-            background: #28a745;
-        }
-
-        .notification.warning {
-            background: #ffc107;
-            color: #212529;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 16px;
-                padding: 16px 20px;
-            }
-
-            .nav-links {
-                order: 3;
-                width: 100%;
-                justify-content: space-around;
-            }
-
-            .nav-actions {
-                order: 2;
-            }
-
-            .hero-title {
-                font-size: 32px;
-            }
-
-            .hero-subtitle {
-                font-size: 18px;
-            }
-
-            .search-row {
-                flex-direction: column;
-            }
-
-            .search-field {
-                border-right: none;
-                border-bottom: 1px solid #e9ecef;
-            }
-
-            .search-field:last-child {
-                border-bottom: none;
-            }
-
-            .swap-container {
-                width: 100%;
-                height: 40px;
-                border-right: none;
-                border-bottom: 1px solid #e9ecef;
-            }
-
-            .destinations-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .search-container {
-                margin: 0 10px;
-                border-radius: 6px;
-            }
-
-            .search-form {
-                padding: 16px;
-            }
-
-            .hero-section {
-                padding: 40px 20px 100px;
-            }
-
-            .search-section {
-                margin-top: -60px;
-            }
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Flights — Search</title>
+<!-- Scoped styles only inside #booking-mirror -->
+<style>
+#booking-mirror{font-family: "Helvetica Neue", Arial, sans-serif;color:#222}
+#booking-mirror .hero{background:linear-gradient(180deg,#0b4a84,#0b3b72);color:#fff;padding:56px 12px 36px;text-align:center}
+#booking-mirror .container{max-width:1100px;margin:0 auto;padding:20px}
+#booking-mirror .search-card{background:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(12,35,64,0.12);padding:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;transform:translateY(-36px)}
+#booking-mirror .field{flex:1;min-width:160px}
+#booking-mirror label{display:block;font-size:12px;color:#667;letter-spacing:.02em;margin-bottom:6px}
+#booking-mirror input, #booking-mirror select, #booking-mirror button{width:100%;padding:10px;border-radius:6px;border:1px solid #d9e2ec;font-size:14px;background:#fff}
+#booking-mirror button.primary{background:#ffb400;border:none;color:#0b2b4a;font-weight:700;cursor:pointer}
+#booking-mirror .results{margin-top:18px}
+#booking-mirror .flight-card{display:flex;gap:12px;align-items:center;border-radius:8px;padding:14px;background:#fff;border:1px solid #eef6fb;margin-bottom:12px;justify-content:space-between}
+#booking-mirror .flight-left{display:flex;gap:12px;align-items:center}
+#booking-mirror .airline-badge{background:#f1f8ff;padding:8px 10px;border-radius:6px;font-weight:700;color:#0b4a84}
+#booking-mirror .flight-meta{min-width:180px;text-align:right}
+#booking-mirror .small{font-size:13px;color:#666}
+#booking-mirror .pill{background:#eef7ff;padding:6px 8px;border-radius:6px;font-size:13px;color:#0b4a84;display:inline-block}
+#booking-mirror .filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+#booking-mirror .filter{padding:8px 12px;border-radius:6px;border:1px solid #e7eef8;background:#fbfeff;cursor:pointer;font-size:14px}
+#booking-mirror .seat-btn{display:inline-block;padding:9px 12px;border-radius:6px;border:0;background:#0b4a84;color:#fff;cursor:pointer}
+@media (max-width:820px){ #booking-mirror .search-card{flex-direction:column;align-items:stretch;padding:14px} #booking-mirror .flight-meta{text-align:left} }
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-bed"></i>
-                Booking.com
-            </a>
-            <nav class="nav-links">
-                <a href="index.html" class="nav-link">
-                    <i class="fas fa-bed"></i>
-                    Stays
-                </a>
-                <a href="flights.html" class="nav-link active">
-                    <i class="fas fa-plane"></i>
-                    Flights
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-car"></i>
-                    Car rentals
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-map-marker-alt"></i>
-                    Attractions
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-taxi"></i>
-                    Airport taxis
-                </a>
-            </nav>
-            <div class="nav-actions">
-                <a href="#" class="btn-secondary">Register</a>
-                <a href="#" class="btn-primary">Sign in</a>
-            </div>
+<div id="booking-mirror">
+  <header class="hero" role="banner">
+    <div class="container">
+      <div style="max-width:880px;margin:0 auto">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+          <div style="text-align:left">
+            <h1 style="margin:0;font-size:32px;letter-spacing:.01em">Compare and book flights with ease</h1>
+            <p style="margin:6px 0 0;opacity:.95">Search and choose — live-like demo (dummy data updated daily at 06:00 local time)</p>
+          </div>
+          <div style="min-width:120px;text-align:right">
+            <!-- small nav placeholders to visually mirror booking header -->
+            <div style="color:#cfe7ff;font-weight:700;padding:6px 10px;border-radius:6px;background:rgba(255,255,255,0.06);display:inline-block">Flights</div>
+          </div>
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">Compare and book flights with ease</h1>
-            <p class="hero-subtitle">Discover your next dream destination</p>
-        </div>
+  <main class="container" role="main" aria-label="Flight booking area">
+    <form id="flight-search-form" class="search-card" aria-label="Flight search" novalidate>
+      <div class="field">
+        <label for="from">From</label>
+        <input id="from" name="from" placeholder="City or airport (e.g. Johannesburg)" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="to">To</label>
+        <input id="to" name="to" placeholder="City or airport (e.g. London)" autocomplete="off" />
+      </div>
+      <div style="min-width:140px">
+        <label for="depart">Depart</label>
+        <input id="depart" name="depart" type="date" />
+      </div>
+      <div style="min-width:140px">
+        <label for="return">Return</label>
+        <input id="return" name="return" type="date" />
+      </div>
+      <div style="width:140px">
+        <label for="passengers">Passengers</label>
+        <select id="passengers" name="passengers"><option value="1">1 adult</option><option value="2">2 adults</option><option value="3">3 adults</option></select>
+      </div>
+      <div style="width:120px">
+        <label for="cabin">Class</label>
+        <select id="cabin" name="cabin"><option>Economy</option><option>Premium Economy</option><option>Business</option></select>
+      </div>
+      <div style="width:120px">
+        <label style="visibility:hidden">search</label>
+        <button id="searchBtn" class="primary" type="submit">Search</button>
+      </div>
+    </form>
+
+    <div class="filters" role="toolbar" aria-label="Filters">
+      <div class="filter" data-filter="all">All</div>
+      <div class="filter" data-filter="direct">Direct</div>
+      <div class="filter" data-filter="1stop">1 stop</div>
+      <div class="filter" data-filter="cheapest">Cheapest</div>
+      <div class="filter" data-filter="shortest">Shortest</div>
+    </div>
+
+    <section id="results" class="results" aria-live="polite" aria-label="Search results">
+      <!-- results inserted here -->
     </section>
+  </main>
+</div>
 
-        <!-- Search Form Section -->
-        <section class="search-section">
-            <div class="search-container">
-                <!-- Trip Type Tabs -->
-                <div class="search-tabs">
-                    <button class="tab-btn active" data-trip-type="return">
-                        <i class="fas fa-exchange-alt"></i>
-                        Return
-                    </button>
-                    <button class="tab-btn" data-trip-type="one-way">
-                        <i class="fas fa-long-arrow-alt-right"></i>
-                        One-way
-                    </button>
-                    <button class="tab-btn" data-trip-type="multi-city">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Multi-city
-                    </button>
-                </div>
+<script>
+/*
+  Encapsulated flight search + result UI.
+  - Uses localStorage to store generated dummy flights + last refresh timestamp.
+  - Refreshes dataset automatically if last refresh < today at 06:00 local time.
+  - Does NOT write to the global document other than children of #booking-mirror.
+*/
+(function(){
+  const STORAGE_KEY = 'booking_mirror_flights_v1';
+  const TS_KEY = 'booking_mirror_last_refresh_v1';
+  const resultsEl = document.getElementById('results');
 
-                <!-- Search Form -->
-                <form class="search-form" id="flightSearchForm">
-                    <!-- Main Search Row -->
-                    <div class="search-row">
-                        <!-- From Location -->
-                        <div class="search-field from-field">
-                        <label for="from">FROM</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-plane-departure input-icon"></i>
-                            <input type="text" id="from" placeholder="Where from?" readonly>
-                        </div>
-                        <div class="location-dropdown" id="fromDropdown">
-                            <div class="airport-option" data-code="JNB" data-name="O.R. Tambo International Airport">
-                                <div class="airport-code">JNB</div>
-                                <div class="airport-name">O.R. Tambo International Airport, Johannesburg</div>
-                            </div>
-                            <div class="airport-option" data-code="CPT" data-name="Cape Town International Airport">
-                                <div class="airport-code">CPT</div>
-                                <div class="airport-name">Cape Town International Airport, Cape Town</div>
-                            </div>
-                            <div class="airport-option" data-code="DUR" data-name="King Shaka International Airport">
-                                <div class="airport-code">DUR</div>
-                                <div class="airport-name">King Shaka International Airport, Durban</div>
-                            </div>
-                            <div class="airport-option" data-code="PLZ" data-name="Port Elizabeth Airport">
-                                <div class="airport-code">PLZ</div>
-                                <div class="airport-name">Port Elizabeth Airport, Port Elizabeth</div>
-                            </div>
-                        </div>
-                    </div>
+  function generateDummyFlights(){
+    const airportsSA = ['Johannesburg (JNB)','Cape Town (CPT)','Durban (DUR)'];
+    const foreign = ['London (LHR)','Paris (CDG)','Dubai (DXB)','Amsterdam (AMS)','Frankfurt (FRA)','Nairobi (NBO)'];
+    const airlines = ['AirElite','BlueSky Air','Atlas Wings','SkyConnect'];
+    const out = [];
+    const now = new Date();
+    for(let i=0;i<18;i++){
+      const depart = new Date(now.getTime() + (i+1)*3600*1000*4 + Math.floor(Math.random()*6)*3600000);
+      const duration = 8 + Math.floor(Math.random()*10);
+      const base = 125000 + Math.floor(Math.random()*80000);
+      out.push({
+        id: 'f'+Date.now().toString(36)+'_'+i,
+        airline: airlines[i % airlines.length],
+        from: airportsSA[i % airportsSA.length],
+        to: foreign[(i+2) % foreign.length],
+        departISO: depart.toISOString(),
+        arriveISO: new Date(depart.getTime() + duration*3600000).toISOString(),
+        duration: duration + 'h',
+        stops: Math.random()>0.65 ? 'Direct' : (Math.random()>0.5 ? '1 stop' : '2+ stops'),
+        price: base,
+        baggage: '1 x 23kg',
+        cabinOptions: ['Economy','Business'],
+        seatMap: createSeatMap()
+      });
+    }
+    return out;
+  }
 
-                        <!-- Swap Button -->
-                        <div class="swap-container">
-                            <button type="button" class="swap-btn" onclick="swapLocations()">
-                                <i class="fas fa-exchange-alt"></i>
-                            </button>
-                        </div>
+  function createSeatMap(){
+    const rows = [];
+    for(let r=1;r<=20;r++){
+      const row = { row: r, seats: {} };
+      ['A','B','C','D','E','F'].forEach(s => row.seats[s] = { available: Math.random() > 0.08 } );
+      rows.push(row);
+    }
+    return rows;
+  }
 
-                        <!-- To Location -->
-                        <div class="search-field to-field">
-                        <label for="to">TO</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-plane-arrival input-icon"></i>
-                            <input type="text" id="to" placeholder="Where to?" readonly>
-                        </div>
-                        <div class="location-dropdown" id="toDropdown">
-                            <div class="airport-option" data-code="LHR" data-name="Heathrow Airport">
-                                <div class="airport-code">LHR</div>
-                                <div class="airport-name">Heathrow Airport, London</div>
-                            </div>
-                            <div class="airport-option" data-code="CDG" data-name="Charles de Gaulle Airport">
-                                <div class="airport-code">CDG</div>
-                                <div class="airport-name">Charles de Gaulle Airport, Paris</div>
-                            </div>
-                            <div class="airport-option" data-code="FRA" data-name="Frankfurt Airport">
-                                <div class="airport-code">FRA</div>
-                                <div class="airport-name">Frankfurt Airport, Frankfurt</div>
-                            </div>
-                            <div class="airport-option" data-code="AMS" data-name="Amsterdam Airport Schiphol">
-                                <div class="airport-code">AMS</div>
-                                <div class="airport-name">Amsterdam Airport Schiphol, Amsterdam</div>
-                            </div>
-                        </div>
-                    </div>
+  function todayAt6(){
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6,0,0,0);
+  }
 
-                        <!-- Departure Date -->
-                        <div class="search-field">
-                        <label for="departure">DEPARTURE</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-calendar-alt input-icon"></i>
-                            <input type="date" id="departure">
-                        </div>
-                    </div>
+  function shouldRefresh(){
+    const lastRaw = localStorage.getItem(TS_KEY);
+    if(!lastRaw) return true;
+    const last = new Date(lastRaw);
+    return last < todayAt6();
+  }
 
-                        <!-- Return Date -->
-                        <div class="search-field return-date-group">
-                        <label for="return">RETURN</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-calendar-alt input-icon"></i>
-                            <input type="date" id="return">
-                        </div>
-                    </div>
+  function refreshDataIfNeeded(){
+    if(shouldRefresh()){
+      const data = generateDummyFlights();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      localStorage.setItem(TS_KEY, new Date().toISOString());
+      return data;
+    }
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+    const data = generateDummyFlights();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(TS_KEY, new Date().toISOString());
+    return data;
+  }
 
-                        <!-- Passengers & Class -->
-                        <div class="search-field passengers-field">
-                        <label>PASSENGERS & CLASS</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-user input-icon"></i>
-                            <input type="text" id="passengers" value="2 Adult, Economy" readonly>
-                        </div>
-                        <div class="passengers-dropdown" id="passengersDropdown">
-                                <div class="passenger-controls">
-                                    <div class="passenger-row">
-                                        <div class="passenger-info">
-                                            <div class="passenger-type">Adults</div>
-                                            <div class="passenger-desc">Age 18+</div>
-                                        </div>
-                                        <div class="counter-controls">
-                                            <button type="button" class="counter-btn" id="adultsDecrease">-</button>
-                            <span class="counter-value" id="adultsCount">1</span>
-                            <button type="button" class="counter-btn" id="adultsIncrease">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="passenger-row">
-                                        <div class="passenger-info">
-                                            <div class="passenger-type">Children</div>
-                                            <div class="passenger-desc">Age 0-17</div>
-                                        </div>
-                                        <div class="counter-controls">
-                                            <button type="button" class="counter-btn" id="childrenDecrease">-</button>
-                            <span class="counter-value" id="childrenCount">0</span>
-                            <button type="button" class="counter-btn" id="childrenIncrease">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="class-selection">
-                                    <h4>Class</h4>
-                                    <div class="class-options">
-                                        <label class="class-option">
-                                            <input type="radio" name="class" value="economy" checked>
-                                            <div class="class-info">
-                                                <div class="class-name">Economy</div>
-                                                <div class="class-desc">Standard seating and service</div>
-                                            </div>
-                                        </label>
-                                        <label class="class-option">
-                                            <input type="radio" name="class" value="premium-economy">
-                                            <div class="class-info">
-                                                <div class="class-name">Premium Economy</div>
-                                                <div class="class-desc">Extra legroom and enhanced service</div>
-                                            </div>
-                                        </label>
-                                        <label class="class-option">
-                                            <input type="radio" name="class" value="business">
-                                            <div class="class-info">
-                                                <div class="class-name">Business</div>
-                                                <div class="class-desc">Priority boarding and premium dining</div>
-                                            </div>
-                                        </label>
-                                        <label class="class-option">
-                                            <input type="radio" name="class" value="first">
-                                            <div class="class-info">
-                                                <div class="class-name">First Class</div>
-                                                <div class="class-desc">Luxury experience with private suites</div>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                                <button type="button" class="done-btn" onclick="closePassengersDropdown()">Done</button>
-                            </div>
-                        </div>
+  // Render helpers
+  function formatCurrency(n){ return 'ZAR ' + n.toLocaleString(); }
+  function formatTime(iso){
+    const d = new Date(iso);
+    return d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) + ' • ' + d.toLocaleDateString();
+  }
 
-                        <!-- Search Button -->
-                        <div class="search-button-container">
-                            <button type="submit" class="search-btn">
-                                <i class="fas fa-search"></i>
-                                Search
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                </div>
+  function renderList(list){
+    resultsEl.innerHTML = '';
+    if(!list || list.length === 0){
+      resultsEl.innerHTML = '<p class="small" style="padding:18px">No flights found for that route.</p>'; return;
+    }
+    list.forEach(f => {
+      const wrap = document.createElement('article');
+      wrap.className = 'flight-card';
+      wrap.innerHTML = `
+        <div class="flight-left" style="min-width:360px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="airline-badge">${escapeHtml(f.airline)}</div>
+              <div>
+                <div style="font-weight:700">${formatTime(f.departISO)} → ${formatTime(f.arriveISO)}</div>
+                <div class="small">${escapeHtml(f.from)} → ${escapeHtml(f.to)} • ${escapeHtml(f.stops)}</div>
+              </div>
             </div>
-        </section>
-
-
-
-        <!-- Loading Indicator -->
-        <div class="loading-overlay" id="loadingOverlay">
-            <div class="loading-spinner">
-                <i class="fas fa-plane fa-spin"></i>
-                <p>Searching for the best flights...</p>
-            </div>
+            <div class="small" style="margin-top:6px">Baggage: ${escapeHtml(f.baggage)} • Duration: ${escapeHtml(f.duration)}</div>
+          </div>
         </div>
-        <!-- Popular Destinations -->
-        <section class="popular-destinations">
-            <div class="container">
-                <h2>Popular flight destinations</h2>
-                <div class="destinations-grid">
-                    <div class="destination-card" style="background-image: url('https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400');">
-                        <div class="destination-overlay">
-                            <div class="destination-name">Paris</div>
-                            <div class="destination-flights">Flights from $299</div>
-                        </div>
-                    </div>
-                    <div class="destination-card" style="background-image: url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400');">
-                        <div class="destination-overlay">
-                            <div class="destination-name">London</div>
-                            <div class="destination-flights">Flights from $399</div>
-                        </div>
-                    </div>
-                    <div class="destination-card" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400');">
-                        <div class="destination-overlay">
-                            <div class="destination-name">Dubai</div>
-                            <div class="destination-flights">Flights from $599</div>
-                        </div>
-                    </div>
-                    <div class="destination-card" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400');">
-                        <div class="destination-overlay">
-                            <div class="destination-name">Tokyo</div>
-                            <div class="destination-flights">Flights from $799</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    
-
-    <script>
-        // Global variables
-        let currentTripType = 'return';
-        let passengerCounts = {
-            adults: 2,
-            children: 0,
-            infants: 0
-        };
-        let selectedClass = 'economy';
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeTripTypeTabs();
-            initializeDateInputs();
-            initializePassengerDropdown();
-            initializeLocationInputs();
-            initializeFormSubmission();
-        });
-
-        // Trip type tabs functionality
-        function initializeTripTypeTabs() {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const returnDateGroup = document.querySelector('.return-date-group');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Remove active class from all tabs
-                    tabs.forEach(t => t.classList.remove('active'));
-                    // Add active class to clicked tab
-                    this.classList.add('active');
-                    
-                    // Update current trip type
-                    currentTripType = this.dataset.tripType;
-                    
-                    // Show/hide return date based on trip type
-                    if (currentTripType === 'return') {
-                        returnDateGroup.style.display = 'block';
-                    } else {
-                        returnDateGroup.style.display = 'none';
-                    }
-                });
-            });
-        }
-
-        // Date inputs functionality
-        function initializeDateInputs() {
-            const departureInput = document.getElementById('departure');
-            const returnInput = document.getElementById('return');
-            
-            // Set minimum date to today
-            const today = new Date().toISOString().split('T')[0];
-            departureInput.min = today;
-            returnInput.min = today;
-            
-            // Set default departure date to today
-            departureInput.value = today;
-            
-            // Set default return date to tomorrow
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            returnInput.value = tomorrow.toISOString().split('T')[0];
-            
-            // Update return date minimum when departure date changes
-            departureInput.addEventListener('change', function() {
-                const departureDate = new Date(this.value);
-                departureDate.setDate(departureDate.getDate() + 1);
-                returnInput.min = departureDate.toISOString().split('T')[0];
-                
-                // If return date is before new minimum, update it
-                if (returnInput.value < returnInput.min) {
-                    returnInput.value = returnInput.min;
-                }
-            });
-        }
-
-        // Location inputs functionality
-        function initializeLocationInputs() {
-            const fromField = document.querySelector('.from-field');
-            const toField = document.querySelector('.to-field');
-            const fromInput = document.getElementById('from');
-            const toInput = document.getElementById('to');
-            const fromDropdown = document.getElementById('fromDropdown');
-            const toDropdown = document.getElementById('toDropdown');
-            const swapBtn = document.getElementById('swapBtn');
-
-            // Show dropdown on input click
-            fromInput.addEventListener('click', function() {
-                fromDropdown.style.display = 'block';
-                toDropdown.style.display = 'none';
-            });
-
-            toInput.addEventListener('click', function() {
-                toDropdown.style.display = 'block';
-                fromDropdown.style.display = 'none';
-            });
-
-            // Handle airport selection
-            fromDropdown.addEventListener('click', function(e) {
-                const option = e.target.closest('.airport-option');
-                if (option) {
-                    const code = option.dataset.code;
-                    const name = option.dataset.name;
-                    fromInput.value = `${code} - ${name}`;
-                    fromDropdown.style.display = 'none';
-                }
-            });
-
-            toDropdown.addEventListener('click', function(e) {
-                const option = e.target.closest('.airport-option');
-                if (option) {
-                    const code = option.dataset.code;
-                    const name = option.dataset.name;
-                    toInput.value = `${code} - ${name}`;
-                    toDropdown.style.display = 'none';
-                }
-            });
-
-            // Swap locations
-            swapBtn.addEventListener('click', function() {
-                const fromValue = fromInput.value;
-                const toValue = toInput.value;
-                fromInput.value = toValue;
-                toInput.value = fromValue;
-            });
-
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!fromField.contains(e.target)) {
-                    fromDropdown.style.display = 'none';
-                }
-                if (!toField.contains(e.target)) {
-                    toDropdown.style.display = 'none';
-                }
-            });
-        }
-
-        // Passenger dropdown functionality
-        function initializePassengerDropdown() {
-            const passengersField = document.querySelector('.passengers-field');
-            const passengersInput = document.getElementById('passengers');
-            const passengersDropdown = document.getElementById('passengersDropdown');
-            const doneBtn = document.getElementById('doneBtn');
-            const counterBtns = document.querySelectorAll('.counter-btn');
-            const classOptions = document.querySelectorAll('input[name="class"]');
-
-            // Show dropdown on input click
-            passengersInput.addEventListener('click', function() {
-                passengersDropdown.style.display = 'block';
-            });
-
-            // Handle counter buttons
-            counterBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const action = this.dataset.action;
-                    const type = this.dataset.type;
-                    const countElement = document.getElementById(type + 'Count');
-                    let currentCount = parseInt(countElement.textContent);
-
-                    if (action === 'increase') {
-                        if (type === 'adults' && currentCount < 9) {
-                            currentCount++;
-                        } else if (type !== 'adults' && currentCount < 8) {
-                            currentCount++;
-                        }
-                    } else if (action === 'decrease') {
-                        if (type === 'adults' && currentCount > 1) {
-                            currentCount--;
-                        } else if (type !== 'adults' && currentCount > 0) {
-                            currentCount--;
-                        }
-                    }
-
-                    countElement.textContent = currentCount;
-                    passengerCounts[type] = currentCount;
-                    updatePassengerDisplay();
-                });
-            });
-
-            // Handle class selection
-            classOptions.forEach(option => {
-                option.addEventListener('change', function() {
-                    selectedClass = this.value;
-                    updatePassengerDisplay();
-                });
-            });
-
-            // Done button
-            doneBtn.addEventListener('click', function() {
-                passengersDropdown.style.display = 'none';
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!passengersField.contains(e.target)) {
-                    passengersDropdown.style.display = 'none';
-                }
-            });
-        }
-
-        // Update passenger display
-        function updatePassengerDisplay() {
-            const passengersInput = document.getElementById('passengers');
-            const total = passengerCounts.adults + passengerCounts.children + passengerCounts.infants;
-            
-            let text = '';
-            if (total === 1) {
-                text = '1 Passenger';
-            } else {
-                text = `${total} Passengers`;
-            }
-            
-            // Add class
-            const classNames = {
-                'economy': 'Economy',
-                'premium-economy': 'Premium Economy',
-                'business': 'Business',
-                'first': 'First Class'
-            };
-            
-            text += `, ${classNames[selectedClass]}`;
-            passengersInput.value = text;
-        }
-
-        // Form submission
-        function initializeFormSubmission() {
-            const form = document.getElementById('flightSearchForm');
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Validate form
-                const from = document.getElementById('from').value;
-                const to = document.getElementById('to').value;
-                const departure = document.getElementById('departure').value;
-                const returnDate = document.getElementById('return').value;
-                
-                if (!from || !to || !departure) {
-                    showNotification('Please fill in all required fields', 'error');
-                    return;
-                }
-                
-                if (currentTripType === 'return' && !returnDate) {
-                    showNotification('Please select a return date', 'error');
-                    return;
-                }
-                
-                if (from === to) {
-                    showNotification('Departure and destination cannot be the same', 'error');
-                    return;
-                }
-                
-                // Show loading
-                loadingOverlay.style.display = 'flex';
-                
-                // Simulate search
-                setTimeout(() => {
-                    loadingOverlay.style.display = 'none';
-                    showNotification('Search completed! Redirecting to results...', 'success');
-                    
-                    // Redirect to results page (simulate)
-                    setTimeout(() => {
-                        window.location.href = 'flight-results.html';
-                    }, 1500);
-                }, 2000);
-            });
-        }
-
-        // Show notification
-        function showNotification(message, type = 'error') {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.style.display = 'block';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 4000);
-        }
-
-
-        // Initialize page
-document.addEventListener('DOMContentLoaded', function() {
-    // Set default dates
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const nextWeek = new Date(today);
-    nextWeek.setDate(nextWeek.getDate() + 7);
-
-    document.getElementById('departureDate').value = tomorrow.toISOString().split('T')[0];
-    document.getElementById('returnDate').value = nextWeek.toISOString().split('T')[0];
-
-    // Add event listeners
-    document.getElementById('flightSearchForm').addEventListener('submit', handleSearch);
-    
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.search-field')) {
-            closeAllDropdowns();
-        }
-    });
-
-    // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            const tripType = this.dataset.tripType;
-            const returnField = document.querySelector('.return-field');
-            
-            if (tripType === 'one-way') {
-                returnField.style.display = 'none';
-            } else {
-                returnField.style.display = 'flex';
-            }
-        });
-    });
-});
-
-
-    // Set minimum date to today
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('departure-date').min = today;
-    document.getElementById('return-date').min = today;
-    
-    // Set default departure date to tomorrow
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    document.getElementById('departure-date').value = tomorrow.toISOString().split('T')[0];
-    
-    // Set default return date to 7 days from departure
-    const returnDate = new Date();
-    returnDate.setDate(returnDate.getDate() + 8);
-    document.getElementById('return-date').value = returnDate.toISOString().split('T')[0];
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </script>
-</body>
-</html>
-// Global variables
-let currentTripType = 'return';
-let passengerCounts = {
-    adults: 2,
-    children: 0,
-    infants: 0
-};
-
-// Initialize the page
-document.addEventListener('DOMContentLoaded', function() {
-    initializeTripTypeTabs();
-    initializeDateInputs();
-    initializePassengerDropdown();
-    initializeLocationInputs();
-    initializeFormSubmission();
-    initializePopularDestinations();
-});
-
-// Trip type tabs functionality
-function initializeTripTypeTabs() {
-    const tabs = document.querySelectorAll('.trip-type-tab');
-    const returnDateGroup = document.querySelector('.return-date-group');
-    
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Remove active class from all tabs
-            tabs.forEach(t => t.classList.remove('active'));
-            // Add active class to clicked tab
-            this.classList.add('active');
-            
-            // Update current trip type
-            currentTripType = this.dataset.tripType;
-            
-            // Show/hide return date based on trip type
-            if (currentTripType === 'return') {
-                returnDateGroup.style.display = 'block';
-            } else {
-                returnDateGroup.style.display = 'none';
-            }
-        });
-    });
-
-// Date inputs functionality
-function initializeDateInputs() {
-    const departureInput = document.getElementById('departure-date');
-    const returnInput = document.getElementById('return-date');
-    
-    // Set minimum date to today
-    const today = new Date().toISOString().split('T')[0];
-    departureInput.min = today;
-    returnInput.min = today;
-    
-    // Set default dates
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    departureInput.value = tomorrow.toISOString().split('T')[0];
-    
-    const nextWeek = new Date();
-    nextWeek.setDate(nextWeek.getDate() + 8);
-    returnInput.value = nextWeek.toISOString().split('T')[0];
-    
-    // Update return date minimum when departure date changes
-    departureInput.addEventListener('change', function() {
-        const selectedDate = new Date(this.value);
-        selectedDate.setDate(selectedDate.getDate() + 1);
-        returnInput.min = selectedDate.toISOString().split('T')[0];
-        
-        // If return date is before new minimum, update it
-        if (returnInput.value && new Date(returnInput.value) <= new Date(this.value)) {
-            returnInput.value = selectedDate.toISOString().split('T')[0];
-        }
-    });
-}
-
-// Passenger dropdown functionality
-function initializePassengerDropdown() {
-    const passengerButton = document.querySelector('.passenger-selector');
-    const dropdown = document.querySelector('.passengers-dropdown');
-    const overlay = document.querySelector('.dropdown-overlay');
-    const doneButton = document.querySelector('.passengers-done');
-    
-    let passengers = {
-        adults: 1,
-        children: 0,
-        infants: 0
-    };
-    
-    function updatePassengerDisplay() {
-        const total = passengers.adults + passengers.children + passengers.infants;
-        const text = total === 1 ? '1 passenger' : `${total} passengers`;
-        passengerButton.querySelector('span').textContent = text;
-    }
-    
-    function updateCounters() {
-        document.querySelector('.adult-count').textContent = passengers.adults;
-        document.querySelector('.children-count').textContent = passengers.children;
-        document.querySelector('.infant-count').textContent = passengers.infants;
-    }
-    
-    // Open dropdown
-    passengerButton.addEventListener('click', function(e) {
-        e.stopPropagation();
-        dropdown.classList.add('active');
-        overlay.classList.add('active');
-        updateCounters();
-    });
-    
-    // Close dropdown
-    function closeDropdown() {
-        dropdown.classList.remove('active');
-        overlay.classList.remove('active');
-    }
-    
-    overlay.addEventListener('click', closeDropdown);
-    doneButton.addEventListener('click', closeDropdown);
-    
-    // Counter buttons
-    document.querySelectorAll('.counter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const type = this.dataset.type;
-            const action = this.dataset.action;
-            
-            if (action === 'increment') {
-                if (type === 'adults' && passengers.adults < 9) passengers.adults++;
-                else if (type === 'children' && passengers.children < 9) passengers.children++;
-                else if (type === 'infants' && passengers.infants < passengers.adults) passengers.infants++;
-            } else {
-                if (type === 'adults' && passengers.adults > 1) {
-                    passengers.adults--;
-                    // Ensure infants don't exceed adults
-                    if (passengers.infants > passengers.adults) {
-                        passengers.infants = passengers.adults;
-                    }
-                }
-                else if (type === 'children' && passengers.children > 0) passengers.children--;
-                else if (type === 'infants' && passengers.infants > 0) passengers.infants--;
-            }
-            
-            updateCounters();
-            updatePassengerDisplay();
-        });
-    });
-    
-    updatePassengerDisplay();
-}
-
-// Location inputs functionality
-function initializeLocationInputs() {
-    const fromInput = document.getElementById('from-location');
-    const toInput = document.getElementById('to-location');
-    const swapButton = document.querySelector('.swap-locations');
-    
-    // Swap locations
-    swapButton.addEventListener('click', function() {
-        const temp = fromInput.value;
-        fromInput.value = toInput.value;
-        toInput.value = temp;
-        
-        // Add animation
-        this.style.transform = 'rotate(180deg)';
-        setTimeout(() => {
-            this.style.transform = 'rotate(0deg)';
-        }, 300);
-    });
-    
-    // Airport search functionality
-    [fromInput, toInput].forEach(input => {
-        let searchTimeout;
-        
-        input.addEventListener('input', function() {
-            clearTimeout(searchTimeout);
-            const query = this.value.trim();
-            
-            if (query.length >= 2) {
-                searchTimeout = setTimeout(() => {
-                    searchAirports(query, this);
-                }, 300);
-            } else {
-                hideAirportSuggestions(this);
-            }
-        });
-        
-        input.addEventListener('blur', function() {
-            // Delay hiding to allow clicking on suggestions
-            setTimeout(() => hideAirportSuggestions(this), 200);
-        });
-    });
-}
-
-// Form submission
-function initializeFormSubmission() {
-    const searchForm = document.getElementById('flight-search-form');
-    
-    searchForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const searchData = {
-            from: document.getElementById('from-location').value,
-            to: document.getElementById('to-location').value,
-            departureDate: document.getElementById('departure-date').value,
-            returnDate: document.getElementById('return-date').value,
-            tripType: document.querySelector('.trip-type-tab.active').textContent.trim(),
-            passengers: {
-                adults: parseInt(document.querySelector('.adult-count').textContent),
-                children: parseInt(document.querySelector('.children-count').textContent),
-                infants: parseInt(document.querySelector('.infant-count').textContent)
-            }
-        };
-        
-        // Validation
-        if (!searchData.from || !searchData.to) {
-            showNotification('Please select departure and destination airports', 'error');
-            return;
-        }
-        
-        if (searchData.from === searchData.to) {
-            showNotification('Departure and destination cannot be the same', 'error');
-            return;
-        }
-        
-        if (!searchData.departureDate) {
-            showNotification('Please select a departure date', 'error');
-            return;
-        }
-        
-        if (searchData.tripType === 'Round-trip' && !searchData.returnDate) {
-            showNotification('Please select a return date for round-trip', 'error');
-            return;
-        }
-        
-        // Store search data
-        globalState.searchData = searchData;
-        
-        // Show loading and redirect
-        showLoadingOverlay();
-        showNotification('Searching for flights...', 'success');
-        
-        setTimeout(() => {
-            window.location.href = 'flight-selection.html';
-        }, 2000);
-    });
-}
-
-// Popular destinations
-function initializePopularDestinations() {
-    const destinations = [
-        { city: 'London', country: 'United Kingdom', code: 'LHR' },
-        { city: 'Paris', country: 'France', code: 'CDG' },
-        { city: 'New York', country: 'United States', code: 'JFK' },
-        { city: 'Tokyo', country: 'Japan', code: 'NRT' },
-        { city: 'Dubai', country: 'UAE', code: 'DXB' },
-        { city: 'Singapore', country: 'Singapore', code: 'SIN' }
-    ];
-    
-    const container = document.querySelector('.popular-destinations');
-    if (container) {
-        destinations.forEach(dest => {
-            const destElement = document.createElement('div');
-            destElement.className = 'destination-item';
-            destElement.innerHTML = `
-                <h4>${dest.city}</h4>
-                <p>${dest.country}</p>
-            `;
-            destElement.addEventListener('click', () => {
-                document.getElementById('to-location').value = `${dest.city} (${dest.code})`;
-            });
-            container.appendChild(destElement);
-        });
-    }
-}
-
-// Helper functions
-function searchAirports(query, inputElement) {
-    // Mock airport data - in real implementation, this would be an API call
-    const airports = [
-        { name: 'London Heathrow', code: 'LHR', city: 'London', country: 'United Kingdom' },
-        { name: 'Paris Charles de Gaulle', code: 'CDG', city: 'Paris', country: 'France' },
-        { name: 'New York JFK', code: 'JFK', city: 'New York', country: 'United States' },
-        { name: 'Los Angeles LAX', code: 'LAX', city: 'Los Angeles', country: 'United States' },
-        { name: 'Tokyo Narita', code: 'NRT', city: 'Tokyo', country: 'Japan' },
-        { name: 'Dubai International', code: 'DXB', city: 'Dubai', country: 'UAE' },
-        { name: 'Singapore Changi', code: 'SIN', city: 'Singapore', country: 'Singapore' },
-        { name: 'Amsterdam Schiphol', code: 'AMS', city: 'Amsterdam', country: 'Netherlands' },
-        { name: 'Frankfurt am Main', code: 'FRA', city: 'Frankfurt', country: 'Germany' },
-        { name: 'Hong Kong International', code: 'HKG', city: 'Hong Kong', country: 'Hong Kong' }
-    ];
-    
-    const filtered = airports.filter(airport => 
-        airport.name.toLowerCase().includes(query.toLowerCase()) ||
-        airport.code.toLowerCase().includes(query.toLowerCase()) ||
-        airport.city.toLowerCase().includes(query.toLowerCase())
-    ).slice(0, 5);
-    
-    showAirportSuggestions(filtered, inputElement);
-}
-
-function showAirportSuggestions(airports, inputElement) {
-    hideAirportSuggestions(inputElement);
-    
-    if (airports.length === 0) return;
-    
-    const suggestions = document.createElement('div');
-    suggestions.className = 'airport-suggestions';
-    suggestions.style.cssText = `
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        border: 1px solid #ddd;
-        border-top: none;
-        border-radius: 0 0 4px 4px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        z-index: 1000;
-        max-height: 200px;
-        overflow-y: auto;
-    `;
-    
-    airports.forEach(airport => {
-        const item = document.createElement('div');
-        item.className = 'suggestion-item';
-        item.style.cssText = `
-            padding: 12px;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.2s;
-        `;
-        item.innerHTML = `
-            <div style="font-weight: 500;">${airport.name} (${airport.code})</div>
-            <div style="font-size: 12px; color: #666;">${airport.city}, ${airport.country}</div>
-        `;
-        
-        item.addEventListener('mouseenter', () => {
-            item.style.backgroundColor = '#f5f5f5';
-        });
-        
-        item.addEventListener('mouseleave', () => {
-            item.style.backgroundColor = 'white';
-        });
-        
-        item.addEventListener('click', () => {
-            inputElement.value = `${airport.city} (${airport.code})`;
-            hideAirportSuggestions(inputElement);
-        });
-        
-        suggestions.appendChild(item);
-    });
-    
-    inputElement.parentElement.style.position = 'relative';
-    inputElement.parentElement.appendChild(suggestions);
-}
-
-function hideAirportSuggestions(inputElement) {
-    const existing = inputElement.parentElement.querySelector('.airport-suggestions');
-    if (existing) {
-        existing.remove();
-    }
-}
-
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span>${message}</span>
+        <div class="flight-meta">
+          <div style="font-size:18px;font-weight:800">${formatCurrency(f.price)}</div>
+          <div style="margin-top:8px">
+            <button class="seat-btn" data-flightid="${f.id}" aria-label="Select flight">Select</button>
+          </div>
         </div>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Trigger animation
-    setTimeout(() => notification.classList.add('show'), 100);
-    
-    // Auto remove
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
+      `;
+      resultsEl.appendChild(wrap);
+    });
 
-function showLoadingOverlay() {
-    const overlay = document.createElement('div');
-    overlay.id = 'loading-overlay';
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        font-size: 18px;
-        font-weight: 500;
-        color: #0071c2;
-    `;
-    overlay.innerHTML = `
-        <div style="text-align: center;">
-            <div style="width: 40px; height: 40px; border: 4px solid #e3f2fd; border-top: 4px solid #0071c2; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px;"></div>
-            <div>Searching for flights...</div>
-        </div>
-        <style>
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        </style>
-    `;
-    
-    document.body.appendChild(overlay);
-}
+    // wire up select buttons
+    resultsEl.querySelectorAll('.seat-btn').forEach(btn=>{
+      btn.addEventListener('click', function(){
+        const fid = this.dataset.flightid;
+        const params = new URLSearchParams({
+          flight: fid
+        });
+        // Navigate to selection page (keeps flow before payment)
+        // Ensure flight-selection.html exists or change to your select-flight path
+        location.href = new URL('flight-selection.html?'+params.toString(), location.href).toString();
+      });
+    });
+  }
 
-// Load global state if available
-if (typeof loadGlobalState === 'function') {
-    loadGlobalState();
-}
+  function escapeHtml(str){ return String(str).replace(/[&<>"']/g, (m)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
+
+  // Simple search that filters by from/to if provided
+  function runSearch(e){
+    if(e && e.preventDefault) e.preventDefault();
+    const from = (document.getElementById('from').value || '').trim().toLowerCase();
+    const to = (document.getElementById('to').value || '').trim().toLowerCase();
+    let list = (flightsData || []).slice();
+    if(from) list = list.filter(x => x.from.toLowerCase().includes(from) || x.from.toLowerCase().indexOf(from) === 0);
+    if(to) list = list.filter(x => x.to.toLowerCase().includes(to) || x.to.toLowerCase().indexOf(to) === 0);
+    list.sort((a,b)=> a.price - b.price);
+    renderList(list.slice(0,30));
+  }
+
+  // Filters toolbar
+  function applyFilter(name){
+    if(name === 'all') renderList(flightsData);
+    else if(name === 'direct') renderList(flightsData.filter(x=>x.stops.toLowerCase().includes('direct')));
+    else if(name === '1stop') renderList(flightsData.filter(x=>x.stops.toLowerCase().includes('1 stop')));
+    else if(name === 'cheapest') renderList(flightsData.slice().sort((a,b)=>a.price-b.price));
+    else if(name === 'shortest') renderList(flightsData.slice().sort((a,b)=>parseInt(a.duration)-parseInt(b.duration)));
+  }
+
+  // Init
+  let flightsData = refreshDataIfNeeded();
+  renderList(flightsData.slice(0,8));
+
+  // Wire handlers
+  document.getElementById('flight-search-form').addEventListener('submit', runSearch);
+  document.getElementById('searchBtn').addEventListener('click', runSearch);
+  document.querySelectorAll('#booking-mirror .filter').forEach(el => {
+    el.addEventListener('click', function(){ applyFilter(this.dataset.filter); });
+  });
+
+})();
 </script>
-
 </body>
 </html>
