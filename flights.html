@@ -1,95 +1,194 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Flight Selection</title>
-<link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flights — Search</title>
 <style>
-body{font-family:"Helvetica Neue",Arial,sans-serif;margin:0;padding:0;background:#f5f5f5}
-.container{max-width:1100px;margin:20px auto;padding:20px}
-.header{background:#0b4a84;color:#fff;padding:24px;text-align:center;font-size:24px;font-weight:700}
-.flight-card{background:#fff;border-radius:8px;padding:16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.1);margin-bottom:16px}
-.seat-map{display:grid;grid-template-columns:repeat(6,40px);gap:8px;margin-top:16px}
-.seat{width:40px;height:40px;background:#eef7ff;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px}
-.seat.selected{background:#0b4a84;color:#fff}
-.seat.occupied{background:#ccc;cursor:not-allowed}
-.extras{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
-.extras label{display:flex;align-items:center;gap:6px}
-button.primary{background:#ffb400;color:#0b2b4a;font-weight:700;border:none;padding:12px 24px;border-radius:6px;cursor:pointer;font-size:16px;margin-top:16px}
-.airline-logo{width:80px;height:30px;object-fit:contain;margin-right:12px}
+body{margin:0;font-family:"Helvetica Neue",Arial,sans-serif;background:#f5f5f5;}
+.container{max-width:1100px;margin:20px auto;padding:20px;}
+.hero{background:#0b4a84;color:#fff;padding:40px;text-align:center;}
+.search-card{background:#fff;padding:16px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;}
+.search-card .field{flex:1;min-width:160px;}
+.search-card input, .search-card select, .search-card button{width:100%;padding:10px;border-radius:6px;border:1px solid #d9e2ec;font-size:14px;}
+button.primary{background:#ffb400;color:#0b2b4a;font-weight:700;border:none;padding:12px;cursor:pointer;border-radius:6px;}
+.results{margin-top:24px;}
+.flight-card{background:#fff;padding:16px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.05);margin-bottom:16px;}
+.airline-logo{width:80px;height:30px;object-fit:contain;margin-right:12px;}
 </style>
 </head>
 <body>
-<div class="header">Select Your Seat</div>
+
+<div class="hero">
+<h1>Compare and book flights</h1>
+<p>Live-like demo (dummy data updated daily at 06:00)</p>
+</div>
+
 <div class="container">
-  <div id="flight-info" class="flight-card"></div>
+<form id="flight-search-form" class="search-card">
+<div class="field">
+<label>From</label>
+<input type="text" id="from" placeholder="City or airport">
+</div>
+<div class="field">
+<label>To</label>
+<input type="text" id="to" placeholder="City or airport">
+</div>
+<div class="field">
+<label>Depart</label>
+<input type="date" id="depart">
+</div>
+<div class="field">
+<label>Return</label>
+<input type="date" id="return">
+</div>
 
-  <div>
-    <h3>Choose Your Seat</h3>
-    <div id="seat-map" class="seat-map"></div>
-  </div>
+<!-- Passengers selector -->
+<div class="field">
+<label>Passengers</label>
+<div id="passenger-selector" style="display:flex;gap:8px;flex-wrap:wrap">
+  <select id="adults">
+    <option value="1">1 adult</option>
+    <option value="2">2 adults</option>
+    <option value="3">3 adults</option>
+    <option value="4">4 adults</option>
+  </select>
+  <select id="children">
+    <option value="0">0 children</option>
+    <option value="1">1 child</option>
+    <option value="2">2 children</option>
+    <option value="3">3 children</option>
+  </select>
+</div>
+<div id="children-ages" style="margin-top:6px;"></div>
+</div>
 
-  <div class="extras">
-    <label><input type="checkbox" id="extra-baggage"> Extra Baggage</label>
-    <label><input type="checkbox" id="meal"> Meal</label>
-  </div>
+<div class="field">
+<label>Class</label>
+<select id="cabin">
+<option>Economy</option>
+<option>Premium Economy</option>
+<option>Business</option>
+</select>
+</div>
 
-  <button class="primary" id="continueBtn">Continue</button>
+<div class="field">
+<label style="visibility:hidden;">Search</label>
+<button type="submit" class="primary">Search</button>
+</div>
+</form>
+
+<div id="results" class="results"></div>
 </div>
 
 <script>
 (function(){
-  const flight = JSON.parse(localStorage.getItem('selectedFlight'));
-  if(!flight){ alert('No flight selected. Redirecting.'); location.href='index.html'; }
+const resultsEl = document.getElementById('results');
+const childrenSelect = document.getElementById('children');
+const agesContainer = document.getElementById('children-ages');
 
-  // Flight info with airline logo
-  const flightInfoEl = document.getElementById('flight-info');
-  flightInfoEl.innerHTML = `
+// Dynamically create child age selectors
+childrenSelect.addEventListener('change', ()=>{
+  const numChildren = parseInt(childrenSelect.value,10);
+  agesContainer.innerHTML='';
+  for(let i=1;i<=numChildren;i++){
+    const ageSelect = document.createElement('select');
+    ageSelect.name='child-age-'+i;
+    ageSelect.style.marginRight='6px';
+    for(let a=0;a<=17;a++){
+      const option = document.createElement('option');
+      option.value=a;
+      option.text=a+' years';
+      ageSelect.appendChild(option);
+    }
+    agesContainer.appendChild(ageSelect);
+  }
+});
+
+// Dummy flight generator
+function generateFlights(){
+  const fromCities=['Johannesburg (JNB)','Cape Town (CPT)','Durban (DUR)'];
+  const toCities=['London (LHR)','Paris (CDG)','Dubai (DXB)','Amsterdam (AMS)','Frankfurt (FRA)','Nairobi (NBO)'];
+  const airlines=['AirElite','BlueSkyAir','AtlasWings','SkyConnect'];
+  const flights=[];
+  const now=new Date();
+  for(let i=0;i<20;i++){
+    const depart=new Date(now.getTime() + i*3600*1000*4 + Math.floor(Math.random()*6)*3600000);
+    const duration=8+Math.floor(Math.random()*10);
+    const base=125000+Math.floor(Math.random()*80000);
+    flights.push({
+      id:'f'+Date.now().toString(36)+'_'+i,
+      airline:airlines[i%airlines.length],
+      from:fromCities[i%fromCities.length],
+      to:toCities[i%toCities.length],
+      departISO:depart.toISOString(),
+      arriveISO:new Date(depart.getTime()+duration*3600000).toISOString(),
+      duration:duration+'h',
+      stops:Math.random()>0.65?'Direct':(Math.random()>0.5?'1 stop':'2+ stops'),
+      price:base,
+      baggage:'1 x 23kg',
+      seatMap:createSeatMap()
+    });
+  }
+  return flights;
+}
+
+// Create seat map
+function createSeatMap(){
+  const rows=[];
+  for(let r=1;r<=20;r++){
+    const row={row:r,seats:{}};
+    ['A','B','C','D','E','F'].forEach(s=>row.seats[s]={available:Math.random()>0.08});
+    rows.push(row);
+  }
+  return rows;
+}
+
+let flightsData=generateFlights();
+
+// Render flight list
+function renderList(list){
+  resultsEl.innerHTML='';
+  list.forEach(f=>{
+    const wrap=document.createElement('div');
+    wrap.className='flight-card';
+    wrap.innerHTML=`
     <div style="display:flex;align-items:center">
-      <img class="airline-logo" src="img/${flight.airline.replace(/\s/g,'')}.png" alt="${flight.airline}">
+      <img class="airline-logo" src="img/${f.airline.replace(/\s/g,'')}.png" alt="${f.airline}">
       <div>
-        <div style="font-weight:700">${flight.airline} - ${flight.from} → ${flight.to}</div>
-        <div>${new Date(flight.departISO).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})} → ${new Date(flight.arriveISO).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</div>
-        <div>Stops: ${flight.stops} • Duration: ${flight.duration}</div>
-        <div>Baggage: ${flight.baggage}</div>
+        <div style="font-weight:700">${f.airline}</div>
+        <div>${f.from} → ${f.to}</div>
+        <div>${new Date(f.departISO).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})} → ${new Date(f.arriveISO).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</div>
+        <div>Stops: ${f.stops} • Duration: ${f.duration}</div>
+        <div>Baggage: ${f.baggage}</div>
       </div>
     </div>
-    <div style="font-weight:800;font-size:18px">ZAR ${flight.price.toLocaleString()}</div>
-  `;
-
-  // Seat Map
-  const seatMapEl = document.getElementById('seat-map');
-  const seatMap = flight.seatMap;
-  seatMap.forEach(row=>{
-    Object.keys(row.seats).forEach(s=>{
-      const seat = document.createElement('div');
-      seat.className='seat'+(row.seats[s].available?'':' occupied');
-      seat.textContent=row.row+s;
-      seat.dataset.row=row.row;
-      seat.dataset.seat=s;
-      seat.addEventListener('click', function(){
-        if(this.classList.contains('occupied')) return;
-        document.querySelectorAll('.seat.selected').forEach(e=>e.classList.remove('selected'));
-        this.classList.add('selected');
-      });
-      seatMapEl.appendChild(seat);
+    <div style="font-weight:800;font-size:18px">ZAR ${f.price.toLocaleString()}</div>
+    <button class="primary selectBtn" data-id="${f.id}">Select</button>
+    `;
+    resultsEl.appendChild(wrap);
+  });
+  document.querySelectorAll('.selectBtn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const selected=flightsData.find(f=>f.id===btn.dataset.id);
+      const passengers={adults:parseInt(document.getElementById('adults').value,10),children:parseInt(document.getElementById('children').value,10),ages:Array.from(agesContainer.querySelectorAll('select')).map(s=>parseInt(s.value,10))};
+      localStorage.setItem('selectedFlight',JSON.stringify(selected));
+      localStorage.setItem('passengersInfo',JSON.stringify(passengers));
+      location.href='flight-selection.html';
     });
   });
+}
 
-  document.getElementById('continueBtn').addEventListener('click', ()=>{
-    const selectedSeat = document.querySelector('.seat.selected');
-    if(!selectedSeat){ alert('Please select a seat'); return; }
-    const extras = {
-      baggage: document.getElementById('extra-baggage').checked,
-      meal: document.getElementById('meal').checked
-    };
-    localStorage.setItem('selectedSeat', JSON.stringify({
-      seat: selectedSeat.dataset.row + selectedSeat.dataset.seat,
-      extras
-    }));
-    location.href='01/passenger-info.html';
-  });
+// Search form
+document.getElementById('flight-search-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  const from=document.getElementById('from').value.toLowerCase();
+  const to=document.getElementById('to').value.toLowerCase();
+  let filtered=flightsData.filter(f=>f.from.toLowerCase().includes(from)&&f.to.toLowerCase().includes(to));
+  renderList(filtered.length?filtered:flightsData);
+});
+
+renderList(flightsData);
 })();
 </script>
 </body>
