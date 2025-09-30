@@ -1,79 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Select Flight</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Seats — Booking.com International</title>
+<link rel="stylesheet" href="css/booking.css">
 <style>
-#booking-mirror{font-family:Arial,Helvetica,sans-serif;color:#222}
-#booking-mirror .container{max-width:1000px;margin:24px auto;padding:0 16px}
-#booking-mirror .card{background:#fff;border-radius:8px;padding:16px;border:1px solid #eef2f6}
-#booking-mirror .flight-head{display:flex;justify-content:space-between;align-items:center}
-#booking-mirror .meta{color:#666;font-size:13px}
-#booking-mirror .btn{padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
-#booking-mirror .btn.primary{background:#f5a623;color:#fff;font-weight:700}
-#booking-mirror .detail-row{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px dashed #eef2f6}
-@media (max-width:700px){ #booking-mirror .flight-head{flex-direction:column;align-items:flex-start} }
+body { font-family:'Segoe UI',sans-serif; background:#f5f7fa; margin:0; padding:0; color:#1a1a1a; }
+.main-container { max-width:1000px; margin:24px auto; padding:0 16px;}
+.card { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(0,0,0,0.05);}
+.card h2 { margin:0 0 16px 0; font-size:22px; font-weight:700;}
+.seat-map { display:grid; grid-template-columns: repeat(6, 50px); gap:8px; justify-content:center; margin:24px 0;}
+.seat { width:50px; height:50px; background:#e2e8f0; border-radius:6px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-weight:600; transition:all 0.2s ease;}
+.seat.selected { background:#0071c2; color:white; }
+.seat.occupied { background:#94a3b8; cursor:not-allowed; }
+.seat-label { text-align:center; margin-bottom:8px; font-size:14px; font-weight:600; }
+.select-btn { width:100%; background:linear-gradient(135deg,#0071c2 0%,#005999 100%); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer; font-size:16px; transition:all 0.3s ease;}
+.select-btn:hover { background:linear-gradient(135deg,#005999 0%,#004080 100%); transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,113,194,0.3);}
+.price-summary { text-align:right; font-weight:700; margin-top:16px; font-size:16px; }
+.back-link { display:inline-block; margin-bottom:16px; }
+@media(max-width:600px){ .seat-map { grid-template-columns: repeat(3, 50px); gap:6px;} }
 </style>
 </head>
 <body>
-<div id="booking-mirror">
-  <main class="container">
-    <a href="flight-search.html" class="small">&larr; Back to search</a>
-    <div class="card" id="flightCard" aria-live="polite">
-      <div class="flight-head">
-        <div>
-          <h2 id="route" style="margin:0"></h2>
-          <div class="meta" id="airlineLine"></div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-weight:800;font-size:20px" id="price"></div>
-          <div class="meta">per passenger</div>
-          <div style="margin-top:8px"><button id="chooseSeats" class="btn primary">Choose seats & continue</button></div>
-        </div>
-      </div>
 
-      <div id="details" style="margin-top:14px">
-        <!-- dynamic -->
-      </div>
+<div class="main-container">
+
+  <a href="booking-confirmation.html" class="back-link">&larr; Back to summary</a>
+
+  <div class="card">
+    <h2>Select Your Seats</h2>
+    <div id="seatLegend" style="margin-bottom:16px;">
+      <span style="display:inline-block;width:20px;height:20px;background:#e2e8f0;border-radius:4px;margin-right:4px;"></span> Available
+      <span style="display:inline-block;width:20px;height:20px;background:#0071c2;border-radius:4px;margin:0 4px 0 16px;"></span> Selected
+      <span style="display:inline-block;width:20px;height:20px;background:#94a3b8;border-radius:4px;margin:0 4px 0 16px;"></span> Occupied
     </div>
-  </main>
+
+    <div class="seat-map" id="seatMap">
+      <!-- Seats dynamically generated -->
+    </div>
+
+    <div class="price-summary" id="totalPrice">Total: ZAR 0</div>
+    <button id="continueBtn" class="select-btn">Continue to Confirmation</button>
+  </div>
+
 </div>
 
 <script>
-(function(){
-  function qs(key){
-    const p = new URLSearchParams(location.search);
-    return p.get(key);
+// Dummy seat map
+const seatRows = 10;
+const seatCols = 6;
+const seatPrice = 50; // per seat
+let selectedSeats = [];
+const occupiedSeats = ['1A','1B','2C','3D']; // dummy occupied
+
+const seatMapContainer = document.getElementById('seatMap');
+
+function generateSeats() {
+  const rows = 'ABCDEFGHIJ';
+  for (let r = 0; r < seatRows; r++) {
+    for (let c = 0; c < seatCols; c++) {
+      const seatId = `${r+1}${String.fromCharCode(65+c)}`;
+      const seatDiv = document.createElement('div');
+      seatDiv.className = 'seat';
+      seatDiv.textContent = seatId;
+      if (occupiedSeats.includes(seatId)) seatDiv.classList.add('occupied');
+      seatDiv.addEventListener('click', () => toggleSeat(seatId, seatDiv));
+      seatMapContainer.appendChild(seatDiv);
+    }
   }
-  const fid = qs('flight');
-  const STORAGE_KEY = 'booking_mirror_flights';
-  const flights = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  const flight = flights.find(f=>f.id===fid);
-  if(!flight){
-    document.getElementById('flightCard').innerHTML = '<p class="small">Flight not found. Go back to search.</p>';
+}
+
+function toggleSeat(seatId, seatDiv) {
+  if (seatDiv.classList.contains('occupied')) return;
+  if (seatDiv.classList.contains('selected')) {
+    seatDiv.classList.remove('selected');
+    selectedSeats = selectedSeats.filter(s => s!==seatId);
+  } else {
+    seatDiv.classList.add('selected');
+    selectedSeats.push(seatId);
+  }
+  updateTotal();
+}
+
+function updateTotal() {
+  const total = selectedSeats.length * seatPrice;
+  document.getElementById('totalPrice').textContent = `Total: ZAR ${total}`;
+}
+
+document.getElementById('continueBtn').addEventListener('click', ()=>{
+  if(selectedSeats.length===0){
+    alert('Please select at least one seat.');
     return;
   }
+  localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+  window.location.href = 'booking-confirmation.html';
+});
 
-  document.getElementById('route').textContent = `${flight.from} → ${flight.to}`;
-  document.getElementById('airlineLine').textContent = `${flight.airline} • ${flight.stops} • ${flight.duration}`;
-  document.getElementById('price').textContent = 'ZAR ' + flight.price.toLocaleString();
-
-  const details = document.getElementById('details');
-  details.innerHTML = `
-    <div class="detail-row"><div><strong>Departure</strong><div class="meta">${new Date(flight.departISO).toLocaleString()}</div></div></div>
-    <div class="detail-row"><div><strong>Arrival</strong><div class="meta">${new Date(flight.arriveISO).toLocaleString()}</div></div></div>
-    <div class="detail-row"><div><strong>Baggage</strong><div class="meta">${flight.baggage}</div></div></div>
-    <div class="detail-row"><div><strong>Duration</strong><div class="meta">${flight.duration}</div></div></div>
-    <div style="padding-top:10px"><small class="meta">Cabin options: ${flight.cabinOptions.join(', ')}</small></div>
-  `;
-
-  document.getElementById('chooseSeats').addEventListener('click', function(){
-    // pass along flight id and selected price
-    const qs = new URLSearchParams({flight: fid});
-    location.href = `select-seat.html?${qs.toString()}`;
-  });
-})();
+generateSeats();
 </script>
+
 </body>
 </html>
