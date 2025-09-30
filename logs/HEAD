@@ -1,0 +1,215 @@
+0000000000000000000000000000000000000000 c4ddffb4a6daf8d59943d3b8f40b8ad5be09dcb5 Go-Global <interviewsglo@outlook.com> 1758712923 +0200	clone: from https://github.com/Goglobal-Recruitment/International-booking.git
+c4ddffb4a6daf8d59943d3b8f40b8ad5be09dcb5 9827e1d22d3da7432f3fda99c6ee939766f90462 Go-Global <interviewsglo@outlook.com> 1758713755 +0200	commit: changes made
+9827e1d22d3da7432f3fda99c6ee939766f90462 4663b6ee5052f39f427549943776ec16670dea6b Go-Global <interviewsglo@outlook.com> 1758714590 +0200	commit: Fix import paths in App.tsx - remove incorrect /components/ directory references
+4663b6ee5052f39f427549943776ec16670dea6b 692568f6dbe0cc82a9019f159e0ec73a060832cb Go-Global <interviewsglo@outlook.com> 1758714850 +0200	commit: Add GitHub Actions deployment workflow
+692568f6dbe0cc82a9019f159e0ec73a060832cb 4c9de352baeebd79c72c5fa153860a9c23d35cdc Go-Global <interviewsglo@outlook.com> 1758714947 +0200	commit: Configure Vite for GitHub Pages deployment
+4c9de352baeebd79c72c5fa153860a9c23d35cdc e463a7a1d73e2d98cb2f115331cfa4a96855baee Go-Global <interviewsglo@outlook.com> 1758715027 +0200	commit: Fix vite.config.ts for GitHub Pages deployment
+e463a7a1d73e2d98cb2f115331cfa4a96855baee d7960c69dcd7c06417c45f669f63717b2b0748cd Go-Global <interviewsglo@outlook.com> 1758737948 +0200	commit: fix hotel json
+d7960c69dcd7c06417c45f669f63717b2b0748cd f59ed88e4d2b5790112d9a2fc2922e4a0db46653 Go-Global <interviewsglo@outlook.com> 1758738580 +0200	commit: image view
+f59ed88e4d2b5790112d9a2fc2922e4a0db46653 cfa910e061b7bb4b372c2de15a34bb97215b79a2 Go-Global <interviewsglo@outlook.com> 1758738992 +0200	commit: cache
+cfa910e061b7bb4b372c2de15a34bb97215b79a2 c3425ac892ea78f8f11f3f38f3d2bf6bd0a03bdc Go-Global <interviewsglo@outlook.com> 1758739131 +0200	commit: destinations
+c3425ac892ea78f8f11f3f38f3d2bf6bd0a03bdc 18732c8775c9ed47e1a6a379272c9fea75b128c8 Go-Global <interviewsglo@outlook.com> 1758740903 +0200	commit: Resolve merge conflicts
+18732c8775c9ed47e1a6a379272c9fea75b128c8 d1406400eb1acd7ba5d96eef91e6e5b391a7bfa1 Go-Global <interviewsglo@outlook.com> 1758740969 +0200	commit (merge): Merge branch 'main' of https://github.com/Goglobal-Recruitment/International-booking
+d1406400eb1acd7ba5d96eef91e6e5b391a7bfa1 bedb5a1a966295184916f32e731f656b249678db Go-Global <interviewsglo@outlook.com> 1758741330 +0200	pull --tags origin main: Merge made by the 'ort' strategy.
+bedb5a1a966295184916f32e731f656b249678db 64e505d043ceb61073addbf19e4297e9a047abaf Go-Global <interviewsglo@outlook.com> 1758742614 +0200	commit: Fix image loading issues and enhance ImageWithFallback component
+64e505d043ceb61073addbf19e4297e9a047abaf 84bb80ded8ed97b391596fbf4c9cd8b310d2967d Go-Global <interviewsglo@outlook.com> 1758743565 +0200	commit: to make the poroject work
+84bb80ded8ed97b391596fbf4c9cd8b310d2967d e409f80cb25a25b8dafb67fbcdd3c41dff6cc2a1 Go-Global <interviewsglo@outlook.com> 1758743580 +0200	pull --tags origin main: Merge made by the 'ort' strategy.
+e409f80cb25a25b8dafb67fbcdd3c41dff6cc2a1 60c13dbc4c85a580e19f60ffa17c79de0ae32652 Go-Global <interviewsglo@outlook.com> 1758744005 +0200	commit: image
+60c13dbc4c85a580e19f60ffa17c79de0ae32652 d69c1c52a7c435ebbb52843f287ed9a4cf584263 Go-Global <interviewsglo@outlook.com> 1758744032 +0200	checkout: moving from main to d69c1c52a7c435ebbb52843f287ed9a4cf584263
+d69c1c52a7c435ebbb52843f287ed9a4cf584263 2ba4652f0c330caf77641dd3ea3c3bcd78d88866 Go-Global <interviewsglo@outlook.com> 1758744178 +0200	commit: images
+2ba4652f0c330caf77641dd3ea3c3bcd78d88866 ed2e6fc3adb8f91a66662e08c0b22d2a4c863053 Go-Global <interviewsglo@outlook.com> 1758744335 +0200	commit: images
+ed2e6fc3adb8f91a66662e08c0b22d2a4c863053 70e82c73c487176e453b820d1e7b58a3dbe4d302 Go-Global <interviewsglo@outlook.com> 1758744456 +0200	commit: images
+70e82c73c487176e453b820d1e7b58a3dbe4d302 9566ea623979521ed046c80736fab2aaa2e27d26 Go-Global <interviewsglo@outlook.com> 1758744741 +0200	commit: image
+9566ea623979521ed046c80736fab2aaa2e27d26 7e6f913bbc806aa025019e73c967caecaacc47de Go-Global <interviewsglo@outlook.com> 1758745263 +0200	commit: image
+7e6f913bbc806aa025019e73c967caecaacc47de ee44c77abea8081048ee9003d93f2e045d47cc85 Go-Global <interviewsglo@outlook.com> 1758745556 +0200	commit: h
+ee44c77abea8081048ee9003d93f2e045d47cc85 40686a83dc520118cf1f6e80c58442cc35527067 Go-Global <interviewsglo@outlook.com> 1758746100 +0200	commit: ghjh
+40686a83dc520118cf1f6e80c58442cc35527067 12d8360f31a47a90fe11c9fadd4cd5409c7399e7 Go-Global <interviewsglo@outlook.com> 1758746681 +0200	commit: hju
+12d8360f31a47a90fe11c9fadd4cd5409c7399e7 29cce7cc32f387b19dcdc87034a8b2e777e53592 Go-Global <interviewsglo@outlook.com> 1758775278 +0200	commit: CHNAGE
+29cce7cc32f387b19dcdc87034a8b2e777e53592 5417f05c8c0243dffa6b830377c43f488a548f2b Go-Global <interviewsglo@outlook.com> 1758776062 +0200	commit: IMAGES
+5417f05c8c0243dffa6b830377c43f488a548f2b 41e36ce7fbd272ca8d571924b250d49effcd14bf Go-Global <interviewsglo@outlook.com> 1758776195 +0200	commit: DISPLAY IMAGES
+41e36ce7fbd272ca8d571924b250d49effcd14bf 01707f61c34d564245c72fd1acba7c26450c825b Go-Global <interviewsglo@outlook.com> 1758777694 +0200	commit: TAB CHANGES
+01707f61c34d564245c72fd1acba7c26450c825b de6e6443189dfa09b74b19273688fc57dccd2138 Go-Global <interviewsglo@outlook.com> 1758778061 +0200	commit: HEADER AND FOOTER
+de6e6443189dfa09b74b19273688fc57dccd2138 d579ded14e4347a970416398efbfa431c73a0d53 Go-Global <interviewsglo@outlook.com> 1758778804 +0200	commit: FEATURE CHANGES
+d579ded14e4347a970416398efbfa431c73a0d53 85235ee5fd4d076493c959e1acb436300efe860d Go-Global <interviewsglo@outlook.com> 1758779704 +0200	commit: CHANGS
+85235ee5fd4d076493c959e1acb436300efe860d e502e74b64478ad25386f82e44013d40e096e011 Go-Global <interviewsglo@outlook.com> 1758779719 +0200	commit: SAVE
+e502e74b64478ad25386f82e44013d40e096e011 ff4730839301129a5377ce5800d5efbe8e130492 Go-Global <interviewsglo@outlook.com> 1758779971 +0200	commit: AGAIN
+ff4730839301129a5377ce5800d5efbe8e130492 74be840ce6dd03c523c3534f7d51c22f090f6710 Go-Global <interviewsglo@outlook.com> 1758780182 +0200	commit: HOPE
+74be840ce6dd03c523c3534f7d51c22f090f6710 5934d581aabe7ffbed3055cf7883803717142ac1 Go-Global <interviewsglo@outlook.com> 1758780279 +0200	commit: D
+5934d581aabe7ffbed3055cf7883803717142ac1 4d5b00318c6a36b3736da1186aa003676b850f51 Go-Global <interviewsglo@outlook.com> 1758780585 +0200	commit: FEATURES
+4d5b00318c6a36b3736da1186aa003676b850f51 1552104deb29e81d2361170196c3c01eaf53ad54 Go-Global <interviewsglo@outlook.com> 1758781385 +0200	commit: FILE
+1552104deb29e81d2361170196c3c01eaf53ad54 ee704f2854958cae2aa70e1ba23d65523d2cdcc7 Go-Global <interviewsglo@outlook.com> 1758781528 +0200	commit: ERRORS TRAE
+ee704f2854958cae2aa70e1ba23d65523d2cdcc7 af91cefd83869084ff5ee082120ad2fb91ea99e3 Go-Global <interviewsglo@outlook.com> 1758781764 +0200	commit: er
+af91cefd83869084ff5ee082120ad2fb91ea99e3 b1747d92d82d42236ef26b3052415fa2bcb4d217 Go-Global <interviewsglo@outlook.com> 1758781979 +0200	commit: f
+b1747d92d82d42236ef26b3052415fa2bcb4d217 c791acadbb6970cabdcdfd243d4af9b269b6b2a1 Go-Global <interviewsglo@outlook.com> 1758782106 +0200	commit: ff
+c791acadbb6970cabdcdfd243d4af9b269b6b2a1 b99124db922eeb290bef1f386605ac3438c1816f Go-Global <interviewsglo@outlook.com> 1758782308 +0200	commit: ffd
+b99124db922eeb290bef1f386605ac3438c1816f ab6bd6940f5d1a7f795f969ce6d6de7abfbc0a92 Go-Global <interviewsglo@outlook.com> 1758782500 +0200	commit: erfdr
+ab6bd6940f5d1a7f795f969ce6d6de7abfbc0a92 76c5a6d05e5eb7fa8aa34e0f3e430c2c07a7c9d0 Go-Global <interviewsglo@outlook.com> 1758782681 +0200	commit: ddf
+76c5a6d05e5eb7fa8aa34e0f3e430c2c07a7c9d0 439f859450f9c411b366c1d3af664ffb9a4dadab Go-Global <interviewsglo@outlook.com> 1758782714 +0200	commit: dfds
+439f859450f9c411b366c1d3af664ffb9a4dadab cc87d973528a5fb15d5330ccdd8dc840b447cbc4 Go-Global <interviewsglo@outlook.com> 1758783100 +0200	commit: hopefinal
+cc87d973528a5fb15d5330ccdd8dc840b447cbc4 e623a3a081f4d52824a42fead52a28e58cbbedb8 Go-Global <interviewsglo@outlook.com> 1758783319 +0200	commit: lays
+e623a3a081f4d52824a42fead52a28e58cbbedb8 9f291e1cb3d28b811c0c1242267d2ef0a548aa14 Go-Global <interviewsglo@outlook.com> 1758783622 +0200	commit: fuckers
+9f291e1cb3d28b811c0c1242267d2ef0a548aa14 6f4d65ce2b58b8df94273d83b902e16428ac211f Go-Global <interviewsglo@outlook.com> 1758783767 +0200	commit: header
+6f4d65ce2b58b8df94273d83b902e16428ac211f d6ed1b2dfa5dce0a4e10a3085c5c3f7c3fa3e6b0 Go-Global <interviewsglo@outlook.com> 1758783839 +0200	commit: asd
+d6ed1b2dfa5dce0a4e10a3085c5c3f7c3fa3e6b0 339f24602e790fef2474e9ecc392c04c03e4752e Go-Global <interviewsglo@outlook.com> 1758784498 +0200	commit: booking
+339f24602e790fef2474e9ecc392c04c03e4752e 68f7a6850f66654061e83ad2fcbadefa7c42b3d3 Go-Global <interviewsglo@outlook.com> 1758784670 +0200	commit: head feet
+68f7a6850f66654061e83ad2fcbadefa7c42b3d3 32780d5250f6a240df2d977412c4c78d6469ccfe Go-Global <interviewsglo@outlook.com> 1758784779 +0200	commit: frf
+32780d5250f6a240df2d977412c4c78d6469ccfe 8f2922543b34fd4afdec440907e487805bdb84fc Go-Global <interviewsglo@outlook.com> 1758784922 +0200	commit: ijy
+8f2922543b34fd4afdec440907e487805bdb84fc 837ea5a125d285e3b16a92c80d551486db83dbe8 Go-Global <interviewsglo@outlook.com> 1758785009 +0200	commit: james
+837ea5a125d285e3b16a92c80d551486db83dbe8 b01f8bcb95cdbd61a410ef129517283193d9947a Go-Global <interviewsglo@outlook.com> 1758785022 +0200	commit: jamesd
+b01f8bcb95cdbd61a410ef129517283193d9947a 1cbf97bbb1b184d301e5651e15f6ee9648fe29fd Go-Global <interviewsglo@outlook.com> 1758785060 +0200	commit: der
+1cbf97bbb1b184d301e5651e15f6ee9648fe29fd edc095514a507a760e5db661b4528958cec7ea76 Go-Global <interviewsglo@outlook.com> 1758785513 +0200	commit: erd
+edc095514a507a760e5db661b4528958cec7ea76 3b28f45b24511f4409d12d1ebef3b815f39ae200 Go-Global <interviewsglo@outlook.com> 1758785663 +0200	commit: commitments
+3b28f45b24511f4409d12d1ebef3b815f39ae200 615ed3d9d8fb10c6a4f1cbbf570d7be83e8c8bcd Go-Global <interviewsglo@outlook.com> 1758785784 +0200	commit: daddy
+615ed3d9d8fb10c6a4f1cbbf570d7be83e8c8bcd c6f56b9a87bfd4cf9885dea0d7464f5ac3de99ae Go-Global <interviewsglo@outlook.com> 1758786358 +0200	commit: nag
+c6f56b9a87bfd4cf9885dea0d7464f5ac3de99ae 07b6eb4f1c8027e5b03a242a9ecf87eb112d364e Go-Global <interviewsglo@outlook.com> 1758786520 +0200	commit: dfr
+07b6eb4f1c8027e5b03a242a9ecf87eb112d364e db57a6e7c51fcb7a00bc202b835a888033dc5dac Go-Global <interviewsglo@outlook.com> 1758787018 +0200	commit: love
+db57a6e7c51fcb7a00bc202b835a888033dc5dac e3dac57a592e12da97d6fd96a15d0fe5a7cba032 Go-Global <interviewsglo@outlook.com> 1758787035 +0200	commit: dfr
+e3dac57a592e12da97d6fd96a15d0fe5a7cba032 8bcf3e648de3069fd58c0322f9b39d80f87e8a41 Go-Global <interviewsglo@outlook.com> 1758787579 +0200	commit: hoping you
+8bcf3e648de3069fd58c0322f9b39d80f87e8a41 58f8081d541cc34daa6ec4b9157f290a20aa03a3 Go-Global <interviewsglo@outlook.com> 1758787615 +0200	commit: hgt
+58f8081d541cc34daa6ec4b9157f290a20aa03a3 5ef70946be432cf90f54c8c0490cab6f188f12db Go-Global <interviewsglo@outlook.com> 1758788152 +0200	commit: done
+5ef70946be432cf90f54c8c0490cab6f188f12db 18e9a88ab3302e5da1ed45640c7ab1e65811c9da Go-Global <interviewsglo@outlook.com> 1758788195 +0200	commit: dads
+18e9a88ab3302e5da1ed45640c7ab1e65811c9da 14f2dc3db7bfdab6f58e40777fbefc3d74bf79fe Go-Global <interviewsglo@outlook.com> 1758788722 +0200	commit: fuck
+14f2dc3db7bfdab6f58e40777fbefc3d74bf79fe 1f08e3301f4f665a5a831a7e8564663097fd06d9 Go-Global <interviewsglo@outlook.com> 1758788951 +0200	commit: la poop
+1f08e3301f4f665a5a831a7e8564663097fd06d9 0b9fb24e35e61d3a7c49f2ccdbbdc2fef17c44bd Go-Global <interviewsglo@outlook.com> 1758789003 +0200	commit: df
+0b9fb24e35e61d3a7c49f2ccdbbdc2fef17c44bd af850d4e5cfa6f2e39697f3c7b76a26323f74d69 Go-Global <interviewsglo@outlook.com> 1758789321 +0200	commit: rainbow
+af850d4e5cfa6f2e39697f3c7b76a26323f74d69 ceb00e48fc7b959910964e9fbe67919b4d2882f3 Go-Global <interviewsglo@outlook.com> 1758789499 +0200	commit: love
+ceb00e48fc7b959910964e9fbe67919b4d2882f3 b69d3649bd7c0da594e269091dad581d4c2bff4e Go-Global <interviewsglo@outlook.com> 1758789517 +0200	commit: der
+b69d3649bd7c0da594e269091dad581d4c2bff4e eac80d24191621f315d17428994140c0308873b1 Go-Global <interviewsglo@outlook.com> 1758789871 +0200	commit: labubu
+eac80d24191621f315d17428994140c0308873b1 fdacd16651bca22bf35eaf42c878c830492c81a4 Go-Global <interviewsglo@outlook.com> 1758789996 +0200	commit: bob
+fdacd16651bca22bf35eaf42c878c830492c81a4 688ca69cf42d5cc8d0d74ae0b8f7b6d1003dac07 Go-Global <interviewsglo@outlook.com> 1758790115 +0200	commit: padding
+688ca69cf42d5cc8d0d74ae0b8f7b6d1003dac07 d8792c2b6940a3ab87b5f4eed68ead0a0c2cf856 Go-Global <interviewsglo@outlook.com> 1758790511 +0200	commit: push
+d8792c2b6940a3ab87b5f4eed68ead0a0c2cf856 8f596a88ebf0661a5ff39006a7fab91c6faa0b59 Go-Global <interviewsglo@outlook.com> 1758791245 +0200	commit: rashatha
+8f596a88ebf0661a5ff39006a7fab91c6faa0b59 e91663f6556fd327218b02fdc1f44f42f80edd8d Go-Global <interviewsglo@outlook.com> 1758791469 +0200	commit: boot
+e91663f6556fd327218b02fdc1f44f42f80edd8d 52b231e2c6df059481787e94c0dc4e08136a9307 Go-Global <interviewsglo@outlook.com> 1758791596 +0200	commit: emojie
+52b231e2c6df059481787e94c0dc4e08136a9307 dfc2b54710fcb07e3d4a6607ee9ec196c9b63263 Go-Global <interviewsglo@outlook.com> 1758791733 +0200	commit: gh
+dfc2b54710fcb07e3d4a6607ee9ec196c9b63263 266d90e68bb26d6723bb164440317f8f753f7610 Go-Global <interviewsglo@outlook.com> 1758791869 +0200	commit: labbo
+266d90e68bb26d6723bb164440317f8f753f7610 ec77761acc5f00e83c3261c2c54808c2c7c57f94 Go-Global <interviewsglo@outlook.com> 1758792201 +0200	commit: dead
+ec77761acc5f00e83c3261c2c54808c2c7c57f94 87b2b148ce3e66cb03568b463d74170f901b63b6 Go-Global <interviewsglo@outlook.com> 1758792305 +0200	commit: ferd
+87b2b148ce3e66cb03568b463d74170f901b63b6 a6566e7b25b58de742dd27afb6f517fcef78a99b Go-Global <interviewsglo@outlook.com> 1758792428 +0200	commit: bala
+a6566e7b25b58de742dd27afb6f517fcef78a99b 78ca61ce4dbb9ef36afa20cfa5f07c1f307a0840 Go-Global <interviewsglo@outlook.com> 1758792565 +0200	commit: fukker
+78ca61ce4dbb9ef36afa20cfa5f07c1f307a0840 16c9279fab193c57adc2964b4c18ac89a663f0ee Go-Global <interviewsglo@outlook.com> 1758792577 +0200	commit: dfd
+16c9279fab193c57adc2964b4c18ac89a663f0ee a7fd7766dc1eb4dcf38e2e4c3e8d799ce36357fd Go-Global <interviewsglo@outlook.com> 1758792678 +0200	commit: sdsd
+a7fd7766dc1eb4dcf38e2e4c3e8d799ce36357fd 8e521541c17e9ac0e45638d62d45f9adceac0916 Go-Global <interviewsglo@outlook.com> 1758792684 +0200	commit: sds
+8e521541c17e9ac0e45638d62d45f9adceac0916 23f4f98c60eec93739e3e0891eb36a518f680c6b Go-Global <interviewsglo@outlook.com> 1758792820 +0200	commit: cxv
+23f4f98c60eec93739e3e0891eb36a518f680c6b 69bc49f71830209bf4d1e0b029292af1932a9d6c Go-Global <interviewsglo@outlook.com> 1758792871 +0200	commit: xcz
+69bc49f71830209bf4d1e0b029292af1932a9d6c d9f5a064347ae8d094cfab36d4982d74e43f70cc Go-Global <interviewsglo@outlook.com> 1758792950 +0200	commit: dfd
+d9f5a064347ae8d094cfab36d4982d74e43f70cc 9f765a71fb85b8c24fefbc4285f0999c19ca309d Go-Global <interviewsglo@outlook.com> 1758793104 +0200	commit: bnc
+9f765a71fb85b8c24fefbc4285f0999c19ca309d fe433e637df67903e1979d4b673dea5d6ae3f393 Go-Global <interviewsglo@outlook.com> 1758793140 +0200	commit: tyt
+fe433e637df67903e1979d4b673dea5d6ae3f393 5f876624a866a60dc5aef8e46e5b81ba3ca87f4b Go-Global <interviewsglo@outlook.com> 1758793307 +0200	commit: gdfg
+5f876624a866a60dc5aef8e46e5b81ba3ca87f4b 98b5aeaef03a7de68dc40cb7cc7539317badb313 Go-Global <interviewsglo@outlook.com> 1758793510 +0200	commit: sda
+98b5aeaef03a7de68dc40cb7cc7539317badb313 c3d99ccba4998692febf2bab15f327d0a94215c2 Go-Global <interviewsglo@outlook.com> 1758793706 +0200	commit: mb
+c3d99ccba4998692febf2bab15f327d0a94215c2 332ee1b277eb3913852092810fe8e2515e7855af Go-Global <interviewsglo@outlook.com> 1758793729 +0200	commit: hf
+332ee1b277eb3913852092810fe8e2515e7855af 10d91a027cb4c3487f2ef461cfb8b924258de879 Go-Global <interviewsglo@outlook.com> 1758793834 +0200	commit: fgs
+10d91a027cb4c3487f2ef461cfb8b924258de879 53aaa14fbbb0f97a3e8d4d1193b2c9ad10a7f85d Go-Global <interviewsglo@outlook.com> 1758794083 +0200	commit: xcas
+53aaa14fbbb0f97a3e8d4d1193b2c9ad10a7f85d 0c99eaa6f596f0fa46e8da79f370eca9b085ffa1 Go-Global <interviewsglo@outlook.com> 1758794298 +0200	commit: rubbish
+0c99eaa6f596f0fa46e8da79f370eca9b085ffa1 0c31c55546f60d2de751f5d2f303026e4f0821af Go-Global <interviewsglo@outlook.com> 1758794437 +0200	commit: emojies
+0c31c55546f60d2de751f5d2f303026e4f0821af ab6699b8cff06e37de138d0035c253db094b3f0d Go-Global <interviewsglo@outlook.com> 1758794703 +0200	commit: eded
+ab6699b8cff06e37de138d0035c253db094b3f0d 36a0989bcad2d75f9afacceccd0d2028bf21fa3d Go-Global <interviewsglo@outlook.com> 1758917762 +0200	commit: fdsf
+36a0989bcad2d75f9afacceccd0d2028bf21fa3d 064f58baa2ff4698e51df07f275767451a69271f Go-Global <interviewsglo@outlook.com> 1758917865 +0200	commit: gh
+064f58baa2ff4698e51df07f275767451a69271f 11ea25aa46f59296da4ccc3197ae1a4937ba3d2e Go-Global <interviewsglo@outlook.com> 1758917907 +0200	commit: fs
+11ea25aa46f59296da4ccc3197ae1a4937ba3d2e 08c79493b6f30f87f058eba68240026ba723ae6d Go-Global <interviewsglo@outlook.com> 1758918015 +0200	commit: gfg
+08c79493b6f30f87f058eba68240026ba723ae6d a1f3bfffa1ae62e39fb89458871cb822834acd6c Go-Global <interviewsglo@outlook.com> 1758918085 +0200	commit: yty
+a1f3bfffa1ae62e39fb89458871cb822834acd6c 6bc1e769350b0f4d28bcca5b980d9231faf4bf8c Go-Global <interviewsglo@outlook.com> 1758918161 +0200	commit: fs
+6bc1e769350b0f4d28bcca5b980d9231faf4bf8c f4e4fc69003fa3617066e517a7e2cc836a723e03 Go-Global <interviewsglo@outlook.com> 1758918289 +0200	commit: te
+f4e4fc69003fa3617066e517a7e2cc836a723e03 378b62eab6e10c54d0dff4c0e8950fe71b4ed1fd Go-Global <interviewsglo@outlook.com> 1758918533 +0200	commit: fgsg
+378b62eab6e10c54d0dff4c0e8950fe71b4ed1fd fd7ed23d77bd26bbf51124b629fdead1b55b5a95 Go-Global <interviewsglo@outlook.com> 1758918948 +0200	commit: tg
+fd7ed23d77bd26bbf51124b629fdead1b55b5a95 e0b9d8f2fca250d603e4c8fd2b31c68f1946c446 Go-Global <interviewsglo@outlook.com> 1758920308 +0200	commit: rt
+e0b9d8f2fca250d603e4c8fd2b31c68f1946c446 27c08993d6d949cd71945a8d5a09dbd5cc11e57d Go-Global <interviewsglo@outlook.com> 1758920743 +0200	commit: edf
+27c08993d6d949cd71945a8d5a09dbd5cc11e57d 94130d2ea8a1be46bbf09c92894148ea89be1dd4 Go-Global <interviewsglo@outlook.com> 1758920819 +0200	commit: ret
+94130d2ea8a1be46bbf09c92894148ea89be1dd4 575bf07b1d4bcb6c15efc369b1ce4624c6acbf7a Go-Global <interviewsglo@outlook.com> 1758921720 +0200	commit: feat(auth): improve user authentication flow and error handling
+575bf07b1d4bcb6c15efc369b1ce4624c6acbf7a 89a07dbb7bfcd790e2cc4e4dc6d2583f99da4e94 Go-Global <interviewsglo@outlook.com> 1758921724 +0200	commit: cv
+89a07dbb7bfcd790e2cc4e4dc6d2583f99da4e94 12a3c9aa35ca017002308265112398c4b5cae502 Go-Global <interviewsglo@outlook.com> 1758921990 +0200	commit: vb
+12a3c9aa35ca017002308265112398c4b5cae502 c9f9e3abb315950dce5fa292cbe22c01578743ba Go-Global <interviewsglo@outlook.com> 1758922206 +0200	commit: c
+c9f9e3abb315950dce5fa292cbe22c01578743ba c65d5087713f7b1e1998ba1691cf786610dc50eb Go-Global <interviewsglo@outlook.com> 1758922748 +0200	commit: nh
+c65d5087713f7b1e1998ba1691cf786610dc50eb 8a0e36b95fecfb5f0c0292c19ddf9ca1f4ce595f Go-Global <interviewsglo@outlook.com> 1758922902 +0200	commit: fg
+8a0e36b95fecfb5f0c0292c19ddf9ca1f4ce595f 74aee89fe2338ab6402ce38d7b8ee2272a7848fe Go-Global <interviewsglo@outlook.com> 1758923455 +0200	commit: gf
+74aee89fe2338ab6402ce38d7b8ee2272a7848fe 3a5a419ce80e74646ed56b80c3bb2f6fff62625b Go-Global <interviewsglo@outlook.com> 1758923580 +0200	commit: df
+3a5a419ce80e74646ed56b80c3bb2f6fff62625b cef651e568c18c3117ed1d9089a43627c82b6a1a Go-Global <interviewsglo@outlook.com> 1758923704 +0200	commit: gh
+cef651e568c18c3117ed1d9089a43627c82b6a1a 9135f694aca0508f4350764fe90dbce23f35b17b Go-Global <interviewsglo@outlook.com> 1758923789 +0200	commit: ryr
+9135f694aca0508f4350764fe90dbce23f35b17b f42fb40854d300e3061d3e6faadcfb41a0859eb9 Go-Global <interviewsglo@outlook.com> 1759041164 +0200	commit: get
+f42fb40854d300e3061d3e6faadcfb41a0859eb9 264b808a4531e0df10b3ca8ff4e921d7b381f9d6 Go-Global <interviewsglo@outlook.com> 1759041841 +0200	commit: sewat
+264b808a4531e0df10b3ca8ff4e921d7b381f9d6 0526cb5d85560ac350e8455af4a800fcd6ca0ac7 Go-Global <interviewsglo@outlook.com> 1759042825 +0200	commit: seat select
+0526cb5d85560ac350e8455af4a800fcd6ca0ac7 a2052d8622a825123b09b1d4e79bc81ddf762a15 Go-Global <interviewsglo@outlook.com> 1759043545 +0200	commit: der
+a2052d8622a825123b09b1d4e79bc81ddf762a15 d8a7412234815bde631d7c92fa57b4bfb826d54e Go-Global <interviewsglo@outlook.com> 1759043941 +0200	commit: DF
+d8a7412234815bde631d7c92fa57b4bfb826d54e d77d67d5b53fbd2d9ecd59b902d8b05b5068fd6c Go-Global <interviewsglo@outlook.com> 1759044524 +0200	commit: CUSTOMER
+d77d67d5b53fbd2d9ecd59b902d8b05b5068fd6c 5427cd03df1c8e01b519309ec7dee5f4f163740a Go-Global <interviewsglo@outlook.com> 1759044622 +0200	commit: DED
+5427cd03df1c8e01b519309ec7dee5f4f163740a f8caebcc4a9bb0d0d34131f362a3d2d331fa77f7 Go-Global <interviewsglo@outlook.com> 1759044745 +0200	commit: CLICK
+f8caebcc4a9bb0d0d34131f362a3d2d331fa77f7 9c5053abb11c755f8c1715e8974d06291dac7573 Go-Global <interviewsglo@outlook.com> 1759044878 +0200	commit: XC
+9c5053abb11c755f8c1715e8974d06291dac7573 cdb528387fe153c9205a6a1ffc0beaa73b7e67b1 Go-Global <interviewsglo@outlook.com> 1759045231 +0200	commit: DING
+cdb528387fe153c9205a6a1ffc0beaa73b7e67b1 9b9d47260bb30fc70470be4ae46114fe07f6b3ac Go-Global <interviewsglo@outlook.com> 1759045887 +0200	commit: DDD
+9b9d47260bb30fc70470be4ae46114fe07f6b3ac e8d693ce86e2648a701bc2614fcbbc81dd0556fb Go-Global <interviewsglo@outlook.com> 1759046349 +0200	commit: DFER
+e8d693ce86e2648a701bc2614fcbbc81dd0556fb b8bfcdb67b0045f088b6b9a59a6af87a6f6c377a Go-Global <interviewsglo@outlook.com> 1759046658 +0200	commit: X
+b8bfcdb67b0045f088b6b9a59a6af87a6f6c377a e149c347c62c775f2a444d7af37d562ae90b599c Go-Global <interviewsglo@outlook.com> 1759047386 +0200	commit: ght
+e149c347c62c775f2a444d7af37d562ae90b599c 3af882489399dfe1e58333b0022fe8f4ab5c809e Go-Global <interviewsglo@outlook.com> 1759048397 +0200	commit: df
+3af882489399dfe1e58333b0022fe8f4ab5c809e 4e42ef350614356ac6567824f5aaee8e78b1af05 Go-Global <interviewsglo@outlook.com> 1759049739 +0200	commit: dee
+4e42ef350614356ac6567824f5aaee8e78b1af05 eed5bf5850b22d972df58fab669328cbe4dfe37d Go-Global <interviewsglo@outlook.com> 1759050297 +0200	commit: uu
+eed5bf5850b22d972df58fab669328cbe4dfe37d bc899ad50e2a94efa2f163e2dbbacbc6e5222a1d Go-Global <interviewsglo@outlook.com> 1759050604 +0200	commit: cx
+bc899ad50e2a94efa2f163e2dbbacbc6e5222a1d b7a67cc62d154e9e2ec292af2aeab666bbe35299 Go-Global <interviewsglo@outlook.com> 1759050828 +0200	commit: df
+b7a67cc62d154e9e2ec292af2aeab666bbe35299 2eebee7a916af6be0277a299eb1fbaee54883fda Go-Global <interviewsglo@outlook.com> 1759053686 +0200	commit: xc
+2eebee7a916af6be0277a299eb1fbaee54883fda 751284b2ae668448d520809167e81ba42204e8c6 Go-Global <interviewsglo@outlook.com> 1759054058 +0200	commit: df
+751284b2ae668448d520809167e81ba42204e8c6 eb68ee99a03caf9bce9ad5e25ba9497c0b295e0c Go-Global <interviewsglo@outlook.com> 1759057416 +0200	commit: gj
+eb68ee99a03caf9bce9ad5e25ba9497c0b295e0c edabcf731cc344fb565e0b68ddb66a8db955b35b Go-Global <interviewsglo@outlook.com> 1759058033 +0200	commit: fd
+edabcf731cc344fb565e0b68ddb66a8db955b35b 9274a9298f8b96e38c50d4eed7c3827beb963edb Go-Global <interviewsglo@outlook.com> 1759058254 +0200	commit: xcx
+9274a9298f8b96e38c50d4eed7c3827beb963edb fdd75152e20a05db6faa9a3e13a1218509c1a393 Go-Global <interviewsglo@outlook.com> 1759058925 +0200	commit: x
+fdd75152e20a05db6faa9a3e13a1218509c1a393 fe125b73a35d44b18a4484071de02118a791ad5c Go-Global <interviewsglo@outlook.com> 1759059434 +0200	commit: cc
+fe125b73a35d44b18a4484071de02118a791ad5c bd428295c3d104ff7451e005bc19d821513a9673 Go-Global <interviewsglo@outlook.com> 1759060927 +0200	commit: logic
+bd428295c3d104ff7451e005bc19d821513a9673 7b9b9b543ed782f4ff02e32edbdbd3fdc920cdaf Go-Global <interviewsglo@outlook.com> 1759061403 +0200	commit: hyperlink
+7b9b9b543ed782f4ff02e32edbdbd3fdc920cdaf baa8f9c36cb41509d619b00d77f82da72a05e4ea Go-Global <interviewsglo@outlook.com> 1759062980 +0200	commit: fgf
+baa8f9c36cb41509d619b00d77f82da72a05e4ea c1c6a587f16d7e1f0e04227d11dd6a1ed0aa8bd0 Go-Global <interviewsglo@outlook.com> 1759063532 +0200	commit: l
+c1c6a587f16d7e1f0e04227d11dd6a1ed0aa8bd0 72988f7bd842a11d0d63e8629cfa469e0b40bd76 Go-Global <interviewsglo@outlook.com> 1759064547 +0200	commit: h
+72988f7bd842a11d0d63e8629cfa469e0b40bd76 f3da997acfa56d0ac64ae9becff379b5e70215df Go-Global <interviewsglo@outlook.com> 1759064888 +0200	commit: freezer
+f3da997acfa56d0ac64ae9becff379b5e70215df 6aa14cec1af61c4c7d91a4b5bff1baec4a297d0d Go-Global <interviewsglo@outlook.com> 1759065081 +0200	commit: y6
+6aa14cec1af61c4c7d91a4b5bff1baec4a297d0d ba76cd6e89c5da29d8c2f26e8576d3b436de2fb4 Go-Global <interviewsglo@outlook.com> 1759066854 +0200	commit: sd
+ba76cd6e89c5da29d8c2f26e8576d3b436de2fb4 3c934add3cae0e4c509a12c60cda42ae7f483379 Go-Global <interviewsglo@outlook.com> 1759067285 +0200	commit: ds
+3c934add3cae0e4c509a12c60cda42ae7f483379 4f48419288762f0f6b560c8eb918fa71828727fd Go-Global <interviewsglo@outlook.com> 1759067965 +0200	commit: derf
+4f48419288762f0f6b560c8eb918fa71828727fd 1c5ced1f1601b17ba6f17d072d2f1b9feb5a8c5a Go-Global <interviewsglo@outlook.com> 1759068026 +0200	commit: qw
+1c5ced1f1601b17ba6f17d072d2f1b9feb5a8c5a 31430774e312b846fe5abc2ebf14ad457ff32699 Go-Global <interviewsglo@outlook.com> 1759068252 +0200	commit: xc
+31430774e312b846fe5abc2ebf14ad457ff32699 ed2855c750fe0329538cac72c17f8e21b06d021b Go-Global <interviewsglo@outlook.com> 1759068503 +0200	commit: DERF
+ed2855c750fe0329538cac72c17f8e21b06d021b 6065a08ebdbff17d5fd84ae0a4385a5a0484fe94 Go-Global <interviewsglo@outlook.com> 1759068665 +0200	commit: FLIGHT
+6065a08ebdbff17d5fd84ae0a4385a5a0484fe94 e095e68ebf15616de7c70c76fca0cb6e4103f2c8 Go-Global <interviewsglo@outlook.com> 1759069107 +0200	commit: css
+e095e68ebf15616de7c70c76fca0cb6e4103f2c8 1138dd8af7db8ecfab86d224a04330131a78aa0a Go-Global <interviewsglo@outlook.com> 1759070616 +0200	commit: flex
+1138dd8af7db8ecfab86d224a04330131a78aa0a 26e0e3dfd2c4c4b7e53e4f8a2971199814229e3d Go-Global <interviewsglo@outlook.com> 1759071283 +0200	commit: dsds
+26e0e3dfd2c4c4b7e53e4f8a2971199814229e3d 4a3fbf745a9217e7b15df1a44b3fbd24a5097d49 Go-Global <interviewsglo@outlook.com> 1759071424 +0200	commit: dr
+4a3fbf745a9217e7b15df1a44b3fbd24a5097d49 da81d73f56d6864b0b72fe1ea5109f978fd3f574 Go-Global <interviewsglo@outlook.com> 1759071918 +0200	commit: fg
+da81d73f56d6864b0b72fe1ea5109f978fd3f574 454f4a67a4d3a897c24dd4ee53e0d90a3ff71c15 Go-Global <interviewsglo@outlook.com> 1759072262 +0200	commit: ty
+454f4a67a4d3a897c24dd4ee53e0d90a3ff71c15 30ea2eaf841295dcf7d882006a998f517db4175a Go-Global <interviewsglo@outlook.com> 1759072456 +0200	commit: yes
+30ea2eaf841295dcf7d882006a998f517db4175a 72c98d65796e19ef27f1d8cb2206ce6545d840ee Go-Global <interviewsglo@outlook.com> 1759072826 +0200	commit: free
+72c98d65796e19ef27f1d8cb2206ce6545d840ee 23b74cf3c4021693ad22c83f4685061ac7f286d5 Go-Global <interviewsglo@outlook.com> 1759072869 +0200	commit: seats
+23b74cf3c4021693ad22c83f4685061ac7f286d5 62d541a3471b59e7d43bd9be981c4f96aa318733 Go-Global <interviewsglo@outlook.com> 1759073532 +0200	commit: fli
+62d541a3471b59e7d43bd9be981c4f96aa318733 ea91435cfc497e598cd53a63506f3649dbfe982b Go-Global <interviewsglo@outlook.com> 1759073805 +0200	commit: ds
+ea91435cfc497e598cd53a63506f3649dbfe982b 700ce0d146d76e11d017ec55ea319f918b6b1b4d Go-Global <interviewsglo@outlook.com> 1759074287 +0200	commit: sd
+700ce0d146d76e11d017ec55ea319f918b6b1b4d 98be50f56d1947893a9cceeab04ded3d12be5adf Go-Global <interviewsglo@outlook.com> 1759074299 +0200	commit: sds
+98be50f56d1947893a9cceeab04ded3d12be5adf 2da63c79b89106bcac8d079353be46a99ca703fa Go-Global <interviewsglo@outlook.com> 1759074753 +0200	commit: sdsd
+2da63c79b89106bcac8d079353be46a99ca703fa 35915365303fcdb704cabd58c28fc6614a79e736 Go-Global <interviewsglo@outlook.com> 1759075166 +0200	commit: cvcxv
+35915365303fcdb704cabd58c28fc6614a79e736 940c7e599f2c88c2840af8401e3dde129495c74d Go-Global <interviewsglo@outlook.com> 1759075240 +0200	commit: fffgf
+940c7e599f2c88c2840af8401e3dde129495c74d a4c4ed316afb5ccacb5f10de810cea7ee4c8bd53 Go-Global <interviewsglo@outlook.com> 1759075373 +0200	commit: fdg
+a4c4ed316afb5ccacb5f10de810cea7ee4c8bd53 8e878514c4c291f48c4e053b65f9b623105f186e Go-Global <interviewsglo@outlook.com> 1759075774 +0200	commit: sds
+8e878514c4c291f48c4e053b65f9b623105f186e 81039576cc4f3337577ba0b0f394de6d233e68cc Go-Global <interviewsglo@outlook.com> 1759075870 +0200	commit: sds
+81039576cc4f3337577ba0b0f394de6d233e68cc 6a08a24b9c44d55b8d05f5964d60d00dfceaf45f Go-Global <interviewsglo@outlook.com> 1759076099 +0200	commit: hopw
+6a08a24b9c44d55b8d05f5964d60d00dfceaf45f 2b603191d08fd63ddf442fb4b75f18275b04bc95 Go-Global <interviewsglo@outlook.com> 1759076507 +0200	commit: deads
+2b603191d08fd63ddf442fb4b75f18275b04bc95 0f95c2c1784d6c1be634d08ca83b1f873d22519a Go-Global <interviewsglo@outlook.com> 1759076888 +0200	commit: dhd
+0f95c2c1784d6c1be634d08ca83b1f873d22519a 905dbc3b49066a6d611b07564dd55dcf6710d8e8 Go-Global <interviewsglo@outlook.com> 1759077138 +0200	commit: fsgs
+905dbc3b49066a6d611b07564dd55dcf6710d8e8 9dfb061cb26a312ba0aac5d8c30f25f04c08aef0 Go-Global <interviewsglo@outlook.com> 1759077788 +0200	commit: flight
+9dfb061cb26a312ba0aac5d8c30f25f04c08aef0 9c461d08dd3ccdf9d41d7c1b72bc8322e6de491b Go-Global <interviewsglo@outlook.com> 1759077989 +0200	commit: gfg
+9c461d08dd3ccdf9d41d7c1b72bc8322e6de491b 454e616f221353093364955aef2f17d57d653735 Go-Global <interviewsglo@outlook.com> 1759079148 +0200	commit: xges
+454e616f221353093364955aef2f17d57d653735 f5661245f1944d969a6cfad7b49112aae63432fa Go-Global <interviewsglo@outlook.com> 1759079158 +0200	commit: fger
+f5661245f1944d969a6cfad7b49112aae63432fa 2c20486d02b9d8b33cadd64dd77f5662c22cf0dc Go-Global <interviewsglo@outlook.com> 1759079198 +0200	commit: fdf
+2c20486d02b9d8b33cadd64dd77f5662c22cf0dc 2254a146b8852b4cac3553a32a78b7df2889122a Go-Global <interviewsglo@outlook.com> 1759079634 +0200	commit: fdsd
+2254a146b8852b4cac3553a32a78b7df2889122a ccb8da2d58148c9dfec8f6b05ae1cc7924432461 Go-Global <interviewsglo@outlook.com> 1759079813 +0200	commit: grbr
+ccb8da2d58148c9dfec8f6b05ae1cc7924432461 eea46f24ccfcc6d4daf8a9efd0a8ad6924894cbc Go-Global <interviewsglo@outlook.com> 1759081040 +0200	commit: rhth
+eea46f24ccfcc6d4daf8a9efd0a8ad6924894cbc 7294311cfa46e51159c9e44d0873f7b916811246 Go-Global <interviewsglo@outlook.com> 1759081301 +0200	commit: fwf
+7294311cfa46e51159c9e44d0873f7b916811246 775c8b493f515479e7517a3179d06250349f40ec Go-Global <interviewsglo@outlook.com> 1759081634 +0200	commit: treh
+775c8b493f515479e7517a3179d06250349f40ec 4d01fdac507ef983a26f14450e668f60b32a61f8 Go-Global <interviewsglo@outlook.com> 1759082694 +0200	commit: j,hj,
+4d01fdac507ef983a26f14450e668f60b32a61f8 2631805cd133811fd075d8bb8095442fbe067f34 Go-Global <interviewsglo@outlook.com> 1759083075 +0200	commit: bdb
+2631805cd133811fd075d8bb8095442fbe067f34 4464e2ce9bd076a211168cc1aa82640c6122698b Go-Global <interviewsglo@outlook.com> 1759084204 +0200	commit: rew
+4464e2ce9bd076a211168cc1aa82640c6122698b 2c48c90aa42b2b39be6afbb3c47add637fb0ac39 Go-Global <interviewsglo@outlook.com> 1759084336 +0200	commit: ]]]
+2c48c90aa42b2b39be6afbb3c47add637fb0ac39 39a1d5d06ea93816eec4721e52e8c412054ec1b3 Go-Global <interviewsglo@outlook.com> 1759084400 +0200	commit: y
+39a1d5d06ea93816eec4721e52e8c412054ec1b3 ca8fa268efd4fad7234a2c7c409a3849f6168a63 Go-Global <interviewsglo@outlook.com> 1759084984 +0200	commit: ui
+ca8fa268efd4fad7234a2c7c409a3849f6168a63 72891526571bf9debc124780d365161830ea5b70 Go-Global <interviewsglo@outlook.com> 1759085365 +0200	commit: pup
+72891526571bf9debc124780d365161830ea5b70 de8bda25e2efbb27493dad82a12a59de90a88e4e Go-Global <interviewsglo@outlook.com> 1759085371 +0200	commit: p\p
+de8bda25e2efbb27493dad82a12a59de90a88e4e 1dacb04e2014bd13da3b7e73bce2dfe1936898fc Go-Global <interviewsglo@outlook.com> 1759086320 +0200	commit: hj
+1dacb04e2014bd13da3b7e73bce2dfe1936898fc 49c90c52c0964f5d57a2ddb089052afd4a353340 Go-Global <interviewsglo@outlook.com> 1759086658 +0200	commit: vcv
+49c90c52c0964f5d57a2ddb089052afd4a353340 59cf603b719e14899260e6948efd95584cf82b76 Go-Global <interviewsglo@outlook.com> 1759086923 +0200	commit: ccvsc
+59cf603b719e14899260e6948efd95584cf82b76 85d133e6ec886e8006b7e97cce2f54e09b40457c Go-Global <interviewsglo@outlook.com> 1759086989 +0200	commit: sdd
+85d133e6ec886e8006b7e97cce2f54e09b40457c bc571a75edf4dbf683b979a8dbe3e1b6f14135f2 Go-Global <interviewsglo@outlook.com> 1759218030 +0200	commit: chnages
+bc571a75edf4dbf683b979a8dbe3e1b6f14135f2 1d52a5e43c6ade7dd0b449281f672f1bb5eac1d6 Go-Global <interviewsglo@outlook.com> 1759218683 +0200	commit: cahneg 2

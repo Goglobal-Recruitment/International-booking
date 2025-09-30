@@ -1,0 +1,17 @@
+0000000000000000000000000000000000000000 c4ddffb4a6daf8d59943d3b8f40b8ad5be09dcb5 Go-Global <interviewsglo@outlook.com> 1758712923 +0200	clone: from https://github.com/Goglobal-Recruitment/International-booking.git
+c4ddffb4a6daf8d59943d3b8f40b8ad5be09dcb5 9827e1d22d3da7432f3fda99c6ee939766f90462 Go-Global <interviewsglo@outlook.com> 1758713755 +0200	commit: changes made
+9827e1d22d3da7432f3fda99c6ee939766f90462 4663b6ee5052f39f427549943776ec16670dea6b Go-Global <interviewsglo@outlook.com> 1758714590 +0200	commit: Fix import paths in App.tsx - remove incorrect /components/ directory references
+4663b6ee5052f39f427549943776ec16670dea6b 692568f6dbe0cc82a9019f159e0ec73a060832cb Go-Global <interviewsglo@outlook.com> 1758714850 +0200	commit: Add GitHub Actions deployment workflow
+692568f6dbe0cc82a9019f159e0ec73a060832cb 4c9de352baeebd79c72c5fa153860a9c23d35cdc Go-Global <interviewsglo@outlook.com> 1758714947 +0200	commit: Configure Vite for GitHub Pages deployment
+4c9de352baeebd79c72c5fa153860a9c23d35cdc e463a7a1d73e2d98cb2f115331cfa4a96855baee Go-Global <interviewsglo@outlook.com> 1758715027 +0200	commit: Fix vite.config.ts for GitHub Pages deployment
+e463a7a1d73e2d98cb2f115331cfa4a96855baee d7960c69dcd7c06417c45f669f63717b2b0748cd Go-Global <interviewsglo@outlook.com> 1758737948 +0200	commit: fix hotel json
+d7960c69dcd7c06417c45f669f63717b2b0748cd f59ed88e4d2b5790112d9a2fc2922e4a0db46653 Go-Global <interviewsglo@outlook.com> 1758738580 +0200	commit: image view
+f59ed88e4d2b5790112d9a2fc2922e4a0db46653 cfa910e061b7bb4b372c2de15a34bb97215b79a2 Go-Global <interviewsglo@outlook.com> 1758738992 +0200	commit: cache
+cfa910e061b7bb4b372c2de15a34bb97215b79a2 c3425ac892ea78f8f11f3f38f3d2bf6bd0a03bdc Go-Global <interviewsglo@outlook.com> 1758739131 +0200	commit: destinations
+c3425ac892ea78f8f11f3f38f3d2bf6bd0a03bdc 18732c8775c9ed47e1a6a379272c9fea75b128c8 Go-Global <interviewsglo@outlook.com> 1758740903 +0200	commit: Resolve merge conflicts
+18732c8775c9ed47e1a6a379272c9fea75b128c8 d1406400eb1acd7ba5d96eef91e6e5b391a7bfa1 Go-Global <interviewsglo@outlook.com> 1758740969 +0200	commit (merge): Merge branch 'main' of https://github.com/Goglobal-Recruitment/International-booking
+d1406400eb1acd7ba5d96eef91e6e5b391a7bfa1 bedb5a1a966295184916f32e731f656b249678db Go-Global <interviewsglo@outlook.com> 1758741330 +0200	pull --tags origin main: Merge made by the 'ort' strategy.
+bedb5a1a966295184916f32e731f656b249678db 64e505d043ceb61073addbf19e4297e9a047abaf Go-Global <interviewsglo@outlook.com> 1758742614 +0200	commit: Fix image loading issues and enhance ImageWithFallback component
+64e505d043ceb61073addbf19e4297e9a047abaf 84bb80ded8ed97b391596fbf4c9cd8b310d2967d Go-Global <interviewsglo@outlook.com> 1758743565 +0200	commit: to make the poroject work
+84bb80ded8ed97b391596fbf4c9cd8b310d2967d e409f80cb25a25b8dafb67fbcdd3c41dff6cc2a1 Go-Global <interviewsglo@outlook.com> 1758743580 +0200	pull --tags origin main: Merge made by the 'ort' strategy.
+e409f80cb25a25b8dafb67fbcdd3c41dff6cc2a1 60c13dbc4c85a580e19f60ffa17c79de0ae32652 Go-Global <interviewsglo@outlook.com> 1758744005 +0200	commit: image
