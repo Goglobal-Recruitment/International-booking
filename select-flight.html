@@ -1,178 +1,127 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select your flight - Booking.com</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <script src="global-state.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Select Flight — Booking.com Clone</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;color:#222;background:#f5f7fa;margin:0;padding:0;}
+#booking-mirror{max-width:1000px;margin:24px auto;padding:0 16px}
+a{color:#0071c2;text-decoration:none}
+a:hover{text-decoration:underline}
+.card{background:#fff;border-radius:8px;padding:16px;margin-top:16px;border:1px solid #eef2f6;opacity:0;transform:translateY(20px);transition:0.4s ease;}
+.card.loaded{opacity:1;transform:translateY(0);}
+.flight-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+.flight-head-left{display:flex;align-items:center;gap:12px;}
+.flight-head-left img{height:36px;object-fit:contain;}
+.flight-head-left h2{margin:0;font-size:20px;}
+.flight-head-left .meta{color:#666;font-size:13px;}
+.flight-price{text-align:right;}
+.flight-price .price{font-weight:800;font-size:20px;}
+.flight-price .meta{font-size:13px;color:#666;margin-top:4px;}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #eef2f6;}
+.detail-row div{display:flex;flex-direction:column;}
+.detail-row strong{font-weight:600;}
+.meta{font-size:13px;color:#666;}
+.cabin-options{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;}
+.cabin-options .btn{padding:10px 14px;border-radius:6px;border:0;cursor:pointer;background:#0071c2;color:#fff;font-weight:700;}
+.cabin-options .btn:hover{background:#005999;}
+.choose-btn{margin-top:12px;padding:10px 14px;border-radius:6px;border:0;cursor:pointer;background:#f5a623;color:#fff;font-weight:700;}
+@media (max-width:700px){
+  .flight-head{flex-direction:column;align-items:flex-start;}
+  .flight-price{text-align:left;margin-top:12px;}
+}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-bed"></i>
-                    Booking.com
-                </a>
-                <div class="nav-links">
-                    <a href="index.html" class="nav-link">
-                        <i class="fas fa-bed"></i>
-                        Stays
-                    </a>
-                    <a href="flight-search.html" class="nav-link active">
-                        <i class="fas fa-plane"></i>
-                        Flights
-                    </a>
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-car"></i>
-                        Car rentals
-                    </a>
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Attractions
-                    </a>
-                </div>
-                <div class="nav-actions">
-                    <a href="#" class="btn-secondary">List your property</a>
-                    <a href="#" class="btn-secondary">Register</a>
-                    <a href="#" class="btn-primary">Sign in</a>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Search Summary -->
-    <section class="search-summary">
-        <div class="container">
-            <div class="summary-content">
-                <div class="route-info">
-                    <h1 id="route-title">Johannesburg to London</h1>
-                    <p id="search-details">Mon, 15 Jan • 1 adult • Economy</p>
-                </div>
-                <button class="btn-secondary" onclick="window.location.href='flight-search.html'">
-                    <i class="fas fa-edit"></i>
-                    Change search
-                </button>
-            </div>
+<div id="booking-mirror">
+  <main class="container">
+    <a href="flight-search.html">&larr; Back to search</a>
+    <div class="card" id="flightCard" aria-live="polite">
+      <div class="flight-head">
+        <div class="flight-head-left">
+          <img id="airlineLogo" src="" alt="Airline Logo">
+          <div>
+            <h2 id="route"></h2>
+            <div class="meta" id="airlineLine"></div>
+          </div>
         </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="flights-main">
-        <div class="container">
-            <div class="flights-layout">
-                <!-- Filters Sidebar -->
-                <aside class="filters-sidebar">
-                    <div class="filters-header">
-                        <h3>Filter by:</h3>
-                        <button class="clear-filters" id="clear-filters">Clear all</button>
-                    </div>
-
-                    <!-- Price Filter -->
-                    <div class="filter-group">
-                        <h4>Price</h4>
-                        <div class="price-range">
-                            <input type="range" id="price-min" min="0" max="50000" value="0" class="price-slider">
-                            <input type="range" id="price-max" min="0" max="50000" value="50000" class="price-slider">
-                            <div class="price-labels">
-                                <span id="price-min-label">R 0</span>
-                                <span id="price-max-label">R 50,000</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Stops Filter -->
-                    <div class="filter-group">
-                        <h4>Stops</h4>
-                        <label class="filter-checkbox">
-                            <input type="checkbox" name="stops" value="direct" checked>
-                            <span class="checkmark"></span>
-                            Direct flights
-                        </label>
-                        <label class="filter-checkbox">
-                            <input type="checkbox" name="stops" value="1-stop" checked>
-                            <span class="checkmark"></span>
-                            1 stop
-                        </label>
-                        <label class="filter-checkbox">
-                            <input type="checkbox" name="stops" value="2-stops" checked>
-                            <span class="checkmark"></span>
-                            2+ stops
-                        </label>
-                    </div>
-
-                    <!-- Airlines Filter -->
-                    <div class="filter-group">
-                        <h4>Airlines</h4>
-                        <div id="airlines-filter"></div>
-                    </div>
-
-                    <!-- Departure Time Filter -->
-                    <div class="filter-group">
-                        <h4>Departure time</h4>
-                        <div class="time-filters">
-                            <label class="time-filter">
-                                <input type="checkbox" name="departure-time" value="morning" checked>
-                                <span class="time-icon">🌅</span>
-                                <span>Morning<br><small>06:00 - 12:00</small></span>
-                            </label>
-                            <label class="time-filter">
-                                <input type="checkbox" name="departure-time" value="afternoon" checked>
-                                <span class="time-icon">☀️</span>
-                                <span>Afternoon<br><small>12:00 - 18:00</small></span>
-                            </label>
-                            <label class="time-filter">
-                                <input type="checkbox" name="departure-time" value="evening" checked>
-                                <span class="time-icon">🌆</span>
-                                <span>Evening<br><small>18:00 - 00:00</small></span>
-                            </label>
-                            <label class="time-filter">
-                                <input type="checkbox" name="departure-time" value="night" checked>
-                                <span class="time-icon">🌙</span>
-                                <span>Night<br><small>00:00 - 06:00</small></span>
-                            </label>
-                        </div>
-                    </div>
-                </aside>
-
-                <!-- Flight Results -->
-                <div class="flights-content">
-                    <!-- Sort Options -->
-                    <div class="sort-options">
-                        <div class="results-count">
-                            <span id="results-count">Loading flights...</span>
-                        </div>
-                        <div class="sort-controls">
-                            <label for="sort-by">Sort by:</label>
-                            <select id="sort-by">
-                                <option value="price">Price (lowest first)</option>
-                                <option value="duration">Duration (shortest first)</option>
-                                <option value="departure">Departure time</option>
-                                <option value="arrival">Arrival time</option>
-                                <option value="airline">Airline</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Flight Cards -->
-                    <div class="flights-list" id="flights-list">
-                        <!-- Flight cards will be populated here -->
-                    </div>
-
-                    <!-- Load More -->
-                    <div class="load-more-container">
-                        <button class="btn-secondary load-more-btn" id="load-more-btn" style="display: none;">
-                            Load more flights
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <div class="flight-price">
+          <div class="price" id="price"></div>
+          <div class="meta">per passenger</div>
         </div>
-    </main>
+      </div>
 
-    <script src="select-flight.js"></script>
+      <div id="details" style="margin-top:14px">
+        <!-- dynamic flight details -->
+      </div>
+
+      <div class="cabin-options" id="cabins">
+        <!-- cabin buttons -->
+      </div>
+
+      <button id="chooseSeats" class="choose-btn">Choose seats & continue</button>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  function qs(key){
+    const p = new URLSearchParams(location.search);
+    return p.get(key);
+  }
+
+  const fid = qs('flight');
+  const STORAGE_KEY = 'booking_mirror_flights';
+  const flights = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const flight = flights.find(f=>f.id===fid);
+
+  if(!flight){
+    document.getElementById('flightCard').innerHTML = '<p class="small">Flight not found. Go back to search.</p>';
+    return;
+  }
+
+  document.getElementById('route').textContent = `${flight.from} → ${flight.to}`;
+  document.getElementById('airlineLine').textContent = `${flight.airline} • ${flight.stops} • ${flight.duration}`;
+  document.getElementById('price').textContent = new Intl.NumberFormat('en-ZA',{style:'currency',currency:'ZAR'}).format(flight.price);
+  document.getElementById('airlineLogo').src = flight.logo || 'img/default-airline.png';
+  document.getElementById('airlineLogo').alt = flight.airline;
+
+  const details = document.getElementById('details');
+  details.innerHTML = `
+    <div class="detail-row">
+      <div><strong>Departure</strong><div class="meta">${new Date(flight.departISO).toLocaleString()}</div></div>
+    </div>
+    <div class="detail-row">
+      <div><strong>Arrival</strong><div class="meta">${new Date(flight.arriveISO).toLocaleString()}</div></div>
+    </div>
+    <div class="detail-row">
+      <div><strong>Baggage</strong><div class="meta">${flight.baggage}</div></div>
+    </div>
+    <div class="detail-row">
+      <div><strong>Duration</strong><div class="meta">${flight.duration}</div></div>
+    </div>
+  `;
+
+  const cabinsDiv = document.getElementById('cabins');
+  flight.cabinOptions.forEach(opt=>{
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.textContent = opt;
+    btn.addEventListener('click',()=>{ alert('Selected cabin: '+opt); });
+    cabinsDiv.appendChild(btn);
+  });
+
+  document.getElementById('chooseSeats').addEventListener('click', function(){
+    const qs = new URLSearchParams({flight: fid});
+    location.href = `select-seat.html?${qs.toString()}`;
+  });
+
+  // Animate card
+  setTimeout(()=>{ document.getElementById('flightCard').classList.add('loaded'); }, 50);
+
+})();
+</script>
 </body>
 </html>
