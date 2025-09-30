@@ -3,175 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flight Search — Go-Global</title>
-<link rel="stylesheet" href="css/style.css">
-<style>
-body, h1, h2, h3, h4, p, ul, li, a, input, select, button {margin:0;padding:0;box-sizing:border-box;font-family:"Helvetica Neue",Arial,sans-serif;}
-body {background:#f5f5f5;color:#222;}
-a{text-decoration:none;color:inherit;}
-header{background:#003580;color:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
-header img{height:40px;}
-.nav-links{display:flex;gap:16px;align-items:center;}
-.nav-links a{color:#fff;font-weight:700;transition:0.2s;}
-.nav-links a:hover{opacity:0.8;}
-
-/* Search summary bar */
-.search-summary{background:#fff;padding:16px 24px;max-width:1200px;margin:16px auto;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;}
-.search-summary div{margin-bottom:8px;}
-
-/* Filters sidebar */
-.filters-sidebar{width:240px;background:#fff;padding:16px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.05);}
-.filters-sidebar h3{margin-bottom:12px;}
-.filters-sidebar label{display:block;margin-bottom:6px;font-size:14px;}
-.filters-sidebar input[type=checkbox]{margin-right:6px;}
-
-/* Flight results */
-.results-container{display:flex;max-width:1200px;margin:16px auto;gap:16px;}
-.flight-list{flex:1;}
-.flight-card{background:#fff;padding:16px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.05);margin-bottom:16px;}
-.flight-left{display:flex;align-items:center;gap:12px;}
-.airline-logo{width:80px;height:30px;object-fit:contain;}
-.flight-info{display:flex;flex-direction:column;}
-.flight-info .times{font-weight:700;font-size:16px;}
-.flight-info .stops{font-size:14px;color:#666;}
-.flight-meta{text-align:right;}
-.selectBtn{background:#003580;color:#fff;padding:8px 16px;border-radius:6px;font-weight:700;border:none;cursor:pointer;transition:0.2s;}
-.selectBtn:hover{opacity:0.9;}
-
-/* Sort bar */
-.sort-bar{display:flex;gap:12px;margin-bottom:16px;}
-.sort-bar button{padding:8px 12px;border-radius:6px;border:1px solid #d9e2ec;background:#fff;cursor:pointer;transition:0.2s;}
-.sort-bar button.active, .sort-bar button:hover{border-color:#003580;color:#003580;}
-
-/* Footer */
-footer{background:#003580;color:#fff;padding:32px 24px;margin-top:32px;}
-footer .footer-logo{height:40px;margin-bottom:16px;}
-footer p{font-size:12px;opacity:0.8;}
-footer .footer-links{display:flex;flex-wrap:wrap;gap:24px;margin-bottom:16px;}
-footer .footer-links a{color:#fff;font-size:14px;transition:0.2s;}
-footer .footer-links a:hover{opacity:0.8;}
-
-@media(max-width:1024px){.results-container{flex-direction:column;}.filters-sidebar{width:100%;margin-bottom:16px;}}
-</style>
+<title>Flights — Booking.com International</title>
+<link rel="stylesheet" href="css/booking.css">
 </head>
 <body>
-
 <header>
-<img src="img/header-logo.png" alt="Go-Global Logo">
-<div class="nav-links">
-<a href="#">Register</a>
-<a href="#">Sign in</a>
-</div>
+  <img src="img/booking-logo.png" alt="Booking.com Logo" class="logo">
+  <nav class="nav-links">
+    <a href="#">Register</a>
+    <a href="#">Sign in</a>
+  </nav>
 </header>
 
-<section class="search-summary">
-<div>Johannesburg → London</div>
-<div>1 Nov • 1 traveller • One way</div>
-<div>Round trip</div>
-</section>
+<main class="main-container">
+  <div class="tabs">
+    <button class="tab active" data-type="roundtrip">Round Trip</button>
+    <button class="tab" data-type="oneway">One Way</button>
+    <button class="tab" data-type="multicity">Multi-City</button>
+  </div>
 
-<div class="results-container">
-<!-- Filters -->
-<aside class="filters-sidebar">
-<h3>Filters</h3>
-<label><input type="checkbox" id="directOnly"> Direct flights only</label>
-<h3>Airlines</h3>
-<label><input type="checkbox" class="airline" value="AirElite"> AirElite</label>
-<label><input type="checkbox" class="airline" value="BlueSky"> BlueSky Air</label>
-<label><input type="checkbox" class="airline" value="AtlasWings"> Atlas Wings</label>
-<label><input type="checkbox" class="airline" value="SkyConnect"> SkyConnect</label>
-<h3>Price range</h3>
-<input type="range" min="50000" max="250000" value="150000" id="priceRange">
-<p id="priceRangeVal">ZAR 150,000</p>
-</aside>
+  <form id="flight-search-form">
+    <div class="form-row">
+      <div class="field">
+        <label for="from">Leaving from</label>
+        <input id="from" name="from" placeholder="City or airport" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="to">Going to</label>
+        <input id="to" name="to" placeholder="City or airport" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="depart">Depart</label>
+        <input id="depart" name="depart" type="date">
+      </div>
+      <div class="field return-field">
+        <label for="return">Return</label>
+        <input id="return" name="return" type="date">
+      </div>
+      <div class="field">
+        <label for="passengers">Passengers</label>
+        <select id="passengers">
+          <option value="1">1 adult</option>
+          <option value="2">2 adults</option>
+          <option value="3">3 adults</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cabin">Class</label>
+        <select id="cabin">
+          <option>Economy</option>
+          <option>Business</option>
+          <option>First</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <label><input type="checkbox" id="direct"> Direct flights only</label>
+      <button type="submit" class="primary">Search</button>
+    </div>
+  </form>
 
-<!-- Flight results -->
-<div class="flight-list" id="flightList">
-<!-- Flights populated via JS -->
-</div>
-</div>
+  <div class="filters">
+    <button data-filter="all" class="filter active">All</button>
+    <button data-filter="direct" class="filter">Direct</button>
+    <button data-filter="1stop" class="filter">1 Stop</button>
+    <button data-filter="cheapest" class="filter">Cheapest</button>
+    <button data-filter="shortest" class="filter">Shortest</button>
+  </div>
+
+  <section id="results"></section>
+</main>
 
 <footer>
-<img src="img/footer-logo.png" alt="Go-Global Footer" class="footer-logo">
-<div class="footer-links">
-<a href="#">Support</a>
-<a href="#">Discover</a>
-<a href="#">Partners</a>
-<a href="#">About</a>
-</div>
-<p>&copy; 2025 Go-Global Recruitment</p>
+  <img src="img/booking-logo.png" alt="Booking.com Logo">
+  <p>&copy; 2025 Booking.com™ International</p>
 </footer>
 
+<script src="js/booking.js"></script>
 <script>
-// Dummy flight data
-const flights = [
-{airline:'AirElite',logo:'img/airelite.png',from:'Johannesburg',to:'London',depart:'06:00',arrive:'14:00',duration:'8h',stops:'Direct',price:125000},
-{airline:'BlueSky Air',logo:'img/bluesky.png',from:'Johannesburg',to:'London',depart:'08:00',arrive:'16:30',duration:'8h 30m',stops:'1 stop',price:130000},
-{airline:'Atlas Wings',logo:'img/atlaswings.png',from:'Johannesburg',to:'London',depart:'09:15',arrive:'17:45',duration:'8h 30m',stops:'Direct',price:140000},
-{airline:'SkyConnect',logo:'img/skyconnect.png',from:'Johannesburg',to:'London',depart:'11:00',arrive:'19:30',duration:'8h 30m',stops:'1 stop',price:135000},
-];
-
-const flightList = document.getElementById('flightList');
-function renderFlights(data){
-  flightList.innerHTML='';
-  data.forEach(f=>{
-    const card=document.createElement('div');
-    card.className='flight-card';
-    card.innerHTML=`
-      <div class="flight-left">
-        <img src="${f.logo}" alt="${f.airline}" class="airline-logo">
-        <div class="flight-info">
-          <div class="times">${f.depart} → ${f.arrive}</div>
-          <div class="stops">${f.from} → ${f.to} • ${f.stops}</div>
-          <div class="stops">Duration: ${f.duration}</div>
-        </div>
-      </div>
-      <div class="flight-meta">
-        <div style="font-weight:800;font-size:18px">ZAR ${f.price.toLocaleString()}</div>
-        <button class="selectBtn" data-airline="${f.airline}">Select</button>
-      </div>
-    `;
-    flightList.appendChild(card);
-  });
-
-  // Wire up select buttons
-  document.querySelectorAll('.selectBtn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const airline=btn.dataset.airline;
-      alert('Proceed to seat selection for ' + airline);
-      // Here you can redirect to seat selection page
-      // location.href='seat-selection.html?airline='+encodeURIComponent(airline);
-    });
-  });
-}
-
-// Initial render
-renderFlights(flights);
-
-// Filters
-document.getElementById('directOnly').addEventListener('change',function(){
-  if(this.checked){
-    renderFlights(flights.filter(f=>f.stops==='Direct'));
-  } else { renderFlights(flights); }
-});
-
-// Price range
-const priceRange=document.getElementById('priceRange');
-const priceVal=document.getElementById('priceRangeVal');
-priceRange.addEventListener('input',()=>{
-  priceVal.innerText='ZAR '+Number(priceRange.value).toLocaleString();
-  renderFlights(flights.filter(f=>f.price<=Number(priceRange.value)));
-});
-
-// Airline checkboxes
-document.querySelectorAll('.airline').forEach(cb=>{
-  cb.addEventListener('change',()=>{
-    const selected=document.querySelectorAll('.airline:checked');
-    if(selected.length>0){
-      const selectedNames=[...selected].map(s=>s.value);
-      renderFlights(flights.filter(f=>selectedNames.includes(f.airline)));
-    } else { renderFlights(flights); }
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  initFlightSearch();
 });
 </script>
 </body>
