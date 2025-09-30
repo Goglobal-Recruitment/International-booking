@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation - FlightFinder</title>
+    <link rel="stylesheet" href="ticket-confirmation.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-plane"></i>
+                    <span>FlightFinder</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-secondary">Print Ticket</button>
+                    <button class="btn-primary">Download PDF</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="confirmation-header">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h1>Booking Confirmed!</h1>
+                <p>Your flight has been successfully booked. A confirmation email has been sent to your email address.</p>
+                <div class="booking-reference">
+                    <span>Booking Reference:</span>
+                    <strong id="booking-ref">FL7X9K2M</strong>
+                </div>
+            </div>
+
+            <div class="ticket-container">
+                <div class="ticket-header">
+                    <div class="airline-branding">
+                        <div class="airline-logo-large">BA</div>
+                        <div class="airline-details">
+                            <h2>British Airways</h2>
+                            <p>Flight BA6234</p>
+                        </div>
+                    </div>
+                    <div class="qr-code">
+                        <div class="qr-placeholder">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <p>Mobile Boarding Pass</p>
+                    </div>
+                </div>
+
+                <div class="flight-details-section">
+                    <div class="route-info">
+                        <div class="departure-info">
+                            <div class="airport-code">JNB</div>
+                            <div class="airport-name">O.R. Tambo International</div>
+                            <div class="city-name">Johannesburg</div>
+                            <div class="flight-time">
+                                <span class="time">14:30</span>
+                                <span class="date">Mon, 15 Jan 2024</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flight-path">
+                            <div class="flight-duration">11h 15m</div>
+                            <div class="flight-line">
+                                <div class="plane-icon">
+                                    <i class="fas fa-plane"></i>
+                                </div>
+                            </div>
+                            <div class="flight-type">Direct Flight</div>
+                        </div>
+                        
+                        <div class="arrival-info">
+                            <div class="airport-code">LHR</div>
+                            <div class="airport-name">Heathrow Airport</div>
+                            <div class="city-name">London</div>
+                            <div class="flight-time">
+                                <span class="time">06:45<sup>+1</sup></span>
+                                <span class="date">Tue, 16 Jan 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="passenger-details-section">
+                    <h3>Passenger Details</h3>
+                    <div class="passenger-list">
+                        <div class="passenger-card">
+                            <div class="passenger-info">
+                                <div class="passenger-name">
+                                    <span class="title">Mr.</span>
+                                    <span class="first-name">John</span>
+                                    <span class="last-name">Smith</span>
+                                </div>
+                                <div class="passenger-details">
+                                    <span class="seat-info">Seat: 23A</span>
+                                    <span class="class-info">Economy</span>
+                                </div>
+                            </div>
+                            <div class="boarding-pass">
+                                <div class="gate-info">
+                                    <span class="label">Gate</span>
+                                    <span class="value">B12</span>
+                                </div>
+                                <div class="boarding-time">
+                                    <span class="label">Boarding</span>
+                                    <span class="value">13:45</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="booking-summary">
+                    <h3>Booking Summary</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <span class="label">Base Fare</span>
+                            <span class="value">$899.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Taxes & Fees</span>
+                            <span class="value">$156.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Seat Selection</span>
+                            <span class="value">$0.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Extras</span>
+                            <span class="value">$15.00</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span class="label">Total Paid</span>
+                            <span class="value">$1,070.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="important-info">
+                    <h3>Important Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Check-in</strong>
+                                <p>Online check-in opens 24 hours before departure</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-suitcase"></i>
+                            <div>
+                                <strong>Baggage</strong>
+                                <p>1 x 23kg checked bag included</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-id-card"></i>
+                            <div>
+                                <strong>Travel Documents</strong>
+                                <p>Valid passport required for international travel</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-utensils"></i>
+                            <div>
+                                <strong>Meals</strong>
+                                <p>Complimentary meal service included</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="addToCalendar()">
+                        <i class="fas fa-calendar-plus"></i>
+                        Add to Calendar
+                    </button>
+                    <button class="action-btn" onclick="shareBooking()">
+                        <i class="fas fa-share"></i>
+                        Share Booking
+                    </button>
+                    <button class="action-btn" onclick="manageBooking()">
+                        <i class="fas fa-edit"></i>
+                        Manage Booking
+                    </button>
+                </div>
+                
+                <div class="next-steps">
+                    <h3>What's Next?</h3>
+                    <div class="steps-list">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Check-in Online</strong>
+                                <p>Available 24 hours before departure</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Arrive at Airport</strong>
+                                <p>2-3 hours before international flights</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Enjoy Your Flight</strong>
+                                <p>Have a safe and pleasant journey</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>Need help? Contact our 24/7 customer support at <strong>+1 (888) 850-3958</strong></p>
+                <p>© 2024 FlightFinder. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="ticket-confirmation.js"></script>
+</body>
+</html>

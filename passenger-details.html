@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Details - FlightFinder</title>
+    <link rel="stylesheet" href="passenger-details.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-plane"></i>
+                    <span>FlightFinder</span>
+                </div>
+                <div class="nav-progress">
+                    <div class="progress-step completed">
+                        <span class="step-number"><i class="fas fa-check"></i></span>
+                        <span class="step-label">Select flight</span>
+                    </div>
+                    <div class="progress-line completed"></div>
+                    <div class="progress-step active">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Passenger details</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step">
+                        <span class="step-number">3</span>
+                        <span class="step-label">Seat selection</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step">
+                        <span class="step-number">4</span>
+                        <span class="step-label">Payment</span>
+                    </div>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn-help">
+                        <i class="fas fa-question-circle"></i>
+                        Help
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="booking-layout">
+                <!-- Main Content -->
+                <div class="booking-main">
+                    <!-- Flight Summary -->
+                    <section class="flight-summary">
+                        <h2>Your flight</h2>
+                        <div class="flight-card">
+                            <div class="flight-header">
+                                <div class="airline-info">
+                                    <div class="airline-logo">SA</div>
+                                    <div class="airline-details">
+                                        <div class="airline-name">South African Airways</div>
+                                        <div class="flight-number">SA235</div>
+                                    </div>
+                                </div>
+                                <div class="flight-date">Mon 15 Jan 2024</div>
+                            </div>
+                            <div class="flight-route">
+                                <div class="departure">
+                                    <div class="time">08:30</div>
+                                    <div class="airport">JNB</div>
+                                    <div class="city">Johannesburg</div>
+                                </div>
+                                <div class="flight-path">
+                                    <div class="duration">11h 30m</div>
+                                    <div class="flight-line"></div>
+                                    <div class="stops">Direct</div>
+                                </div>
+                                <div class="arrival">
+                                    <div class="time">19:00</div>
+                                    <div class="airport">LHR</div>
+                                    <div class="city">London</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Passenger Information -->
+                    <section class="passenger-info">
+                        <h2>Passenger information</h2>
+                        <div class="info-notice">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Please ensure passenger names match exactly as they appear on passports or government-issued ID.</p>
+                        </div>
+
+                        <form id="passenger-form" class="passenger-form">
+                            <div class="passenger-section">
+                                <h3>Adult 1</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="title">Title *</label>
+                                        <select id="title" name="title" required>
+                                            <option value="">Select title</option>
+                                            <option value="mr">Mr</option>
+                                            <option value="mrs">Mrs</option>
+                                            <option value="ms">Ms</option>
+                                            <option value="dr">Dr</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstName">First name *</label>
+                                        <input type="text" id="firstName" name="firstName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Last name *</label>
+                                        <input type="text" id="lastName" name="lastName" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="dateOfBirth">Date of birth *</label>
+                                        <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nationality">Nationality *</label>
+                                        <select id="nationality" name="nationality" required>
+                                            <option value="">Select nationality</option>
+                                            <option value="ZA">South African</option>
+                                            <option value="GB">British</option>
+                                            <option value="US">American</option>
+                                            <option value="DE">German</option>
+                                            <option value="FR">French</option>
+                                            <option value="AU">Australian</option>
+                                            <option value="CA">Canadian</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Gender *</label>
+                                        <select id="gender" name="gender" required>
+                                            <option value="">Select gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="contact-section">
+                                <h3>Contact information</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="email">Email address *</label>
+                                        <input type="email" id="email" name="email" required>
+                                        <small>We'll send your booking confirmation here</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone number *</label>
+                                        <input type="tel" id="phone" name="phone" required>
+                                        <small>Include country code (e.g., +27)</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Special Requests -->
+                            <div class="special-requests">
+                                <h3>Special requests</h3>
+                                <div class="request-options">
+                                    <label class="request-option">
+                                        <input type="checkbox" name="specialMeal" value="vegetarian">
+                                        <span class="checkmark"></span>
+                                        <div class="option-info">
+                                            <strong>Vegetarian meal</strong>
+                                            <small>Lacto-ovo vegetarian meal</small>
+                                        </div>
+                                    </label>
+                                    <label class="request-option">
+                                        <input type="checkbox" name="specialMeal" value="halal">
+                                        <span class="checkmark"></span>
+                                        <div class="option-info">
+                                            <strong>Halal meal</strong>
+                                            <small>Prepared according to Islamic law</small>
+                                        </div>
+                                    </label>
+                                    <label class="request-option">
+                                        <input type="checkbox" name="assistance" value="wheelchair">
+                                        <span class="checkmark"></span>
+                                        <div class="option-info">
+                                            <strong>Wheelchair assistance</strong>
+                                            <small>Help getting to and from the aircraft</small>
+                                        </div>
+                                    </label>
+                                    <label class="request-option">
+                                        <input type="checkbox" name="assistance" value="extra-legroom">
+                                        <span class="checkmark"></span>
+                                        <div class="option-info">
+                                            <strong>Extra legroom seat</strong>
+                                            <small>Additional fee may apply</small>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Terms and Conditions -->
+                            <div class="terms-section">
+                                <label class="terms-checkbox">
+                                    <input type="checkbox" id="terms" name="terms" required>
+                                    <span class="checkmark"></span>
+                                    <span>I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a></span>
+                                </label>
+                                <label class="terms-checkbox">
+                                    <input type="checkbox" id="marketing" name="marketing">
+                                    <span class="checkmark"></span>
+                                    <span>I would like to receive promotional emails and special offers</span>
+                                </label>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+
+                <!-- Booking Sidebar -->
+                <aside class="booking-sidebar">
+                    <div class="price-summary">
+                        <h3>Price summary</h3>
+                        <div class="price-breakdown">
+                            <div class="price-item">
+                                <span>Adult x1</span>
+                                <span>R18,500</span>
+                            </div>
+                            <div class="price-item">
+                                <span>Taxes and fees</span>
+                                <span>R2,220</span>
+                            </div>
+                            <div class="price-total">
+                                <span>Total</span>
+                                <span>R20,720</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="booking-actions">
+                        <!-- Continue Section -->
+                        <div class="continue-section">
+                            <button type="submit" id="continue-btn" class="btn-continue" disabled>
+                                Continue to Seat Selection
+                            </button>
+                            <div class="security-notice">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Your information is protected with 256-bit SSL encryption</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="passenger-details.js"></script>
+</body>
+</html>

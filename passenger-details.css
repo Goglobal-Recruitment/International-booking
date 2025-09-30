@@ -1,0 +1,583 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #262626;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+.header {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar {
+    padding: 16px 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: #0071c2;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.logo i {
+    margin-right: 8px;
+    font-size: 28px;
+}
+
+/* Progress Bar */
+.nav-progress {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    background: #e9ecef;
+    color: #666;
+}
+
+.progress-step.completed .step-number {
+    background: #00c851;
+    color: white;
+}
+
+.progress-step.active .step-number {
+    background: #0071c2;
+    color: white;
+}
+
+.step-label {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.progress-line {
+    width: 60px;
+    height: 2px;
+    background: #e9ecef;
+}
+
+.progress-line.completed {
+    background: #00c851;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-help {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid #0071c2;
+    border-radius: 6px;
+    color: #0071c2;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-help:hover {
+    background: #0071c2;
+    color: white;
+}
+
+/* Main Content */
+.main-content {
+    padding: 40px 0;
+}
+
+.booking-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+}
+
+/* Flight Summary */
+.flight-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    margin-bottom: 24px;
+}
+
+.flight-summary h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #262626;
+}
+
+.flight-card {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.flight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.airline-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.airline-logo {
+    width: 40px;
+    height: 40px;
+    background: #0071c2;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.airline-name {
+    font-weight: 600;
+    color: #262626;
+}
+
+.flight-number {
+    font-size: 14px;
+    color: #666;
+}
+
+.flight-date {
+    font-weight: 500;
+    color: #262626;
+}
+
+.flight-route {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+}
+
+.departure, .arrival {
+    text-align: center;
+}
+
+.time {
+    font-size: 20px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 4px;
+}
+
+.airport {
+    font-size: 16px;
+    font-weight: 500;
+    color: #262626;
+    margin-bottom: 2px;
+}
+
+.city {
+    font-size: 14px;
+    color: #666;
+}
+
+.flight-path {
+    text-align: center;
+}
+
+.duration {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.flight-line {
+    height: 2px;
+    background: #e9ecef;
+    position: relative;
+    margin: 8px 0;
+}
+
+.flight-line::after {
+    content: '✈';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 0 8px;
+    color: #0071c2;
+}
+
+.stops {
+    font-size: 12px;
+    color: #00c851;
+    font-weight: 500;
+}
+
+/* Passenger Information */
+.passenger-info {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    margin-bottom: 24px;
+}
+
+.passenger-info h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #262626;
+}
+
+.info-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #e3f2fd;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.info-notice i {
+    color: #0071c2;
+    margin-top: 2px;
+}
+
+.info-notice p {
+    font-size: 14px;
+    color: #0071c2;
+    line-height: 1.4;
+}
+
+.passenger-section {
+    margin-bottom: 32px;
+}
+
+.passenger-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0071c2;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #262626;
+    margin-bottom: 6px;
+}
+
+.form-label.required::after {
+    content: ' *';
+    color: #dc3545;
+}
+
+.form-input, .form-select {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    background: white;
+}
+
+.form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: #0071c2;
+    box-shadow: 0 0 0 3px rgba(0, 113, 194, 0.1);
+}
+
+.form-input.error, .form-select.error {
+    border-color: #dc3545;
+}
+
+.error-message {
+    font-size: 12px;
+    color: #dc3545;
+    margin-top: 4px;
+}
+
+/* Contact Information */
+.contact-info {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    margin-bottom: 24px;
+}
+
+.contact-info h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #262626;
+}
+
+.contact-notice {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.contact-notice p {
+    font-size: 14px;
+    color: #856404;
+    margin-bottom: 8px;
+}
+
+/* Booking Sidebar */
+.booking-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.price-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 100px;
+}
+
+.price-summary h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #262626;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.price-item:last-child {
+    border-bottom: none;
+    padding-top: 16px;
+    margin-top: 8px;
+    border-top: 2px solid #e9ecef;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.price-label {
+    color: #666;
+}
+
+.price-value {
+    color: #262626;
+    font-weight: 500;
+}
+
+.price-item:last-child .price-value {
+    color: #0071c2;
+    font-size: 20px;
+}
+
+/* Continue Button */
+.continue-section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.btn-continue {
+    width: 100%;
+    padding: 16px;
+    background: #0071c2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-continue:hover {
+    background: #005999;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 113, 194, 0.3);
+}
+
+.btn-continue:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.security-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #666;
+}
+
+.security-notice i {
+    color: #00c851;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .booking-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .booking-sidebar {
+        order: -1;
+    }
+    
+    .price-summary {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    .nav-progress {
+        display: none;
+    }
+    
+    .flight-route {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .flight-path {
+        order: -1;
+    }
+    
+    .flight-line {
+        width: 2px;
+        height: 40px;
+        margin: 8px auto;
+    }
+    
+    .flight-line::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .airline-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .flight-header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 20px 0;
+    }
+    
+    .flight-summary,
+    .passenger-info,
+    .contact-info,
+    .price-summary,
+    .continue-section {
+        padding: 16px;
+    }
+    
+    .time {
+        font-size: 18px;
+    }
+    
+    .airport {
+        font-size: 14px;
+    }
+}

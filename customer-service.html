@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - Booking.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #262626;
+        }
+
+        /* Header */
+        .header {
+            background: #003580;
+            color: white;
+            padding: 12px 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .header-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .welcome-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #262626;
+            margin-bottom: 16px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #0071c2;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #0071c2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Quick Actions - FAQ Style */
+        .quick-actions {
+            margin: 48px 0;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 24px;
+            color: #262626;
+        }
+
+        .faq-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 48px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 20px 24px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 500;
+            color: #262626;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #f8f9fa;
+        }
+
+        .faq-icon {
+            font-size: 14px;
+            color: #0071c2;
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 24px 20px 24px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Popular Topics */
+        .popular-topics {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 48px;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .topic-category h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #262626;
+        }
+
+        .topic-list {
+            list-style: none;
+        }
+
+        .topic-list li {
+            margin-bottom: 12px;
+        }
+
+        .topic-list a {
+            color: #0071c2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .topic-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .contact-method {
+            text-align: center;
+            padding: 24px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .contact-icon {
+            width: 64px;
+            height: 64px;
+            background: #0071c2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .contact-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #262626;
+        }
+
+        .contact-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .contact-btn {
+            background: #0071c2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .contact-btn:hover {
+            background: #005999;
+        }
+
+        .contact-info {
+            font-size: 14px;
+            color: #262626;
+            line-height: 1.5;
+        }
+
+        .phone-number {
+            font-weight: 600;
+            color: #0071c2;
+            margin: 8px 0;
+        }
+
+        .property-info {
+            text-align: left;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Chat Modal */
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .chat-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-header {
+            background: #0071c2;
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #0071c2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .message.user .message-avatar {
+            background: #28a745;
+        }
+
+        .message-content {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 70%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .message.user .message-content {
+            background: #0071c2;
+            color: white;
+        }
+
+        .chat-input-container {
+            padding: 16px 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .send-btn {
+            background: #0071c2;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover {
+            background: #005999;
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .booking-details {
+            background: #e8f4fd;
+            border: 1px solid #0071c2;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 13px;
+        }
+
+        .booking-details strong {
+            color: #0071c2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 16px;
+            }
+
+            .main-container {
+                padding: 24px 16px;
+            }
+
+            .welcome-title {
+                font-size: 24px;
+            }
+
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-container {
+                width: 95%;
+                height: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Booking.com</div>
+            <nav class="header-nav">
+                <a href="index.html">Back to Booking.com</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1 class="welcome-title">Welcome to the Help Center</h1>
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search for help...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Actions - FAQ Style -->
+        <div class="quick-actions">
+            <h2 class="section-title">Frequently asked questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        How do I make a booking?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            To make a booking: 1) Enter your destination and travel dates, 2) Browse available accommodations, 3) Select your preferred property, 4) Enter guest details and special requests, 5) Choose your payment method and complete the booking. You'll receive a confirmation email with your booking details and reference number.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Can I cancel or modify my booking?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes, you can cancel or modify most bookings. Go to "Manage your booking" and enter your confirmation number and email. Cancellation and modification policies vary by property and booking type. Free cancellation is available for many properties, while others may charge fees. Check your booking confirmation for specific terms.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        When will I be charged for my booking?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Payment timing depends on the property and booking type. Some properties charge immediately upon booking, while others charge at the property during your stay. "Pay at property" bookings typically require a credit card to secure the reservation but charge you upon arrival. Check your booking confirmation for specific payment details.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        What if I need to contact the property directly?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Property contact details are available in your booking confirmation email and in the "Manage your booking" section. You can contact them for special requests, early check-in, late check-out, or any questions about facilities and services. Most properties respond within 24 hours.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        How do I add special requests to my booking?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            You can add special requests during the booking process in the "Special requests" section, or after booking by contacting the property directly. Common requests include room preferences, early check-in, late check-out, airport transfers, and dietary requirements. Note that special requests are subject to availability and may incur additional charges.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        What should I do if I have issues during my stay?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            First, contact the property directly to resolve any issues. Most problems can be solved quickly by speaking with the front desk or management. If the property cannot resolve your issue, contact our customer service team through the messaging system or phone. We're available 24/7 to help ensure your stay meets expectations.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popular Topics -->
+        <div class="popular-topics">
+            <h2 class="section-title">Popular help topics</h2>
+            <div class="topics-grid">
+                <div class="topic-category">
+                    <h3>Booking and reservations</h3>
+                    <ul class="topic-list">
+                        <li><a href="#" onclick="showTopicDetails('how-to-book')">How to make a booking</a></li>
+                        <li><a href="#" onclick="showTopicDetails('cancel-booking')">Canceling a booking</a></li>
+                        <li><a href="#" onclick="showTopicDetails('modify-reservation')">Modifying your reservation</a></li>
+                        <li><a href="#" onclick="showTopicDetails('booking-confirmation')">Booking confirmation</a></li>
+                        <li><a href="#" onclick="showTopicDetails('group-bookings')">Group bookings</a></li>
+                    </ul>
+                </div>
+
+                <div class="topic-category">
+                    <h3>Payment and pricing</h3>
+                    <ul class="topic-list">
+                        <li><a href="#" onclick="showTopicDetails('payment-methods')">Payment methods</a></li>
+                        <li><a href="#" onclick="showTopicDetails('currency-pricing')">Currency and pricing</a></li>
+                        <li><a href="#" onclick="showTopicDetails('refunds-charges')">Refunds and charges</a></li>
+                        <li><a href="#" onclick="showTopicDetails('taxes-fees')">Taxes and fees</a></li>
+                        <li><a href="#" onclick="showTopicDetails('payment-security')">Payment security</a></li>
+                    </ul>
+                </div>
+
+                <div class="topic-category">
+                    <h3>Your account</h3>
+                    <ul class="topic-list">
+                        <li><a href="#" onclick="showTopicDetails('create-account')">Creating an account</a></li>
+                        <li><a href="#" onclick="showTopicDetails('account-settings')">Account settings</a></li>
+                        <li><a href="#" onclick="showTopicDetails('privacy-security')">Privacy and security</a></li>
+                        <li><a href="#" onclick="showTopicDetails('email-preferences')">Email preferences</a></li>
+                        <li><a href="#" onclick="showTopicDetails('close-account')">Closing your account</a></li>
+                    </ul>
+                </div>
+
+                <div class="topic-category">
+                    <h3>Travel guides</h3>
+                    <ul class="topic-list">
+                        <li><a href="#" onclick="showTopicDetails('destination-guides')">Destination guides</a></li>
+                        <li><a href="#" onclick="showTopicDetails('travel-tips')">Travel tips</a></li>
+                        <li><a href="#" onclick="showTopicDetails('local-attractions')">Local attractions</a></li>
+                        <li><a href="#" onclick="showTopicDetails('transportation')">Transportation</a></li>
+                        <li><a href="#" onclick="showTopicDetails('travel-insurance')">Travel insurance</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2 class="section-title">Contact us</h2>
+            <div class="contact-grid">
+                <!-- Send us a message - Only clickable option -->
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="contact-title">Send us a message</h3>
+                    <p class="contact-description">Chat with our customer service team for quick assistance with your booking questions.</p>
+                    <button class="contact-btn" onclick="openChat()">Start messaging</button>
+                </div>
+
+                <!-- Telephone - Display only -->
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3 class="contact-title">Telephone</h3>
+                    <p class="contact-description">Call us for immediate assistance with urgent booking matters.</p>
+                    <div class="contact-info">
+                        <div class="phone-number">+1 (888) 850-3958</div>
+                        <div>Available 24/7</div>
+                        <div>International rates may apply</div>
+                    </div>
+                </div>
+
+                <!-- Property contact - Display only -->
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="contact-title">Property</h3>
+                    <p class="contact-description">Contact your accommodation directly for specific requests and local information.</p>
+                    <div class="property-info">
+                        <div>Property contact details are available in:</div>
+                        <ul style="margin-top: 8px; padding-left: 20px;">
+                            <li>Your booking confirmation email</li>
+                            <li>"Manage your booking" section</li>
+                            <li>Property information page</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chatModal" class="chat-modal">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-title">Customer Support Chat</div>
+                <button class="close-chat" onclick="closeChat()">×</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message">
+                    <div class="message-avatar">B</div>
+                    <div class="message-content">
+                        Hello! I'm here to help you with any questions about your booking or our services. If you have a booking reference number, I can look up your details. How can I assist you today?
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message or booking reference..." onkeypress="handleChatKeyPress(event)">
+                <button class="send-btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Authentication state management
+        let currentUser = null;
+
+        // Check authentication status on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+        });
+
+        function checkAuthStatus() {
+            // Check if user is signed in (you can modify this to check localStorage, sessionStorage, or make an API call)
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showSignedInState();
+            } else {
+                showSignedOutState();
+            }
+        }
+
+        function showSignedInState() {
+            document.getElementById('signedOutNav').classList.add('hidden');
+            document.getElementById('signedInNav').classList.remove('hidden');
+            
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            }
+        }
+
+        function showSignedOutState() {
+            document.getElementById('signedOutNav').classList.remove('hidden');
+            document.getElementById('signedInNav').classList.add('hidden');
+        }
+
+        function showSignIn() {
+            // Simulate sign in process (in real app, this would open a sign-in modal or redirect)
+            const userName = prompt('Enter your name to sign in:');
+            if (userName && userName.trim()) {
+                currentUser = {
+                    name: userName.trim(),
+                    email: userName.toLowerCase().replace(' ', '.') + '@example.com'
+                };
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showSignedInState();
+                alert('Successfully signed in!');
+            }
+        }
+
+        function signOut() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showSignedOutState();
+            alert('Successfully signed out!');
+        }
+
+        // Sample booking database for demonstration
+        const bookingDatabase = {
+            'BK123456789': {
+                guest: 'John Smith',
+                property: 'Grand Hotel Paris',
+                checkIn: 'March 15, 2024',
+                checkOut: 'March 18, 2024',
+                rooms: '1 Double Room',
+                guests: '2 Adults',
+                totalPrice: '$450.00',
+                status: 'Confirmed',
+                flightDetails: {
+                    outbound: 'AA123 - March 14, 2024, 10:30 AM (JFK → CDG)',
+                    return: 'AA456 - March 19, 2024, 2:15 PM (CDG → JFK)'
+                }
+            },
+            'BK987654321': {
+                guest: 'Sarah Johnson',
+                property: 'Beach Resort Cancun',
+                checkIn: 'April 10, 2024',
+                checkOut: 'April 17, 2024',
+                rooms: '1 Ocean View Suite',
+                guests: '2 Adults, 1 Child',
+                totalPrice: '$1,200.00',
+                status: 'Confirmed',
+                flightDetails: {
+                    outbound: 'DL789 - April 9, 2024, 8:45 AM (LAX → CUN)',
+                    return: 'DL790 - April 18, 2024, 11:20 AM (CUN → LAX)'
+                }
+            },
+            'BK555666777': {
+                guest: 'Michael Brown',
+                property: 'Tokyo Business Hotel',
+                checkIn: 'May 5, 2024',
+                checkOut: 'May 12, 2024',
+                rooms: '1 Executive Room',
+                guests: '1 Adult',
+                totalPrice: '$800.00',
+                status: 'Confirmed',
+                flightDetails: {
+                    outbound: 'UA234 - May 4, 2024, 1:00 PM (SFO → NRT)',
+                    return: 'UA567 - May 13, 2024, 4:30 PM (NRT → SFO)'
+                }
+            }
+        };
+
+        // FAQ Toggle functionality
+        function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Chat Functions
+        function openChat() {
+            document.getElementById('chatModal').style.display = 'block';
+            document.getElementById('chatInput').focus();
+        }
+
+        function closeChat() {
+            document.getElementById('chatModal').style.display = 'none';
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, true);
+                input.value = '';
+                
+                // Check if message contains booking reference
+                const bookingRef = extractBookingReference(message);
+                if (bookingRef && bookingDatabase[bookingRef]) {
+                    setTimeout(() => {
+                        showBookingDetails(bookingRef);
+                    }, 1000);
+                } else {
+                    // Regular bot response
+                    setTimeout(() => {
+                        const response = getBotResponse(message);
+                        addMessage(response, false);
+                    }, 1000);
+                }
+            }
+        }
+
+        function extractBookingReference(message) {
+            // Look for booking reference pattern (BK followed by numbers)
+            const match = message.match(/BK\d{9}/i);
+            return match ? match[0].toUpperCase() : null;
+        }
+
+        function showBookingDetails(bookingRef) {
+            const booking = bookingDatabase[bookingRef];
+            
+            const detailsMessage = `Great! I found your booking. Here are your details:
+
+<div class="booking-details">
+<strong>Booking Reference:</strong> ${bookingRef}<br>
+<strong>Guest Name:</strong> ${booking.guest}<br>
+<strong>Property:</strong> ${booking.property}<br>
+<strong>Check-in:</strong> ${booking.checkIn}<br>
+<strong>Check-out:</strong> ${booking.checkOut}<br>
+<strong>Rooms:</strong> ${booking.rooms}<br>
+<strong>Guests:</strong> ${booking.guests}<br>
+<strong>Total Price:</strong> ${booking.totalPrice}<br>
+<strong>Status:</strong> ${booking.status}
+</div>
+
+<strong>Flight Details:</strong><br>
+✈️ <strong>Outbound:</strong> ${booking.flightDetails.outbound}<br>
+✈️ <strong>Return:</strong> ${booking.flightDetails.return}
+
+Is there anything specific you'd like to know about your booking or flights?`;
+
+            addMessage(detailsMessage, false);
+        }
+
+        function addMessage(text, isUser) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : ''}`;
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${isUser ? 'U' : 'B'}</div>
+                <div class="message-content">${text}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('booking') && lowerMessage.includes('reference')) {
+                return 'Please provide your booking reference number (format: BK123456789) and I\'ll look up your details including flight information.';
+            } else if (lowerMessage.includes('cancel')) {
+                return 'To cancel your booking, I\'ll need your booking reference number. You can also cancel through "Manage your booking" on our website. Cancellation policies vary by property.';
+            } else if (lowerMessage.includes('flight')) {
+                return 'I can help you with flight details if you provide your booking reference number. Flight information is linked to your accommodation booking.';
+            } else if (lowerMessage.includes('payment')) {
+                return 'For payment questions, please provide your booking reference. I can check payment status, refund eligibility, and billing details.';
+            } else if (lowerMessage.includes('check-in') || lowerMessage.includes('check in')) {
+                return 'Check-in times vary by property, usually 2-4 PM. With your booking reference, I can provide specific check-in details for your property.';
+            } else if (lowerMessage.includes('help')) {
+                return 'I can assist with booking details, flight information, cancellations, payments, and general questions. Please provide your booking reference (BK123456789) for personalized help.';
+            } else {
+                return 'Thank you for your message. For the best assistance, please provide your booking reference number (format: BK123456789) so I can access your booking and flight details.';
+            }
+        }
+
+        function showTopicDetails(topic) {
+            const topicDetails = {
+                'how-to-book': 'To make a booking: 1) Search for your destination and dates, 2) Choose your accommodation, 3) Enter guest details, 4) Complete payment.',
+                'cancel-booking': 'You can cancel your booking through "Manage your booking" section. Cancellation policies vary by property and booking type.',
+                'modify-reservation': 'To modify your reservation, go to "Manage your booking" and enter your details. Some changes may incur additional fees.',
+                'booking-confirmation': 'Your booking confirmation contains all important details including property contact information, check-in instructions, and booking reference.',
+                'group-bookings': 'For group bookings (10+ rooms), please contact our group booking specialists for special rates and assistance.'
+            };
+            
+            showNotification(topicDetails[topic] || 'More detailed information about this topic is available in our help center.');
+        }
+
+        // Search functionality
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const query = document.querySelector('.search-box').value;
+            if (query.trim()) {
+                showNotification(`Searching help center for: "${query}"\n\nIn a real implementation, this would show relevant help articles and FAQs.`);
+            }
+        });
+
+        document.querySelector('.search-box').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = this.value;
+                if (query.trim()) {
+                    showNotification(`Searching help center for: "${query}"\n\nIn a real implementation, this would show relevant help articles and FAQs.`);
+                }
+            }
+        });
+
+        // Notification system
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #0071c2;
+                color: white;
+                padding: 16px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                max-width: 400px;
+                font-size: 14px;
+                line-height: 1.4;
+                white-space: pre-line;
+                animation: slideIn 0.3s ease-out;
+            `;
+            notification.textContent = message;
+            
+            // Add slide-in animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideIn 0.3s ease-out reverse';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        // Close chat modal when clicking outside
+        document.getElementById('chatModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeChat();
+            }
+        });
+    </script>
+</body>
+</html>

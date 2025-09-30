@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Booking.com Mirror</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Booking.com - Official Site | Hotels, Flights, Car Rentals & More</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css">
+<!-- Global State Management -->
+<script src="global-state.js"></script>
 <style>
   /* Global Styles */
   * {
@@ -14,10 +16,10 @@
   }
   
   body {
-    margin: 0;
     font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    color: #333;
+    color: #262626;
     background-color: #f5f5f5;
+    line-height: 1.4;
   }
   
   a {
@@ -25,842 +27,3743 @@
     color: inherit;
   }
   
-  /* Header Styles */
-  .header-container {
-    background-color: #003580;
-    color: white;
-    width: 100%;
-  }
-  
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .logo-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    height: 32px;
-    transition: transform 0.2s ease;
-  }
-  
-  .logo:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Navigation */
-  .nav-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .nav-item {
-    margin-left: 24px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-  }
-  
-  .nav-item:hover {
-    opacity: 0.9;
-  }
-  
-  .nav-button {
-    border: 1px solid white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-  }
-  
-  .nav-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .nav-button.register {
-    background-color: white;
-    color: #003580;
-  }
-  
-  .nav-button.register:hover {
-    background-color: #f1f1f1;
-  }
-  
-  /* Dropdowns */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 240px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
-    border-radius: 4px;
-    z-index: 100;
-    top: 100%;
-    right: 0;
-    margin-top: 8px;
-    color: #333;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-    animation: fadeIn 0.2s ease;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .dropdown-item {
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .dropdown-item:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .dropdown-item.active {
-    background-color: #ebf3ff;
-  }
-  
-  .flag {
-    width: 20px;
-    height: 15px;
-    margin-right: 8px;
-    border-radius: 2px;
-    object-fit: cover;
-  }
-  
-  .currency-symbol {
-    width: 20px;
-    text-align: center;
-    margin-right: 8px;
-    font-weight: bold;
-  }
-  
-  /* Navigation Tabs */
-  .nav-tabs {
-    display: flex;
+  .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
   }
-  
-  .tab {
-    padding: 16px 16px;
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
+
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .modal.show {
     display: flex;
     align-items: center;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s ease;
-    margin-right: 8px;
+    justify-content: center;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 32px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+  }
+
+  .modal h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    color: #262626;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: #0071c2;
+  }
+
+  .modal-button {
+    width: 100%;
+    background: #0071c2;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  .modal-button:hover {
+    background: #005999;
+  }
+
+  .modal-link {
+    text-align: center;
+    color: #0071c2;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .modal-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Dropdown Styles */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    max-width: 400px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    top: 100%;
+    right: 0;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .currency .dropdown-content {
+    max-height: 300px;
+    min-width: 250px;
+  }
+
+  .language-dropdown {
+    width: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .dropdown-section-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    padding: 12px 16px 8px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 8px;
+  }
+
+  .language-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 8px;
+    max-width: 400px;
+  }
+
+  .language-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .language-item .flag {
+    font-size: 14px;
+    width: 16px;
+  }
+
+  .language-item:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown-item {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 0;
+  }
+
+  .dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+
+  .language-dropdown {
+    width: 420px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .dropdown-section-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    padding: 12px 16px 8px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 8px;
+  }
+
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+
+  .flag-icon, .flag {
+    margin-right: 4px;
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    border-radius: 3px;
+    overflow: hidden;
+    vertical-align: middle;
+    border: 1px solid #e0e0e0;
+  }
+
+  .sa-flag {
+    width: 24px;
+    height: 16px;
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    background: 
+      /* Black triangle from left */
+      linear-gradient(to right, #000 0%, #000 30%, transparent 30%),
+      /* Y-shaped divider */
+      linear-gradient(135deg, transparent 45%, #FFD700 45%, #FFD700 55%, transparent 55%),
+      linear-gradient(45deg, transparent 45%, #FFD700 45%, #FFD700 55%, transparent 55%),
+      /* Main flag colors */
+      linear-gradient(to bottom,
+        #DE3831 0%, #DE3831 33.33%,
+        #FFFFFF 33.33%, #FFFFFF 66.66%,
+        #002395 66.66%, #002395 100%
+      ),
+      /* Green sections */
+      linear-gradient(to bottom,
+        #007A4D 0%, #007A4D 16.66%,
+        transparent 16.66%, transparent 83.33%,
+        #007A4D 83.33%, #007A4D 100%
+      );
+    background-size: 100% 100%;
+  }
+
+  .language.dropdown {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+  }
+
+  .language.dropdown:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Destination Search */
+  .destination-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .destination-section {
+    padding: 16px 0;
+  }
+
+  .destination-section-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    padding: 0 16px 8px;
+    margin: 0;
+  }
+
+  .destination-option {
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background-color 0.2s;
+  }
+
+  .destination-option:hover {
+    background-color: #f5f5f5;
+  }
+
+  .destination-icon {
+    width: 24px;
+    height: 24px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #666;
+    flex-shrink: 0;
+  }
+
+  .destination-info {
+    flex: 1;
+  }
+
+  .destination-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #262626;
+    margin-bottom: 2px;
+  }
+
+  .destination-type {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .recent-searches {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  /* Guest Dropdown Styles */
+  .guest-dropdown {
+    position: relative;
+  }
+
+  .guest-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .guest-selector:hover {
+    border-color: #0071c2;
+  }
+
+  .guest-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    z-index: 100;
+    padding: 16px;
+  }
+
+  .guest-dropdown.active .guest-dropdown-content {
+    display: block;
+  }
+
+  .guest-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .guest-row:last-child {
+    border-bottom: none;
+  }
+
+  .guest-info h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 4px 0;
+  }
+
+  .guest-info p {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+  }
+
+  .guest-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .guest-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #0071c2;
+    background: white;
+    color: #0071c2;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .guest-btn:hover {
+    background: #0071c2;
+    color: white;
+  }
+
+  .guest-btn:disabled {
+    border-color: #ddd;
+    color: #ddd;
+    cursor: not-allowed;
+  }
+
+  .guest-btn:disabled:hover {
+    background: white;
+    color: #ddd;
+  }
+
+  .guest-count {
+    font-size: 14px;
+    font-weight: 600;
+    color: #262626;
+    min-width: 20px;
+    text-align: center;
   }
   
+  /* Header Styles - Exact Booking.com Mirror */
+  .header {
+    background: #003580;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #0071c2;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+  }
+
+  .nav-item:hover {
+    background-color: rgba(255,255,255,0.1);
+  }
+
+  .nav-button {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .nav-button:hover {
+    background: white;
+    color: #003580;
+  }
+
+  .nav-button.register {
+    background: white;
+    color: #003580;
+  }
+
+  .nav-button.register:hover {
+    background: #f0f0f0;
+  }
+  
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    padding: 0;
+  }
+
+  .tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .tab:hover {
+    background-color: rgba(255,255,255,0.1);
+  }
+
   .tab.active {
-    border-bottom: 2px solid white;
+    border-bottom-color: #febb02;
+    background-color: rgba(255,255,255,0.1);
   }
   
-  .tab:hover:not(.active) {
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, #003580 0%, #0071c2 100%);
+    color: white;
+    padding: 80px 0 120px;
+    position: relative;
   }
-  
-  .tab i {
+
+  .hero .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 20px;
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+
+  .flight-checkbox {
+    margin-bottom: 20px;
+  }
+
+  .flight-checkbox label {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 400;
+  }
+
+  .flight-checkbox input[type="checkbox"] {
     margin-right: 8px;
+    transform: scale(1.2);
+    accent-color: #febb02;
+  }
+
+  .search-form {
+    background: white;
+    border-radius: 4px;
+    padding: 4px;
+    display: flex;
+    align-items: stretch;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    width: 100%;
+    height: 56px;
+  }
+
+  .search-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px 16px;
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .search-field:last-of-type {
+    border-right: none;
+  }
+
+  .search-field:first-child {
+    flex: 3;
+  }
+
+  .search-field:nth-child(2),
+  .search-field:nth-child(3) {
+    flex: 2;
+  }
+
+  .search-field:nth-child(4) {
+    flex: 2.5;
+  }
+
+  .search-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0071c2;
+    display: block;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+
+  .search-field input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+    background: transparent;
+    color: #262626;
+    line-height: 1.2;
+  }
+
+  .search-field input::placeholder {
+    color: #999;
+  }
+
+  .search-button {
+    background: #febb02;
+    color: #003580;
+    border: none;
+    padding: 0 32px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 4px;
+    transition: background 0.2s ease;
+    height: 48px;
+    align-self: center;
+    min-width: 120px;
+  }
+
+  .search-button:hover {
+    background: #e6a502;
+  }
+
+  /* Guest dropdown styling */
+  .guest-dropdown {
+    position: relative;
+    width: 100%;
+  }
+
+  .guest-selector {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    color: #262626;
+  }
+
+  .guest-selector span {
+    font-size: 14px;
+    color: #262626;
+  }
+
+  .guest-selector i {
+    font-size: 12px;
+    color: #666;
+    margin-left: 8px;
+  }
+
+  .guest-dropdown-content {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    z-index: 1000;
+    display: none;
+    padding: 20px;
+    min-width: 320px;
+  }
+
+  .guest-dropdown-content.show {
+    display: block;
+  }
+
+  .guest-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .guest-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .guest-row:first-child {
+    padding-top: 0;
+  }
+
+  .guest-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #262626;
+  }
+
+  .guest-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #6b6b6b;
+  }
+
+  .guest-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .guest-btn {
+    width: 36px;
+    height: 36px;
+    border: 2px solid #0071c2;
+    background: white;
+    color: #0071c2;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 18px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+  }
+
+  .guest-btn:hover {
+    background: #0071c2;
+    color: white;
+  }
+
+  .guest-btn:disabled {
+    border-color: #e0e0e0;
+    color: #e0e0e0;
+    cursor: not-allowed;
+  }
+
+  .guest-btn:disabled:hover {
+    background: white;
+    color: #e0e0e0;
+  }
+
+  .guest-count {
+    font-size: 16px;
+    font-weight: 400;
+    color: #262626;
+    min-width: 24px;
+    text-align: center;
+  }
+
+  /* Destination dropdown */
+  .destination-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 4px;
+  }
+
+  .destination-dropdown.show {
+    display: block;
+  }
+
+  .destination-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .destination-item:hover {
+    background: #f0f8ff;
+  }
+
+  .destination-item:last-child {
+    border-bottom: none;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 60px 0 80px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+    }
+
+    .hero p {
+      font-size: 16px;
+    }
+
+    .search-form {
+      flex-direction: column;
+      height: auto;
+      max-width: 100%;
+    }
+
+    .search-field {
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+      flex: none;
+    }
+
+    .search-field:last-of-type {
+      border-bottom: none;
+    }
+
+    .search-button {
+      margin: 8px;
+      height: 48px;
+      align-self: stretch;
+    }
+
+    .guest-dropdown-content {
+      left: -16px;
+      right: -16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero .container {
+      padding: 0 16px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+    }
+
+    .hero p {
+      font-size: 14px;
+    }
+
+    .search-field {
+      padding: 16px;
+    }
+
+    .search-button {
+      margin: 4px;
+      font-size: 14px;
+    }
   }
   
-  /* Responsive Styles */
-  @media (max-width: 992px) {
-    .nav-item.hide-mobile {
-      display: none;
+  /* Section Styles */
+  .section {
+    padding: 48px 0;
+  }
+  
+  .section-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #262626;
+    margin-bottom: 32px;
+  }
+  
+  /* Card Grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .card-content {
+    padding: 16px;
+  }
+  
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 8px;
+  }
+  
+  .card-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+  
+  .card-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0071c2;
+  }
+  
+  /* Offers Section */
+  .offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  
+  .offer-card {
+    position: relative;
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .offer-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .offer-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .offer-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+  }
+  
+  .offer-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .offer-description {
+    font-size: 14px;
+    opacity: 0.9;
+  }
+  
+  /* Property Types */
+  .property-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+  }
+  
+  .property-type {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .property-type:hover {
+    transform: translateY(-2px);
+  }
+  
+  .property-type-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .property-type-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #262626;
+  }
+  
+  /* Destinations Grid */
+  .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .destination-card {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .destination-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  .destination-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .destination-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0071c2;
+    margin-bottom: 4px;
+  }
+  
+  .destination-properties {
+    font-size: 14px;
+    color: #666;
+  }
+
+  /* Unique Properties Section */
+  .unique-properties {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .unique-property {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .unique-property:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+
+  .unique-property img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .unique-property-content {
+    padding: 16px;
+  }
+
+  .unique-property-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 8px;
+  }
+
+  .unique-property-location {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  .unique-property-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0071c2;
+  }
+
+  /* Weekend Deals Section */
+  .deals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .deal-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .deal-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+
+  .deal-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .deal-content {
+    padding: 16px;
+  }
+
+  .deal-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 8px;
+  }
+
+  .deal-location {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  .deal-rating {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  .deal-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0071c2;
+  }
+
+  /* Why Booking Section */
+  .why-booking {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .why-item {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .why-icon {
+    width: 48px;
+    height: 48px;
+    background: #0071c2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .why-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 8px;
+  }
+
+  .why-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* Genius Section */
+  .genius-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .genius-content h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 8px;
+  }
+
+  .genius-content h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #0071c2;
+    margin-bottom: 12px;
+  }
+
+  .genius-content p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .genius-buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn-primary {
+    background: #0071c2;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #0071c2;
+    border: 1px solid #0071c2;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .genius-image img {
+    max-width: 200px;
+    height: auto;
+  }
+
+  /* Destination Tabs */
+  .destination-tabs {
+    display: flex;
+
+  /* Holiday Rentals Section */
+  .holiday-rentals {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    color: white;
+  }
+
+  .holiday-content h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  .btn-white {
+    background: white;
+    color: #0071c2;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .holiday-image img {
+    max-width: 300px;
+    height: auto;
+  }
+
+  /* Destination Tabs */
+  .destination-tabs {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .tab-button {
+    background: none;
+    border: none;
+    padding: 12px 0;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+
+  .tab-button.active {
+    color: #0071c2;
+    border-bottom-color: #0071c2;
+  }
+
+  /* Destinations Grid */
+  .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .destination-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .destination-column a {
+    color: #0071c2;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .destination-column a:hover {
+    text-decoration: underline;
+  }
+
+  .show-more-btn {
+    background: none;
+    border: 1px solid #0071c2;
+    color: #0071c2;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 40px;
+  }
+
+  /* Footer Links Grid */
+  .footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    padding-top: 32px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .footer-links-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-links-column a {
+    color: #0071c2;
+    text-decoration: none;
+    font-size: 12px;
+  }
+
+  .footer-links-column a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer Bottom */
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 32px;
+    border-top: 1px solid #4a5568;
+    margin-top: 32px;
+  }
+
+  .currency-selector select {
+    background: #003580;
+    color: white;
+    border: 1px solid #4a5568;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+
+  .footer-bottom-text {
+    text-align: center;
+    flex: 1;
+  }
+
+  .footer-bottom-text p {
+    font-size: 12px;
+    color: #a0a0a0;
+    margin: 4px 0;
+  }
+
+  .booking-logos {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .booking-logos img {
+    height: 24px;
+    width: auto;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 32px;
+    }
+    
+    .hero p {
+      font-size: 16px;
+    }
+    
+    .search-form {
+      flex-direction: column;
+      padding: 16px;
+    }
+    
+    .search-field {
+      width: 100%;
+      border-right: none !important;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 12px 0 !important;
+    }
+    
+    .search-field:last-of-type {
+      border-bottom: none;
+    }
+    
+    .search-button {
+      width: 100%;
+      margin: 16px 0 0 0 !important;
+    }
+
+    .genius-section {
+      flex-direction: column;
+      text-align: center;
+      gap: 32px;
+      padding: 24px 0;
+    }
+
+    .genius-content {
+      max-width: 100%;
+    }
+
+    .genius-content h2 {
+      font-size: 28px;
+    }
+
+    .genius-content h3 {
+      font-size: 18px;
+    }
+
+    .genius-content p {
+      font-size: 15px;
+      max-width: 100%;
+    }
+
+    .genius-buttons {
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 12px 24px;
+      font-size: 15px;
+      min-width: 110px;
+    }
+
+    .genius-image img {
+      width: 180px;
+    }
+
+    .genius-badge img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .destinations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-links-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .booking-logos {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  /* Why Booking Grid (backup) */
+  .why-booking-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 32px;
+  }
+
+  /* Travel More Section */
+  .travel-more-section {
+    background: #003580;
+    color: white;
+    text-align: center;
+  }
+
+  .travel-more-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: white;
+  }
+
+  .travel-more-subtitle {
+    font-size: 16px;
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+
+  .signup-form {
+    display: flex;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 12px;
+  }
+
+  .signup-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .signup-button {
+    background: #ff8c00;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .signup-button:hover {
+    background: #e67e00;
+  }
+
+  /* Popular Destinations */
+  .popular-destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .popular-destination {
+    text-align: left;
+  }
+
+  .popular-destination-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #0071c2;
+    margin-bottom: 4px;
+    cursor: pointer;
+  }
+
+  .popular-destination-name:hover {
+    text-decoration: underline;
+  }
+
+  .popular-destination-count {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Horizontal Sections Layout */
+  .horizontal-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    margin: 40px 0;
+  }
+
+  .horizontal-section {
+    background: white;
+    padding: 32px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .horizontal-section h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .horizontal-section .unique-properties {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .horizontal-section .unique-property {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .horizontal-section .unique-property img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .horizontal-section .unique-property-content {
+    flex: 1;
+  }
+
+  .horizontal-section .unique-property-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 4px;
+  }
+
+  .horizontal-section .unique-property-location {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .horizontal-section .unique-property-price {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0071c2;
+  }
+
+  .horizontal-section .why-booking {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .horizontal-section .why-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .horizontal-section .why-icon {
+    width: 40px;
+    height: 40px;
+    background: #0071c2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .horizontal-section .why-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 4px;
+  }
+
+  .horizontal-section .why-description {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.4;
+  }
+
+  .horizontal-section .popular-destinations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .horizontal-section .popular-destination {
+    text-align: center;
+  }
+
+  .horizontal-section .popular-destination img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  .horizontal-section .popular-destination-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: #0071c2;
+  }
+
+  @media (max-width: 1024px) {
+    .horizontal-sections {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  /* Popular Destinations Section */
+  .popular-destinations {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+  }
+
+  .popular-destination {
+    text-align: center;
+  }
+
+  .popular-destination img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  .popular-destination-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #0071c2;
+  }
+
+  @media (max-width: 1024px) {
+    .popular-destinations {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .popular-destinations {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .horizontal-sections {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  /* Footer - Exact Booking.com Style */
+  .footer {
+    background: #003580;
+    color: white;
+    padding: 48px 0 24px 0;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .footer-section h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: white;
+  }
+
+  .footer-section ul {
+    list-style: none;
+  }
+
+  .footer-section li {
+    margin-bottom: 8px;
+  }
+
+  .footer-section a {
+    color: #b3d4fc;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+
+  .footer-section a:hover {
+    color: white;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid #0071c2;
+    padding-top: 24px;
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+    color: #b3d4fc;
+    margin-bottom: 8px;
+  }
+
+  .footer-partners {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  .partner-logo {
+    height: 24px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .partner-logo:hover {
+    opacity: 1;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 16px;
+    }
+    
+    .hero h1 {
+      font-size: 32px;
+    }
+    
+    .hero p {
+      font-size: 16px;
+    }
+    
+    .search-row {
+      flex-direction: column;
     }
     
     .nav-tabs {
       overflow-x: auto;
-      white-space: nowrap;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Firefox */
-    }
-    
-    .nav-tabs::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Edge */
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .header-top {
-      padding: 12px 16px;
-    }
-    
-    .logo {
-      height: 24px;
-    }
-    
-    .nav-item {
-      margin-left: 16px;
-    }
-    
-    .nav-button {
-      padding: 6px 12px;
-      font-size: 13px;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .nav-tabs .tab-text {
-      display: none;
-    }
-    
-    .tab i {
-      margin-right: 0;
     }
     
     .tab {
-      padding: 16px 12px;
+      white-space: nowrap;
+    }
+    
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .offers-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .unique-property-card {
+      flex-direction: column;
+    }
+
+    .unique-property-image {
+      width: 100%;
+      height: 200px;
+    }
+
+    .signup-form {
+      flex-direction: column;
+    }
+  }
+</style>
+<style id="success-animations">
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
     }
   }
   
-  /* Search Bar Styles */
-  .search-bar {background-color:#f5f5f5; padding:20px;}
-  .search-bar input, .search-bar select {padding:10px; margin:5px; font-size:16px;}
-  .search-bar button {background-color:#0071c2; color:white; padding:10px 20px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;}
+  .user-info {
+    color: white !important;
+    font-size: 14px !important;
+    margin-left: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
   
-  /* Other Existing Styles */
-  .section {padding:50px 20px; max-width:1200px; margin:0 auto;}
-  .section h2 {margin-bottom:20px;}
-  .offers {display:flex; flex-wrap:wrap; gap:20px;}
-  .offer-card {flex:1 1 300px; position:relative;}
-  .offer-card img {width:100%; border-radius:8px;}
-  .offer-card .text {position:absolute; bottom:10px; left:10px; color:white; background-color:rgba(0,0,0,0.5); padding:10px; border-radius:5px;}
+  .success-message {
+    animation: slideInRight 0.3s ease-out !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  }
 </style>
 </head>
 <body>
 
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+    <h2>Sign in</h2>
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="loginEmail">Email address</label>
+        <input type="email" id="loginEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required>
+      </div>
+      <button type="submit" class="modal-button">Sign in</button>
+    </form>
+    <div class="modal-link" onclick="switchToRegister()">Don't have an account? Register</div>
+  </div>
+</div>
+
+<!-- Register Modal -->
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+    <h2>Create your account</h2>
+    <form onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label for="registerFirstName">First Name</label>
+        <input type="text" id="registerFirstName" required>
+      </div>
+      <div class="form-group">
+        <label for="registerLastName">Last Name</label>
+        <input type="text" id="registerLastName" required>
+      </div>
+      <div class="form-group">
+        <label for="registerEmail">Email address</label>
+        <input type="email" id="registerEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="registerPassword">Password</label>
+        <input type="password" id="registerPassword" required>
+      </div>
+      <div class="form-group">
+        <label for="registerConfirmPassword">Confirm password</label>
+        <input type="password" id="registerConfirmPassword" required>
+      </div>
+      <button type="submit" class="modal-button">Create account</button>
+    </form>
+    <div class="modal-link" onclick="switchToLogin()">Already have an account? Sign in</div>
+  </div>
+</div>
+
 <!-- Header -->
-<header class="header-container">
-  <!-- Top Navigation Bar -->
-  <div class="header-top">
-    <!-- Logo -->
-    <div class="logo-container">
-      <a href="#">
-        <img class="logo" src="https://cf.bstatic.com/static/img/bcom_logo_blue_bg/f12f834e849b2a7f752a14b2598a6ddfeda1e713.svg" alt="Booking.com" width="150" height="32">
-      </a>
+<header class="header">
+  <div class="container">
+    <div class="header-top">
+      <div class="logo">Booking.com</div>
+      <div class="nav-right">
+        <div class="nav-item currency dropdown" onclick="toggleDropdown('currencyDropdown')">
+          <span id="selectedCurrency">ZAR</span>
+          <i class="fas fa-chevron-down" style="margin-left: 4px; font-size: 10px;"></i>
+          <div id="currencyDropdown" class="dropdown-content">
+            <div class="dropdown-item" onclick="selectCurrency('USD', '$')">USD - US Dollar</div>
+            <div class="dropdown-item" onclick="selectCurrency('EUR', '€')">EUR - Euro</div>
+            <div class="dropdown-item" onclick="selectCurrency('GBP', '£')">GBP - British Pound</div>
+            <div class="dropdown-item" onclick="selectCurrency('ZAR', 'R')">ZAR - South African Rand</div>
+            <div class="dropdown-item" onclick="selectCurrency('AUD', 'A$')">AUD - Australian Dollar</div>
+            <div class="dropdown-item" onclick="selectCurrency('CAD', 'C$')">CAD - Canadian Dollar</div>
+            <div class="dropdown-item" onclick="selectCurrency('CHF', 'CHF')">CHF - Swiss Franc</div>
+            <div class="dropdown-item" onclick="selectCurrency('CNY', '¥')">CNY - Chinese Yuan</div>
+            <div class="dropdown-item" onclick="selectCurrency('JPY', '¥')">JPY - Japanese Yen</div>
+            <div class="dropdown-item" onclick="selectCurrency('SEK', 'kr')">SEK - Swedish Krona</div>
+            <div class="dropdown-item" onclick="selectCurrency('NOK', 'kr')">NOK - Norwegian Krone</div>
+            <div class="dropdown-item" onclick="selectCurrency('DKK', 'kr')">DKK - Danish Krone</div>
+            <div class="dropdown-item" onclick="selectCurrency('PLN', 'zł')">PLN - Polish Zloty</div>
+            <div class="dropdown-item" onclick="selectCurrency('CZK', 'Kč')">CZK - Czech Koruna</div>
+            <div class="dropdown-item" onclick="selectCurrency('HUF', 'Ft')">HUF - Hungarian Forint</div>
+            <div class="dropdown-item" onclick="selectCurrency('RON', 'lei')">RON - Romanian Leu</div>
+            <div class="dropdown-item" onclick="selectCurrency('BGN', 'лв')">BGN - Bulgarian Lev</div>
+            <div class="dropdown-item" onclick="selectCurrency('HRK', 'kn')">HRK - Croatian Kuna</div>
+            <div class="dropdown-item" onclick="selectCurrency('RSD', 'дин')">RSD - Serbian Dinar</div>
+            <div class="dropdown-item" onclick="selectCurrency('TRY', '₺')">TRY - Turkish Lira</div>
+            <div class="dropdown-item" onclick="selectCurrency('RUB', '₽')">RUB - Russian Ruble</div>
+            <div class="dropdown-item" onclick="selectCurrency('UAH', '₴')">UAH - Ukrainian Hryvnia</div>
+            <div class="dropdown-item" onclick="selectCurrency('BRL', 'R$')">BRL - Brazilian Real</div>
+            <div class="dropdown-item" onclick="selectCurrency('ARS', '$')">ARS - Argentine Peso</div>
+            <div class="dropdown-item" onclick="selectCurrency('CLP', '$')">CLP - Chilean Peso</div>
+            <div class="dropdown-item" onclick="selectCurrency('COP', '$')">COP - Colombian Peso</div>
+            <div class="dropdown-item" onclick="selectCurrency('PEN', 'S/')">PEN - Peruvian Sol</div>
+            <div class="dropdown-item" onclick="selectCurrency('MXN', '$')">MXN - Mexican Peso</div>
+            <div class="dropdown-item" onclick="selectCurrency('INR', '₹')">INR - Indian Rupee</div>
+            <div class="dropdown-item" onclick="selectCurrency('PKR', '₨')">PKR - Pakistani Rupee</div>
+            <div class="dropdown-item" onclick="selectCurrency('BDT', '৳')">BDT - Bangladeshi Taka</div>
+            <div class="dropdown-item" onclick="selectCurrency('LKR', '₨')">LKR - Sri Lankan Rupee</div>
+            <div class="dropdown-item" onclick="selectCurrency('NPR', '₨')">NPR - Nepalese Rupee</div>
+            <div class="dropdown-item" onclick="selectCurrency('THB', '฿')">THB - Thai Baht</div>
+            <div class="dropdown-item" onclick="selectCurrency('VND', '₫')">VND - Vietnamese Dong</div>
+            <div class="dropdown-item" onclick="selectCurrency('IDR', 'Rp')">IDR - Indonesian Rupiah</div>
+            <div class="dropdown-item" onclick="selectCurrency('MYR', 'RM')">MYR - Malaysian Ringgit</div>
+            <div class="dropdown-item" onclick="selectCurrency('SGD', 'S$')">SGD - Singapore Dollar</div>
+            <div class="dropdown-item" onclick="selectCurrency('PHP', '₱')">PHP - Philippine Peso</div>
+            <div class="dropdown-item" onclick="selectCurrency('KRW', '₩')">KRW - South Korean Won</div>
+            <div class="dropdown-item" onclick="selectCurrency('TWD', 'NT$')">TWD - Taiwan Dollar</div>
+            <div class="dropdown-item" onclick="selectCurrency('HKD', 'HK$')">HKD - Hong Kong Dollar</div>
+            <div class="dropdown-item" onclick="selectCurrency('NZD', 'NZ$')">NZD - New Zealand Dollar</div>
+            <div class="dropdown-item" onclick="selectCurrency('AED', 'د.إ')">AED - UAE Dirham</div>
+            <div class="dropdown-item" onclick="selectCurrency('SAR', '﷼')">SAR - Saudi Riyal</div>
+            <div class="dropdown-item" onclick="selectCurrency('QAR', '﷼')">QAR - Qatari Riyal</div>
+            <div class="dropdown-item" onclick="selectCurrency('KWD', 'د.ك')">KWD - Kuwaiti Dinar</div>
+            <div class="dropdown-item" onclick="selectCurrency('BHD', '.د.ب')">BHD - Bahraini Dinar</div>
+            <div class="dropdown-item" onclick="selectCurrency('OMR', '﷼')">OMR - Omani Rial</div>
+            <div class="dropdown-item" onclick="selectCurrency('JOD', 'د.ا')">JOD - Jordanian Dinar</div>
+            <div class="dropdown-item" onclick="selectCurrency('LBP', '£')">LBP - Lebanese Pound</div>
+            <div class="dropdown-item" onclick="selectCurrency('EGP', '£')">EGP - Egyptian Pound</div>
+            <div class="dropdown-item" onclick="selectCurrency('MAD', 'د.م.')">MAD - Moroccan Dirham</div>
+            <div class="dropdown-item" onclick="selectCurrency('TND', 'د.ت')">TND - Tunisian Dinar</div>
+            <div class="dropdown-item" onclick="selectCurrency('DZD', 'د.ج')">DZD - Algerian Dinar</div>
+            <div class="dropdown-item" onclick="selectCurrency('NGN', '₦')">NGN - Nigerian Naira</div>
+            <div class="dropdown-item" onclick="selectCurrency('GHS', '₵')">GHS - Ghanaian Cedi</div>
+            <div class="dropdown-item" onclick="selectCurrency('KES', 'KSh')">KES - Kenyan Shilling</div>
+            <div class="dropdown-item" onclick="selectCurrency('UGX', 'USh')">UGX - Ugandan Shilling</div>
+            <div class="dropdown-item" onclick="selectCurrency('TZS', 'TSh')">TZS - Tanzanian Shilling</div>
+            <div class="dropdown-item" onclick="selectCurrency('ETB', 'Br')">ETB - Ethiopian Birr</div>
+            <div class="dropdown-item" onclick="selectCurrency('MUR', '₨')">MUR - Mauritian Rupee</div>
+            <div class="dropdown-item" onclick="selectCurrency('BWP', 'P')">BWP - Botswana Pula</div>
+            <div class="dropdown-item" onclick="selectCurrency('NAD', '$')">NAD - Namibian Dollar</div>
+            <div class="dropdown-item" onclick="selectCurrency('SZL', 'L')">SZL - Swazi Lilangeni</div>
+            <div class="dropdown-item" onclick="selectCurrency('LSL', 'L')">LSL - Lesotho Loti</div>
+            <div class="dropdown-item" onclick="selectCurrency('MWK', 'MK')">MWK - Malawian Kwacha</div>
+            <div class="dropdown-item" onclick="selectCurrency('ZMW', 'ZK')">ZMW - Zambian Kwacha</div>
+            <div class="dropdown-item" onclick="selectCurrency('ZWL', '$')">ZWL - Zimbabwean Dollar</div>
+            <div class="dropdown-item" onclick="selectCurrency('MZN', 'MT')">MZN - Mozambican Metical</div>
+            <div class="dropdown-item" onclick="selectCurrency('AOA', 'Kz')">AOA - Angolan Kwanza</div>
+          </div>
+        </div>
+        <div class="nav-item language dropdown" onclick="toggleDropdown('languageDropdown')">
+          <span class="fi fi-za flag-icon"></span>
+          <i class="fas fa-chevron-down" style="margin-left: 4px; font-size: 10px;"></i>
+          <div id="languageDropdown" class="dropdown-content language-dropdown">
+            <div class="dropdown-section">
+              <div class="dropdown-section-title">Select your language</div>
+              <div class="language-grid">
+                <div class="language-item" onclick="selectLanguage('us', 'English (US)')">
+                  <span class="fi fi-us flag"></span>
+                  <span>English (US)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('gb', 'English (UK)')">
+                  <span class="fi fi-gb flag"></span>
+                  <span>English (UK)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('za', 'English (ZA)')">
+                  <span class="fi fi-za flag"></span>
+                  <span>English (ZA)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('au', 'English (AU)')">
+                  <span class="fi fi-au flag"></span>
+                  <span>English (AU)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ca', 'English (CA)')">
+                  <span class="fi fi-ca flag"></span>
+                  <span>English (CA)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ie', 'English (IE)')">
+                  <span class="fi fi-ie flag"></span>
+                  <span>English (IE)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('nz', 'English (NZ)')">
+                  <span class="fi fi-nz flag"></span>
+                  <span>English (NZ)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('sg', 'English (SG)')">
+                  <span class="fi fi-sg flag"></span>
+                  <span>English (SG)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('es', 'Español')">
+                  <span class="fi fi-es flag"></span>
+                  <span>Español</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('mx', 'Español (MX)')">
+                  <span class="fi fi-mx flag"></span>
+                  <span>Español (MX)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ar', 'Español (AR)')">
+                  <span class="fi fi-ar flag"></span>
+                  <span>Español (AR)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('co', 'Español (CO)')">
+                  <span class="fi fi-co flag"></span>
+                  <span>Español (CO)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('fr', 'Français')">
+                  <span class="fi fi-fr flag"></span>
+                  <span>Français</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ca', 'Français (CA)')">
+                  <span class="fi fi-ca flag"></span>
+                  <span>Français (CA)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('be', 'Français (BE)')">
+                  <span class="fi fi-be flag"></span>
+                  <span>Français (BE)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ch', 'Français (CH)')">
+                  <span class="fi fi-ch flag"></span>
+                  <span>Français (CH)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('de', 'Deutsch')">
+                  <span class="fi fi-de flag"></span>
+                  <span>Deutsch</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('at', 'Deutsch (AT)')">
+                  <span class="fi fi-at flag"></span>
+                  <span>Deutsch (AT)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ch', 'Deutsch (CH)')">
+                  <span class="fi fi-ch flag"></span>
+                  <span>Deutsch (CH)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('it', 'Italiano')">
+                  <span class="fi fi-it flag"></span>
+                  <span>Italiano</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('pt', 'Português')">
+                  <span class="fi fi-pt flag"></span>
+                  <span>Português</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('br', 'Português (BR)')">
+                  <span class="fi fi-br flag"></span>
+                  <span>Português (BR)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('nl', 'Nederlands')">
+                  <span class="fi fi-nl flag"></span>
+                  <span>Nederlands</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('be', 'Nederlands (BE)')">
+                  <span class="fi fi-be flag"></span>
+                  <span>Nederlands (BE)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ru', 'Русский')">
+                  <span class="fi fi-ru flag"></span>
+                  <span>Русский</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('jp', '日本語')">
+                  <span class="fi fi-jp flag"></span>
+                  <span>日本語</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('kr', '한국어')">
+                  <span class="fi fi-kr flag"></span>
+                  <span>한국어</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('cn', '中文 (简体)')">
+                  <span class="fi fi-cn flag"></span>
+                  <span>中文 (简体)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('tw', '中文 (繁體)')">
+                  <span class="fi fi-tw flag"></span>
+                  <span>中文 (繁體)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('hk', '中文 (香港)')">
+                  <span class="fi fi-hk flag"></span>
+                  <span>中文 (香港)</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('th', 'ไทย')">
+                  <span class="fi fi-th flag"></span>
+                  <span>ไทย</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('vn', 'Tiếng Việt')">
+                  <span class="fi fi-vn flag"></span>
+                  <span>Tiếng Việt</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('id', 'Bahasa Indonesia')">
+                  <span class="fi fi-id flag"></span>
+                  <span>Bahasa Indonesia</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('my', 'Bahasa Malaysia')">
+                  <span class="fi fi-my flag"></span>
+                  <span>Bahasa Malaysia</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ph', 'Filipino')">
+                  <span class="fi fi-ph flag"></span>
+                  <span>Filipino</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('in', 'हिन्दी')">
+                  <span class="fi fi-in flag"></span>
+                  <span>हिन्दी</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ae', 'العربية')">
+                  <span class="fi fi-ae flag"></span>
+                  <span>العربية</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('il', 'עברית')">
+                  <span class="fi fi-il flag"></span>
+                  <span>עברית</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('tr', 'Türkçe')">
+                  <span class="fi fi-tr flag"></span>
+                  <span>Türkçe</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('gr', 'Ελληνικά')">
+                  <span class="fi fi-gr flag"></span>
+                  <span>Ελληνικά</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('pl', 'Polski')">
+                  <span class="fi fi-pl flag"></span>
+                  <span>Polski</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('cz', 'Čeština')">
+                  <span class="fi fi-cz flag"></span>
+                  <span>Čeština</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('sk', 'Slovenčina')">
+                  <span class="fi fi-sk flag"></span>
+                  <span>Slovenčina</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('hu', 'Magyar')">
+                  <span class="fi fi-hu flag"></span>
+                  <span>Magyar</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ro', 'Română')">
+                  <span class="fi fi-ro flag"></span>
+                  <span>Română</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('bg', 'Български')">
+                  <span class="fi fi-bg flag"></span>
+                  <span>Български</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('hr', 'Hrvatski')">
+                  <span class="fi fi-hr flag"></span>
+                  <span>Hrvatski</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('rs', 'Српски')">
+                  <span class="fi fi-rs flag"></span>
+                  <span>Српски</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('si', 'Slovenščina')">
+                  <span class="fi fi-si flag"></span>
+                  <span>Slovenščina</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('lt', 'Lietuvių')">
+                  <span class="fi fi-lt flag"></span>
+                  <span>Lietuvių</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('lv', 'Latviešu')">
+                  <span class="fi fi-lv flag"></span>
+                  <span>Latviešu</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('ee', 'Eesti')">
+                  <span class="fi fi-ee flag"></span>
+                  <span>Eesti</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('fi', 'Suomi')">
+                  <span class="fi fi-fi flag"></span>
+                  <span>Suomi</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('se', 'Svenska')">
+                  <span class="fi fi-se flag"></span>
+                  <span>Svenska</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('no', 'Norsk')">
+                  <span class="fi fi-no flag"></span>
+                  <span>Norsk</span>
+                </div>
+                <div class="language-item" onclick="selectLanguage('dk', 'Dansk')">
+                  <span class="fi fi-dk flag"></span>
+                  <span>Dansk</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item help" onclick="window.open('customer-service.html', '_blank')">
+          <i class="fas fa-question-circle"></i>
+          Customer service
+        </div>
+        <div class="nav-item property" style="font-weight: bold;">List your property</div>
+        <button class="nav-button register" onclick="openModal('registerModal')">Register</button>
+        <button class="nav-button" onclick="openModal('loginModal')">Sign in</button>
+      </div>
     </div>
     
-    <!-- Navigation Items -->
-    <div class="nav-container">
-      <!-- Currency Selector -->
-      <div class="nav-item dropdown">
-        <div class="nav-button">
-          <span>ZAR</span>
-          <i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 12px;"></i>
-        </div>
-        <div class="dropdown-content">
-          <div class="dropdown-item active">
-            <span class="currency-symbol">R</span>
-            <span>ZAR - South African Rand</span>
-          </div>
-          <div class="dropdown-item">
-            <span class="currency-symbol">$</span>
-            <span>USD - US Dollar</span>
-          </div>
-          <div class="dropdown-item">
-            <span class="currency-symbol">€</span>
-            <span>EUR - Euro</span>
-          </div>
-          <div class="dropdown-item">
-            <span class="currency-symbol">£</span>
-            <span>GBP - British Pound</span>
-          </div>
-          <div class="dropdown-item">
-            <span class="currency-symbol">¥</span>
-            <span>JPY - Japanese Yen</span>
-          </div>
-          <div class="dropdown-item">
-            <span class="currency-symbol">A$</span>
-            <span>AUD - Australian Dollar</span>
-          </div>
-        </div>
+    <div class="nav-tabs">
+      <div class="tab active">
+        <i class="fas fa-bed"></i>
+        Stays
       </div>
-      
-      <!-- Language Selector -->
-      <div class="nav-item dropdown">
-        <div class="nav-button">
-          <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/gb.png" alt="UK Flag" width="20" height="15" style="margin-right: 5px;">
-          <span>English (UK)</span>
-          <i class="fas fa-chevron-down" style="font-size: 12px;"></i>
-        </div>
-        <div class="dropdown-content">
-          <div class="dropdown-item active">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/gb.png" alt="UK Flag" width="20" height="15">
-            <span>English (UK)</span>
-          </div>
-          <div class="dropdown-item">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/us.png" alt="US Flag" width="20" height="15">
-            <span>English (US)</span>
-          </div>
-          <div class="dropdown-item">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/fr.png" alt="French Flag" width="20" height="15">
-            <span>Français</span>
-          </div>
-          <div class="dropdown-item">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/de.png" alt="German Flag" width="20" height="15">
-            <span>Deutsch</span>
-          </div>
-          <div class="dropdown-item">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/es.png" alt="Spanish Flag" width="20" height="15">
-            <span>Español</span>
-          </div>
-          <div class="dropdown-item">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/pt.png" alt="Portuguese Flag" width="20" height="15">
-            <span>Português</span>
-          </div>
-          <div class="dropdown-item">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/it.png" alt="Italian Flag" width="20" height="15">
-            <span>Italiano</span>
-          </div>
-          <div class="dropdown-item">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/nl.png" alt="Dutch Flag" width="20" height="15">
-            <span>Nederlands</span>
-          </div>
-          <div class="dropdown-item">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/cn.png" alt="Chinese Flag" width="20" height="15">
-            <span>简体中文</span>
-          </div>
-          <div class="dropdown-item">
-            <img class="flag" src="https://cf.bstatic.com/static/img/flags/new/48-squared/jp.png" alt="Japanese Flag" width="20" height="15">
-            <span>日本語</span>
-          </div>
-        </div>
+      <div class="tab" onclick="window.location.href='flights.html'">
+        <i class="fas fa-plane"></i>
+        Flights
       </div>
-      
-      <!-- Customer Service -->
-      <a href="#" class="nav-item hide-mobile">
-        <i class="far fa-question-circle" style="margin-right: 5px;"></i>
-        <span>Customer Service</span>
-      </a>
-      
-      <!-- List Your Property -->
-      <a href="#" class="nav-item">
-        <span>List your property</span>
-      </a>
-      
-      <!-- Account Navigation -->
-      <a href="#" class="nav-item">
-        <div class="nav-button register">Register</div>
-      </a>
-      <a href="#" class="nav-item">
-        <div class="nav-button">Sign in</div>
-      </a>
+      <div class="tab" onclick="navigateToCars()">
+        <i class="fas fa-car"></i>
+        Car rentals
+      </div>
+      <div class="tab" onclick="navigateToAttractions()">
+        <i class="fas fa-umbrella-beach"></i>
+        Attractions
+      </div>
+      <div class="tab" onclick="navigateToTaxis()">
+        <i class="fas fa-taxi"></i>
+        Airport taxis
+      </div>
     </div>
-  </div>
-  
-  <!-- Navigation Tabs -->
-  <div class="nav-tabs">
-    <a href="#" class="tab active">
-      <i class="fas fa-bed"></i>
-      <span class="tab-text">Stays</span>
-    </a>
-    <a href="#" class="tab">
-      <i class="fas fa-plane"></i>
-      <span class="tab-text">Flights</span>
-    </a>
-    <a href="#" class="tab">
-      <i class="fas fa-globe"></i>
-      <span class="tab-text">Flight + Hotel</span>
-    </a>
-    <a href="#" class="tab">
-      <i class="fas fa-car"></i>
-      <span class="tab-text">Car rentals</span>
-    </a>
-    <a href="#" class="tab">
-      <i class="fas fa-umbrella-beach"></i>
-      <span class="tab-text">Attractions</span>
-    </a>
-    <a href="#" class="tab">
-      <i class="fas fa-taxi"></i>
-      <span class="tab-text">Airport taxis</span>
-    </a>
   </div>
 </header>
 
-<!-- Search Bar -->
-<section class="search-bar">
-  <div style="max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center;">
-    <input type="text" placeholder="Where are you going?" style="flex:2;">
-    <input type="date" placeholder="Check-in date" style="flex:1;">
-    <input type="date" placeholder="Check-out date" style="flex:1;">
-    <select>
-      <option>1 adult</option>
-      <option>2 adults</option>
-      <option>3 adults</option>
-      <option>4 adults</option>
-      <option>5 adults</option>
-      <option>6 adults</option>
-      <option>7 adults</option>
-      <option>8 adults</option>
-      <option>9 adults</option>
-      <option>10 adults</option>
-    </select>
-    <select>
-      <option>0 children</option>
-      <option>1 child</option>
-      <option>2 children</option>
-      <option>3 children</option>
-      <option>4 children</option>
-      <option>5 children</option>
-      <option>6 children</option>
-      <option>7 children</option>
-      <option>8 children</option>
-      <option>9 children</option>
-      <option>10 children</option>
-    </select>
-    <select>
-      <option>1 room</option>
-      <option>2 rooms</option>
-      <option>3 rooms</option>
-      <option>4 rooms</option>
-      <option>5 rooms</option>
-      <option>6 rooms</option>
-      <option>7 rooms</option>
-      <option>8 rooms</option>
-      <option>9 rooms</option>
-      <option>10 rooms</option>
-    </select>
-    <button>Search</button>
-    <label style="margin-left:10px;"><input type="checkbox"> Add flights to my search</label>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <h1>Find your next stay</h1>
+    <p>Search low prices on hotels, homes and much more...</p>
+    
+    <!-- Flight checkbox -->
+    <div class="flight-checkbox">
+      <label>
+        <input type="checkbox" id="addFlights">
+        Add flights to my search
+      </label>
+    </div>
+    
+    <div class="search-form">
+      <div class="search-field">
+        <label><i class="fas fa-bed"></i> Where are you going?</label>
+        <input type="text" id="destinationInput" placeholder="Enter destination" 
+               oninput="searchDestinations(this.value)" 
+               onfocus="showDestinationDropdown()" 
+               onblur="hideDestinationDropdown()">
+        <div id="destinationDropdown" class="destination-dropdown">
+          <div class="recent-searches destination-section">
+            <h4 class="destination-section-title">Recent searches</h4>
+            <div class="destination-option" onclick="selectDestination('Cape Town, South Africa')">
+              <div class="destination-icon">🏨</div>
+              <div class="destination-info">
+                <div class="destination-name">Cape Town</div>
+                <div class="destination-type">South Africa</div>
+              </div>
+            </div>
+            <div class="destination-option" onclick="selectDestination('Johannesburg, South Africa')">
+              <div class="destination-icon">🏨</div>
+              <div class="destination-info">
+                <div class="destination-name">Johannesburg</div>
+                <div class="destination-type">South Africa</div>
+              </div>
+            </div>
+          </div>
+          <div class="trending-destinations destination-section">
+            <h4 class="destination-section-title">Trending destinations</h4>
+            <div class="destination-option" onclick="selectDestination('Dubai, United Arab Emirates')">
+              <div class="destination-icon">✈️</div>
+              <div class="destination-info">
+                <div class="destination-name">Dubai</div>
+                <div class="destination-type">United Arab Emirates</div>
+              </div>
+            </div>
+            <div class="destination-option" onclick="selectDestination('London, United Kingdom')">
+              <div class="destination-icon">✈️</div>
+              <div class="destination-info">
+                <div class="destination-name">London</div>
+                <div class="destination-type">United Kingdom</div>
+              </div>
+            </div>
+            <div class="destination-option" onclick="selectDestination('Paris, France')">
+              <div class="destination-icon">✈️</div>
+              <div class="destination-info">
+                <div class="destination-name">Paris</div>
+                <div class="destination-type">France</div>
+              </div>
+            </div>
+            <div class="destination-option" onclick="selectDestination('New York, United States')">
+              <div class="destination-icon">✈️</div>
+              <div class="destination-info">
+                <div class="destination-name">New York</div>
+                <div class="destination-type">United States</div>
+              </div>
+            </div>
+            <div class="destination-option" onclick="selectDestination('Tokyo, Japan')">
+              <div class="destination-icon">✈️</div>
+              <div class="destination-info">
+                <div class="destination-name">Tokyo</div>
+                <div class="destination-type">Japan</div>
+              </div>
+            </div>
+            <div class="destination-option" onclick="selectDestination('Bangkok, Thailand')">
+              <div class="destination-icon">✈️</div>
+              <div class="destination-info">
+                <div class="destination-name">Bangkok</div>
+                <div class="destination-type">Thailand</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="search-field">
+        <label><i class="fas fa-calendar-alt"></i> Check-in date</label>
+        <input type="date" id="checkinDate" onchange="updateCheckoutMin()" required>
+      </div>
+      
+      <div class="search-field">
+        <label><i class="fas fa-calendar-alt"></i> Check-out date</label>
+        <input type="date" id="checkoutDate" required>
+      </div>
+      
+      <div class="search-field">
+        <label><i class="fas fa-user"></i> Guests</label>
+        <div class="guest-dropdown" id="guestDropdown">
+          <div class="guest-selector" onclick="toggleGuestDropdown()">
+            <span id="guestDisplay">2 adults · 0 children · 1 room</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="guest-dropdown-content">
+            <div class="guest-row">
+              <div class="guest-info">
+                <h4>Adults</h4>
+                <p>Ages 18 or above</p>
+              </div>
+              <div class="guest-controls">
+                <button class="guest-btn" onclick="changeGuest('adults', -1)" id="adultsDown">-</button>
+                <span class="guest-count" id="adultsCount">2</span>
+                <button class="guest-btn" onclick="changeGuest('adults', 1)" id="adultsUp">+</button>
+              </div>
+            </div>
+            <div class="guest-row">
+              <div class="guest-info">
+                <h4>Children</h4>
+                <p>Ages 0-17</p>
+              </div>
+              <div class="guest-controls">
+                <button class="guest-btn" onclick="changeGuest('children', -1)" id="childrenDown">-</button>
+                <span class="guest-count" id="childrenCount">0</span>
+                <button class="guest-btn" onclick="changeGuest('children', 1)" id="childrenUp">+</button>
+              </div>
+            </div>
+            <div class="guest-row">
+              <div class="guest-info">
+                <h4>Rooms</h4>
+                <p>Number of rooms</p>
+              </div>
+              <div class="guest-controls">
+                <button class="guest-btn" onclick="changeGuest('rooms', -1)" id="roomsDown">-</button>
+                <span class="guest-count" id="roomsCount">1</span>
+                <button class="guest-btn" onclick="changeGuest('rooms', 1)" id="roomsUp">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="search-button">Search</button>
+    </div>
   </div>
 </section>
 
-<!-- Offers & Promotions -->
+<!-- Offers Section -->
 <section class="section">
-  <h2>Offers & Promotions</h2>
-  <div class="offers">
-    <div class="offer-card">
-      <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60" alt="Quick escape" style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
-      <div class="text" style="position:absolute; bottom:10px; left:0; right:0; background-color:rgba(0,0,0,0.6); color:white; padding:10px; border-radius:0 0 8px 8px;">Quick escape, save up to 20%</div>
-    </div>
-    <div class="offer-card">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhY2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60" alt="Late Escape Deals" style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
-      <div class="text" style="position:absolute; bottom:10px; left:0; right:0; background-color:rgba(0,0,0,0.6); color:white; padding:10px; border-radius:0 0 8px 8px;">Late Escape Deals, 15% off</div>
-    </div>
-    <div class="offer-card">
-      <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bW9kZXJuJTIwaG91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60" alt="Holiday rentals" style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
-      <div class="text" style="position:absolute; bottom:10px; left:0; right:0; background-color:rgba(0,0,0,0.6); color:white; padding:10px; border-radius:0 0 8px 8px;">Holiday rentals, live the dream</div>
-    </div>
-  </div>
-</section>
-<!-- Explore South Africa Section -->
-<section id="explore-sa" style="padding:50px 0; background-color:#f8f8f8;">
-  <div class="container" style="max-width:1200px; margin:0 auto;">
-    <h2 style="color:#003580; font-size:28px; margin-bottom:30px;">Explore South Africa</h2>
-    <div class="destinations-grid" style="display:flex; flex-wrap:wrap; gap:20px;">
-      <!-- Cape Town -->
-      <div class="destination-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://cf.bstatic.com/xdata/images/city/600x600/685532.jpg" alt="Cape Town" style="width:100%; height:150px; object-fit:cover; border-radius:8px;">
-        <h3 style="margin:10px 0 5px; color:#003580;">Cape Town</h3>
-        <p style="color:#333;">7,439 properties</p>
+  <div class="container">
+    <h2 class="section-title">Offers</h2>
+    <div class="offers-grid">
+      <div class="offer-card">
+        <img src="https://picsum.photos/400/250?random=1" alt="Hotel offer">
+        <div class="offer-content">
+          <div class="offer-title">Seize the moment</div>
+          <div class="offer-description">Save 15% or more when you book and stay before 1 October 2024</div>
+        </div>
       </div>
-
-      <!-- Durban -->
-      <div class="destination-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://cf.bstatic.com/xdata/images/city/600x600/685535.jpg" alt="Durban" style="width:100%; height:150px; object-fit:cover; border-radius:8px;">
-        <h3 style="margin:10px 0 5px; color:#003580;">Durban</h3>
-        <p style="color:#333;">1,979 properties</p>
+      <div class="offer-card">
+        <img src="https://picsum.photos/400/250?random=2" alt="Flight offer">
+        <div class="offer-content">
+          <div class="offer-title">Fly away to your dream vacation</div>
+          <div class="offer-description">Get inspired – compare and book flights with flexibility</div>
+        </div>
       </div>
-
-      <!-- Johannesburg -->
-      <div class="destination-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://cf.bstatic.com/xdata/images/city/600x600/685534.jpg" alt="Johannesburg" style="width:100%; height:150px; object-fit:cover; border-radius:8px;">
-        <h3 style="margin:10px 0 5px; color:#003580;">Johannesburg</h3>
-        <p style="color:#333;">3,041 properties</p>
-      </div>
-
-      <!-- Pretoria -->
-      <div class="destination-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://cf.bstatic.com/xdata/images/city/600x600/685538.jpg" alt="Pretoria" style="width:100%; height:150px; object-fit:cover; border-radius:8px;">
-        <h3 style="margin:10px 0 5px; color:#003580;">Pretoria</h3>
-        <p style="color:#333;">1,617 properties</p>
+      <div class="offer-card">
+        <img src="https://picsum.photos/400/250?random=3" alt="Long stay offer">
+        <div class="offer-content">
+          <div class="offer-title">Take your longest vacation yet</div>
+          <div class="offer-description">Browse properties offering long-term stays, many at reduced monthly rates</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Trending Destinations Section -->
-<section id="trending" style="padding:50px 0;">
-  <div class="container" style="max-width:1200px; margin:0 auto;">
-    <h2 style="color:#003580; font-size:28px; margin-bottom:30px;">Trending destinations</h2>
-    <div class="trending-grid" style="display:flex; flex-wrap:wrap; gap:20px;">
-      <div class="trending-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FwZSUyMHRvd258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Cape Town" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Cape Town, South Africa</p>
+<!-- Explore South Africa -->
+<section class="section" style="background: white;">
+  <div class="container">
+    <h2 class="section-title">Explore South Africa</h2>
+    <p style="margin-bottom: 32px; color: #666;">These popular destinations have a lot to offer</p>
+    <div class="destinations-grid">
+      <div class="destination-card">
+        <img src="https://picsum.photos/300/160?random=20" alt="Cape Town" class="destination-image">
+        <div class="destination-name">Cape Town</div>
+        <div class="destination-properties">7,439 properties</div>
       </div>
-
-      <div class="trending-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://images.unsplash.com/photo-1580746738099-78c2eebfd8a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZHVyYmFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="Durban" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Durban, South Africa</p>
+      <div class="destination-card">
+        <img src="https://picsum.photos/300/160?random=21" alt="Johannesburg" class="destination-image">
+        <div class="destination-name">Johannesburg</div>
+        <div class="destination-properties">3,041 properties</div>
       </div>
-
-      <div class="trending-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://images.unsplash.com/photo-1577948000111-9c970dfe3743?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8am9oYW5uZXNidXJnfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="Johannesburg" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Johannesburg, South Africa</p>
+      <div class="destination-card">
+        <img src="https://picsum.photos/300/160?random=22" alt="Durban" class="destination-image">
+        <div class="destination-name">Durban</div>
+        <div class="destination-properties">1,979 properties</div>
       </div>
+      <div class="destination-card">
+        <img src="https://picsum.photos/300/160?random=23" alt="Stellenbosch" class="destination-image">
+        <div class="destination-name">Stellenbosch</div>
+        <div class="destination-properties">892 properties</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="trending-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://cf.bstatic.com/xdata/images/city/600x600/685538.jpg" alt="Pretoria" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Pretoria, South Africa</p>
+<!-- Trending Destinations -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Trending destinations</h2>
+    <p style="margin-bottom: 32px; color: #666;">Most popular choices for travellers from South Africa</p>
+    <div class="destinations-grid">
+      <div class="destination-card">
+        <img src="https://picsum.photos/300/160?random=4" alt="Cape Town" class="destination-image">
+        <div class="destination-name">Cape Town</div>
+        <div class="destination-properties">7,439 properties</div>
+      </div>
+      <div class="destination-card">
+        <img src="https://picsum.photos/300/160?random=5" alt="Johannesburg" class="destination-image">
+        <div class="destination-name">Johannesburg</div>
+        <div class="destination-properties">3,041 properties</div>
+      </div>
+      <div class="destination-card">
+        <img src="https://picsum.photos/300/160?random=6" alt="Durban" class="destination-image">
+        <div class="destination-name">Durban</div>
+        <div class="destination-properties">1,979 properties</div>
+      </div>
+      <div class="destination-card">
+        <img src="https://picsum.photos/300/160?random=7" alt="Pretoria" class="destination-image">
+        <div class="destination-name">Pretoria</div>
+        <div class="destination-properties">1,617 properties</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Browse by Property Type Section -->
-<section id="property-types" style="padding:50px 0; background-color:#f8f8f8;">
-  <div class="container" style="max-width:1200px; margin:0 auto;">
-    <h2 style="color:#003580; font-size:28px; margin-bottom:30px;">Browse by property type</h2>
-    <div class="types-grid" style="display:flex; flex-wrap:wrap; gap:20px; text-align:center;">
-      <div style="flex:1 1 120px;">
-        <img src="https://images.unsplash.com/photo-1582719478175-2b4d42a0c693?auto=format&fit=crop&w=200&q=80" alt="Hotels" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Hotels</p>
+<!-- Browse by Property Type -->
+<section class="section" style="background: white;">
+  <div class="container">
+    <h2 class="section-title">Browse by property type</h2>
+    <div class="property-types">
+      <div class="property-type">
+        <img src="https://picsum.photos/150/120?random=8" alt="Hotels" class="property-type-image">
+        <div class="property-type-name">Hotels</div>
       </div>
-      <div style="flex:1 1 120px;">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=200&q=80" alt="Apartments" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Apartments</p>
+      <div class="property-type">
+        <img src="https://picsum.photos/150/120?random=9" alt="Apartments" class="property-type-image">
+        <div class="property-type-name">Apartments</div>
       </div>
-      <div style="flex:1 1 120px;">
-        <img src="https://images.unsplash.com/photo-1565182999561-dcc8a7cb171b?auto=format&fit=crop&w=200&q=80" alt="Resorts" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Resorts</p>
+      <div class="property-type">
+        <img src="https://picsum.photos/150/120?random=10" alt="Resorts" class="property-type-image">
+        <div class="property-type-name">Resorts</div>
       </div>
-      <div style="flex:1 1 120px;">
-        <img src="https://images.unsplash.com/photo-1560448204-112a1d979f1d?auto=format&fit=crop&w=200&q=80" alt="Villas" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Villas</p>
+      <div class="property-type">
+        <img src="https://picsum.photos/150/120?random=11" alt="Villas" class="property-type-image">
+        <div class="property-type-name">Villas</div>
       </div>
-      <div style="flex:1 1 120px;">
-        <img src="https://images.unsplash.com/photo-1582719478444-8a5f96336d22?auto=format&fit=crop&w=200&q=80" alt="Cabins" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Cabins</p>
+      <div class="property-type">
+        <img src="https://picsum.photos/150/120?random=12" alt="Cabins" class="property-type-image">
+        <div class="property-type-name">Cabins</div>
       </div>
-      <div style="flex:1 1 120px;">
-        <img src="https://images.unsplash.com/photo-1571515285035-bb1b9df44d17?auto=format&fit=crop&w=200&q=80" alt="Cottages" style="width:100%; border-radius:8px;">
-        <p style="margin-top:10px; color:#003580;">Cottages</p>
+      <div class="property-type">
+        <img src="https://picsum.photos/150/120?random=13" alt="Cottages" class="property-type-image">
+        <div class="property-type-name">Cottages</div>
       </div>
     </div>
   </div>
 </section>
-<!-- Part 3: Top Unique Properties & Weekend Deals -->
 
-<!-- Top Unique Properties Section -->
-<section id="top-properties" style="padding:50px 0;">
-  <div class="container" style="max-width:1200px; margin:0 auto;">
-    <h2 style="color:#003580; font-size:28px; margin-bottom:30px;">Stay at our top unique properties</h2>
-    <div class="properties-grid" style="display:flex; flex-wrap:wrap; gap:20px;">
+<!-- Stay at our top unique properties -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Stay at our top unique properties</h2>
+    <p style="margin-bottom: 32px; color: #666;">From castles and villas to boats and igloos, we've got it all</p>
+    <div class="unique-properties">
+      <div class="unique-property">
+        <img src="https://picsum.photos/400/200?random=20" alt="Unique Property 1">
+        <div class="unique-property-content">
+          <div class="unique-property-title">Luxury Castle Scotland</div>
+          <div class="unique-property-location">Edinburgh, Scotland</div>
+          <div class="unique-property-price">ZAR 8,500 per night</div>
+        </div>
+      </div>
+      <div class="unique-property">
+        <img src="https://picsum.photos/400/200?random=21" alt="Unique Property 2">
+        <div class="unique-property-content">
+          <div class="unique-property-title">Floating Villa Maldives</div>
+          <div class="unique-property-location">Malé, Maldives</div>
+          <div class="unique-property-price">ZAR 12,000 per night</div>
+        </div>
+      </div>
+      <div class="unique-property">
+        <img src="https://picsum.photos/400/200?random=22" alt="Unique Property 3">
+        <div class="unique-property-content">
+          <div class="unique-property-title">Desert Igloo Finland</div>
+          <div class="unique-property-location">Lapland, Finland</div>
+          <div class="unique-property-price">ZAR 6,500 per night</div>
+        </div>
+      </div>
+      <div class="unique-property">
+        <img src="https://picsum.photos/400/200?random=23" alt="Unique Property 4">
+        <div class="unique-property-content">
+          <div class="unique-property-title">Treehouse Costa Rica</div>
+          <div class="unique-property-location">Manuel Antonio, Costa Rica</div>
+          <div class="unique-property-price">ZAR 4,200 per night</div>
+        </div>
+      </div>
+      <div class="unique-property">
+        <img src="https://picsum.photos/400/200?random=24" alt="Unique Property 5">
+        <div class="unique-property-content">
+          <div class="unique-property-title">Cave Hotel Turkey</div>
+          <div class="unique-property-location">Cappadocia, Turkey</div>
+          <div class="unique-property-price">ZAR 3,800 per night</div>
+        </div>
+      </div>
+      <div class="unique-property">
+        <img src="https://picsum.photos/400/200?random=25" alt="Unique Property 6">
+        <div class="unique-property-content">
+          <div class="unique-property-title">Lighthouse Portugal</div>
+          <div class="unique-property-location">Porto, Portugal</div>
+          <div class="unique-property-price">ZAR 5,500 per night</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Deals for the weekend -->
+<section class="section" style="background: white;">
+  <div class="container">
+    <h2 class="section-title">Deals for the weekend</h2>
+    <p style="margin-bottom: 32px; color: #666;">Save on stays for 29 November – 1 December</p>
+    <div class="deals-grid">
+      <div class="deal-card">
+        <img src="https://picsum.photos/400/180?random=27" alt="Weekend Deal 1">
+        <div class="deal-content">
+          <div class="deal-discount">25% off</div>
+          <div class="deal-title">Luxury Hotel Cape Town</div>
+          <div class="deal-location">Cape Town, South Africa</div>
+          <div class="deal-price">ZAR 2,250 <span style="text-decoration: line-through; color: #999;">ZAR 3,000</span></div>
+        </div>
+      </div>
+      <div class="deal-card">
+        <img src="https://picsum.photos/400/180?random=28" alt="Weekend Deal 2">
+        <div class="deal-content">
+          <div class="deal-discount">20% off</div>
+          <div class="deal-title">Boutique Hotel Stellenbosch</div>
+          <div class="deal-location">Stellenbosch, South Africa</div>
+          <div class="deal-price">ZAR 1,600 <span style="text-decoration: line-through; color: #999;">ZAR 2,000</span></div>
+        </div>
+      </div>
+      <div class="deal-card">
+        <img src="https://picsum.photos/400/180?random=29" alt="Weekend Deal 3">
+        <div class="deal-content">
+          <div class="deal-discount">30% off</div>
+          <div class="deal-title">Beach Resort Durban</div>
+          <div class="deal-location">Durban, South Africa</div>
+          <div class="deal-price">ZAR 2,100 <span style="text-decoration: line-through; color: #999;">ZAR 3,000</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Homes Guests Love -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Homes guests love</h2>
+    <div class="card-grid">
+      <div class="card">
+        <img src="https://picsum.photos/400/200?random=14" alt="Luxury Apartment" class="card-image">
+        <div class="card-content">
+          <div class="card-title">Luxury Apartment in Cape Town</div>
+          <div class="card-location">Cape Town, South Africa</div>
+          <div class="card-rating">★ 4.2 (Super 234 reviews)</div>
+          <div class="card-price">Starting from ZAR 2,450</div>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/400/200?random=15" alt="Modern Hotel" class="card-image">
+        <div class="card-content">
+          <div class="card-title">Modern Hotel in Johannesburg</div>
+          <div class="card-location">Johannesburg, South Africa</div>
+          <div class="card-rating">★ 8.4 (Fabulous 567 reviews)</div>
+          <div class="card-price">Starting from ZAR 1,890</div>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/400/200?random=16" alt="Beachfront Resort" class="card-image">
+        <div class="card-content">
+          <div class="card-title">Beachfront Resort in Durban</div>
+          <div class="card-subtitle">Durban, South Africa</div>
+          <div class="card-subtitle">⭐ 9.0 Wonderful (432 reviews)</div>
+          <div class="card-price">Starting from ZAR 3,200</div>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/400/200?random=17" alt="Boutique Hotel" class="card-image">
+        <div class="card-content">
+          <div class="card-title">Boutique Hotel in Stellenbosch</div>
+          <div class="card-subtitle">Stellenbosch, South Africa</div>
+          <div class="card-subtitle">⭐ 8.9 Fabulous (298 reviews)</div>
+          <div class="card-price">Starting from ZAR 2,100</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Booking.com? -->
+<section class="section">
+  <div class="container">
+    <div class="why-booking">
+      <div class="why-item">
+        <div class="why-icon">
+          <i class="fas fa-credit-card"></i>
+        </div>
+        <div>
+          <div class="why-title">Book now, pay at property</div>
+          <div class="why-description">FREE cancellation on most rooms</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">
+          <i class="fas fa-building"></i>
+        </div>
+        <div>
+          <div class="why-title">2+ million properties worldwide</div>
+          <div class="why-description">Hotels, guest houses, apartments, and more...</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">
+          <i class="fas fa-headset"></i>
+        </div>
+        <div>
+          <div class="why-title">Trusted customer service you can rely on, 24/7</div>
+          <div class="why-description">Customer service</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Travel More, Spend Less Section -->
+<section style="background: #f5f5f5; padding: 48px 0;">
+  <div class="container">
+    <div style="display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto;">
+      <div style="flex: 1; max-width: 500px;">
+        <h2 style="font-size: 32px; font-weight: 700; color: #262626; margin-bottom: 8px; line-height: 1.2;">Travel more, spend less</h2>
+        <h3 style="font-size: 20px; font-weight: 500; color: #0071c2; margin-bottom: 16px;">Sign in, save money</h3>
+        <p style="font-size: 16px; color: #595959; margin-bottom: 24px; line-height: 1.5;">Save 10% or more at participating properties – just look for the blue Genius label</p>
+        <div style="display: flex; gap: 16px;">
+          <button style="background: #0071c2; color: white; border: none; padding: 14px 28px; border-radius: 4px; font-weight: 600; font-size: 16px; cursor: pointer;" onclick="document.getElementById('loginModal').classList.add('show')">Sign in</button>
+          <button style="background: transparent; color: #0071c2; border: 2px solid #0071c2; padding: 12px 26px; border-radius: 4px; font-weight: 600; font-size: 16px; cursor: pointer;" onclick="document.getElementById('registerModal').classList.add('show')">Register</button>
+        </div>
+      </div>
+      <div style="flex-shrink: 0;">
+        <img src="https://cf.bstatic.com/static/img/genius-globe-with-badge_desktop/d807514761b3684c0d4c5855b51c9ae2b2b1d4ab.png" alt="Genius" style="width: 240px; height: auto;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Want to feel at home Section -->
+<section style="background: #0071c2; padding: 48px 0;">
+  <div class="container">
+    <div style="display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; color: white;">
+      <div style="flex: 1;">
+        <h2 style="font-size: 32px; font-weight: 700; color: white; margin-bottom: 24px; line-height: 1.2;">Want to feel at home on your next adventure?</h2>
+        <button style="background: white; color: #0071c2; border: none; padding: 14px 28px; border-radius: 4px; font-weight: 600; font-size: 16px; cursor: pointer;">Discover holiday rentals</button>
+      </div>
+      <div style="flex-shrink: 0; margin-left: 60px;">
+        <img src="https://cf.bstatic.com/static/img/cross_product_index/a0e5a6d4bc72d77c21d4ea7c0b7b2e0e8b2b1d4ab.png" alt="Holiday rentals" style="width: 200px; height: auto;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Popular with travellers Section -->
+<section style="background: white; padding: 48px 0;">
+  <div class="container">
+    <h2 style="font-size: 24px; font-weight: 700; color: #262626; margin-bottom: 32px;">Popular with travellers from South Africa</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 40px; margin-bottom: 48px;">
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #0071c2; margin-bottom: 16px; text-transform: uppercase;">Countries</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">South Africa</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">United Kingdom</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">United States</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Germany</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">France</a>
+        </div>
+      </div>
       
-      <!-- Property Card Example -->
-      <div class="property-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80" alt="The Estuary Hotel & Spa" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">The Estuary Hotel & Spa</h3>
-          <p style="margin:0 0 5px; color:#333;">Port Edward, South Africa</p>
-          <p style="margin:0; color:#ff9800;">7.6 – Good (980 reviews)</p>
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #0071c2; margin-bottom: 16px; text-transform: uppercase;">Regions</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Western Cape</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Gauteng</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">KwaZulu-Natal</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Eastern Cape</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Mpumalanga</a>
         </div>
       </div>
-
-      <div class="property-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1560448204-112a1d979f1d?auto=format&fit=crop&w=400&q=80" alt="The Beach Hotel" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">The Beach Hotel</h3>
-          <p style="margin:0 0 5px; color:#333;">Port Elizabeth, South Africa</p>
-          <p style="margin:0; color:#ff9800;">8.5 – Very good (1,888 reviews)</p>
-        </div>
-      </div>
-
-      <div class="property-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1582719478175-2b4d42a0c693?auto=format&fit=crop&w=400&q=80" alt="Jozini Tiger Lodge & Spa" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">Jozini Tiger Lodge & Spa</h3>
-          <p style="margin:0 0 5px; color:#333;">Jozini, South Africa</p>
-          <p style="margin:0; color:#ff9800;">8.1 – Very good (978 reviews)</p>
-        </div>
-      </div>
-
-      <div class="property-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1571515285035-bb1b9df44d17?auto=format&fit=crop&w=400&q=80" alt="Irene Country Lodge" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">Irene Country Lodge, Autograph Collection</h3>
-          <p style="margin:0 0 5px; color:#333;">Centurion, South Africa</p>
-          <p style="margin:0; color:#ff9800;">8.9 – Fabulous (1,043 reviews)</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Weekend Deals Section -->
-<section id="weekend-deals" style="padding:50px 0; background-color:#f8f8f8;">
-  <div class="container" style="max-width:1200px; margin:0 auto;">
-    <h2 style="color:#003580; font-size:28px; margin-bottom:30px;">Deals for the weekend</h2>
-    <div class="deals-grid" style="display:flex; flex-wrap:wrap; gap:20px;">
       
-      <!-- Deal Card Example -->
-      <div class="deal-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1565182999561-dcc8a7cb171b?auto=format&fit=crop&w=400&q=80" alt="Sea Castle Hotel Camps Bay" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">Sea Castle Hotel Camps Bay</h3>
-          <p style="margin:0 0 5px; color:#333;">Cape Town, South Africa</p>
-          <p style="margin:0 0 5px; color:#ff9800;">8.6 – Fabulous (750 reviews)</p>
-          <p style="margin:0; color:#003580;"><del>ZAR 7,290</del> <strong>ZAR 6,197</strong></p>
-          <span style="color:#ff9800; font-weight:bold;">Getaway Deal – 2 nights</span>
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #0071c2; margin-bottom: 16px; text-transform: uppercase;">Cities</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Cape Town</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Johannesburg</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Durban</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Pretoria</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Port Elizabeth</a>
         </div>
       </div>
-
-      <div class="deal-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1574125394605-b8d7b49f3024?auto=format&fit=crop&w=400&q=80" alt="Whale Away Guest House" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">Whale Away Guest House</h3>
-          <p style="margin:0 0 5px; color:#333;">Hermanus, South Africa</p>
-          <p style="margin:0 0 5px; color:#ff9800;">9.1 – Superb (101 reviews)</p>
-          <p style="margin:0; color:#003580;"><del>ZAR 4,900</del> <strong>ZAR 4,165</strong></p>
-          <span style="color:#ff9800; font-weight:bold;">2 nights</span>
+      
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #0071c2; margin-bottom: 16px; text-transform: uppercase;">Places of interest</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Kruger National Park</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Table Mountain</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Garden Route</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Drakensberg</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Sun City</a>
         </div>
       </div>
-
-      <div class="deal-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1586079015392-6dc12d7a3f25?auto=format&fit=crop&w=400&q=80" alt="Hotel Krige" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">Hotel Krige</h3>
-          <p style="margin:0 0 5px; color:#333;">Stellenbosch, South Africa</p>
-          <p style="margin:0 0 5px; color:#ff9800;">8.4 – Very good (1,256 reviews)</p>
-          <p style="margin:0; color:#003580;"><del>ZAR 7,133</del> <strong>ZAR 6,277</strong></p>
-          <span style="color:#ff9800; font-weight:bold;">2 nights</span>
+      
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #0071c2; margin-bottom: 16px; text-transform: uppercase;">Airports</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Cape Town Airport</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">OR Tambo Airport</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">King Shaka Airport</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Port Elizabeth Airport</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Bloemfontein Airport</a>
         </div>
       </div>
-
-      <div class="deal-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1571515285035-bb1b9df44d17?auto=format&fit=crop&w=400&q=80" alt="Old Bank Hotel" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">Old Bank Hotel - Lion Roars Hotels & Lodges</h3>
-          <p style="margin:0 0 5px; color:#333;">Cape Town, South Africa</p>
-          <p style="margin:0 0 5px; color:#ff9800;">8.6 – Fabulous (1,526 reviews)</p>
-          <p style="margin:0; color:#003580;"><del>ZAR 4,340</del> <strong>ZAR 3,689</strong></p>
-          <span style="color:#ff9800; font-weight:bold;">Getaway Deal – 2 nights</span>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
-<!-- Part 4: Homes Guests Love, Why Booking.com & Genius CTA -->
-
-<!-- Homes Guests Love Section -->
-<section id="homes-guests-love" style="padding:50px 0;">
-  <div class="container" style="max-width:1200px; margin:0 auto;">
-    <h2 style="color:#003580; font-size:28px; margin-bottom:30px;">Homes guests love</h2>
-    <div class="homes-grid" style="display:flex; flex-wrap:wrap; gap:20px;">
-
-      <!-- Home Card Example -->
-      <div class="home-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1590490357753-3e3ed79d3eb5?auto=format&fit=crop&w=400&q=80" alt="Leman Locke" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">Leman Locke</h3>
-          <p style="margin:0 0 5px; color:#333;">Tower Hamlets, United Kingdom, London</p>
-          <p style="margin:0 0 5px; color:#ff9800;">8.7 – Fabulous (697 reviews)</p>
-          <p style="margin:0; font-weight:bold; color:#003580;">Starting from ZAR 3,158</p>
-        </div>
-      </div>
-
-      <div class="home-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1572120360610-d971b9c9d6f2?auto=format&fit=crop&w=400&q=80" alt="Aparthotel Stare Miasto" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">Aparthotel Stare Miasto</h3>
-          <p style="margin:0 0 5px; color:#333;">Old Town, Poland, Kraków</p>
-          <p style="margin:0 0 5px; color:#ff9800;">8.8 – Fabulous (3,284 reviews)</p>
-          <p style="margin:0; font-weight:bold; color:#003580;">Starting from ZAR 3,320</p>
-        </div>
-      </div>
-
-      <div class="home-card" style="flex:1 1 300px; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1572120360610-d971b9c9d6f2?auto=format&fit=crop&w=400&q=80" alt="7Seasons Apartments Budapest" style="width:100%;">
-        <div style="padding:15px;">
-          <h3 style="margin:0 0 5px; color:#003580;">7Seasons Apartments Budapest</h3>
-          <p style="margin:0 0 5px; color:#333;">06. Terézváros, Hungary, Budapest</p>
-          <p style="margin:0 0 5px; color:#ff9800;">8.7 – Fabulous (10,888 reviews)</p>
-          <p style="margin:0; font-weight:bold; color:#003580;">Starting from ZAR 2,747</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Why Booking.com Section -->
-<section id="why-booking" style="padding:50px 0; background-color:#f8f8f8;">
-  <div class="container" style="max-width:1200px; margin:0 auto;">
-    <h2 style="color:#003580; font-size:28px; margin-bottom:30px;">Why Booking.com?</h2>
-    <div class="why-grid" style="display:flex; flex-wrap:wrap; gap:20px; text-align:center;">
-
-      <div class="why-card" style="flex:1 1 300px;">
-        <img src="https://cf.bstatic.com/static/img/genius/genius-benefits/free-cancellation-icon.png" alt="Book now, pay at property" style="width:60px; margin-bottom:10px;">
-        <h3 style="color:#003580;">Book now, pay at the property</h3>
-        <p>FREE cancellation on most rooms</p>
-      </div>
-
-      <div class="why-card" style="flex:1 1 300px;">
-        <img src="https://cf.bstatic.com/static/img/genius/genius-benefits/reviews-icon.png" alt="300M+ reviews" style="width:60px; margin-bottom:10px;">
-        <h3 style="color:#003580;">300M+ reviews from fellow travellers</h3>
-        <p>Get trusted information from guests like you</p>
-      </div>
-
-      <div class="why-card" style="flex:1 1 300px;">
-        <img src="https://cf.bstatic.com/static/img/genius/genius-benefits/properties-icon.png" alt="2+ million properties" style="width:60px; margin-bottom:10px;">
-        <h3 style="color:#003580;">2+ million properties worldwide</h3>
-        <p>Hotels, guest houses, apartments, and more…</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Genius Loyalty / Travel More CTA Section -->
-<section id="genius-cta" style="padding:50px 0; text-align:center; background-color:#003580; color:#fff;">
-  <div class="container" style="max-width:1200px; margin:0 auto;">
-    <h2 style="font-size:28px; margin-bottom:20px;">Travel more, spend less</h2>
-    <p style="font-size:18px; margin-bottom:30px;">Sign in, save money. Save 10% or more at participating properties – just look for the blue Genius label.</p>
-    <a href="#" style="padding:15px 30px; background-color:#0071c2; color:#fff; text-decoration:none; border-radius:5px; margin-right:10px;">Sign in</a>
-    <a href="#" style="padding:15px 30px; background-color:#0071c2; color:#fff; text-decoration:none; border-radius:5px;">Register</a>
-  </div>
-</section>
-<!-- Part 5: Popular Destinations & Footer -->
-
-<!-- Popular with Travellers from South Africa -->
-<section id="popular-destinations" style="padding:50px 0; background-color:#f8f8f8;">
-  <div class="container" style="max-width:1200px; margin:0 auto;">
-    <h2 style="color:#003580; font-size:28px; margin-bottom:30px;">Popular with travellers from South Africa</h2>
-    <div class="destinations-grid" style="display:flex; flex-wrap:wrap; gap:15px;">
-
-      <div class="destination-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://cf.bstatic.com/xdata/images/city/600x600/685532.jpg" alt="Cape Town" style="width:100%; border-radius:8px;">
-        <p style="margin-top:8px; color:#003580;">Cape Town hotels</p>
-      </div>
-
-      <div class="destination-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://cf.bstatic.com/xdata/images/city/600x600/685535.jpg" alt="Durban" style="width:100%; border-radius:8px;">
-        <p style="margin-top:8px; color:#003580;">Durban hotels</p>
-      </div>
-
-      <div class="destination-card" style="flex:1 1 200px; text-align:center;">
-        <img src="https://cf.bstatic.com/xdata/images/city/600x600/685534.jpg" alt="Johannesburg" style="width:100%; border-radius:8px;">
-        <p style="margin-top:8px; color:#003580;">Johannesburg hotels</p>
-      </div>
-
-      <!-- Add additional destinations as needed -->
-    </div>
-    <p style="text-align:center; margin-top:20px;"><a href="#" style="color:#0071c2; text-decoration:none;">Show more</a></p>
   </div>
 </section>
 
 <!-- Footer -->
-<footer style="background-color:#003580; color:#fff; padding:50px 0;">
-  <div class="container" style="max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:30px;">
-
-    <!-- Links Section -->
-    <div class="footer-links" style="flex:2 1 400px;">
-      <h3 style="color:#fff; margin-bottom:15px;">Explore</h3>
-      <div style="display:flex; flex-wrap:wrap; gap:10px;">
-        <a href="#" class="footer-link" style="color:#fff; text-decoration:none; margin-right:15px; transition: color 0.3s;">Countries</a>
-        <a href="#" class="footer-link" style="color:#fff; text-decoration:none; margin-right:15px; transition: color 0.3s;">Regions</a>
-        <a href="#" class="footer-link" style="color:#fff; text-decoration:none; margin-right:15px; transition: color 0.3s;">Cities</a>
-        <a href="#" class="footer-link" style="color:#fff; text-decoration:none; margin-right:15px; transition: color 0.3s;">Airports</a>
-        <a href="#" class="footer-link" style="color:#fff; text-decoration:none; margin-right:15px; transition: color 0.3s;">Hotels</a>
-        <a href="#" class="footer-link" style="color:#fff; text-decoration:none; margin-right:15px; transition: color 0.3s;">Places of interest</a>
-        <a href="#" class="footer-link" style="color:#fff; text-decoration:none; margin-right:15px; transition: color 0.3s;">Holiday Homes</a>
-        <a href="#" class="footer-link" style="color:#fff; text-decoration:none; margin-right:15px; transition: color 0.3s;">Apartments</a>
+<footer style="background: #f5f5f5; padding: 48px 0 24px 0; border-top: 1px solid #e0e0e0;">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 40px; margin-bottom: 32px;">
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #262626; margin-bottom: 16px;">Support</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Coronavirus (COVID-19) FAQs</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Manage your trips</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Contact Customer Service</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Safety Resource Centre</a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #262626; margin-bottom: 16px;">Discover</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Genius loyalty programme</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Seasonal and holiday deals</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Travel articles</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Booking.com for Business</a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #262626; margin-bottom: 16px;">Terms and settings</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Privacy & cookies</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Terms & conditions</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Partner dispute</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Modern Slavery Statement</a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #262626; margin-bottom: 16px;">Partners</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Extranet login</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Partner help</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">List your property</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Become an affiliate</a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: #262626; margin-bottom: 16px;">About</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">About Booking.com</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">How We Work</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Sustainability</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Press centre</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Careers</a>
+          <a href="#" style="color: #0071c2; text-decoration: none; font-size: 14px;">Investor relations</a>
+        </div>
       </div>
     </div>
-
-    <!-- Logos Section -->
-    <div class="footer-logos" style="flex:1 1 300px; display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
-      <img src="https://cf.bstatic.com/static/img/tfl/group_logos/logo_booking.png" alt="Booking.com" style="height:26px; filter:brightness(0) invert(1);">
-      <img src="https://cf.bstatic.com/static/img/tfl/group_logos/logo_kayak.png" alt="Kayak" style="height:26px; filter:brightness(0) invert(1);">
-      <img src="https://cf.bstatic.com/static/img/tfl/group_logos/logo_priceline.png" alt="Priceline" style="height:26px; filter:brightness(0) invert(1);">
-      <img src="https://cf.bstatic.com/static/img/tfl/group_logos/logo_agoda.png" alt="Agoda" style="height:26px; filter:brightness(0) invert(1);">
-      <img src="https://cf.bstatic.com/static/img/tfl/group_logos/logo_rentalcars.png" alt="Rentalcars" style="height:26px; filter:brightness(0) invert(1);">
-      <img src="https://cf.bstatic.com/static/img/tfl/group_logos/logo_opentable.png" alt="OpenTable" style="height:26px; filter:brightness(0) invert(1);">
+    
+    <div style="border-top: 1px solid #e0e0e0; padding-top: 24px; text-align: center;">
+      <p style="color: #6b6b6b; font-size: 12px; margin-bottom: 8px;">Copyright © 1996–2024 Booking.com™. All rights reserved.</p>
+      <p style="color: #6b6b6b; font-size: 12px;">Booking.com is part of Booking Holdings Inc., the world leader in online travel and related services.</p>
     </div>
-  </div>
-
-  <div style="text-align:center; margin-top:30px; font-size:14px; color:#b0b7cc;">
-    <p>ZAR</p>
-    <p>Booking.com is part of Booking Holdings Inc., the world leader in online travel and related services.</p>
-    <p>Copyright © 1996–2025 Booking.com™. All rights reserved.</p>
   </div>
 </footer>
 
-<style>
-/* Animation styles */
-.footer-link:hover {
-  color: #00a5ff !important;
-  text-decoration: underline !important;
+<script>
+// Customer Service Modal Functions
+function openCustomerServiceModal() {
+  document.getElementById('customerServiceModal').style.display = 'block';
+  // Reset to main view
+  hideContactForm();
+  hidePhoneNumbers();
+  hidePropertyContact();
 }
 
-.nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+function showContactForm() {
+  document.querySelector('.customer-service-options').style.display = 'none';
+  document.querySelector('.help-center-section').style.display = 'none';
+  document.querySelector('.faq-section').style.display = 'none';
+  document.getElementById('contactFormSection').style.display = 'block';
 }
 
-.btn-primary {
-  transition: background-color 0.3s, transform 0.2s;
+function hideContactForm() {
+  document.querySelector('.customer-service-options').style.display = 'grid';
+  document.querySelector('.help-center-section').style.display = 'block';
+  document.querySelector('.faq-section').style.display = 'block';
+  document.getElementById('contactFormSection').style.display = 'none';
 }
 
-.btn-primary:hover {
-  background-color: #00487a !important;
-  transform: translateY(-2px);
+function showPhoneNumbers() {
+  document.querySelector('.customer-service-options').style.display = 'none';
+  document.querySelector('.help-center-section').style.display = 'none';
+  document.querySelector('.faq-section').style.display = 'none';
+  document.getElementById('phoneNumbersSection').style.display = 'block';
 }
 
-.destination-card img, .trending-card img {
-  transition: transform 0.3s ease;
+function hidePhoneNumbers() {
+  document.querySelector('.customer-service-options').style.display = 'grid';
+  document.querySelector('.help-center-section').style.display = 'block';
+  document.querySelector('.faq-section').style.display = 'block';
+  document.getElementById('phoneNumbersSection').style.display = 'none';
 }
 
-.destination-card:hover img, .trending-card:hover img {
-  transform: scale(1.05);
+function showPropertyContact() {
+  document.querySelector('.customer-service-options').style.display = 'none';
+  document.querySelector('.help-center-section').style.display = 'none';
+  document.querySelector('.faq-section').style.display = 'none';
+  document.getElementById('propertyContactSection').style.display = 'block';
 }
 
-.dropdown-content {
-  animation: fadeIn 0.3s ease;
+function hidePropertyContact() {
+  document.querySelector('.customer-service-options').style.display = 'grid';
+  document.querySelector('.help-center-section').style.display = 'block';
+  document.querySelector('.faq-section').style.display = 'block';
+  document.getElementById('propertyContactSection').style.display = 'none';
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+function toggleFAQ(element) {
+  element.classList.toggle('active');
 }
 
-.search-button {
-  transition: background-color 0.3s;
+function findProperty() {
+  const bookingRef = document.getElementById('bookingReference').value;
+  if (bookingRef.trim()) {
+    showNotification('Property contact details would be displayed here for booking: ' + bookingRef, 'info');
+  } else {
+    showNotification('Please enter a booking reference number.', 'warning');
+  }
 }
 
-.search-button:hover {
-  background-color: #00487a !important;
+// Guest dropdown functionality
+let guests = {
+  adults: 2,
+  children: 0,
+  rooms: 1
+};
+
+// Current currency and symbol
+let currentCurrency = 'ZAR';
+let currencySymbol = 'R';
+
+// Popular destinations for search
+const popularDestinations = [
+  'Cape Town, South Africa',
+  'Johannesburg, South Africa', 
+  'Durban, South Africa',
+  'Port Elizabeth, South Africa',
+  'Pretoria, South Africa',
+  'Bloemfontein, South Africa',
+  'East London, South Africa',
+  'Stellenbosch, South Africa',
+  'Hermanus, South Africa',
+  'Knysna, South Africa',
+  'Plettenberg Bay, South Africa',
+  'Kruger National Park, South Africa',
+  'Sun City, South Africa',
+  'Drakensberg, South Africa',
+  'Garden Route, South Africa'
+];
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Set default dates and minimum date restrictions
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  
+  const todayString = today.toISOString().split('T')[0];
+  const tomorrowString = tomorrow.toISOString().split('T')[0];
+  
+  const checkinInput = document.getElementById('checkinDate');
+  const checkoutInput = document.getElementById('checkoutDate');
+  
+  // Set minimum dates to prevent past date selection
+  checkinInput.min = todayString;
+  checkoutInput.min = tomorrowString;
+  
+  // Set default values
+  checkinInput.value = todayString;
+  checkoutInput.value = tomorrowString;
+  
+  // Initialize guest buttons
+  updateButtons();
+});
+
+// Modal Functions
+function openModal(modalId) {
+  document.getElementById(modalId).classList.add('show');
 }
-</style>
+
+function closeModal(modalId) {
+  document.getElementById(modalId).classList.remove('show');
+}
+
+function switchToRegister() {
+  closeModal('loginModal');
+  openModal('registerModal');
+}
+
+function switchToLogin() {
+  closeModal('registerModal');
+  openModal('loginModal');
+}
+
+// Form handlers
+async function handleLogin(event) {
+  event.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  
+  // Basic validation
+  if (!email || !password) {
+    alert('Please fill in all fields');
+    return;
+  }
+  
+  // Login form validation
+  if (!email || !password) {
+    showNotification('Please fill in all fields', 'error');
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password })
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+      // Store user data
+      localStorage.setItem('user', JSON.stringify(data.user));
+      
+      // Show success message
+      showNotification('Login successful!', 'success');
+      
+      // Update UI for logged in user (without logout button)
+      updateUIForLoggedInUser(data.user);
+      
+      // Close modal
+      closeModal('loginModal');
+    } else {
+      showNotification(data.message || 'Login failed', 'error');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    showNotification('Login failed. Please make sure the server is running.', 'error');
+  }
+}
+
+async function handleRegister(event) {
+  event.preventDefault();
+  const firstName = document.getElementById('registerFirstName').value;
+  const lastName = document.getElementById('registerLastName').value;
+  const email = document.getElementById('registerEmail').value;
+  const password = document.getElementById('registerPassword').value;
+  const confirmPassword = document.getElementById('registerConfirmPassword').value;
+  
+  // Registration form validation
+  if (!firstName || !lastName || !email || !password || !confirmPassword) {
+    showNotification('Please fill in all fields', 'error');
+    return;
+  }
+  
+  if (password !== confirmPassword) {
+    showNotification('Passwords do not match!', 'error');
+    return;
+  }
+  
+  try {
+    const response = await fetch('http://localhost:5000/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ firstName, lastName, email, password })
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+      // Store user data
+      localStorage.setItem('user', JSON.stringify(data.user));
+      
+      // Show success message
+      showNotification('Registration successful! You can now log in.', 'success');
+      
+      // Update UI for logged in user (without logout button)
+      updateUIForLoggedInUser(data.user);
+      
+      // Close modal
+      closeModal('registerModal');
+    } else {
+      showNotification(data.message || 'Registration failed', 'error');
+    }
+  } catch (error) {
+    console.error('Registration error:', error);
+    showNotification('Registration failed. Please make sure the server is running.', 'error');
+  }
+}
+
+// Update UI for logged in user (without logout button)
+function updateUIForLoggedInUser(user) {
+  // Hide login/register buttons
+  const registerBtn = document.querySelector('.nav-button.register');
+  const loginBtn = document.querySelector('.nav-button:not(.register)');
+  
+  if (registerBtn) registerBtn.style.display = 'none';
+  if (loginBtn) loginBtn.style.display = 'none';
+  
+  // Remove existing user info if any
+  const existingUserInfo = document.querySelector('.user-info');
+  if (existingUserInfo) {
+    existingUserInfo.remove();
+  }
+  
+  // Show user info (without logout button)
+  const userInfo = document.createElement('div');
+  userInfo.className = 'user-info';
+  userInfo.style.cssText = `
+    color: white;
+    font-size: 14px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+  `;
+  userInfo.innerHTML = `<span>Welcome, ${user.firstName}</span>`;
+  
+  const navRight = document.querySelector('.nav-right');
+  if (navRight) {
+    navRight.appendChild(userInfo);
+  }
+}
+
+// Show success message
+function showSuccessMessage(message) {
+  // Remove existing success message if any
+  const existingMessage = document.querySelector('.success-message');
+  if (existingMessage) {
+    existingMessage.remove();
+  }
+  
+  const successDiv = document.createElement('div');
+  successDiv.className = 'success-message';
+  successDiv.textContent = message;
+  successDiv.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 10000;
+    animation: slideInRight 0.3s ease-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  `;
+  
+  document.body.appendChild(successDiv);
+  
+  // Remove after 3 seconds
+  setTimeout(() => {
+    if (successDiv.parentNode) {
+      successDiv.remove();
+    }
+  }, 3000);
+}
+
+// Consolidated DOMContentLoaded listener
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if user is already logged in on page load
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  if (user) {
+    updateUIForLoggedInUser(user);
+  }
+  
+  // Add CSS animations and styles if not already present
+  if (!document.querySelector('#success-animations')) {
+    const style = document.createElement('style');
+    style.id = 'success-animations';
+    style.textContent = `
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
+      .user-info {
+        color: white !important;
+        font-size: 14px !important;
+        margin-left: 20px !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      
+      .success-message {
+        animation: slideInRight 0.3s ease-out !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+      }
+      
+      .tab:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+      
+      .tab.active {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-bottom: 2px solid white;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+});
+
+// Navigation tab functions
+function navigateToStays() {
+  // Already on stays page (index.html)
+  setActiveTab('stays');
+}
+
+function navigateToFlights() {
+  window.location.href = 'select-flight.html';
+}
+
+function navigateToCars() {
+  showNotification('Car rental feature coming soon!', 'info');
+  setActiveTab('cars');
+}
+
+function navigateToAttractions() {
+  showNotification('Attractions feature coming soon!', 'info');
+  setActiveTab('attractions');
+}
+
+function navigateToTaxis() {
+  showNotification('Taxi booking feature coming soon!', 'info');
+  setActiveTab('taxis');
+}
+
+function setActiveTab(tabName) {
+  // Remove active class from all tabs
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Add active class to clicked tab
+  const tabs = {
+    'stays': 0,
+    'flights': 1,
+    'cars': 2,
+    'attractions': 3,
+    'taxis': 4
+  };
+  
+  const tabIndex = tabs[tabName];
+  if (tabIndex !== undefined) {
+    const tabElements = document.querySelectorAll('.tab');
+    if (tabElements[tabIndex]) {
+      tabElements[tabIndex].classList.add('active');
+    }
+  }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+  const modals = document.querySelectorAll('.modal');
+  modals.forEach(modal => {
+    if (event.target === modal) {
+      modal.classList.remove('show');
+    }
+  });
+}
+
+// Currency Functions
+function toggleDropdown(dropdownId) {
+  const dropdown = document.getElementById(dropdownId).parentElement;
+  dropdown.classList.toggle('active');
+  
+  // Close other dropdowns
+  document.querySelectorAll('.dropdown').forEach(d => {
+    if (d !== dropdown) {
+      d.classList.remove('active');
+    }
+  });
+}
+
+function selectCurrency(currency, symbol) {
+  // Use global state management
+  if (window.globalState) {
+    window.globalState.setCurrency(currency, symbol);
+  } else {
+    // Fallback for backward compatibility
+    currentCurrency = currency;
+    currencySymbol = symbol;
+    document.getElementById('selectedCurrency').textContent = currency;
+    
+    // Store in localStorage for consistency
+    localStorage.setItem('selectedCurrency', currency);
+    localStorage.setItem('currencySymbol', symbol);
+  }
+  
+  // Close dropdown
+  document.querySelector('.currency.dropdown').classList.remove('active');
+}
+
+function selectLanguage(countryCode, language) {
+  const flagIcon = document.querySelector('.nav-item.language.dropdown .flag-icon');
+  flagIcon.className = `fi fi-${countryCode} flag-icon`;
+  
+  // Close dropdown
+  document.querySelector('.language.dropdown').classList.remove('active');
+  
+  // Update language-specific content
+  updateLanguageContent(language);
+}
+
+// Helper function to update prices
+function updatePrices(currency, symbol) {
+  // Use global state if available
+  if (window.globalState) {
+    window.globalState.updatePrices();
+    return;
+  }
+  
+  // Fallback implementation
+  const priceElements = document.querySelectorAll('.card-price, .deal-price, .unique-property-price');
+  
+  priceElements.forEach(element => {
+    const priceMatch = element.textContent.match(/\d+([,.]\d+)?/);
+    if (priceMatch) {
+      const price = parseFloat(priceMatch[0].replace(/,/g, ''));
+      
+      const rates = {
+        USD: 0.053,
+        EUR: 0.049,
+        GBP: 0.042,
+        ZAR: 1,
+        AUD: 0.082
+      };
+      
+      const convertedPrice = Math.round(price * (rates[currency] || 1));
+      element.textContent = `Starting from ${symbol}${convertedPrice.toLocaleString()}`;
+    }
+  });
+}
+
+// Helper function to update language content
+function updateLanguageContent(language) {
+  // Example implementation - would need to be connected to a translation service
+  const translations = {
+    'English (US)': {
+      search: 'Search',
+      guests: 'Guests',
+      rooms: 'Rooms'
+      // Add more translations as needed
+    },
+    'Español': {
+      search: 'Buscar',
+      guests: 'Huéspedes',
+      rooms: 'Habitaciones'
+      // Add more translations as needed
+    }
+    // Add more languages as needed
+  };
+  
+  if (translations[language]) {
+    // Update text content throughout the page
+    Object.entries(translations[language]).forEach(([key, value]) => {
+      const elements = document.querySelectorAll(`[data-translate='${key}']`);
+      elements.forEach(element => element.textContent = value);
+    });
+  }
+}
+
+// Destination Search Functions
+function searchDestinations(query) {
+  const dropdown = document.getElementById('destinationDropdown');
+  
+  if (query.length === 0) {
+    // Show default content when no query
+    showDefaultDestinations();
+    return;
+  }
+  
+  const filteredDestinations = popularDestinations.filter(dest => 
+    dest.toLowerCase().includes(query.toLowerCase())
+  );
+  
+  if (filteredDestinations.length > 0) {
+    dropdown.innerHTML = `
+      <div class="destination-section">
+        <h4 class="destination-section-title">Destinations</h4>
+        ${filteredDestinations.map(dest => {
+          const parts = dest.split(', ');
+          const city = parts[0];
+          const country = parts[1] || '';
+          return `
+            <div class="destination-option" onclick="selectDestination('${dest}')">
+              <div class="destination-icon">📍</div>
+              <div class="destination-info">
+                <div class="destination-name">${city}</div>
+                <div class="destination-type">${country}</div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+    dropdown.style.display = 'block';
+  } else {
+    dropdown.style.display = 'none';
+  }
+}
+
+function showDefaultDestinations() {
+  const dropdown = document.getElementById('destinationDropdown');
+  dropdown.innerHTML = `
+    <div class="recent-searches destination-section">
+      <h4 class="destination-section-title">Recent searches</h4>
+      <div class="destination-option" onclick="selectDestination('Cape Town, South Africa')">
+        <div class="destination-icon">🏨</div>
+        <div class="destination-info">
+          <div class="destination-name">Cape Town</div>
+          <div class="destination-type">South Africa</div>
+        </div>
+      </div>
+      <div class="destination-option" onclick="selectDestination('Johannesburg, South Africa')">
+        <div class="destination-icon">🏨</div>
+        <div class="destination-info">
+          <div class="destination-name">Johannesburg</div>
+          <div class="destination-type">South Africa</div>
+        </div>
+      </div>
+    </div>
+    <div class="trending-destinations destination-section">
+      <h4 class="destination-section-title">Trending destinations</h4>
+      <div class="destination-option" onclick="selectDestination('Dubai, United Arab Emirates')">
+        <div class="destination-icon">✈️</div>
+        <div class="destination-info">
+          <div class="destination-name">Dubai</div>
+          <div class="destination-type">United Arab Emirates</div>
+        </div>
+      </div>
+      <div class="destination-option" onclick="selectDestination('London, United Kingdom')">
+        <div class="destination-icon">✈️</div>
+        <div class="destination-info">
+          <div class="destination-name">London</div>
+          <div class="destination-type">United Kingdom</div>
+        </div>
+      </div>
+      <div class="destination-option" onclick="selectDestination('Paris, France')">
+        <div class="destination-icon">✈️</div>
+        <div class="destination-info">
+          <div class="destination-name">Paris</div>
+          <div class="destination-type">France</div>
+        </div>
+      </div>
+      <div class="destination-option" onclick="selectDestination('New York, United States')">
+        <div class="destination-icon">✈️</div>
+        <div class="destination-info">
+          <div class="destination-name">New York</div>
+          <div class="destination-type">United States</div>
+        </div>
+      </div>
+      <div class="destination-option" onclick="selectDestination('Tokyo, Japan')">
+        <div class="destination-icon">✈️</div>
+        <div class="destination-info">
+          <div class="destination-name">Tokyo</div>
+          <div class="destination-type">Japan</div>
+        </div>
+      </div>
+      <div class="destination-option" onclick="selectDestination('Bangkok, Thailand')">
+        <div class="destination-icon">✈️</div>
+        <div class="destination-info">
+          <div class="destination-name">Bangkok</div>
+          <div class="destination-type">Thailand</div>
+        </div>
+      </div>
+    </div>
+  `;
+  dropdown.style.display = 'block';
+}
+
+function selectDestination(destination) {
+  document.getElementById('destinationInput').value = destination;
+  document.getElementById('destinationDropdown').style.display = 'none';
+}
+
+function showDestinationDropdown() {
+  const input = document.getElementById('destinationInput');
+  if (input.value.length > 0) {
+    searchDestinations(input.value);
+  } else {
+    showDefaultDestinations();
+  }
+}
+
+function hideDestinationDropdown() {
+  setTimeout(() => {
+    document.getElementById('destinationDropdown').style.display = 'none';
+  }, 200);
+}
+
+// Date Functions
+function updateCheckoutMin() {
+  const checkinDate = document.getElementById('checkinDate').value;
+  const checkoutInput = document.getElementById('checkoutDate');
+  const today = new Date().toISOString().split('T')[0];
+  
+  if (checkinDate) {
+    const checkin = new Date(checkinDate);
+    checkin.setDate(checkin.getDate() + 1);
+    const minCheckout = checkin.toISOString().split('T')[0];
+    
+    // Ensure checkout minimum is at least tomorrow or day after checkin
+    checkoutInput.min = minCheckout > today ? minCheckout : today;
+    
+    // If checkout is before the minimum date, update it
+    if (!checkoutInput.value || new Date(checkoutInput.value) < new Date(checkoutInput.min)) {
+      checkoutInput.value = checkoutInput.min;
+    }
+  }
+}
+
+// Date validation
+function validateDate(event) {
+    const today = new Date().toISOString().split('T')[0];
+    const inputDate = event.target.value;
+    
+    if (inputDate < today) {
+        event.target.value = today;
+        showNotification('You cannot select a date in the past. Please choose today or a future date.', 'warning');
+    }
+}
+
+// Add notification system function
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i>
+            <span>${message}</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="notification-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+// Add validation to date inputs
+document.addEventListener('DOMContentLoaded', function() {
+  const checkinInput = document.getElementById('checkinDate');
+  const checkoutInput = document.getElementById('checkoutDate');
+  
+  if (checkinInput) {
+    checkinInput.addEventListener('change', validateDateInput);
+  }
+  if (checkoutInput) {
+    checkinInput.addEventListener('change', validateDateInput);
+  }
+});
+
+// Guest dropdown functionality
+function toggleGuestDropdown() {
+  const dropdown = document.getElementById('guestDropdown');
+  dropdown.classList.toggle('active');
+}
+
+function changeGuest(type, change) {
+  const newValue = guests[type] + change;
+  
+  // Set minimum values
+  const minimums = { adults: 1, children: 0, rooms: 1 };
+  const maximums = { adults: 30, children: 10, rooms: 30 };
+  
+  if (newValue >= minimums[type] && newValue <= maximums[type]) {
+    guests[type] = newValue;
+    updateGuestDisplay();
+    updateButtons();
+  }
+}
+
+function updateGuestDisplay() {
+  const display = document.getElementById('guestDisplay');
+  const adultsText = guests.adults === 1 ? '1 adult' : `${guests.adults} adults`;
+  const childrenText = guests.children === 0 ? '0 children' : guests.children === 1 ? '1 child' : `${guests.children} children`;
+  const roomsText = guests.rooms === 1 ? '1 room' : `${guests.rooms} rooms`;
+  
+  display.textContent = `${adultsText} · ${childrenText} · ${roomsText}`;
+  
+  // Update individual counters
+  document.getElementById('adultsCount').textContent = guests.adults;
+  document.getElementById('childrenCount').textContent = guests.children;
+  document.getElementById('roomsCount').textContent = guests.rooms;
+}
+
+function updateButtons() {
+  // Adults buttons
+  document.getElementById('adultsDown').disabled = guests.adults <= 1;
+  document.getElementById('adultsUp').disabled = guests.adults >= 30;
+  
+  // Children buttons
+  document.getElementById('childrenDown').disabled = guests.children <= 0;
+  document.getElementById('childrenUp').disabled = guests.children >= 10;
+  
+  // Rooms buttons
+  document.getElementById('roomsDown').disabled = guests.rooms <= 1;
+  document.getElementById('roomsUp').disabled = guests.rooms >= 30;
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+  const guestDropdown = document.getElementById('guestDropdown');
+  if (!guestDropdown.contains(event.target)) {
+    guestDropdown.classList.remove('active');
+  }
+  
+  // Close other dropdowns
+  const dropdowns = document.querySelectorAll('.dropdown');
+  dropdowns.forEach(dropdown => {
+    if (!dropdown.contains(event.target)) {
+      dropdown.classList.remove('active');
+    }
+  });
+});
+
+// Initialize buttons on page load
+document.addEventListener('DOMContentLoaded', function() {
+  updateButtons();
+});
+</script>
+
+</body>
+</html>

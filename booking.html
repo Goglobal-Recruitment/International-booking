@@ -3,267 +3,1427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Confirmation | Booking.com</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <title>Booking Confirmation - Booking.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Global State Management -->
+    <script src="global-state.js"></script>
+    <script src="page-init.js"></script>
+    <link rel="icon" type="image/png" href="https://cf.bstatic.com/static/img/favicon/booking_logo_retina/favicon-32x32.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #262626;
+            line-height: 1.43;
+        }
+
+        /* Header - Exact Booking.com style */
+        .booking-header {
+            background-color: #003580;
+            padding: 0;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+
+        .booking-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .booking-logo::before {
+            content: "Booking.com";
+            font-size: 20px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .currency-selector {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        /* Success Banner - Booking.com style */
+        .success-banner {
+            background: linear-gradient(135deg, #00a651 0%, #00b355 100%);
+            color: white;
+            padding: 32px 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-banner::before {
+            content: '';
+            position: absolute;
+            z-index: 1000;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .success-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Booking Details Cards */
+        .booking-details {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .booking-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e7e7e7;
+            background: #fafafa;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #262626;
+            margin: 0;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        /* Flight Details */
+        .flight-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e7e7e7;
+        }
+
+        .airline-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 4px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .flight-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .confirmation-number {
+            font-size: 14px;
+            color: #6b6b6b;
+        }
+
+        .flight-route {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .route-details {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .departure, .arrival {
+            text-align: center;
+        }
+
+        .departure {
+            text-align: left;
+        }
+
+        .arrival {
+            text-align: right;
+        }
+
+        .time {
+            font-size: 20px;
+            font-weight: 600;
+            color: #262626;
+        }
+
+        .date {
+            font-size: 14px;
+            color: #6b6b6b;
+            margin: 4px 0;
+        }
+
+        .airport {
+            font-size: 14px;
+            color: #262626;
+        }
+
+        .flight-path {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .flight-line {
+            width: 100px;
+            height: 2px;
+            background: #0071c2;
+            position: relative;
+        }
+
+        .flight-line::after {
+            content: '✈';
+            position: absolute;
+            right: -8px;
+            top: -8px;
+            color: #0071c2;
+            font-size: 16px;
+        }
+
+        .flight-duration {
+            text-align: center;
+            font-size: 12px;
+            color: #6b6b6b;
+            margin-top: 8px;
+        }
+
+        .additional-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e7e7e7;
+            font-size: 14px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Passenger Details */
+        .passenger-details {
+            display: grid;
+            gap: 16px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #6b6b6b;
+            font-size: 14px;
+        }
+
+        .detail-value {
+            font-weight: 500;
+            color: #262626;
+            font-size: 14px;
+        }
+
+        /* Payment Summary */
+        .payment-summary {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .price-breakdown {
+            padding: 20px 24px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .price-row.total {
+            border-top: 2px solid #e7e7e7;
+            margin-top: 12px;
+            padding-top: 16px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .discount {
+            color: #00a651;
+        }
+
+        .payment-method {
+            background: #f8f9fa;
+            padding: 16px 24px;
+            border-top: 1px solid #e7e7e7;
+            font-size: 14px;
+            color: #6b6b6b;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #0071c2;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #005999;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0071c2;
+            border: 1px solid #0071c2;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f8ff;
+        }
+
+        /* Important Information */
+        .important-info {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+
+        .info-list {
+            padding: 24px;
+        }
+
+        .info-item-list {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .info-item-list:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            color: #00a651;
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .info-icon.warning {
+            color: #ff8c00;
+        }
+
+        /* Next Steps */
+        .next-steps {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            padding: 24px;
+        }
+
+        .step-item {
+            text-align: center;
+        }
+
+        .step-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .step-description {
+            font-size: 14px;
+            color: #6b6b6b;
+            line-height: 1.4;
+        }
+
+        /* Support Section */
+        .support-section {
+            background: #f0f8ff;
+            border-radius: 8px;
+            padding: 32px 24px;
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        .support-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .support-description {
+            font-size: 14px;
+            color: #6b6b6b;
+            margin-bottom: 24px;
+        }
+
+        .support-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .booking-details {
+                grid-template-columns: 1fr;
+            }
+
+            .route-details {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .departure, .arrival {
+                text-align: center;
+            }
+
+            .flight-path {
+                order: -1;
+                transform: rotate(90deg);
+                margin: 16px 0;
+            }
+
+            .additional-info {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .support-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Contact Info Modal Styles */
+        .contact-info-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+        }
+
+        .contact-info-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .contact-info-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 20px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .contact-info-header h3 {
+            margin: 0;
+            color: #003580;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #666;
+            padding: 5px;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .contact-info-body {
+            padding: 0 20px 20px;
+        }
+
+        .contact-detail {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .contact-detail strong {
+            color: #262626;
+            font-size: 14px;
+        }
+
+        .phone-link {
+            color: #0071c2;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .phone-link:hover {
+            text-decoration: underline;
+        }
+
+        .confirmation-code {
+            font-family: monospace;
+            background: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .contact-note {
+            background: #e7f3ff;
+            padding: 12px;
+            border-radius: 6px;
+            color: #0071c2;
+            font-size: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .contact-info-footer {
+            padding: 0 20px 20px;
+        }
+
+        .contact-info-footer .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .contact-info-footer .btn-primary {
+            background: #0071c2;
+            color: white;
+        }
+
+        .contact-info-footer .btn-primary:hover {
+            background: #005999;
+        }
+
+        /* Calendar Dropdown Styles */
+        .calendar-dropdown {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 200px;
+        }
+
+        .calendar-options {
+            padding: 8px 0;
+        }
+
+        .calendar-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: #262626;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .calendar-option:hover {
+            background-color: #f5f5f5;
+        }
+
+        .calendar-option i {
+            margin-right: 12px;
+            width: 16px;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            min-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification-success {
+            border-left: 4px solid #00aa6c;
+        }
+
+        .notification-error {
+            border-left: 4px solid #d32f2f;
+        }
+
+        .notification-info {
+            border-left: 4px solid #0071c2;
+        }
+
+        .notification-warning {
+            border-left: 4px solid #ff9800;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .notification-content i {
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .notification-success .notification-content i {
+            color: #00aa6c;
+        }
+
+        .notification-error .notification-content i {
+            color: #d32f2f;
+        }
+
+        .notification-info .notification-content i {
+            color: #0071c2;
+        }
+
+        .notification-warning .notification-content i {
+            color: #ff9800;
+        }
+
+        .notification-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            padding: 4px;
+        }
+
+        .notification-close:hover {
+            color: #333;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-gray-100">
+<body>
     <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="flex items-center justify-between h-16">
-                <div class="logo">
-                    <a href="index.html" class="logo">Booking.com</a>
-                </div>
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="currency-badge">ZAR</span>
-                    <span>Booking Confirmation</span>
-                </div>
+    <header class="booking-header">
+        <div class="header-content">
+            <a href="index.html" class="booking-logo"></a>
+            <div class="header-right">
             </div>
         </div>
     </header>
 
-    <!-- Booking Confirmation Content -->
-    <div class="container px-4 py-8">
-        <div class="max-w-4xl mx-auto">
-            <!-- Success Header -->
-            <div class="text-center mb-8">
-                <div class="text-6xl mb-4">✅</div>
-                <h1 class="text-3xl font-bold text-green-600 mb-2">Booking Confirmed!</h1>
-                <p class="text-gray-600">Your reservation has been successfully confirmed</p>
-            </div>
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Success Banner -->
+        <div class="success-banner">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h1 class="success-title">Booking confirmed!</h1>
+            <p class="success-subtitle">Your flight is booked. Check your email for details.</p>
+        </div>
 
-            <!-- Booking Details -->
-            <div class="grid grid-cols-1 lg-grid-cols-2 gap-8">
-                <!-- Main Booking Info -->
-                <div class="card">
-                    <div class="p-6">
-                        <h2 class="text-xl font-bold mb-4">Your Booking</h2>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-center space-x-4">
-                                <img src="images/emirates-logo.png" alt="Emirates" class="w-12 h-12">
-                                <div>
-                                    <h3 class="font-medium">Emirates Flight EK201</h3>
-                                    <p class="text-sm text-gray-600">Confirmation Number: BK123456789</p>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-gray-50 p-4 rounded">
-                                <div class="grid grid-cols-2 gap-4 text-sm">
-                                    <div>
-                                        <div class="font-medium">Departure</div>
-                                        <div>Oct 18, 2024</div>
-                                        <div>08:00 - Cape Town (CPT)</div>
-                                    </div>
-                                    <div>
-                                        <div class="font-medium">Arrival</div>
-                                        <div>Oct 18, 2024</div>
-                                        <div>10:15 - Johannesburg (JNB)</div>
-                                    </div>
-                                </div>
-                                <div class="mt-3 pt-3 border-t">
-                                    <div class="text-sm">
-                                        <span class="font-medium">Duration:</span> 2h 15m (Direct flight)
-                                    </div>
-                                    <div class="text-sm">
-                                        <span class="font-medium">Passengers:</span> 1 Adult
-                                    </div>
-                                </div>
-                            </div>
+        <!-- Booking Details -->
+        <div class="booking-details">
+            <!-- Main Booking Card -->
+            <div class="booking-card">
+                <div class="card-header">
+                    <h2 class="card-title">Your flight</h2>
+                </div>
+                <div class="card-content">
+                    <!-- Flight Header -->
+                    <div class="flight-header">
+                        <div class="airline-logo">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <div class="flight-info">
+                            <h3 id="flight-number">Emirates EK201</h3>
+                            <p class="confirmation-number">Confirmation number: <span id="confirmation-code">BK123456789</span></p>
                         </div>
                     </div>
-                </div>
 
-                <!-- Passenger Information -->
-                <div class="card">
-                    <div class="p-6">
-                        <h2 class="text-xl font-bold mb-4">Passenger Details</h2>
-                        
-                        <div class="space-y-3">
-                            <div>
-                                <div class="font-medium">Name</div>
-                                <div class="text-gray-600">John Doe</div>
+                    <!-- Flight Route -->
+                    <div class="flight-route">
+                        <div class="route-details">
+                            <div class="departure">
+                                <div class="time" id="departure-time">08:00</div>
+                                <div class="date" id="departure-date">Thu, 18 Oct 2024</div>
+                                <div class="airport" id="departure-airport">Cape Town (CPT)</div>
                             </div>
-                            <div>
-                                <div class="font-medium">Email</div>
-                                <div class="text-gray-600">john.doe@email.com</div>
+                            <div class="flight-path">
+                                <div class="flight-line"></div>
                             </div>
-                            <div>
-                                <div class="font-medium">Phone</div>
-                                <div class="text-gray-600">+27 12 345 6789</div>
-                            </div>
-                            <div>
-                                <div class="font-medium">Seat</div>
-                                <div class="text-gray-600">15A (Economy)</div>
+                            <div class="arrival">
+                                <div class="time" id="arrival-time">10:15</div>
+                                <div class="date" id="arrival-date">Thu, 18 Oct 2024</div>
+                                <div class="airport" id="arrival-airport">Johannesburg (JNB)</div>
                             </div>
                         </div>
+                        <div class="flight-duration" id="flight-duration">Flight time: 2h 15m • Direct</div>
                     </div>
-                </div>
 
-                <!-- Payment Summary -->
-                <div class="card">
-                    <div class="p-6">
-                        <h2 class="text-xl font-bold mb-4">Payment Summary</h2>
-                        
-                        <div class="space-y-2 text-sm mb-4">
-                            <div class="flex justify-between">
-                                <span>Flight ticket</span>
-                                <span>ZAR 899</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Taxes & fees</span>
-                                <span>ZAR 150</span>
-                            </div>
-                            <div class="flex justify-between text-green-600">
-                                <span>Discount (SAVE10)</span>
-                                <span>-ZAR 105</span>
-                            </div>
-                            <div class="border-t pt-2 flex justify-between font-bold">
-                                <span>Total Paid</span>
-                                <span>ZAR 944</span>
-                            </div>
+                    <!-- Additional Info -->
+                    <div class="additional-info">
+                        <div class="info-item">
+                            <span>Passengers</span>
+                            <span id="passenger-count">1 Adult</span>
                         </div>
-                        
-                        <div class="text-sm text-gray-600">
-                            <div>Payment Method: **** 1234</div>
-                            <div>Transaction ID: TXN789123456</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Important Information -->
-                <div class="card">
-                    <div class="p-6">
-                        <h2 class="text-xl font-bold mb-4">Important Information</h2>
-                        
-                        <div class="space-y-3 text-sm">
-                            <div class="flex items-start space-x-2">
-                                <span class="text-green-600">✓</span>
-                                <span>Check-in opens 24 hours before departure</span>
-                            </div>
-                            <div class="flex items-start space-x-2">
-                                <span class="text-green-600">✓</span>
-                                <span>Free cancellation until 2 hours before departure</span>
-                            </div>
-                            <div class="flex items-start space-x-2">
-                                <span class="text-blue-600">ℹ️</span>
-                                <span>Arrive at airport at least 1 hour before domestic flights</span>
-                            </div>
-                            <div class="flex items-start space-x-2">
-                                <span class="text-blue-600">ℹ️</span>
-                                <span>Valid ID required for check-in</span>
-                            </div>
+                        <div class="info-item">
+                            <span>Class</span>
+                            <span id="flight-class">Economy</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="mt-8 text-center space-y-4">
-                <div class="grid grid-cols-1 md-grid-cols-3 gap-4">
-                    <button class="btn btn-primary" onclick="downloadTicket()">
-                        📄 Download E-Ticket
-                    </button>
-                    <button class="btn btn-outline" onclick="addToCalendar()">
-                        📅 Add to Calendar
-                    </button>
-                    <button class="btn btn-outline" onclick="shareBooking()">
-                        📤 Share Booking
-                    </button>
+            <!-- Payment Summary -->
+            <div class="payment-summary">
+                <div class="card-header">
+                    <h2 class="card-title">Price breakdown</h2>
                 </div>
-                
-                <div class="pt-4">
-                    <a href="index.html" class="btn btn-ghost">
-                        ← Return to Homepage
-                    </a>
+                <div class="price-breakdown">
+                    <div class="price-row">
+                        <span>Flight</span>
+                        <span id="base-price">ZAR 899</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Taxes and fees</span>
+                        <span id="taxes-fees">ZAR 150</span>
+                    </div>
+                    <div class="price-row discount">
+                        <span>Discount (SAVE10)</span>
+                        <span id="discount-amount">-ZAR 105</span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Total</span>
+                        <span id="total-price">ZAR 944</span>
+                    </div>
+                </div>
+                <div class="payment-method">
+                    <div><strong>Payment method:</strong> •••• 1234</div>
+                    <div><strong>Transaction ID:</strong> <span id="transaction-id">TXN789123456</span></div>
                 </div>
             </div>
+        </div>
 
-            <!-- Next Steps -->
-            <div class="card mt-8">
-                <div class="p-6">
-                    <h2 class="text-xl font-bold mb-4">What's Next?</h2>
-                    
-                    <div class="grid grid-cols-1 md-grid-cols-2 gap-6">
-                        <div>
-                            <h3 class="font-medium mb-2">📧 Confirmation Email</h3>
-                            <p class="text-sm text-gray-600">
-                                You'll receive a confirmation email with your e-ticket within the next few minutes.
-                            </p>
-                        </div>
-                        <div>
-                            <h3 class="font-medium mb-2">📱 Mobile Check-in</h3>
-                            <p class="text-sm text-gray-600">
-                                Check in online starting 24 hours before your flight departure.
-                            </p>
-                        </div>
-                        <div>
-                            <h3 class="font-medium mb-2">🧳 Baggage Info</h3>
-                            <p class="text-sm text-gray-600">
-                                Review the airline's baggage policy and fees on their website.
-                            </p>
-                        </div>
-                        <div>
-                            <h3 class="font-medium mb-2">🏨 Need Accommodation?</h3>
-                            <p class="text-sm text-gray-600">
-                                <a href="index.html" class="text-blue-600 hover:underline">Book a hotel</a> for your destination.
-                            </p>
-                        </div>
+        <!-- Passenger Details -->
+        <div class="booking-card">
+            <div class="card-header">
+                <h2 class="card-title">Passenger details</h2>
+            </div>
+            <div class="card-content">
+                <div class="passenger-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Name</span>
+                        <span class="detail-value" id="passenger-name">John Doe</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value" id="passenger-email">john.doe@email.com</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Phone</span>
+                        <span class="detail-value" id="passenger-phone">+27 12 345 6789</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Seat</span>
+                        <span class="detail-value" id="passenger-seat">15A</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Contact Support -->
-    <div class="bg-blue-50 py-8 mt-8">
-        <div class="container px-4">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="font-bold mb-4">Need Help?</h2>
-                <p class="text-gray-600 mb-4">
-                    Our customer service team is available 24/7 to assist you with any questions.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4">
-                    <button class="btn btn-outline">📞 Call Support</button>
-                    <button class="btn btn-outline">💬 Live Chat</button>
-                    <button class="btn btn-outline">📧 Email Us</button>
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="downloadTicket()">
+                <i class="fas fa-download"></i>
+                Download e-ticket
+            </button>
+            <button class="btn btn-secondary" onclick="addToCalendar()">
+                <i class="fas fa-calendar-plus"></i>
+                Add to calendar
+            </button>
+            <button class="btn btn-secondary" onclick="shareBooking()">
+                <i class="fas fa-share"></i>
+                Share booking
+            </button>
+        </div>
+
+        <!-- Important Information -->
+        <div class="important-info">
+            <div class="card-header">
+                <h2 class="card-title">Important information</h2>
+            </div>
+            <div class="info-list">
+                <div class="info-item-list">
+                    <i class="fas fa-check-circle info-icon"></i>
+                    <span>Check-in opens 24 hours before departure</span>
+                </div>
+                <div class="info-item-list">
+                    <i class="fas fa-check-circle info-icon"></i>
+                    <span>Free cancellation until 2 hours before departure</span>
+                </div>
+                <div class="info-item-list">
+                    <i class="fas fa-info-circle info-icon warning"></i>
+                    <span>Arrive at airport at least 1 hour before domestic flights</span>
+                </div>
+                <div class="info-item-list">
+                    <i class="fas fa-info-circle info-icon warning"></i>
+                    <span>Valid ID required for check-in</span>
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- Next Steps -->
+        <div class="next-steps">
+            <div class="card-header">
+                <h2 class="card-title">What's next?</h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <i class="fas fa-envelope step-icon"></i>
+                    <h3 class="step-title">Check your email</h3>
+                    <p class="step-description">We've sent your e-ticket and booking details to your email address.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-mobile-alt step-icon"></i>
+                    <h3 class="step-title">Mobile check-in</h3>
+                    <p class="step-description">Check in online starting 24 hours before your flight departure.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-suitcase step-icon"></i>
+                    <h3 class="step-title">Pack smart</h3>
+                    <p class="step-description">Review the airline's baggage policy and fees on their website.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-bed step-icon"></i>
+                    <h3 class="step-title">Need a place to stay?</h3>
+                    <p class="step-description"><a href="index.html" style="color: #0071c2; text-decoration: none;">Book accommodation</a> for your destination.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Section -->
+        <div class="support-section">
+            <h2 class="support-title">Need help with your booking?</h2>
+            <p class="support-description">Our customer service team is available 24/7 to assist you.</p>
+            <div class="support-buttons">
+                <button class="btn btn-secondary" onclick="contactSupport('phone')">
+                    <i class="fas fa-phone"></i>
+                    Call us
+                </button>
+                <button class="btn btn-secondary" onclick="contactSupport('chat')">
+                    <i class="fas fa-comments"></i>
+                    Live chat
+                </button>
+                <button class="btn btn-secondary" onclick="contactSupport('email')">
+                    <i class="fas fa-envelope"></i>
+                    Email us
+                </button>
+            </div>
+        </div>
+    </main>
 
     <script>
+        // Airline logo mapping system
+        const airlineLogos = {
+            'Emirates': 'images/emirates-logo.png',
+            'EK': 'images/emirates-logo.png',
+            'Qatar Airways': 'images/qatar-logo.png',
+            'QR': 'images/qatar-logo.png',
+            'South African Airways': 'images/saa-logo.png',
+            'SA': 'images/saa-logo.png',
+            'British Airways': 'images/ba-logo.png',
+            'BA': 'images/ba-logo.png',
+            'Lufthansa': 'images/lufthansa-logo.png',
+            'LH': 'images/lufthansa-logo.png'
+        };
+
+        // Generate realistic booking reference
+        function generateBookingReference() {
+            const prefixes = ['BK', 'FL', 'TR', 'AV', 'JT'];
+            const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+            const numbers = Math.floor(Math.random() * 900000000) + 100000000;
+            return prefix + numbers;
+        }
+
+        // Generate realistic flight numbers based on airline
+        function generateFlightNumber(airline) {
+            const flightNumbers = {
+                'Emirates': ['EK' + (Math.floor(Math.random() * 900) + 100)],
+                'Qatar Airways': ['QR' + (Math.floor(Math.random() * 1500) + 100)],
+                'South African Airways': ['SA' + (Math.floor(Math.random() * 400) + 100)],
+                'British Airways': ['BA' + (Math.floor(Math.random() * 2000) + 100)],
+                'Lufthansa': ['LH' + (Math.floor(Math.random() * 800) + 100)]
+            };
+            
+            return flightNumbers[airline] ? flightNumbers[airline][0] : 'FL' + (Math.floor(Math.random() * 900) + 100);
+        }
+
+        // Load booking data from localStorage or backend
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBookingData();
+            loadUserData();
+        });
+
+        function loadBookingData() {
+            // Try to load from localStorage first
+            const bookingData = localStorage.getItem('bookingData');
+            if (bookingData) {
+                const data = JSON.parse(bookingData);
+                populateBookingDetails(data);
+            } else {
+                // Load from backend if user is logged in
+                loadBookingFromBackend();
+            }
+        }
+
+        function loadUserData() {
+            // Load user data from localStorage or session
+            const userData = localStorage.getItem('userData');
+            if (userData) {
+                const user = JSON.parse(userData);
+                document.getElementById('user-name').textContent = user.name || 'Guest';
+                document.getElementById('passenger-name').textContent = user.name || 'John Doe';
+                document.getElementById('passenger-email').textContent = user.email || 'john.doe@email.com';
+                document.getElementById('passenger-phone').textContent = user.phone || '+27 12 345 6789';
+            }
+        }
+
+        async function loadBookingFromBackend() {
+            try {
+                const user = JSON.parse(localStorage.getItem('userData') || '{}');
+                if (!user.access_token) return;
+
+                const response = await fetch('https://your-project.supabase.co/functions/v1/make-server-2c363e8a/bookings', {
+                    headers: {
+                        'Authorization': `Bearer ${user.access_token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const latestBooking = result.bookings[result.bookings.length - 1];
+                    if (latestBooking) {
+                        populateBookingDetails(latestBooking);
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load booking from backend:', error);
+            }
+        }
+
+        function populateBookingDetails(data) {
+            // Generate realistic booking reference if not provided
+            const bookingRef = data.bookingReference || generateBookingReference();
+            
+            if (data.selectedFlight) {
+                const flight = data.selectedFlight;
+                const airline = flight.airline || 'Emirates';
+                const flightNumber = flight.flightNumber || generateFlightNumber(airline);
+                
+                // Update airline logo
+                const airlineLogoElement = document.querySelector('.airline-logo');
+                if (airlineLogoElement && airlineLogos[airline]) {
+                    airlineLogoElement.innerHTML = `<img src="${airlineLogos[airline]}" alt="${airline}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">`;
+                } else if (airlineLogoElement) {
+                    // Fallback to airline code text
+                    const airlineCode = airline === 'Emirates' ? 'EK' : 
+                                      airline === 'Qatar Airways' ? 'QR' : 
+                                      airline === 'South African Airways' ? 'SA' : 
+                                      airline === 'British Airways' ? 'BA' : 
+                                      airline === 'Lufthansa' ? 'LH' : 'FL';
+                    airlineLogoElement.innerHTML = airlineCode;
+                    airlineLogoElement.style.backgroundColor = '#0071c2';
+                    airlineLogoElement.style.color = 'white';
+                    airlineLogoElement.style.fontWeight = 'bold';
+                }
+                
+                document.getElementById('flight-number').textContent = `${airline} ${flightNumber}`;
+                document.getElementById('departure-time').textContent = flight.departureTime || '08:00';
+                document.getElementById('arrival-time').textContent = flight.arrivalTime || '10:15';
+                document.getElementById('departure-airport').textContent = flight.from || 'Cape Town (CPT)';
+                document.getElementById('arrival-airport').textContent = flight.to || 'Johannesburg (JNB)';
+                document.getElementById('flight-duration').textContent = `Flight time: ${flight.duration || '2h 15m'} • ${flight.stops === 0 ? 'Direct' : flight.stops + ' stop(s)'}`;
+            }
+
+            if (data.pricing) {
+                document.getElementById('base-price').textContent = `ZAR ${data.pricing.basePrice || 899}`;
+                document.getElementById('taxes-fees').textContent = `ZAR ${data.pricing.taxes || 150}`;
+                document.getElementById('discount-amount').textContent = `-ZAR ${data.pricing.discount || 105}`;
+                document.getElementById('total-price').textContent = `ZAR ${data.pricing.total || 944}`;
+            }
+
+            if (data.bookingReference) {
+                document.getElementById('confirmation-code').textContent = data.bookingReference;
+            }
+
+            if (data.passengers && data.passengers.length > 0) {
+                document.getElementById('passenger-count').textContent = `${data.passengers.length} Adult${data.passengers.length > 1 ? 's' : ''}`;
+            }
+        }
+
         function downloadTicket() {
-            alert('Downloading your e-ticket... (In the full app, this would download a PDF ticket)');
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '<div class="loading"></div> Downloading...';
+            button.disabled = true;
+
+            // Simulate download process
+            setTimeout(() => {
+                // In a real app, this would generate and download a PDF
+                const bookingData = {
+                    confirmationNumber: document.getElementById('confirmation-code').textContent,
+                    flightNumber: document.getElementById('flight-number').textContent,
+                    passenger: document.getElementById('passenger-name').textContent,
+                    departure: document.getElementById('departure-airport').textContent,
+                    arrival: document.getElementById('arrival-airport').textContent,
+                    date: document.getElementById('departure-date').textContent,
+                    time: document.getElementById('departure-time').textContent
+                };
+
+                // Create a simple text file as e-ticket
+                const ticketContent = `
+ELECTRONIC TICKET
+================
+
+Confirmation Number: ${bookingData.confirmationNumber}
+Flight: ${bookingData.flightNumber}
+Passenger: ${bookingData.passenger}
+
+Departure: ${bookingData.departure}
+Arrival: ${bookingData.arrival}
+Date: ${bookingData.date}
+Time: ${bookingData.time}
+
+Please arrive at the airport at least 1 hour before departure.
+Valid ID required for check-in.
+                `;
+
+                const blob = new Blob([ticketContent], { type: 'text/plain' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `e-ticket-${bookingData.confirmationNumber}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 2000);
         }
 
         function addToCalendar() {
-            // Create a basic calendar event
-            const event = {
-                title: 'Flight EK201 - Cape Town to Johannesburg',
-                start: '2024-10-18T08:00:00',
-                end: '2024-10-18T10:15:00',
-                description: 'Emirates Flight EK201, Confirmation: BK123456789'
-            };
+            const flightNumber = document.getElementById('flight-number').textContent;
+            const departureDate = document.getElementById('departure-date').textContent;
+            const departureTime = document.getElementById('departure-time').textContent;
+            const departure = document.getElementById('departure-airport').textContent;
+            const arrival = document.getElementById('arrival-airport').textContent;
+            const confirmationCode = document.getElementById('confirmation-code').textContent;
+
+            // Create calendar event data
+            const title = `${flightNumber} - ${departure} to ${arrival}`;
+            const startDate = new Date(`${departureDate} ${departureTime}`);
+            const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // Add 2 hours for flight duration
             
-            // In a real app, this would integrate with calendar APIs
-            alert('Calendar event created! (In the full app, this would add to your device calendar)');
+            const description = `Flight ${flightNumber}\\nFrom: ${departure}\\nTo: ${arrival}\\nConfirmation: ${confirmationCode}`;
+            
+            // Format dates for calendar URLs
+            const formatDate = (date) => {
+                return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+            };
+
+            // Create calendar URLs for different providers
+            const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${formatDate(startDate)}/${formatDate(endDate)}&details=${encodeURIComponent(description)}`;
+            
+            const outlookUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(title)}&startdt=${formatDate(startDate)}&enddt=${formatDate(endDate)}&body=${encodeURIComponent(description)}`;
+            
+            const yahooUrl = `https://calendar.yahoo.com/?v=60&view=d&type=20&title=${encodeURIComponent(title)}&st=${formatDate(startDate)}&et=${formatDate(endDate)}&desc=${encodeURIComponent(description)}`;
+
+            // Create dropdown menu for calendar options
+            const calendarDropdown = document.createElement('div');
+            calendarDropdown.className = 'calendar-dropdown';
+            calendarDropdown.innerHTML = `
+                <div class="calendar-options">
+                    <a href="${googleCalendarUrl}" target="_blank" class="calendar-option">
+                        <i class="fab fa-google"></i> Google Calendar
+                    </a>
+                    <a href="${outlookUrl}" target="_blank" class="calendar-option">
+                        <i class="fab fa-microsoft"></i> Outlook Calendar
+                    </a>
+                    <a href="${yahooUrl}" target="_blank" class="calendar-option">
+                        <i class="fab fa-yahoo"></i> Yahoo Calendar
+                    </a>
+                    <button onclick="downloadICS()" class="calendar-option">
+                        <i class="fas fa-download"></i> Download .ics file
+                    </button>
+                </div>
+            `;
+
+            // Remove existing dropdown if any
+            const existingDropdown = document.querySelector('.calendar-dropdown');
+            if (existingDropdown) {
+                existingDropdown.remove();
+            }
+
+            // Add dropdown to the page
+            const calendarButton = document.querySelector('button[onclick="addToCalendar()"]');
+            calendarButton.parentNode.appendChild(calendarDropdown);
+
+            // Position dropdown
+            const rect = calendarButton.getBoundingClientRect();
+            calendarDropdown.style.position = 'absolute';
+            calendarDropdown.style.top = rect.bottom + 10 + 'px';
+            calendarDropdown.style.left = rect.left + 'px';
+            calendarDropdown.style.zIndex = '1000';
+
+            // Close dropdown when clicking outside
+            setTimeout(() => {
+                document.addEventListener('click', function closeDropdown(e) {
+                    if (!calendarDropdown.contains(e.target) && e.target !== calendarButton) {
+                        calendarDropdown.remove();
+                        document.removeEventListener('click', closeDropdown);
+                    }
+                });
+            }, 100);
+        }
+
+        function downloadICS() {
+            const flightNumber = document.getElementById('flight-number').textContent;
+            const departureDate = document.getElementById('departure-date').textContent;
+            const departureTime = document.getElementById('departure-time').textContent;
+            const departure = document.getElementById('departure-airport').textContent;
+            const arrival = document.getElementById('arrival-airport').textContent;
+            const confirmationCode = document.getElementById('confirmation-code').textContent;
+
+            const title = `${flightNumber} - ${departure} to ${arrival}`;
+            const startDate = new Date(`${departureDate} ${departureTime}`);
+            const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
+            
+            const formatICSDate = (date) => {
+                return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+            };
+
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Booking.com//Flight Booking//EN
+BEGIN:VEVENT
+UID:${confirmationCode}@booking.com
+DTSTAMP:${formatICSDate(new Date())}
+DTSTART:${formatICSDate(startDate)}
+DTEND:${formatICSDate(endDate)}
+SUMMARY:${title}
+DESCRIPTION:Flight ${flightNumber}\\nFrom: ${departure}\\nTo: ${arrival}\\nConfirmation: ${confirmationCode}
+LOCATION:${departure}
+END:VEVENT
+END:VCALENDAR`;
+
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `flight-${confirmationCode}.ics`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            // Close dropdown
+            const dropdown = document.querySelector('.calendar-dropdown');
+            if (dropdown) dropdown.remove();
         }
 
         function shareBooking() {
+            const bookingDetails = {
+                title: 'My Flight Booking',
+                text: `${document.getElementById('flight-number').textContent} on ${document.getElementById('departure-date').textContent} - Confirmation: ${document.getElementById('confirmation-code').textContent}`,
+                url: window.location.href
+            };
+
             if (navigator.share) {
-                navigator.share({
-                    title: 'My Flight Booking',
-                    text: 'Flight EK201 on Oct 18, 2024 - Confirmation: BK123456789',
-                    url: window.location.href
-                });
+                navigator.share(bookingDetails);
             } else {
-                // Fallback for browsers that don't support Web Share API
-                const text = 'Flight EK201 on Oct 18, 2024 - Confirmation: BK123456789';
-                navigator.clipboard.writeText(text).then(() => {
-                    alert('Booking details copied to clipboard!');
+                // Fallback - copy to clipboard
+                navigator.clipboard.writeText(`${bookingDetails.text}\n${bookingDetails.url}`).then(() => {
+                    showNotification('Booking details copied to clipboard!', 'success');
+                }).catch(() => {
+                    showNotification('Failed to copy to clipboard', 'error');
                 });
+            }
+        }
+
+        function contactSupport(type) {
+            const confirmationCode = document.getElementById('confirmation-code').textContent;
+            const contactNumber = '+1 (888) 850-3958';
+            
+            switch(type) {
+                case 'phone':
+                    window.open(`tel:${contactNumber}`, '_self');
+                    break;
+                case 'chat':
+                    window.open('customer-service.html', '_blank');
+                    break;
+                case 'email':
+                    window.location.href = 'mailto:support@yourbookingbackend.com?subject=Booking Support - ' + confirmationCode + '&body=Hello, I need assistance with my booking. Confirmation number: ' + confirmationCode;
+                    break;
+            }
+        }
+
+        // Notification system to replace alerts
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" class="notification-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Save booking data to backend when page loads
+        window.addEventListener('load', function() {
+            saveBookingToBackend();
+        });
+
+        async function saveBookingToBackend() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                const bookingData = JSON.parse(localStorage.getItem('bookingData') || '{}');
+                
+                if (!userData.access_token || !bookingData.bookingReference) return;
+
+                // Generate realistic flight number based on airline
+                const airlines = ['Emirates', 'Qatar Airways', 'South African Airways', 'British Airways', 'Lufthansa'];
+                const selectedAirline = airlines[Math.floor(Math.random() * airlines.length)];
+                const flightNumber = generateFlightNumber(selectedAirline);
+
+                const bookingPayload = {
+                    bookingId: bookingData.bookingReference || generateBookingReference(),
+                    amount: 944, // Total price
+                    paymentMethod: 'Credit Card',
+                    discountCode: 'SAVE10',
+                    booking: {
+                        type: 'flight',
+                        flightNumber: flightNumber,
+                        airline: selectedAirline,
+                        from: 'Cape Town (CPT)',
+                        to: 'Johannesburg (JNB)',
+                        departureDate: '2024-10-18',
+                        departureTime: '08:00',
+                        arrivalTime: '10:15',
+                        passengers: 1,
+                        class: 'Economy'
+                    }
+                };
+
+                const response = await fetch('https://your-project.supabase.co/functions/v1/make-server-2c363e8a/process-payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userData.access_token}`
+                    },
+                    body: JSON.stringify(bookingPayload)
+                });
+
+                if (response.ok) {
+                    console.log('Booking saved to backend successfully');
+                }
+            } catch (error) {
+                console.error('Failed to save booking to backend:', error);
             }
         }
     </script>

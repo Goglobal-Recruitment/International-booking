@@ -3,314 +3,1029 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Payment | Booking.com</title>
+    <title>Complete your booking - Booking.com</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <script src="global-state.js"></script>
+    <script src="page-init.js"></script>
+    <style>
+        /* Booking.com Payment Page Styles */
+        :root {
+            --booking-blue: #003580;
+            --booking-blue-dark: #002147;
+            --booking-blue-light: #0071c2;
+            --booking-yellow: #febb02;
+            --booking-green: #008009;
+            --booking-red: #cc0000;
+            --booking-gray-light: #f5f5f5;
+            --booking-gray-medium: #e7e7e7;
+            --booking-gray-dark: #6b6b6b;
+            --booking-border: #e7e7e7;
+        }
+
+        body {
+            font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #262626;
+        }
+
+        /* Header */
+        .booking-header {
+            background: white;
+            border-bottom: 1px solid var(--booking-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .booking-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--booking-blue);
+            text-decoration: none;
+        }
+
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--booking-gray-dark);
+        }
+
+        .progress-step.active {
+            color: var(--booking-blue);
+            font-weight: 600;
+        }
+
+        .progress-step.completed {
+            color: var(--booking-green);
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            background: var(--booking-gray-medium);
+            color: white;
+        }
+
+        .step-number.active {
+            background: var(--booking-blue);
+        }
+
+        .step-number.completed {
+            background: var(--booking-green);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .currency-selector {
+            padding: 8px 12px;
+            border: 1px solid var(--booking-border);
+            border-radius: 4px;
+            background: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .help-button {
+            padding: 8px 16px;
+            background: var(--booking-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Main Content */
+        .payment-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 16px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
+        }
+
+        .payment-main {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--booking-border);
+            overflow: hidden;
+        }
+
+        .payment-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .section-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--booking-border);
+            background: #fafafa;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--booking-blue-dark);
+            margin: 0;
+        }
+
+        .section-content {
+            padding: 24px;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 2px solid var(--booking-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .payment-method:hover {
+            border-color: var(--booking-blue-light);
+            background: #f8f9ff;
+        }
+
+        .payment-method.selected {
+            border-color: var(--booking-blue);
+            background: #f8f9ff;
+        }
+
+        .payment-method input[type="radio"] {
+            margin-right: 12px;
+            accent-color: var(--booking-blue);
+        }
+
+        .payment-method-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .payment-method-info h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .payment-method-info p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--booking-gray-dark);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--booking-blue-dark);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--booking-border);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--booking-blue);
+            box-shadow: 0 0 0 2px rgba(0, 53, 128, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Discount Section */
+        .discount-section {
+            background: #fff8e1;
+            border: 1px solid #ffcc02;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .discount-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .discount-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            color: #ff8c00;
+        }
+
+        .discount-input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .discount-input {
+            flex: 1;
+        }
+
+        .apply-button {
+            padding: 12px 24px;
+            background: var(--booking-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .apply-button:hover {
+            background: var(--booking-blue-dark);
+        }
+
+        /* Booking Summary */
+        .booking-summary {
+            background: white;
+            border: 1px solid var(--booking-border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .summary-header {
+            padding: 20px;
+            background: #fafafa;
+            border-bottom: 1px solid var(--booking-border);
+        }
+
+        .summary-content {
+            padding: 20px;
+        }
+
+        .flight-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .airline-logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        .flight-details h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .flight-route {
+            font-size: 14px;
+            color: var(--booking-gray-dark);
+            margin: 0;
+        }
+
+        .flight-schedule {
+            font-size: 14px;
+            color: var(--booking-gray-dark);
+            line-height: 1.4;
+        }
+
+        .price-breakdown {
+            border-top: 1px solid var(--booking-border);
+            padding-top: 16px;
+            margin-top: 16px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .price-row.total {
+            font-weight: 600;
+            font-size: 16px;
+            border-top: 1px solid var(--booking-border);
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+
+        .price-row.discount {
+            color: var(--booking-green);
+        }
+
+        /* Security Notice */
+        .security-notice {
+            background: white;
+            border: 1px solid var(--booking-border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .security-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            color: var(--booking-green);
+        }
+
+        .security-icon {
+            margin-right: 8px;
+        }
+
+        /* Complete Payment Button */
+        .complete-payment-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--booking-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: background-color 0.2s;
+        }
+
+        .complete-payment-btn:hover {
+            background: var(--booking-blue-dark);
+        }
+
+        .complete-payment-btn:disabled {
+            background: var(--booking-gray-medium);
+            cursor: not-allowed;
+        }
+
+        /* Terms Checkbox */
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            margin-top: 2px;
+            accent-color: var(--booking-blue);
+        }
+
+        /* Success Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--booking-blue-dark);
+        }
+
+        .modal-text {
+            font-size: 16px;
+            color: var(--booking-gray-dark);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: var(--booking-blue);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            background: white;
+            color: var(--booking-blue);
+            border: 2px solid var(--booking-blue);
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-ghost {
+            padding: 8px 16px;
+            background: none;
+            color: var(--booking-gray-dark);
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .payment-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                padding: 16px;
+            }
+
+            .header-container {
+                padding: 0 16px;
+            }
+
+            .progress-steps {
+                display: none;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Alternative Payment Forms */
+        .alt-payment-form {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .alt-payment-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .alt-payment-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .alt-payment-description {
+            color: var(--booking-gray-dark);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .qr-code {
+            display: inline-block;
+            padding: 20px;
+            background: white;
+            border: 2px solid var(--booking-border);
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .qr-placeholder {
+            width: 120px;
+            height: 120px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--booking-gray-dark);
+            border-radius: 4px;
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-gray-100">
+<body>
     <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="flex items-center justify-between h-16">
-                <div class="logo">
-                    <a href="index.html" class="logo">Booking.com</a>
+    <header class="booking-header">
+        <div class="header-container">
+            <a href="index.html" class="booking-logo">Booking.com</a>
+            
+            <div class="progress-steps">
+                <div class="progress-step completed">
+                    <span class="step-number completed">1</span>
+                    <span>Select flight</span>
                 </div>
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="currency-badge">ZAR</span>
-                    <span>Secure Payment</span>
+                <div class="progress-step completed">
+                    <span class="step-number completed">2</span>
+                    <span>Passenger details</span>
                 </div>
+                <div class="progress-step completed">
+                    <span class="step-number completed">3</span>
+                    <span>Seat selection</span>
+                </div>
+                <div class="progress-step active">
+                    <span class="step-number active">4</span>
+                    <span>Payment</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="currency-selector" id="currencySelector">
+                    <span id="currencyDisplay">ZAR</span>
+                </button>
+                <a href="customer-service.html" class="help-button">Help</a>
             </div>
         </div>
     </header>
 
-    <!-- Payment Content -->
-    <div class="container px-4 py-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="grid grid-cols-1 lg-grid-cols-3 gap-8">
-                <!-- Payment Form -->
-                <div class="lg:col-span-2">
-                    <div class="card mb-6">
-                        <div class="p-6">
-                            <h2 class="text-xl font-bold mb-6">Payment Details</h2>
-                            
-                            <!-- Payment Methods -->
-                            <div class="mb-6">
-                                <h3 class="font-medium mb-4">Choose your payment method</h3>
-                                <div class="space-y-3">
-                                    <label class="flex items-center p-4 border rounded cursor-pointer hover:bg-gray-50">
-                                        <input type="radio" name="paymentMethod" value="card" class="radio-input mr-3" checked>
-                                        <div class="flex items-center space-x-3">
-                                            <span class="text-2xl">💳</span>
-                                            <span>Credit/Debit Card</span>
-                                        </div>
-                                    </label>
-                                    <label class="flex items-center p-4 border rounded cursor-pointer hover:bg-gray-50">
-                                        <input type="radio" name="paymentMethod" value="paystack" class="radio-input mr-3">
-                                        <div class="flex items-center space-x-3">
-                                            <span class="text-2xl">💰</span>
-                                            <span>Paystack</span>
-                                        </div>
-                                    </label>
-                                    <label class="flex items-center p-4 border rounded cursor-pointer hover:bg-gray-50">
-                                        <input type="radio" name="paymentMethod" value="googlepay" class="radio-input mr-3">
-                                        <div class="flex items-center space-x-3">
-                                            <span class="text-2xl">📱</span>
-                                            <span>Google Pay</span>
-                                        </div>
-                                    </label>
-                                    <label class="flex items-center p-4 border rounded cursor-pointer hover:bg-gray-50">
-                                        <input type="radio" name="paymentMethod" value="qr" class="radio-input mr-3">
-                                        <div class="flex items-center space-x-3">
-                                            <span class="text-2xl">📷</span>
-                                            <span>QR Code Payment</span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
+    <!-- Main Content -->
+    <div class="payment-container">
+        <!-- Payment Form -->
+        <div class="payment-main">
+            <div class="section-header">
+                <h1 class="section-title">Complete your booking</h1>
+            </div>
 
-                            <!-- Card Payment Form -->
-                            <div id="cardPaymentForm">
-                                <form>
-                                    <div class="mb-4">
-                                        <label class="form-label">Cardholder Name</label>
-                                        <input type="text" class="form-input" placeholder="Name on card" required>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <label class="form-label">Card Number</label>
-                                        <input type="text" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" required>
-                                    </div>
-                                    
-                                    <div class="grid grid-cols-2 gap-4 mb-4">
-                                        <div>
-                                            <label class="form-label">Expiry Date</label>
-                                            <input type="text" class="form-input" placeholder="MM/YY" maxlength="5" required>
-                                        </div>
-                                        <div>
-                                            <label class="form-label">CVV</label>
-                                            <input type="text" class="form-input" placeholder="123" maxlength="4" required>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Discount Code -->
-                                    <div class="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded">
-                                        <h4 class="font-medium mb-3">Have a discount code?</h4>
-                                        <div class="flex gap-2">
-                                            <input type="text" class="form-input flex-1" placeholder="Enter discount code" id="discountCode">
-                                            <button type="button" class="btn btn-outline" onclick="applyDiscount()">Apply</button>
-                                        </div>
-                                        <div id="discountMessage" class="mt-2 text-sm"></div>
-                                    </div>
-                                    
-                                    <div class="mb-6">
-                                        <label class="flex items-center space-x-2">
-                                            <input type="checkbox" class="checkbox" required>
-                                            <span class="text-sm">I agree to the Terms and Conditions and Privacy Policy</span>
-                                        </label>
-                                    </div>
-                                    
-                                    <button type="button" class="btn btn-primary w-full btn-lg" onclick="processPayment()">
-                                        Complete Payment
-                                    </button>
-                                </form>
-                            </div>
-
-                            <!-- Alternative Payment Forms (hidden by default) -->
-                            <div id="paystackForm" style="display: none;">
-                                <div class="text-center py-8">
-                                    <div class="text-6xl mb-4">💰</div>
-                                    <h3 class="font-medium mb-4">Paystack Payment</h3>
-                                    <p class="text-gray-600 mb-6">You will be redirected to Paystack to complete your payment securely.</p>
-                                    <button class="btn btn-primary btn-lg" onclick="redirectToPaystack()">
-                                        Continue to Paystack
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div id="googlePayForm" style="display: none;">
-                                <div class="text-center py-8">
-                                    <div class="text-6xl mb-4">📱</div>
-                                    <h3 class="font-medium mb-4">Google Pay</h3>
-                                    <p class="text-gray-600 mb-6">Use Google Pay for a quick and secure payment.</p>
-                                    <button class="btn btn-primary btn-lg" onclick="initiateGooglePay()">
-                                        Pay with Google Pay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div id="qrForm" style="display: none;">
-                                <div class="text-center py-8">
-                                    <div class="text-6xl mb-4">📷</div>
-                                    <h3 class="font-medium mb-4">QR Code Payment</h3>
-                                    <p class="text-gray-600 mb-4">Scan the QR code below with your banking app</p>
-                                    <div class="bg-white p-4 inline-block border rounded">
-                                        <div class="w-32 h-32 bg-gray-200 flex items-center justify-center text-4xl">
-                                            ⬛⬜⬛<br>⬜⬛⬜<br>⬛⬜⬛
-                                        </div>
-                                    </div>
-                                    <p class="text-sm text-gray-600 mt-4">Amount: ZAR <span id="qrAmount">899</span></p>
-                                </div>
-                            </div>
+            <div class="section-content">
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <label class="payment-method selected" data-method="card">
+                        <input type="radio" name="paymentMethod" value="card" checked>
+                        <div class="payment-method-icon">💳</div>
+                        <div class="payment-method-info">
+                            <h4>Credit or debit card</h4>
+                            <p>Visa, Mastercard, American Express</p>
                         </div>
-                    </div>
+                    </label>
+
+                    <label class="payment-method" data-method="paystack">
+                        <input type="radio" name="paymentMethod" value="paystack">
+                        <div class="payment-method-icon">💰</div>
+                        <div class="payment-method-info">
+                            <h4>Paystack</h4>
+                            <p>Pay securely with Paystack</p>
+                        </div>
+                    </label>
+
+                    <label class="payment-method" data-method="googlepay">
+                        <input type="radio" name="paymentMethod" value="googlepay">
+                        <div class="payment-method-icon">📱</div>
+                        <div class="payment-method-info">
+                            <h4>Google Pay</h4>
+                            <p>Quick and secure mobile payment</p>
+                        </div>
+                    </label>
+
+                    <label class="payment-method" data-method="qr">
+                        <input type="radio" name="paymentMethod" value="qr">
+                        <div class="payment-method-icon">📷</div>
+                        <div class="payment-method-info">
+                            <h4>QR Code Payment</h4>
+                            <p>Scan with your banking app</p>
+                        </div>
+                    </label>
                 </div>
 
-                <!-- Booking Summary -->
-                <div class="lg:col-span-1">
-                    <div class="card">
-                        <div class="p-6">
-                            <h3 class="font-bold mb-4">Booking Summary</h3>
-                            
-                            <div class="mb-4">
-                                <div class="flex items-center space-x-3 mb-3">
-                                    <img src="images/emirates-logo.png" alt="Emirates" class="w-8 h-8">
-                                    <div>
-                                        <div class="font-medium">Emirates EK201</div>
-                                        <div class="text-sm text-gray-600">Cape Town → Johannesburg</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-sm text-gray-600 space-y-1">
-                                    <div>Departure: Oct 18, 2024 at 08:00</div>
-                                    <div>Arrival: Oct 18, 2024 at 10:15</div>
-                                    <div>Duration: 2h 15m (Direct)</div>
-                                    <div>Passenger: 1 Adult</div>
-                                </div>
-                            </div>
-                            
-                            <div class="border-t pt-4">
-                                <div class="space-y-2 text-sm">
-                                    <div class="flex justify-between">
-                                        <span>Flight</span>
-                                        <span>ZAR 899</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Taxes & fees</span>
-                                        <span>ZAR 150</span>
-                                    </div>
-                                    <div id="discountRow" class="flex justify-between text-green-600" style="display: none;">
-                                        <span>Discount</span>
-                                        <span id="discountAmount">-ZAR 0</span>
-                                    </div>
-                                    <div class="border-t pt-2 flex justify-between font-bold">
-                                        <span>Total</span>
-                                        <span id="totalAmount">ZAR 1,049</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-4 p-3 bg-green-50 border border-green-200 rounded text-sm">
-                                <div class="flex items-center text-green-700">
-                                    <span class="icon mr-2">✓</span>
-                                    <span>Free cancellation until 24 hours before departure</span>
-                                </div>
-                            </div>
+                <!-- Card Payment Form -->
+                <div id="cardPaymentForm" class="payment-form">
+                    <div class="form-group">
+                        <label class="form-label">Cardholder name</label>
+                        <input type="text" class="form-input" placeholder="Name as it appears on your card" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Card number</label>
+                        <input type="text" class="form-input" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Expiry date</label>
+                            <input type="text" class="form-input" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Security code</label>
+                            <input type="text" class="form-input" placeholder="CVV" maxlength="4" required>
                         </div>
                     </div>
-                    
-                    <!-- Security Notice -->
-                    <div class="card mt-4">
-                        <div class="p-4">
-                            <div class="flex items-center text-green-600 mb-2">
-                                <span class="icon mr-2">🔒</span>
-                                <span class="font-medium text-sm">Secure Payment</span>
-                            </div>
-                            <p class="text-xs text-gray-600">
-                                Your payment information is protected with industry-standard encryption.
-                            </p>
+
+                    <!-- Discount Section -->
+                    <div class="discount-section">
+                        <div class="discount-header">
+                            <span class="discount-icon">🎫</span>
+                            <h4>Have a discount code?</h4>
+                        </div>
+                        <div class="discount-input-group">
+                            <input type="text" class="form-input discount-input" id="discountCode" placeholder="Enter your code">
+                            <button type="button" class="apply-button" onclick="applyDiscount()">Apply</button>
+                        </div>
+                        <div id="discountMessage" class="discount-message"></div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="termsAccepted" required>
+                        <label for="termsAccepted">
+                            By completing this booking I agree to the <a href="#" style="color: var(--booking-blue);">Terms & Conditions</a> and <a href="#" style="color: var(--booking-blue);">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="button" class="complete-payment-btn" onclick="processPayment()">
+                        Complete booking
+                    </button>
+                </div>
+
+                <!-- Alternative Payment Forms -->
+                <div id="paystackForm" class="alt-payment-form">
+                    <div class="alt-payment-icon">💰</div>
+                    <h3 class="alt-payment-title">Paystack Payment</h3>
+                    <p class="alt-payment-description">You'll be redirected to Paystack to complete your payment securely.</p>
+                    <button class="btn-primary" onclick="redirectToPaystack()">Continue to Paystack</button>
+                </div>
+
+                <div id="googlePayForm" class="alt-payment-form">
+                    <div class="alt-payment-icon">📱</div>
+                    <h3 class="alt-payment-title">Google Pay</h3>
+                    <p class="alt-payment-description">Use Google Pay for a quick and secure payment experience.</p>
+                    <button class="btn-primary" onclick="initiateGooglePay()">Pay with Google Pay</button>
+                </div>
+
+                <div id="qrForm" class="alt-payment-form">
+                    <div class="alt-payment-icon">📷</div>
+                    <h3 class="alt-payment-title">QR Code Payment</h3>
+                    <p class="alt-payment-description">Scan the QR code below with your banking app to complete the payment.</p>
+                    <div class="qr-code">
+                        <div class="qr-placeholder">QR Code<br>Placeholder</div>
+                    </div>
+                    <p>Amount: <span id="currencySymbol">ZAR</span> <span id="qrAmount">1,049</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Summary Sidebar -->
+        <div class="payment-sidebar">
+            <!-- Booking Summary -->
+            <div class="booking-summary">
+                <div class="summary-header">
+                    <h3>Your booking</h3>
+                </div>
+                <div class="summary-content">
+                    <div class="flight-info" id="flightInfo">
+                        <img src="https://via.placeholder.com/40x40?text=✈️" alt="Airline" class="airline-logo" id="airlineLogo">
+                        <div class="flight-details">
+                            <h4 id="flightNumber">Loading...</h4>
+                            <p class="flight-route" id="flightRoute">Loading route...</p>
+                        </div>
+                    </div>
+
+                    <div class="flight-schedule" id="flightSchedule">
+                        <div>Departure: <span id="departureInfo">Loading...</span></div>
+                        <div>Arrival: <span id="arrivalInfo">Loading...</span></div>
+                        <div>Duration: <span id="durationInfo">Loading...</span></div>
+                        <div>Passengers: <span id="passengerInfo">1 Adult</span></div>
+                    </div>
+
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Flight price</span>
+                            <span id="flightPrice">ZAR 899</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Taxes and fees</span>
+                            <span id="taxesFees">ZAR 150</span>
+                        </div>
+                        <div class="price-row discount" id="discountRow" style="display: none;">
+                            <span>Discount</span>
+                            <span id="discountAmount">-ZAR 0</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total</span>
+                            <span id="totalAmount">ZAR 1,049</span>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Security Notice -->
+            <div class="security-notice">
+                <div class="security-header">
+                    <span class="security-icon">🔒</span>
+                    <strong>Secure payment</strong>
+                </div>
+                <p style="margin: 0; font-size: 14px; color: var(--booking-gray-dark);">
+                    Your payment information is protected with industry-standard SSL encryption.
+                </p>
+            </div>
         </div>
     </div>
 
-    <!-- Payment Success Modal -->
-    <div id="successModal" class="modal" style="display: none;">
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
         <div class="modal-content">
-            <div class="modal-body text-center">
-                <div class="text-6xl mb-4">✅</div>
-                <h3 class="font-bold mb-4">Payment Successful!</h3>
-                <p class="text-gray-600 mb-6">
-                    Your booking has been confirmed. You will receive a confirmation email shortly.
-                </p>
-                <div class="space-y-2 mb-6">
-                    <button class="btn btn-primary w-full" onclick="downloadTicket()">
-                        Download Ticket
-                    </button>
-                    <button class="btn btn-outline w-full" onclick="goToBookings()">
-                        View My Bookings
-                    </button>
-                </div>
-                <button class="btn btn-ghost" onclick="goHome()">
-                    Return to Homepage
-                </button>
+            <div class="success-icon">✅</div>
+            <h2 class="modal-title">Booking confirmed!</h2>
+            <p class="modal-text">
+                Your flight has been booked successfully. You'll receive a confirmation email shortly with your e-ticket.
+            </p>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="downloadTicket()">Download e-ticket</button>
+                <button class="btn-secondary" onclick="goToBookings()">View my bookings</button>
+                <button class="btn-ghost" onclick="goHome()">Back to homepage</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Global variables
+        let currentDiscount = 0;
+        let baseFlightPrice = 899;
+        let baseTaxesFees = 150;
+        let baseTotal = baseFlightPrice + baseTaxesFees;
+
         // Discount codes
         const discountCodes = {
-            'SAVE10': { type: 'percentage', value: 10, description: '10% off' },
+            'SAVE10': { type: 'percentage', value: 10, description: '10% off your booking' },
             'SAVE50': { type: 'fixed', value: 50, description: 'ZAR 50 off' },
-            'WELCOME20': { type: 'percentage', value: 20, description: '20% off for new users' },
+            'WELCOME20': { type: 'percentage', value: 20, description: '20% off for new customers' },
             'FLIGHT15': { type: 'percentage', value: 15, description: '15% off flights' },
             'STUDENT25': { type: 'percentage', value: 25, description: '25% student discount' }
         };
 
-        let currentDiscount = 0;
-        let baseTotal = 1049;
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePaymentPage();
+            setupEventListeners();
+            loadBookingData();
+        });
 
-        // Handle payment method changes
-        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                // Hide all payment forms
-                document.getElementById('cardPaymentForm').style.display = 'none';
-                document.getElementById('paystackForm').style.display = 'none';
-                document.getElementById('googlePayForm').style.display = 'none';
-                document.getElementById('qrForm').style.display = 'none';
+        function initializePaymentPage() {
+            // Apply global state if available
+            if (window.globalState) {
+                const state = window.globalState.getState();
+                
+                // Update currency display
+                document.getElementById('currencyDisplay').textContent = state.currency;
+                document.getElementById('currencySymbol').textContent = state.currencySymbol;
+                
+                // Update prices based on currency
+                updatePricesForCurrency(state.currency, state.currencySymbol);
+            }
+        }
 
-                // Show selected payment form
-                switch(this.value) {
-                    case 'card':
-                        document.getElementById('cardPaymentForm').style.display = 'block';
-                        break;
-                    case 'paystack':
-                        document.getElementById('paystackForm').style.display = 'block';
-                        break;
-                    case 'googlepay':
-                        document.getElementById('googlePayForm').style.display = 'block';
-                        break;
-                    case 'qr':
-                        document.getElementById('qrForm').style.display = 'block';
-                        updateQRAmount();
-                        break;
+        function loadBookingData() {
+            // Load selected flight data from global state
+            if (window.globalState) {
+                const selectedFlight = window.globalState.getState().selectedFlight;
+                const searchData = window.globalState.getState().searchData;
+                
+                if (selectedFlight) {
+                    updateFlightDisplay(selectedFlight);
                 }
+                
+                if (searchData) {
+                    updatePassengerInfo(searchData);
+                }
+            }
+        }
+
+        function updateFlightDisplay(flight) {
+            // Update flight information in the summary
+            document.getElementById('flightNumber').textContent = flight.flightNumber || 'Flight';
+            document.getElementById('flightRoute').textContent = `${flight.from} → ${flight.to}`;
+            
+            if (flight.departure && flight.arrival) {
+                document.getElementById('departureInfo').textContent = `${flight.departure.date} at ${flight.departure.time}`;
+                document.getElementById('arrivalInfo').textContent = `${flight.arrival.date} at ${flight.arrival.time}`;
+            }
+            
+            if (flight.duration) {
+                document.getElementById('durationInfo').textContent = flight.duration;
+            }
+            
+            if (flight.price) {
+                baseFlightPrice = flight.price;
+                baseTotal = baseFlightPrice + baseTaxesFees;
+                updatePriceDisplay();
+            }
+            
+            // Update airline logo if available
+            if (flight.airline && flight.airline.logo) {
+                document.getElementById('airlineLogo').src = flight.airline.logo;
+                document.getElementById('airlineLogo').alt = flight.airline.name;
+            }
+        }
+
+        function updatePassengerInfo(searchData) {
+            if (searchData.passengers) {
+                const adults = searchData.passengers.adults || 1;
+                const children = searchData.passengers.children || 0;
+                const infants = searchData.passengers.infants || 0;
+                
+                let passengerText = `${adults} Adult${adults > 1 ? 's' : ''}`;
+                if (children > 0) passengerText += `, ${children} Child${children > 1 ? 'ren' : ''}`;
+                if (infants > 0) passengerText += `, ${infants} Infant${infants > 1 ? 's' : ''}`;
+                
+                document.getElementById('passengerInfo').textContent = passengerText;
+            }
+        }
+
+        function updatePricesForCurrency(currency, symbol) {
+            // Convert prices based on currency (simplified conversion)
+            const rates = {
+                'ZAR': 1,
+                'USD': 0.054,
+                'EUR': 0.049,
+                'GBP': 0.043
+            };
+            
+            const rate = rates[currency] || 1;
+            const convertedFlightPrice = Math.round(baseFlightPrice * rate);
+            const convertedTaxes = Math.round(baseTaxesFees * rate);
+            
+            document.getElementById('flightPrice').textContent = `${symbol} ${convertedFlightPrice}`;
+            document.getElementById('taxesFees').textContent = `${symbol} ${convertedTaxes}`;
+            
+            updatePriceDisplay();
+        }
+
+        function setupEventListeners() {
+            // Payment method selection
+            document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // Update visual selection
+                    document.querySelectorAll('.payment-method').forEach(method => {
+                        method.classList.remove('selected');
+                    });
+                    this.closest('.payment-method').classList.add('selected');
+                    
+                    // Show/hide payment forms
+                    showPaymentForm(this.value);
+                });
             });
-        });
 
-        // Format card number input
-        document.querySelector('input[placeholder="1234 5678 9012 3456"]').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-            let formattedInputValue = value.match(/.{1,4}/g)?.join(' ') || value;
-            if (formattedInputValue.length <= 19) {
-                e.target.value = formattedInputValue;
+            // Card number formatting
+            const cardNumberInput = document.getElementById('cardNumber');
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                    let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+                    if (formattedValue.length <= 19) {
+                        e.target.value = formattedValue;
+                    }
+                });
             }
-        });
 
-        // Format expiry date input
-        document.querySelector('input[placeholder="MM/YY"]').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) {
-                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            // Expiry date formatting
+            const expiryInput = document.getElementById('expiryDate');
+            if (expiryInput) {
+                expiryInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 2) {
+                        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                    }
+                    e.target.value = value;
+                });
             }
-            e.target.value = value;
-        });
+
+            // Currency selector
+            const currencySelector = document.getElementById('currencySelector');
+            if (currencySelector) {
+                currencySelector.addEventListener('click', function() {
+                    // Simple currency toggle for demo
+                    const currencies = [
+                        { code: 'ZAR', symbol: 'R' },
+                        { code: 'USD', symbol: '$' },
+                        { code: 'EUR', symbol: '€' },
+                        { code: 'GBP', symbol: '£' }
+                    ];
+                    
+                    const currentCurrency = document.getElementById('currencyDisplay').textContent;
+                    const currentIndex = currencies.findIndex(c => c.code === currentCurrency);
+                    const nextIndex = (currentIndex + 1) % currencies.length;
+                    const nextCurrency = currencies[nextIndex];
+                    
+                    // Update global state
+                    if (window.globalState) {
+                        window.globalState.setCurrency(nextCurrency.code, nextCurrency.symbol);
+                    }
+                    
+                    // Update display
+                    document.getElementById('currencyDisplay').textContent = nextCurrency.code;
+                    document.getElementById('currencySymbol').textContent = nextCurrency.symbol;
+                    updatePricesForCurrency(nextCurrency.code, nextCurrency.symbol);
+                });
+            }
+        }
+
+        function showPaymentForm(method) {
+            // Hide all forms
+            document.getElementById('cardPaymentForm').style.display = 'none';
+            document.getElementById('paystackForm').style.display = 'none';
+            document.getElementById('googlePayForm').style.display = 'none';
+            document.getElementById('qrForm').style.display = 'none';
+
+            // Show selected form
+            switch(method) {
+                case 'card':
+                    document.getElementById('cardPaymentForm').style.display = 'block';
+                    break;
+                case 'paystack':
+                    document.getElementById('paystackForm').style.display = 'block';
+                    break;
+                case 'googlepay':
+                    document.getElementById('googlePayForm').style.display = 'block';
+                    break;
+                case 'qr':
+                    document.getElementById('qrForm').style.display = 'block';
+                    updateQRAmount();
+                    break;
+            }
+        }
 
         function applyDiscount() {
-            const code = document.getElementById('discountCode').value.toUpperCase();
+            const code = document.getElementById('discountCode').value.toUpperCase().trim();
             const messageDiv = document.getElementById('discountMessage');
+            
+            if (!code) {
+                messageDiv.innerHTML = '<div style="color: var(--booking-red); margin-top: 8px; font-size: 14px;">Please enter a discount code</div>';
+                return;
+            }
             
             if (discountCodes[code]) {
                 const discount = discountCodes[code];
@@ -323,24 +1038,26 @@
                 }
                 
                 currentDiscount = discountAmount;
-                updateTotal();
+                updatePriceDisplay();
                 
-                messageDiv.innerHTML = `<span class="text-green-600">✓ ${discount.description} applied successfully!</span>`;
+                messageDiv.innerHTML = `<div style="color: var(--booking-green); margin-top: 8px; font-size: 14px;">✓ ${discount.description} applied successfully!</div>`;
                 
                 // Show discount row
                 document.getElementById('discountRow').style.display = 'flex';
-                document.getElementById('discountAmount').textContent = `-ZAR ${discountAmount}`;
+                const currency = document.getElementById('currencySymbol').textContent;
+                document.getElementById('discountAmount').textContent = `-${currency} ${discountAmount}`;
             } else {
-                messageDiv.innerHTML = `<span class="text-red-600">✗ Invalid discount code</span>`;
+                messageDiv.innerHTML = '<div style="color: var(--booking-red); margin-top: 8px; font-size: 14px;">✗ Invalid discount code</div>';
                 currentDiscount = 0;
-                updateTotal();
+                updatePriceDisplay();
                 document.getElementById('discountRow').style.display = 'none';
             }
         }
 
-        function updateTotal() {
+        function updatePriceDisplay() {
             const newTotal = baseTotal - currentDiscount;
-            document.getElementById('totalAmount').textContent = `ZAR ${newTotal}`;
+            const currency = document.getElementById('currencySymbol').textContent;
+            document.getElementById('totalAmount').textContent = `${currency} ${newTotal}`;
             updateQRAmount();
         }
 
@@ -350,35 +1067,63 @@
         }
 
         function processPayment() {
-            // Simulate payment processing
-            setTimeout(() => {
-                document.getElementById('successModal').style.display = 'flex';
-            }, 1000);
-        }
+            // Validate form
+            const termsAccepted = document.getElementById('termsAccepted').checked;
+            if (!termsAccepted) {
+                alert('Please accept the Terms & Conditions to continue.');
+                return;
+            }
 
-        function redirectToPaystack() {
-            alert('Redirecting to Paystack payment gateway...');
-            // In real implementation, this would redirect to Paystack
+            // Simulate payment processing
+            const button = document.querySelector('.complete-payment-btn');
+            button.disabled = true;
+            button.textContent = 'Processing payment...';
+            
             setTimeout(() => {
+                // Save booking data to global state
+                if (window.globalState) {
+                    const bookingData = {
+                        bookingId: 'BK' + Date.now(),
+                        status: 'confirmed',
+                        paymentMethod: 'card',
+                        totalAmount: baseTotal - currentDiscount,
+                        currency: document.getElementById('currencyDisplay').textContent,
+                        bookingDate: new Date().toISOString()
+                    };
+                    window.globalState.setBookingData(bookingData);
+                }
+                
                 document.getElementById('successModal').style.display = 'flex';
+                button.disabled = false;
+                button.textContent = 'Complete booking';
             }, 2000);
         }
 
-        function initiateGooglePay() {
-            alert('Initiating Google Pay...');
-            // In real implementation, this would trigger Google Pay API
+        function redirectToPaystack() {
+            // Simulate Paystack redirect
+            alert('Redirecting to Paystack payment gateway...');
             setTimeout(() => {
                 document.getElementById('successModal').style.display = 'flex';
             }, 1500);
         }
 
+        function initiateGooglePay() {
+            // Simulate Google Pay
+            alert('Initiating Google Pay...');
+            setTimeout(() => {
+                document.getElementById('successModal').style.display = 'flex';
+            }, 1000);
+        }
+
         function downloadTicket() {
-            alert('Downloading your ticket... (In the full app, this would download a PDF ticket)');
+            // Simulate ticket download
+            alert('Downloading your e-ticket... (In a real app, this would download a PDF)');
+            window.location.href = 'ticket-confirmation.html';
         }
 
         function goToBookings() {
-            alert('Redirecting to My Bookings page...');
-            window.location.href = 'index.html';
+            // Navigate to bookings page
+            window.location.href = 'index.html#bookings';
         }
 
         function goHome() {
