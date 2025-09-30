@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Confirmation — Booking.com International</title>
+<link rel="stylesheet" href="css/booking.css">
+<style>
+body { font-family:'Segoe UI', sans-serif; background:#f5f7fa; margin:0; padding:0; color:#1a1a1a;}
+.main-container { max-width:1000px; margin:24px auto; padding:0 16px;}
+.card { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(0,0,0,0.05);}
+.card h2 { margin:0 0 8px 0; font-size:22px; font-weight:700;}
+.card p { margin:4px 0;}
+.detail-row { display:flex; justify-content:space-between; margin:8px 0; font-size:14px; color:#1a1a1a;}
+.select-btn { width:100%; background:linear-gradient(135deg,#0071c2 0%,#005999 100%); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer; font-size:16px; margin-top:16px; transition:all 0.3s ease;}
+.select-btn:hover { background:linear-gradient(135deg,#005999 0%,#004080 100%); transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,113,194,0.3);}
+.section-title { font-weight:700; font-size:18px; margin-top:16px; margin-bottom:8px;}
+</style>
+</head>
+<body>
+<div class="main-container">
+
+  <a href="flights.html" style="display:inline-block; margin-bottom:16px;">&larr; Back to search</a>
+
+  <div class="card">
+    <h2>Flight Summary</h2>
+    <div class="detail-row"><span>From:</span><span id="from"></span></div>
+    <div class="detail-row"><span>To:</span><span id="to"></span></div>
+    <div class="detail-row"><span>Airline:</span><span id="airline"></span></div>
+    <div class="detail-row"><span>Departure:</span><span id="departure"></span></div>
+    <div class="detail-row"><span>Arrival:</span><span id="arrival"></span></div>
+    <div class="detail-row"><span>Duration:</span><span id="duration"></span></div>
+    <div class="detail-row"><span>Stops:</span><span id="stops"></span></div>
+    <div class="detail-row"><span>Cabin:</span><span id="cabin"></span></div>
+    <div class="detail-row" style="font-weight:800; font-size:18px;"><span>Total Price:</span><span id="price"></span></div>
+  </div>
+
+  <div class="card">
+    <h2 class="section-title">Passenger Details</h2>
+    <form id="passenger-form">
+      <div class="detail-row"><label>Full Name:</label><input type="text" id="fullName" required></div>
+      <div class="detail-row"><label>Email:</label><input type="email" id="email" required></div>
+      <div class="detail-row"><label>Phone:</label><input type="tel" id="phone" required></div>
+      <button type="submit" class="select-btn">Proceed to Payment</button>
+    </form>
+  </div>
+
+</div>
+
+<script>
+// Dummy flight data (for demo)
+const selectedFlight = {
+  from:"Cape Town",
+  to:"London",
+  airline:"British Airways",
+  departure:"2025-10-10 22:00",
+  arrival:"2025-10-11 10:00",
+  duration:"12h",
+  stops:1,
+  cabin:"Economy",
+  price:423
+};
+
+// Populate flight summary
+document.getElementById('from').textContent = selectedFlight.from;
+document.getElementById('to').textContent = selectedFlight.to;
+document.getElementById('airline').textContent = selectedFlight.airline;
+document.getElementById('departure').textContent = selectedFlight.departure;
+document.getElementById('arrival').textContent = selectedFlight.arrival;
+document.getElementById('duration').textContent = selectedFlight.duration;
+document.getElementById('stops').textContent = selectedFlight.stops;
+document.getElementById('cabin').textContent = selectedFlight.cabin;
+document.getElementById('price').textContent = `ZAR ${selectedFlight.price.toLocaleString()}`;
+
+// Form submit placeholder
+document.getElementById('passenger-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  alert('Passenger details submitted. Proceeding to payment...');
+  // here you can redirect to payment page or integrate payment system
+});
+</script>
+
+</body>
+</html>
