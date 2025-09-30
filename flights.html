@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flights — International Booking</title>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/flights.css">
+<title>International Booking — Flights</title>
+<link rel="stylesheet" href="flights.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 <header class="header">
-  <div class="container">
+  <div class="container header-container">
     <div class="logo">International Booking</div>
-    <nav>
+    <nav class="header-nav">
       <a href="#">Sign in</a>
       <a href="#">Register</a>
     </nav>
@@ -20,24 +20,29 @@
 
 <main class="container">
   <section class="search-summary">
-    <h2>CPT → JNB</h2>
-    <p>Mon 30 Sep – Tue 01 Oct | 1 adult, Economy</p>
+    <div class="search-info">
+      <strong>CPT → JNB</strong>
+      <span>Mon 30 Sep – Tue 01 Oct | 1 adult, Economy</span>
+    </div>
     <button class="change-search">Change search</button>
   </section>
 
   <section class="filters">
-    <div class="stops-filter">
-      <label><input type="checkbox" value="0" checked> Non-stop</label>
-      <label><input type="checkbox" value="1"> 1 Stop</label>
-      <label><input type="checkbox" value="2"> 2+ Stops</label>
+    <div class="filter-group">
+      <h4>Stops</h4>
+      <label><input type="checkbox" class="stops-filter" value="0"> Non-stop</label>
+      <label><input type="checkbox" class="stops-filter" value="1"> 1 Stop</label>
+      <label><input type="checkbox" class="stops-filter" value="2"> 2+ Stops</label>
     </div>
-    <div class="airline-filter">
-      <label><input type="checkbox" value="South African Airways" checked> South African Airways</label>
-      <label><input type="checkbox" value="Emirates" checked> Emirates</label>
-      <label><input type="checkbox" value="British Airways" checked> British Airways</label>
+    <div class="filter-group">
+      <h4>Airlines</h4>
+      <label><input type="checkbox" class="airline-filter" value="South African Airways"> South African Airways</label>
+      <label><input type="checkbox" class="airline-filter" value="Emirates"> Emirates</label>
+      <label><input type="checkbox" class="airline-filter" value="British Airways"> British Airways</label>
     </div>
-    <div class="sort">
-      Sort by: <select id="sort">
+    <div class="filter-group">
+      <h4>Sort by</h4>
+      <select id="sort">
         <option value="price">Price</option>
         <option value="duration">Duration</option>
         <option value="departure">Departure</option>
@@ -46,16 +51,16 @@
   </section>
 
   <section class="flights-results">
-    <!-- flight cards dynamically inserted here -->
+    <!-- Flight cards dynamically inserted here -->
   </section>
 </main>
 
 <footer>
-  <div class="container">
+  <div class="container footer-container">
     <p>© 2025 International Booking</p>
   </div>
 </footer>
 
-<script src="js/flights.js"></script>
+<script src="flights.js"></script>
 </body>
 </html>
