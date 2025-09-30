@@ -1,0 +1,123 @@
+/* Global */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  color: #222;
+  background: #f6f7f9;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Header */
+.header {
+  background: #003580;
+  color: #fff;
+  padding: 16px 0;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-nav a {
+  color: #fff;
+  margin-left: 16px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.logo {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+/* Search summary */
+.search-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0;
+  background: #fff;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+.search-info strong {
+  font-size: 16px;
+}
+.change-search {
+  background: #0071c2;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filter-group h4 {
+  margin: 0 0 4px 0;
+}
+.filter-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+#sort {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Flight Cards */
+.flight-card {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  align-items: center;
+}
+.flight-info {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.flight-info img {
+  width: 60px;
+  height: auto;
+}
+.flight-route {
+  font-weight: 600;
+}
+.flight-duration, .flight-stops, .flight-price {
+  font-size: 14px;
+}
+.flight-price {
+  font-weight: 700;
+}
+.select-flight {
+  background: #0071c2;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  background: #003580;
+  color: #fff;
+  text-align: center;
+  padding: 16px 0;
+  margin-top: 32px;
+}
