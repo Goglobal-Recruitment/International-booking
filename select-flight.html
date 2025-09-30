@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Flight — Booking.com International</title>
+<link rel="stylesheet" href="css/booking.css">
+<style>
+/* Flight detail card styling */
+.flight-detail-card {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  font-family: 'Segoe UI', sans-serif;
+}
+.flight-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap:16px; }
+.flight-header h2 { margin:0; font-size:22px; font-weight:700; }
+.flight-meta { color:#6b6b6b; font-size:14px; }
+.cabin-options { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:24px; }
+.cabin-option { border:2px solid #e2e8f0; border-radius:12px; padding:16px; transition:all 0.3s ease; cursor:pointer; background:#fff; }
+.cabin-option:hover { border-color:#0071c2; box-shadow:0 6px 20px rgba(0,113,194,0.15); transform:translateY(-2px);}
+.cabin-option.unavailable { opacity:0.6; cursor:not-allowed; background:#f8fafc;}
+.cabin-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.cabin-name { font-weight:700; color:#1a1a1a; font-size:16px; }
+.cabin-price { font-weight:700; color:#0071c2; font-size:16px; }
+.select-btn { width:100%; background:linear-gradient(135deg,#0071c2 0%,#005999 100%); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer; font-size:14px; margin-top:10px; transition:all 0.3s ease;}
+.select-btn:hover { background:linear-gradient(135deg,#005999 0%,#004080 100%); transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,113,194,0.3);}
+.detail-row { display:flex; justify-content:space-between; margin:8px 0; font-size:14px; color:#1a1a1a;}
+</style>
+</head>
+<body>
+<header>
+  <img src="img/booking-logo.png" alt="Booking.com Logo" class="logo">
+</header>
+
+<main class="main-container">
+  <a href="flights.html" style="display:block;margin:16px 0;color:#0071c2;">&larr; Back to search</a>
+  <div class="flight-detail-card" id="flightCard">
+    <div class="flight-header">
+      <div>
+        <h2 id="route"></h2>
+        <div class="flight-meta" id="airlineLine"></div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-weight:800;font-size:20px" id="price"></div>
+        <div class="flight-meta">per passenger</div>
+      </div>
+    </div>
+
+    <div id="details" style="margin-top:16px;"></div>
+
+    <h3 style="margin-top:24px">Choose Cabin</h3>
+    <div class="cabin-options" id="cabinOptions"></div>
+  </div>
+</main>
+
+<script>
+(function(){
+  // get flight id from URL
+  function qs(key){ return new URLSearchParams(location.search).get(key); }
+  const fid = qs('flight');
+  const STORAGE_KEY = 'booking_mirror_flights';
+  const flights = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const flight = flights.find(f=>f.id===fid);
+
+  if(!flight){
+    document.getElementById('flightCard').innerHTML = '<p style="color:#666;text-align:center;">Flight not found. Go back to search.</p>';
+    return;
+  }
+
+  // Display route & airline
+  document.getElementById('route').textContent = `${flight.from} → ${flight.to}`;
+  document.getElementById('airlineLine').textContent = `${flight.airline} • ${flight.stops===0?"Non-stop":flight.stops+" Stop(s)"} • ${flight.duration}`;
+  document.getElementById('price').textContent = 'ZAR ' + flight.price.toLocaleString();
+
+  // Flight details
+  const details = document.getElementById('details');
+  details.innerHTML = `
+    <div class="detail-row"><div><strong>Departure</strong></div><div>${new Date(flight.departISO).toLocaleString()}</div></div>
+    <div class="detail-row"><div><strong>Arrival</strong></div><div>${new Date(flight.arriveISO).toLocaleString()}</div></div>
+    <div class="detail-row"><div><strong>Baggage</strong></div><div>${flight.baggage||"20kg"} </div></div>
+    <div class="detail-row"><div><strong>Duration</strong></div><div>${flight.duration}</div></div>
+  `;
+
+  // Cabin options
+  const cabinContainer = document.getElementById('cabinOptions');
+  flight.cabinOptions.forEach(cabin=>{
+    const div = document.createElement('div');
+    div.className = 'cabin-option';
+    div.innerHTML = `
+      <div class="cabin-header">
+        <div class="cabin-name">${cabin}</div>
+        <div class="cabin-price">ZAR ${flight.price + (cabin==="Business"?200: cabin==="First"?500:0)}</div>
+      </div>
+      <button class="select-btn">Select</button>
+    `;
+    // unavailable example: First not available
+    if(cabin==="First" && flight.cabinOptions.length<3) div.classList.add('unavailable');
+
+    div.querySelector('.select-btn').addEventListener('click', ()=>{
+      if(div.classList.contains('unavailable')) return;
+      // store selected flight + cabin for booking page
+      const bookingData = { ...flight, selectedCabin:cabin };
+      localStorage.setItem('booking_mirror_selected', JSON.stringify(bookingData));
+      window.location.href = "booking-confirmation.html";
+    });
+
+    cabinContainer.appendChild(div);
+  });
+})();
+</script>
+</body>
+</html>
