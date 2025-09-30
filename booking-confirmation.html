@@ -3,82 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Booking Confirmation — Booking.com International</title>
-<link rel="stylesheet" href="css/booking.css">
+<title>Booking Confirmation — Booking.com Clone</title>
+<link rel="stylesheet" href="css/confirmation.css">
 <style>
-body { font-family:'Segoe UI', sans-serif; background:#f5f7fa; margin:0; padding:0; color:#1a1a1a;}
-.main-container { max-width:1000px; margin:24px auto; padding:0 16px;}
-.card { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(0,0,0,0.05);}
-.card h2 { margin:0 0 8px 0; font-size:22px; font-weight:700;}
-.card p { margin:4px 0;}
-.detail-row { display:flex; justify-content:space-between; margin:8px 0; font-size:14px; color:#1a1a1a;}
-.select-btn { width:100%; background:linear-gradient(135deg,#0071c2 0%,#005999 100%); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer; font-size:16px; margin-top:16px; transition:all 0.3s ease;}
-.select-btn:hover { background:linear-gradient(135deg,#005999 0%,#004080 100%); transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,113,194,0.3);}
-.section-title { font-weight:700; font-size:18px; margin-top:16px; margin-bottom:8px;}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;background:#f5f5f5;color:#222}
+.container{max-width:1000px;margin:24px auto;padding:16px;background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.header h2{margin:0;font-size:24px;}
+.flight-info{border:1px solid #eef2f6;border-radius:8px;padding:16px;margin-bottom:16px;background:#fafafa;}
+.flight-info h3{margin-top:0;}
+.detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eee;}
+.detail-row:last-child{border-bottom:none;}
+.seats{margin-top:8px;}
+.total{font-size:20px;font-weight:700;text-align:right;margin-top:16px;}
+.actions{text-align:right;margin-top:24px;}
+.actions button{padding:12px 20px;border:none;border-radius:6px;background:#f5a623;color:#fff;font-weight:700;cursor:pointer;}
 </style>
 </head>
 <body>
-<div class="main-container">
-
-  <a href="flights.html" style="display:inline-block; margin-bottom:16px;">&larr; Back to search</a>
-
-  <div class="card">
-    <h2>Flight Summary</h2>
-    <div class="detail-row"><span>From:</span><span id="from"></span></div>
-    <div class="detail-row"><span>To:</span><span id="to"></span></div>
-    <div class="detail-row"><span>Airline:</span><span id="airline"></span></div>
-    <div class="detail-row"><span>Departure:</span><span id="departure"></span></div>
-    <div class="detail-row"><span>Arrival:</span><span id="arrival"></span></div>
-    <div class="detail-row"><span>Duration:</span><span id="duration"></span></div>
-    <div class="detail-row"><span>Stops:</span><span id="stops"></span></div>
-    <div class="detail-row"><span>Cabin:</span><span id="cabin"></span></div>
-    <div class="detail-row" style="font-weight:800; font-size:18px;"><span>Total Price:</span><span id="price"></span></div>
+<div class="container">
+  <div class="header">
+    <h2>Booking Confirmation</h2>
+    <a href="flights.html">&larr; Back to search</a>
   </div>
 
-  <div class="card">
-    <h2 class="section-title">Passenger Details</h2>
-    <form id="passenger-form">
-      <div class="detail-row"><label>Full Name:</label><input type="text" id="fullName" required></div>
-      <div class="detail-row"><label>Email:</label><input type="email" id="email" required></div>
-      <div class="detail-row"><label>Phone:</label><input type="tel" id="phone" required></div>
-      <button type="submit" class="select-btn">Proceed to Payment</button>
-    </form>
+  <div id="confirmation" class="flight-info">
+    <!-- Flight details will be injected here -->
   </div>
 
+  <div class="total" id="totalPrice"></div>
+
+  <div class="actions">
+    <button id="proceedPayment">Proceed to Payment</button>
+  </div>
 </div>
 
 <script>
-// Dummy flight data (for demo)
-const selectedFlight = {
-  from:"Cape Town",
-  to:"London",
-  airline:"British Airways",
-  departure:"2025-10-10 22:00",
-  arrival:"2025-10-11 10:00",
-  duration:"12h",
-  stops:1,
-  cabin:"Economy",
-  price:423
-};
+// Load flight
+const flight = JSON.parse(localStorage.getItem("selectedFlight"));
+if(!flight){
+  alert("No flight selected! Redirecting to search.");
+  window.location.href="flights.html";
+}
 
-// Populate flight summary
-document.getElementById('from').textContent = selectedFlight.from;
-document.getElementById('to').textContent = selectedFlight.to;
-document.getElementById('airline').textContent = selectedFlight.airline;
-document.getElementById('departure').textContent = selectedFlight.departure;
-document.getElementById('arrival').textContent = selectedFlight.arrival;
-document.getElementById('duration').textContent = selectedFlight.duration;
-document.getElementById('stops').textContent = selectedFlight.stops;
-document.getElementById('cabin').textContent = selectedFlight.cabin;
-document.getElementById('price').textContent = `ZAR ${selectedFlight.price.toLocaleString()}`;
+const confirmationEl = document.getElementById("confirmation");
 
-// Form submit placeholder
-document.getElementById('passenger-form').addEventListener('submit', function(e){
-  e.preventDefault();
-  alert('Passenger details submitted. Proceeding to payment...');
-  // here you can redirect to payment page or integrate payment system
+// Flight info
+confirmationEl.innerHTML = `
+  <h3>${flight.from} → ${flight.to}</h3>
+  <div class="detail-row"><strong>Airline:</strong><span>${flight.airline}</span></div>
+  <div class="detail-row"><strong>Departure:</strong><span>${flight.departure}</span></div>
+  <div class="detail-row"><strong>Arrival:</strong><span>${flight.arrival}</span></div>
+  <div class="detail-row"><strong>Duration:</strong><span>${flight.duration}</span></div>
+  <div class="detail-row"><strong>Stops:</strong><span>${flight.stops}</span></div>
+  <div class="detail-row"><strong>Baggage:</strong><span>${flight.baggage||'Included'}</span></div>
+  <div class="detail-row"><strong>Cabin:</strong><span>${flight.cabin||'Economy'}</span></div>
+  <div class="detail-row"><strong>Seats:</strong><span class="seats">${flight.selectedSeats.join(", ")}</span></div>
+`;
+
+// Total price
+const totalPriceEl = document.getElementById("totalPrice");
+const total = flight.price * (flight.selectedSeats.length || 1);
+totalPriceEl.textContent = `Total: ZAR ${total.toLocaleString()}`;
+
+// Proceed to payment
+document.getElementById("proceedPayment").addEventListener("click",()=>{
+  alert("Payment integration pending. You can now link to your payment gateway.");
+  // Example: window.location.href = "payment.html";
 });
 </script>
-
 </body>
 </html>
