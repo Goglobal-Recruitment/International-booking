@@ -1,114 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flights - Booking.com Clone</title>
-<link rel="stylesheet" href="flights.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-<!-- Header / Navigation -->
-<header class="header">
-    <div class="container">
-        <div class="logo">Booking.com</div>
-        <nav class="nav">
-            <ul>
-                <li><a href="#">Stays</a></li>
-                <li><a href="#">Flights</a></li>
-                <li><a href="#">Car Rentals</a></li>
-                <li><a href="#">Attractions</a></li>
-                <li><a href="#">Airport Taxis</a></li>
-            </ul>
-        </nav>
-        <div class="auth-buttons">
-            <button class="login">Sign in</button>
-            <button class="signup">Register</button>
-        </div>
-    </div>
-</header>
+// Realistic dummy flight data
+const flightData = [
+    {from:"Cape Town", to:"Johannesburg", airline:"South African Airways", stops:0, departure:"08:00", arrival:"10:00", duration:"2h", price:193, logo:"https://content.airlinelogos.com/airlines/saa.png"},
+    {from:"Cape Town", to:"Durban", airline:"Emirates", stops:1, departure:"09:00", arrival:"11:45", duration:"2h 45m", price:183, logo:"https://content.airlinelogos.com/airlines/emirates.png"},
+    {from:"Cape Town", to:"Port Elizabeth", airline:"British Airways", stops:0, departure:"07:30", arrival:"09:15", duration:"1h 45m", price:236, logo:"https://content.airlinelogos.com/airlines/ba.png"},
+    {from:"Cape Town", to:"London", airline:"British Airways", stops:1, departure:"22:00", arrival:"10:00+1", duration:"12h", price:423, logo:"https://content.airlinelogos.com/airlines/ba.png"},
+    {from:"Cape Town", to:"New York", airline:"Emirates", stops:1, departure:"20:00", arrival:"06:00+1", duration:"15h", price:845, logo:"https://content.airlinelogos.com/airlines/emirates.png"},
+    {from:"Cape Town", to:"Dubai", airline:"Emirates", stops:0, departure:"16:00", arrival:"00:00+1", duration:"8h", price:503, logo:"https://content.airlinelogos.com/airlines/emirates.png"}
+];
 
-<!-- Flight Search Form -->
-<section class="search-form">
-    <div class="container">
-        <form id="flight-search">
-            <div class="input-group">
-                <label>From</label>
-                <input type="text" id="from" placeholder="City or airport" required>
+// Populate flights
+function displayFlights(data){
+    const container = document.querySelector(".flights-results");
+    container.innerHTML = "";
+    data.forEach(flight=>{
+        const card = document.createElement("div");
+        card.className = "flight-card";
+        card.innerHTML = `
+            <div class="flight-info">
+                <img src="${flight.logo}" alt="${flight.airline}">
+                <div>${flight.airline}</div>
+                <div class="flight-times">${flight.departure} - ${flight.arrival}</div>
+                <div class="flight-duration">${flight.duration} | ${flight.stops} stops</div>
             </div>
-            <div class="input-group">
-                <label>To</label>
-                <input type="text" id="to" placeholder="City or airport" required>
-            </div>
-            <div class="input-group">
-                <label>Departure</label>
-                <input type="date" id="departure" required>
-            </div>
-            <div class="input-group">
-                <label>Return</label>
-                <input type="date" id="return" required>
-            </div>
-            <div class="input-group">
-                <label>Passengers</label>
-                <select id="passengers">
-                    <option value="1">1 adult</option>
-                    <option value="2">2 adults</option>
-                    <option value="3">3 adults</option>
-                    <option value="4">4 adults</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Cabin class</label>
-                <select id="cabin">
-                    <option value="economy">Economy</option>
-                    <option value="business">Business</option>
-                    <option value="first">First</option>
-                </select>
-            </div>
-            <button type="submit" class="search-btn">Search Flights</button>
-        </form>
-    </div>
-</section>
+            <div class="flight-price">$${flight.price}</div>
+            <button class="select-btn">Select</button>
+        `;
+        container.appendChild(card);
+    });
+}
 
-<!-- Filters Panel -->
-<aside class="filters">
-    <h3>Filters</h3>
-    <div class="filter-group">
-        <label><input type="checkbox" class="stops-filter" value="0"> Non-stop</label>
-        <label><input type="checkbox" class="stops-filter" value="1"> 1 Stop</label>
-        <label><input type="checkbox" class="stops-filter" value="2"> 2+ Stops</label>
-    </div>
-    <div class="filter-group">
-        <label>Airline</label>
-        <label><input type="checkbox" class="airline-filter" value="South African"> South African Airways</label>
-        <label><input type="checkbox" class="airline-filter" value="Emirates"> Emirates</label>
-        <label><input type="checkbox" class="airline-filter" value="British Airways"> British Airways</label>
-    </div>
-    <div class="filter-group">
-        <label>Departure Time</label>
-        <input type="time" id="departure-start">
-        <input type="time" id="departure-end">
-    </div>
-    <div class="filter-group">
-        <label>Arrival Time</label>
-        <input type="time" id="arrival-start">
-        <input type="time" id="arrival-end">
-    </div>
-    <div class="filter-group">
-        <label>Sort by</label>
-        <select id="sort">
-            <option value="price">Price</option>
-            <option value="duration">Duration</option>
-            <option value="departure">Departure Time</option>
-        </select>
-    </div>
-</aside>
+// Initial display
+displayFlights(flightData);
 
-<!-- Flights Results -->
-<main class="flights-results container">
-    <!-- Flight cards populated by JS -->
-</main>
+// Filters
+document.querySelectorAll(".stops-filter, .airline-filter").forEach(input=>{
+    input.addEventListener("change",()=>{
+        let filtered = flightData.slice();
+        const stopsChecked = Array.from(document.querySelectorAll(".stops-filter:checked")).map(i=>parseInt(i.value));
+        if(stopsChecked.length>0){
+            filtered = filtered.filter(f=>stopsChecked.includes(f.stops));
+        }
+        const airlineChecked = Array.from(document.querySelectorAll(".airline-filter:checked")).map(i=>i.value);
+        if(airlineChecked.length>0){
+            filtered = filtered.filter(f=>airlineChecked.includes(f.airline));
+        }
+        displayFlights(filtered);
+    });
+});
 
-<script src="flights.js"></script>
-</body>
-</html>
+// Sort
+document.getElementById("sort").addEventListener("change", (e)=>{
+    let sorted = flightData.slice();
+    if(e.target.value==="price") sorted.sort((a,b)=>a.price-b.price);
+    if(e.target.value==="duration") sorted.sort((a,b)=>{
+        const dA = parseInt(a.duration);
+        const dB = parseInt(b.duration);
+        return dA-dB;
+    });
+    if(e.target.value==="departure") sorted.sort((a,b)=>a.departure.localeCompare(b.departure));
+    displayFlights(sorted);
+});
+
+// Search
+document.getElementById("flight-search").addEventListener("submit", e=>{
+    e.preventDefault();
+    const from = document.getElementById("from").value.toLowerCase();
+    const to = document.getElementById("to").value.toLowerCase();
+    const filtered = flightData.filter(f=>f.from.toLowerCase().includes(from) && f.to.toLowerCase().includes(to));
+    displayFlights(filtered);
+});
