@@ -3,101 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flights — Booking.com Clone</title>
+<title>International Booking — Flights</title>
 <link rel="stylesheet" href="css/flights.css">
 </head>
 <body>
 <header class="header">
-  <div class="container">
-    <div class="logo">Booking.com</div>
-    <nav class="nav">
-      <ul>
-        <li><a href="#">Stays</a></li>
-        <li><a href="#">Flights</a></li>
-        <li><a href="#">Car Rentals</a></li>
-        <li><a href="#">Attractions</a></li>
-        <li><a href="#">Airport Taxis</a></li>
-      </ul>
+  <div class="nav-container">
+    <a href="index.html" class="logo">International Booking</a>
+    <nav>
+      <a href="#">Sign in</a>
+      <a href="#">Register</a>
     </nav>
-    <div class="auth-buttons">
-      <button class="login">Sign in</button>
-      <button class="signup">Register</button>
-    </div>
   </div>
 </header>
 
-<main class="container">
-  <!-- Flight Search Form -->
-  <section class="search-form">
-    <form id="flight-search">
-      <div class="form-row">
-        <div class="field">
-          <label>From</label>
-          <input type="text" id="from" placeholder="City or airport" required>
-        </div>
-        <div class="field">
-          <label>To</label>
-          <input type="text" id="to" placeholder="City or airport" required>
-        </div>
-        <div class="field">
-          <label>Departure</label>
-          <input type="date" id="departure" required>
-        </div>
-        <div class="field">
-          <label>Return</label>
-          <input type="date" id="return">
-        </div>
-        <div class="field">
-          <label>Passengers</label>
-          <select id="passengers">
-            <option value="1">1 adult</option>
-            <option value="2">2 adults</option>
-            <option value="3">3 adults</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Class</label>
-          <select id="cabin">
-            <option value="economy">Economy</option>
-            <option value="business">Business</option>
-            <option value="first">First</option>
-          </select>
-        </div>
+<div class="container">
+  <section class="search-summary">
+    <div class="summary-content">
+      <div class="route-info">
+        <span class="airport-code">CPT</span>
+        <span class="route-arrow">→</span>
+        <span class="airport-code">JNB</span>
       </div>
-      <div class="form-row">
-        <label><input type="checkbox" id="direct"> Direct flights only</label>
-        <button type="submit" class="primary">Search</button>
+      <div class="trip-details">
+        <span>Mon 30 Sep – Tue 01 Oct</span>
+        <span class="separator">|</span>
+        <span>1 adult, Economy</span>
       </div>
-    </form>
+      <button class="change-search">Change search</button>
+    </div>
   </section>
 
-  <!-- Filters -->
-  <aside class="filters">
-    <h3>Filters</h3>
-    <div class="filter-group">
-      <label><input type="checkbox" class="stops-filter" value="0"> Non-stop</label>
-      <label><input type="checkbox" class="stops-filter" value="1"> 1 Stop</label>
-      <label><input type="checkbox" class="stops-filter" value="2"> 2+ Stops</label>
-    </div>
-    <div class="filter-group">
-      <label>Airline</label>
-      <label><input type="checkbox" class="airline-filter" value="South African Airways"> South African Airways</label>
-      <label><input type="checkbox" class="airline-filter" value="Emirates"> Emirates</label>
-      <label><input type="checkbox" class="airline-filter" value="British Airways"> British Airways</label>
-    </div>
-    <div class="filter-group">
-      <label>Sort by</label>
-      <select id="sort">
-        <option value="price">Price</option>
-        <option value="duration">Duration</option>
-        <option value="departure">Departure Time</option>
-      </select>
-    </div>
-  </aside>
+  <section class="flight-selection">
+    <div class="selection-content">
+      <!-- Filters Sidebar -->
+      <aside class="filters-sidebar">
+        <div class="filter-section">
+          <h4>Stops</h4>
+          <label><input type="checkbox" class="stops-filter" value="0"> Non-stop</label>
+          <label><input type="checkbox" class="stops-filter" value="1"> 1 Stop</label>
+          <label><input type="checkbox" class="stops-filter" value="2"> 2+ Stops</label>
+        </div>
+        <div class="filter-section">
+          <h4>Airlines</h4>
+          <label><input type="checkbox" class="airline-filter" value="South African Airways"> South African Airways</label>
+          <label><input type="checkbox" class="airline-filter" value="Emirates"> Emirates</label>
+          <label><input type="checkbox" class="airline-filter" value="British Airways"> British Airways</label>
+        </div>
+        <div class="filter-section">
+          <h4>Price Range</h4>
+          <input type="range" min="100" max="1000" id="price-slider">
+          <div class="price-labels">
+            <span>ZAR 100</span>
+            <span>ZAR 1000</span>
+          </div>
+        </div>
+        <div class="filter-section">
+          <h4>Sort by</h4>
+          <select id="sort">
+            <option value="">Default</option>
+            <option value="price">Price</option>
+            <option value="duration">Duration</option>
+            <option value="departure">Departure</option>
+          </select>
+        </div>
+      </aside>
 
-  <!-- Flights Results -->
-  <section class="flights-results"></section>
-</main>
+      <!-- Flight Results -->
+      <div class="flights-list">
+        <!-- Flight cards will populate via JS -->
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="nav-container">
+    <p>&copy; 2025 International Booking</p>
+  </div>
+</footer>
 
 <script src="js/flights.js"></script>
 </body>
