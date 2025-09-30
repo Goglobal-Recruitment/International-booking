@@ -1,89 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flights — Booking.com International</title>
-<link rel="stylesheet" href="css/booking.css">
-</head>
-<body>
-<header>
-  <img src="img/booking-logo.png" alt="Booking.com Logo" class="logo">
-  <nav class="nav-links">
-    <a href="#">Register</a>
-    <a href="#">Sign in</a>
-  </nav>
-</header>
+// Dummy international flights
+const flights = [
+  {from:"Cape Town", to:"London", airline:"British Airways", stops:1, depart:"22:00", arrive:"10:00+1", duration:"12h", price:423, logo:"https://content.airlinelogos.com/airlines/ba.png"},
+  {from:"Johannesburg", to:"New York", airline:"Emirates", stops:1, depart:"20:00", arrive:"06:00+1", duration:"15h", price:845, logo:"https://content.airlinelogos.com/airlines/emirates.png"},
+  {from:"Cape Town", to:"Dubai", airline:"Emirates", stops:0, depart:"16:00", arrive:"00:00+1", duration:"8h", price:503, logo:"https://content.airlinelogos.com/airlines/emirates.png"},
+  {from:"Durban", to:"London", airline:"British Airways", stops:1, depart:"21:00", arrive:"09:00+1", duration:"12h", price:436, logo:"https://content.airlinelogos.com/airlines/ba.png"},
+  {from:"Cape Town", to:"New York", airline:"Emirates", stops:1, depart:"19:00", arrive:"05:00+1", duration:"15h", price:862, logo:"https://content.airlinelogos.com/airlines/emirates.png"}
+];
 
-<main class="main-container">
-  <div class="tabs">
-    <button class="tab active" data-type="roundtrip">Round Trip</button>
-    <button class="tab" data-type="oneway">One Way</button>
-    <button class="tab" data-type="multicity">Multi-City</button>
-  </div>
+const resultsContainer = document.getElementById('results');
 
-  <form id="flight-search-form">
-    <div class="form-row">
-      <div class="field">
-        <label for="from">Leaving from</label>
-        <input id="from" name="from" placeholder="City or airport" autocomplete="off">
+// Render flights
+function renderFlights(data) {
+  resultsContainer.innerHTML = '';
+  data.forEach(f => {
+    const card = document.createElement('div');
+    card.className = 'flight-card';
+    card.innerHTML = `
+      <div class="flight-header">
+        <img src="${f.logo}" alt="${f.airline}" class="airline-logo">
+        <div class="airline-details">
+          <strong>${f.airline}</strong>
+          <small>${f.stops===0 ? "Non-stop" : f.stops + " Stop(s)"}</small>
+        </div>
+        <div class="flight-times">
+          <span>${f.depart} → ${f.arrive}</span>
+          <span>${f.duration}</span>
+        </div>
+        <div class="flight-price">
+          <span>$${f.price}</span>
+        </div>
       </div>
-      <div class="field">
-        <label for="to">Going to</label>
-        <input id="to" name="to" placeholder="City or airport" autocomplete="off">
-      </div>
-      <div class="field">
-        <label for="depart">Depart</label>
-        <input id="depart" name="depart" type="date">
-      </div>
-      <div class="field return-field">
-        <label for="return">Return</label>
-        <input id="return" name="return" type="date">
-      </div>
-      <div class="field">
-        <label for="passengers">Passengers</label>
-        <select id="passengers">
-          <option value="1">1 adult</option>
-          <option value="2">2 adults</option>
-          <option value="3">3 adults</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="cabin">Class</label>
-        <select id="cabin">
-          <option>Economy</option>
-          <option>Business</option>
-          <option>First</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row">
-      <label><input type="checkbox" id="direct"> Direct flights only</label>
-      <button type="submit" class="primary">Search</button>
-    </div>
-  </form>
+      <button class="select-btn">Select</button>
+    `;
+    resultsContainer.appendChild(card);
+  });
+}
 
-  <div class="filters">
-    <button data-filter="all" class="filter active">All</button>
-    <button data-filter="direct" class="filter">Direct</button>
-    <button data-filter="1stop" class="filter">1 Stop</button>
-    <button data-filter="cheapest" class="filter">Cheapest</button>
-    <button data-filter="shortest" class="filter">Shortest</button>
-  </div>
+// Initial render
+renderFlights(flights);
 
-  <section id="results"></section>
-</main>
+// Search functionality
+document.getElementById('flight-search-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const from = document.getElementById('from').value.toLowerCase();
+  const to = document.getElementById('to').value.toLowerCase();
+  const directOnly = document.getElementById('direct').checked;
 
-<footer>
-  <img src="img/booking-logo.png" alt="Booking.com Logo">
-  <p>&copy; 2025 Booking.com™ International</p>
-</footer>
+  let filtered = flights.filter(f => f.from.toLowerCase().includes(from) && f.to.toLowerCase().includes(to));
+  if(directOnly) filtered = filtered.filter(f => f.stops === 0);
 
-<script src="js/booking.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  initFlightSearch();
+  renderFlights(filtered);
 });
-</script>
-</body>
-</html>
+
+// Filters buttons
+document.querySelectorAll('.filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const type = btn.dataset.filter;
+    document.querySelectorAll('.filter').forEach(f => f.classList.remove('active'));
+    btn.classList.add('active');
+
+    let filtered = flights.slice();
+    if(type === 'direct') filtered = flights.filter(f => f.stops === 0);
+    if(type === '1stop') filtered = flights.filter(f => f.stops === 1);
+    if(type === 'cheapest') filtered.sort((a,b)=>a.price-b.price);
+    if(type === 'shortest') filtered.sort((a,b)=>{
+      return parseInt(a.duration) - parseInt(b.duration);
+    });
+    renderFlights(filtered);
+  });
+});
