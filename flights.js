@@ -1,152 +1,164 @@
-/* flights.js — Node-free version
-   - Tries /International-booking/flights.json
-   - Falls back to demo data
-   - Reads override from localStorage key "gg_flights_override"
-   - Adds a "Reload data" button for quick testing in browser
-*/
+// flights.js — controls tabs, passenger dropdown + form behaviour (no Node, client only)
+(function(){
+  // Tab control: one-way / round / multi
+  const tabs = document.querySelectorAll('.tab');
+  const returnWrap = document.getElementById('returnWrap');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
+    t.classList.add('active'); t.setAttribute('aria-selected','true');
+    const type = t.dataset.type;
+    if(type === 'oneway') {
+      returnWrap.style.display = 'none';
+      document.getElementById('return').value = '';
+    } else {
+      returnWrap.style.display = '';
+    }
+    // you can add multi-city handler later
+  }));
 
-const dataUrl = 'International-booking/flights.json';
-const resultsList = document.getElementById('resultsList');
-const cardTemplate = document.getElementById('cardTemplate').content;
+  // Passenger dropdown logic
+  const paxBtn = document.getElementById('paxBtn');
+  const paxMenu = document.getElementById('paxMenu');
+  let paxState = { adults:1, children:0, infants:0, class: 'Business' };
+  const adultsCount = document.getElementById('adultsCount');
+  const childrenCount = document.getElementById('childrenCount');
+  const infantsCount = document.getElementById('infantsCount');
+  const adultsInput = document.getElementById('adultsInput');
+  const childrenInput = document.getElementById('childrenInput');
+  const infantsInput = document.getElementById('infantsInput');
+  const classInput = document.getElementById('classInput');
+  const cabinClass = document.getElementById('cabinClass');
 
-// Small helper - demo fallback data
-function demoFlights(){
-  const now = new Date();
-  return [...Array(8)].map((_,i)=>{
-    const dep = new Date(now.getTime()+ (i+1)*3600000*6);
-    const arr = new Date(dep.getTime()+3600000*10 + i*600000);
-    return {
-      id: 'GGL'+(1000+i),
-      airline: ['British Airways','Emirates','Cathay','Qatar Airways'][i%4],
-      depTime: dep.toISOString(),
-      arrTime: arr.toISOString(),
-      origin: i%2===0 ? 'JNB' : 'CPT',
-      originName: i%2===0 ? 'Johannesburg' : 'Cape Town',
-      dest: ['LHR','DXB','FRA','AMS'][i%4],
-      destName: ['London','Dubai','Frankfurt','Amsterdam'][i%4],
-      stops: i%2,
-      priceZAR: 125000 + i*2000,
-      durationMin: 10*60 + i*30
+  function updatePaxUI(){
+    adultsCount.textContent = paxState.adults;
+    childrenCount.textContent = paxState.children;
+    infantsCount.textContent = paxState.infants;
+    paxBtn.textContent = `${paxState.adults} adult${paxState.adults>1?'s':''}, ${paxState.class} ▾`;
+    adultsInput.value = paxState.adults;
+    childrenInput.value = paxState.children;
+    infantsInput.value = paxState.infants;
+    classInput.value = paxState.class;
+    cabinClass.value = paxState.class;
+  }
+
+  // Open/close menu
+  paxBtn.addEventListener('click', (e)=>{
+    const open = paxMenu.style.display === 'block';
+    paxMenu.style.display = open ? 'none' : 'block';
+    paxBtn.setAttribute('aria-expanded', String(!open));
+  });
+
+  // Counter buttons
+  paxMenu.addEventListener('click', (e)=>{
+    const btn = e.target.closest('button[data-action]');
+    if(!btn) return;
+    const action = btn.dataset.action;
+    const target = btn.dataset.target;
+    if(action === 'inc'){
+      if(target === 'adults'){ if(paxState.adults < 9) paxState.adults++; }
+      if(target === 'children'){ if(paxState.children < 8) paxState.children++; }
+      if(target === 'infants'){ if(paxState.infants < paxState.adults) paxState.infants++; }
+    } else if(action === 'dec'){
+      if(target === 'adults' && paxState.adults > 1) paxState.adults--;
+      if(target === 'children' && paxState.children > 0) paxState.children--;
+      if(target === 'infants' && paxState.infants > 0) paxState.infants--;
+    }
+    updatePaxUI();
+  });
+
+  // Cabin class change
+  cabinClass.addEventListener('change', (e)=>{
+    paxState.class = e.target.value;
+    updatePaxUI();
+  });
+
+  // Apply button
+  document.getElementById('paxApply').addEventListener('click', ()=>{
+    paxState.class = cabinClass.value;
+    updatePaxUI();
+    paxMenu.style.display = 'none';
+    paxBtn.setAttribute('aria-expanded','false');
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e)=>{
+    if(!e.target.closest('.pax-toggle')){
+      paxMenu.style.display = 'none';
+      paxBtn.setAttribute('aria-expanded','false');
     }
   });
-}
 
-function formatTime(iso){
-  const d = new Date(iso);
-  return d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-}
-
-function renderCards(flights){
-  resultsList.innerHTML = '';
-  if(!flights || flights.length===0){
-    resultsList.innerHTML = '<div style="padding:20px;background:#fff;border-radius:10px">No flights available.</div>';
-    return;
-  }
-  flights.forEach(f=>{
-    const node = document.importNode(cardTemplate, true);
-    const root = node.querySelector('.flight-card');
-    root.querySelector('.airline').textContent = f.airline || 'Unknown';
-    root.querySelector('.time-dep').textContent = formatTime(f.depTime);
-    root.querySelector('.time-arr').textContent = formatTime(f.arrTime);
-    const origin = f.originName || f.origin || '—';
-    const dest = f.destName || f.dest || '—';
-    root.querySelector('.route').textContent = `${origin} (${f.origin}) — ${dest} (${f.dest}) • ${Math.floor((f.durationMin||0)/60)}h ${(f.durationMin||0)%60}m`;
-    root.querySelector('.price').textContent = `ZAR ${Number(f.priceZAR||0).toLocaleString()}`;
-    const btn = root.querySelector('.select');
-    btn.addEventListener('click', ()=> {
-      const booking = {
-        id: f.id,
-        airline: f.airline,
-        price: f.priceZAR,
-        origin: f.origin,
-        originName: f.originName,
-        dest: f.dest,
-        destName: f.destName,
-        depTime: f.depTime,
-        arrTime: f.arrTime
-      };
-      sessionStorage.setItem('gg_booking', JSON.stringify(booking));
-      window.location = 'seat-selection.html';
+  // Keyboard improvements for datalist-like suggestion (basic)
+  const fromInput = document.getElementById('from');
+  const toInput = document.getElementById('to');
+  [fromInput,toInput].forEach(inp=>{
+    inp.addEventListener('keydown', (e)=>{
+      // space+enter to accept; arrows not handled (datalist has limited keyboard UI)
+      if(e.key === 'Enter'){
+        // allow submit via enter on any field
+      }
     });
-    resultsList.appendChild(root);
   });
-}
 
-// Load flights from various sources (localStorage override -> static JSON -> demo)
-async function loadData(){
-  // 1) localStorage override (admin upload)
-  try {
-    const override = localStorage.getItem('gg_flights_override');
-    if(override){
-      const parsed = JSON.parse(override);
-      if(Array.isArray(parsed)) return parsed;
-      // If object with root property, try to find array
-      if(parsed && parsed.flights && Array.isArray(parsed.flights)) return parsed.flights;
+  // On load: set initial UI
+  updatePaxUI();
+
+  // Form submission: validate and redirect to results.html with query params
+  const form = document.getElementById('searchForm');
+  form.addEventListener('submit', (e)=>{
+    // keep native submission but ensure hidden inputs updated
+    // validate basic airports
+    const fromVal = fromInput.value.trim();
+    const toVal = toInput.value.trim();
+    if(!fromVal || !toVal){
+      e.preventDefault();
+      alert('Please enter both origin and destination airports.');
+      return;
     }
-  } catch(e){
-    console.warn('Invalid override JSON in localStorage', e);
-  }
-
-  // 2) try static JSON in repo (no node required — use GitHub web UI to add this file)
-  try {
-    const res = await fetch(dataUrl + '?t=' + Date.now());
-    if(res.ok){
-      const json = await res.json();
-      if(Array.isArray(json)) return json;
-      // if API returns an object with flights array
-      if(json && Array.isArray(json.flights)) return json.flights;
+    // Ensure if one-way chosen, return date not present
+    const activeTab = document.querySelector('.tab.active').dataset.type;
+    if(activeTab === 'oneway'){
+      document.getElementById('return').value = '';
     }
-  } catch(e){
-    // fetch failed: maybe file missing or CORS issue
-    console.warn('Could not fetch flights.json — using demo data.', e);
-  }
-
-  // 3) fallback demo
-  return demoFlights();
-}
-
-// Wire up search form & filters
-document.getElementById('searchForm').addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  const from = document.getElementById('from').value.trim();
-  const to = document.getElementById('to').value.trim();
-  resultsList.innerHTML = '<div style="padding:20px;background:#fff;border-radius:10px">Searching flights…</div>';
-  let flights = await loadData();
-  // simple filter: check origin/dest code or name text
-  if(from) flights = flights.filter(f => (String(f.origin||'').toLowerCase().includes(from.toLowerCase()) || String(f.originName||'').toLowerCase().includes(from.toLowerCase())));
-  if(to) flights = flights.filter(f => (String(f.dest||'').toLowerCase().includes(to.toLowerCase()) || String(f.destName||'').toLowerCase().includes(to.toLowerCase())));
-  if(flights.length === 0){
-    // show easier fallback (show full data with a hint)
-    flights = await loadData(); // reload fallback (demo)
-    renderCards(flights);
-    // also show a hint
-    const hint = document.createElement('div');
-    hint.style.padding='10px';
-    hint.style.fontSize='13px';
-    hint.style.color='#555';
-    hint.textContent = 'No exact matches — showing all available flights. To customize data, add a flights.json file to your repo or use the Admin Upload page.';
-    resultsList.prepend(hint);
-    return;
-  }
-  renderCards(flights);
-});
-
-// Add small reload button to UI (helpful for admin uploads)
-(function addReloadControl(){
-  const sec = document.getElementById('resultsSection');
-  if(!sec) return;
-  const ctrl = document.createElement('div');
-  ctrl.style.marginBottom='10px';
-  ctrl.innerHTML = '<button id="reloadData" class="btn" style="margin-left:10px">Reload data</button> <a href="admin.html" class="btn" style="margin-left:10px">Open Admin</a>';
-  sec.insertBefore(ctrl, sec.firstChild);
-  document.getElementById('reloadData').addEventListener('click', async ()=>{
-    const flights = await loadData();
-    renderCards(flights);
+    // sync the hidden class input
+    classInput.value = paxState.class;
+    // allow normal GET submission to results.html
+    // but first ensure URL safe encoding of inputs;
+    // we'll prevent default and manually navigate so encoding is clean
+    e.preventDefault();
+    const params = new URLSearchParams();
+    params.set('from', fromVal);
+    params.set('to', toVal);
+    params.set('depart', document.getElementById('depart').value || '');
+    params.set('return', document.getElementById('return').value || '');
+    params.set('adults', paxState.adults);
+    params.set('children', paxState.children);
+    params.set('infants', paxState.infants);
+    params.set('class', paxState.class);
+    params.set('trip', activeTab);
+    // navigate
+    window.location = 'results.html?' + params.toString();
   });
-})();
 
-// initial render
-(async ()=> {
-  const flights = await loadData();
-  renderCards(flights);
+  // Accessibility: keyboard close on Escape for paxMenu
+  document.addEventListener('keydown', (e)=> {
+    if(e.key === 'Escape'){
+      paxMenu.style.display = 'none';
+      paxBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  // Small progressive enhancement: set depart min to today, return min to depart+1
+  const departEl = document.getElementById('depart');
+  const returnEl = document.getElementById('return');
+  const today = new Date().toISOString().slice(0,10);
+  departEl.setAttribute('min', today);
+  departEl.addEventListener('change', ()=>{
+    const d = departEl.value;
+    if(d){
+      const msec = new Date(d).getTime() + 24*3600*1000;
+      returnEl.setAttribute('min', new Date(msec).toISOString().slice(0,10));
+    }
+  });
+
 })();
