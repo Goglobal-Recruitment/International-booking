@@ -1,83 +1,72 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Payment — GoGlobal</title>
-<link rel="stylesheet" href="flights.css">
-</head>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Payment — GoGlobal</title>
+<link rel="stylesheet" href="flights.css"></head>
 <body>
-<header class="gg-header">
-  <div class="container header-inner">
-    <a class="logo" href="index.html">Go-Global Recruitment</a>
+<header class="gg-header"><div class="container header-inner"><a class="logo" href="index.html">Go-Global Recruitment</a></div></header>
+<main class="container" style="padding-top:20px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div style="font-size:12px;color:var(--muted)">Payment</div>
+      <div style="font-size:20px;font-weight:800">Confirm & Pay</div>
+    </div>
+    <div><a class="btn" href="seat-selection.html">Back</a></div>
   </div>
-</header>
 
-<main class="container" style="padding-top:28px">
-  <h2>Confirm & Pay</h2>
-  <div id="summary"></div>
-
-  <section style="margin-top:18px;background:#fff;padding:18px;border-radius:12px;border:1px solid #eef2f6">
-    <p><strong>Payment options</strong></p>
-    <p>This demo will generate a QR payment link. In production you connect a payment gateway (PayGate, PayU, Paystack)</p>
-    <div style="margin-top:10px">
-      <button id="generateQR" class="btn primary">Generate payment QR</button>
+  <div style="display:flex;gap:18px;margin-top:18px;flex-wrap:wrap">
+    <div style="flex:1;min-width:320px;background:var(--card);padding:16px;border-radius:12px;border:1px solid #eef2f6">
+      <div style="font-weight:700;margin-bottom:8px">Payment details</div>
+      <div id="bookingSummary" style="color:var(--muted)"></div>
+      <div style="margin-top:12px">
+        <button id="genQR" class="btn primary">Generate payment QR</button>
+        <button id="payCard" class="btn" style="margin-left:8px">Pay with card (mock)</button>
+      </div>
+      <div id="qrArea" style="margin-top:12px"></div>
+      <div id="payResult" style="margin-top:12px"></div>
     </div>
 
-    <div id="qrArea" style="margin-top:12px"></div>
-
-    <div id="resultArea" style="margin-top:12px"></div>
-  </section>
+    <aside style="width:360px;min-width:260px">
+      <div style="background:var(--card);padding:16px;border-radius:12px;border:1px solid #eef2f6">
+        <div style="font-weight:700">Price breakdown</div>
+        <div id="priceBreak" style="margin-top:8px;color:var(--muted)"></div>
+      </div>
+    </aside>
+  </div>
 </main>
 
 <script>
 const booking = JSON.parse(sessionStorage.getItem('gg_booking') || 'null');
-if(!booking){ alert('No booking in session'); location.href='flights.html'; }
-document.getElementById('summary').innerHTML = `<strong>${booking.airline}</strong> ${booking.origin} → ${booking.dest} • Seats: ${booking.seats?.join(',') || '—'} • Price: ZAR ${Number(booking.price).toLocaleString()}`;
+if(!booking){ alert('No booking present'); location.href='results.html'; }
+document.getElementById('bookingSummary').innerHTML = `<div><strong>${booking.airline}</strong> ${booking.origin} → ${booking.dest}</div><div style="margin-top:6px">Seats: ${booking.seats?.join(', ') || '—'}</div>`;
+const insurance = 600 * 20.3; // $600 ~ ZAR conversion placeholder (use live rates if available)
+const baggage = 300 * 20.3;
+const total = Number(booking.price) + Math.round(insurance) + Math.round(baggage);
+document.getElementById('priceBreak').innerHTML = `<div>Base fare: ZAR ${Number(booking.price).toLocaleString()}</div><div>Insurance: ZAR ${Math.round(insurance).toLocaleString()}</div><div>Baggage: ZAR ${Math.round(baggage).toLocaleString()}</div><div style="font-weight:800;margin-top:8px">Total: ZAR ${total.toLocaleString()}</div>`;
 
-function generateReference(){
-  const ref = 'GG-'+Math.random().toString(36).slice(2,9).toUpperCase();
-  return ref;
-}
+function genRef(){ return 'GG'+Math.random().toString(36).slice(2,9).toUpperCase(); }
 
-document.getElementById('generateQR').addEventListener('click',()=>{
-  const ref = generateReference();
-  booking.ref = ref;
-  sessionStorage.setItem('gg_booking', JSON.stringify(booking));
-  const qrArea = document.getElementById('qrArea');
-  qrArea.innerHTML = '';
-  // Simple QR placeholder using Google Chart API
-  const payLink = encodeURIComponent(`https://goglobal-pay.example/pay?ref=${ref}&amount=${booking.price}`);
-  const qrImg = document.createElement('img');
-  qrImg.src = `https://chart.googleapis.com/chart?cht=qr&chs=240x240&chl=${payLink}`;
-  qrImg.alt = 'QR code';
-  qrArea.appendChild(qrImg);
-
-  const btns = document.createElement('div');
-  btns.style.marginTop='10px';
-  btns.innerHTML = '<button id="paidBtn" class="btn">Simulate Paid</button> <button id="failBtn" class="btn">Simulate Decline</button>';
-  qrArea.appendChild(btns);
-
-  document.getElementById('paidBtn').onclick = ()=> finalize(true);
-  document.getElementById('failBtn').onclick = ()=> finalize(false);
+document.getElementById('genQR').addEventListener('click', ()=>{
+  const ref = genRef(); booking.ref = ref; sessionStorage.setItem('gg_booking', JSON.stringify(booking));
+  const link = encodeURIComponent(`https://goglobal-pay.example/pay?ref=${ref}&amount=${total}`);
+  const img = document.createElement('img'); img.src = `https://chart.googleapis.com/chart?cht=qr&chs=260x260&chl=${link}`; img.alt='qr';
+  const qrArea = document.getElementById('qrArea'); qrArea.innerHTML=''; qrArea.appendChild(img);
+  const sim = document.createElement('div'); sim.style.marginTop='8px'; sim.innerHTML = '<button id="paid" class="btn primary">Simulate Paid</button> <button id="decline" class="btn">Simulate Decline</button>';
+  qrArea.appendChild(sim);
+  document.getElementById('paid').onclick = ()=> finalize(true);
+  document.getElementById('decline').onclick = ()=> finalize(false);
 });
 
+document.getElementById('payCard').addEventListener('click', ()=> finalize(true));
+
 function finalize(success){
-  const area = document.getElementById('resultArea');
+  const area = document.getElementById('payResult');
   if(success){
-    // lock booking: create a "receipt" and clear sensitive form data if any
-    const receipt = {
-      ref: booking.ref,
-      id: booking.id,
-      status: 'Paid',
-      paidAt: new Date().toISOString()
-    };
+    const receipt = { ref: booking.ref || genRef(), id: booking.id, status:'Paid', paidAt: new Date().toISOString(), total };
     sessionStorage.setItem('gg_receipt', JSON.stringify(receipt));
-    area.innerHTML = `<div style="padding:12px;border-radius:8px;background:#eef9f1;border:1px solid #dff2e6"><strong>Payment successful</strong><div>Booking ref: ${receipt.ref}</div></div>
-    <div style="margin-top:10px"><a class="btn" href="confirmation.html">View confirmation</a></div>`;
-    // disable generate button
-    document.getElementById('generateQR').disabled = true;
+    area.innerHTML = `<div style="padding:12px;border-radius:8px;background:#eef9f1;border:1px solid #dff2e6"><strong>Payment successful</strong><div>Ref: ${receipt.ref}</div></div><div style="margin-top:10px"><a class="btn" href="confirmation.html">View confirmation</a></div>`;
+    document.getElementById('genQR').disabled = true;
   } else {
-    area.innerHTML = `<div style="padding:12px;border-radius:8px;background:#fff6f6;border:1px solid #ffdede"><strong>Payment declined</strong><div>Please try again or contact support.</div></div>`;
+    area.innerHTML = `<div style="padding:12px;border-radius:8px;background:#fff6f6;border:1px solid #ffdede"><strong>Payment declined</strong></div>`;
   }
 }
 </script>
