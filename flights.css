@@ -1,58 +1,55 @@
 :root{
-  --bg:#f4f6f9; --card:#fff; --accent:#0071c2; --muted:#6b7280; --radius:12px;
-  --container:1180px; --shadow: 0 8px 22px rgba(15,23,42,0.06);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color-scheme: light;
+  --bg:#f4f6f9; --card:#fff; --accent:#0071c2; --accent-2:#005ea6;
+  --muted:#6b7280; --radius:12px; --container:1180px; --shadow: 0 10px 30px rgba(8,20,40,0.06);
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:#0b1220;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:#071126;-webkit-font-smoothing:antialiased}
 .container{max-width:var(--container);margin:0 auto;padding:22px}
 .gg-header{background:#fff;border-bottom:1px solid #e6e9ee;position:sticky;top:0;z-index:60}
 .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 22px}
-.logo{font-weight:700;color:var(--accent);text-decoration:none;font-size:18px}
+.logo{font-weight:800;color:var(--accent);text-decoration:none;font-size:18px}
 .header-nav a{margin-left:18px;color:#222;text-decoration:none;font-weight:600}
 .header-nav a.active{color:var(--accent);}
 
-.search-hero{background:linear-gradient(90deg,#ffffff 0%, #f8fbff 100%);padding:26px;border-radius:14px;box-shadow:var(--shadow);display:flex;gap:18px;align-items:center}
+/* Hero and search */
+.hero {padding:28px 0 8px 0}
+.search-card{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow);display:flex;gap:18px;align-items:flex-start}
 .search-left{flex:1}
 .search-right{width:320px}
 
-.form-row{display:grid;grid-template-columns: 1fr 1fr 220px 120px auto;gap:12px;align-items:end}
-.form-row .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
-.field input, .field select{width:100%;padding:10px;border:1px solid #e6e9ee;border-radius:8px;font-size:14px;background:#fff}
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tab{padding:10px 14px;border-radius:10px;background:transparent;border:1px solid transparent;cursor:pointer;font-weight:700;color:#334155}
+.tab.active{background:linear-gradient(180deg,#f6fbff,#fff);border-color:#dbefff;color:var(--accent);box-shadow:0 2px 6px rgba(10,40,80,0.04)}
+
+/* form layout */
+.form-grid{display:grid;grid-template-columns:2fr 2fr 1fr 1fr auto;gap:12px;align-items:end}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.input, select{width:100%;padding:10px;border:1px solid #e6e9ee;border-radius:8px;font-size:14px;background:#fff}
+.input:focus, select:focus{outline:2px solid rgba(0,113,194,0.12);border-color:var(--accent-2)}
+.search-actions{display:flex;align-items:center;gap:10px}
 .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
 .btn.primary{background:var(--accent);color:white}
-.btn.ghost{background:transparent;border:1px solid #d7e9ff;color:var(--accent);font-weight:700}
+.btn.ghost{background:transparent;border:1px solid #d7e9ff;color:var(--accent)}
 
-.section-title{font-size:20px;margin:18px 0 10px 0;font-weight:700}
-.results-layout{display:flex;gap:18px;margin-top:18px}
-.filters{width:280px;background:var(--card);padding:18px;border-radius:12px;border:1px solid #eef2f6;position:sticky;top:92px;height:fit-content}
-.filters h4{margin:0 0 12px 0}
-.cards{flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+/* passenger dropdown */
+.pax-toggle{position:relative}
+.pax-menu{position:absolute;right:0;top:48px;width:320px;background:var(--card);border-radius:10px;border:1px solid #eef2f6;padding:12px;box-shadow:var(--shadow);z-index:120;display:none}
+.pax-row{display:flex;justify-content:space-between;align-items:center;padding:8px 6px}
+.counter{display:flex;gap:8px;align-items:center}
+.counter button{width:34px;height:34px;border-radius:8px;border:1px solid #e6eef8;background:#fff;cursor:pointer;font-weight:700}
 
-/* flight card */
-.flight-card{background:var(--card);padding:14px;border-radius:12px;border:1px solid #eef2f6;display:flex;flex-direction:column;justify-content:space-between;min-height:160px;box-shadow:0 2px 10px rgba(16,24,40,0.03)}
-.flight-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.airline{display:flex;gap:12px;align-items:center}
-.airline img{width:56px;height:36px;object-fit:contain;border-radius:6px}
-.times{display:flex;flex-direction:column;align-items:flex-end}
-.time{font-weight:700;font-size:18px}
-.route{font-size:13px;color:var(--muted)}
-.flight-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
-.price{font-size:18px;font-weight:800;color:var(--accent)}
-.meta{font-size:13px;color:var(--muted)}
+/* class dropdown */
+.select-wrap{position:relative}
+.select-wrap .menu{position:absolute;right:0;top:48px;background:var(--card);border-radius:10px;border:1px solid #eef2f6;padding:8px;box-shadow:var(--shadow);display:none;z-index:110}
 
-/* seat map */
-.seat-row{display:flex;gap:8px;margin:6px 0}
-.seat{padding:8px 10px;border-radius:6px;border:1px solid #e6eef8;min-width:48px;cursor:pointer;background:#f9fbff}
-.seat.selected{background:var(--accent);color:#fff;border-color:transparent}
-.seat.occupied{background:#e9ecef;cursor:not-allowed;color:#9aa3ad}
+/* small helpers */
+.hint{font-size:12px;color:var(--muted)}
+.quick-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 
 /* responsive */
 @media (max-width:980px){
-  .form-row{grid-template-columns:1fr 1fr;gap:8px}
+  .form-grid{grid-template-columns:1fr;align-items:stretch}
   .search-right{display:none}
-  .filters{position:relative;width:100%}
-  .results-layout{flex-direction:column}
-  .cards{grid-template-columns:1fr}
+  .pax-menu{left:0;right:0;width:auto}
 }
