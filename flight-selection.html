@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select your flight - Booking.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="booking-unified.css">
+    <link rel="icon" type="image/png" href="https://cf.bstatic.com/static/img/favicon/booking_logo_retina/favicon-32x32.png">
+    <script src="global-state.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">Booking.com</div>
+                
+                <div class="nav-right">
+                    <div class="nav-item">
+                        <select class="currency-select">
+                            <option value="ZAR">ZAR</option>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="AUD">AUD</option>
+                            <option value="CAD">CAD</option>
+                            <option value="CHF">CHF</option>
+                            <option value="JPY">JPY</option>
+                            <option value="CNY">CNY</option>
+                            <option value="INR">INR</option>
+                            <option value="BRL">BRL</option>
+                            <option value="MXN">MXN</option>
+                            <option value="SGD">SGD</option>
+                            <option value="HKD">HKD</option>
+                            <option value="NZD">NZD</option>
+                            <option value="SEK">SEK</option>
+                            <option value="NOK">NOK</option>
+                            <option value="DKK">DKK</option>
+                            <option value="PLN">PLN</option>
+                            <option value="CZK">CZK</option>
+                            <option value="HUF">HUF</option>
+                            <option value="RON">RON</option>
+                            <option value="BGN">BGN</option>
+                            <option value="HRK">HRK</option>
+                            <option value="RSD">RSD</option>
+                            <option value="TRY">TRY</option>
+                            <option value="RUB">RUB</option>
+                            <option value="UAH">UAH</option>
+                            <option value="KRW">KRW</option>
+                            <option value="THB">THB</option>
+                            <option value="MYR">MYR</option>
+                            <option value="IDR">IDR</option>
+                            <option value="PHP">PHP</option>
+                            <option value="VND">VND</option>
+                            <option value="TWD">TWD</option>
+                            <option value="AED">AED</option>
+                            <option value="SAR">SAR</option>
+                            <option value="QAR">QAR</option>
+                            <option value="KWD">KWD</option>
+                            <option value="BHD">BHD</option>
+                            <option value="OMR">OMR</option>
+                            <option value="JOD">JOD</option>
+                            <option value="LBP">LBP</option>
+                            <option value="EGP">EGP</option>
+                            <option value="MAD">MAD</option>
+                            <option value="TND">TND</option>
+                            <option value="DZD">DZD</option>
+                            <option value="LYD">LYD</option>
+                            <option value="ETB">ETB</option>
+                            <option value="KES">KES</option>
+                            <option value="UGX">UGX</option>
+                            <option value="TZS">TZS</option>
+                            <option value="RWF">RWF</option>
+                            <option value="BWP">BWP</option>
+                            <option value="NAD">NAD</option>
+                            <option value="SZL">SZL</option>
+                            <option value="LSL">LSL</option>
+                            <option value="MWK">MWK</option>
+                            <option value="ZMW">ZMW</option>
+                            <option value="ZWL">ZWL</option>
+                            <option value="MZN">MZN</option>
+                            <option value="AOA">AOA</option>
+                            <option value="XAF">XAF</option>
+                            <option value="XOF">XOF</option>
+                            <option value="GHS">GHS</option>
+                            <option value="NGN">NGN</option>
+                            <option value="CFA">CFA</option>
+                            <option value="GMD">GMD</option>
+                            <option value="SLL">SLL</option>
+                            <option value="LRD">LRD</option>
+                            <option value="CVE">CVE</option>
+                            <option value="GNF">GNF</option>
+                            <option value="BIF">BIF</option>
+                            <option value="DJF">DJF</option>
+                            <option value="ERN">ERN</option>
+                            <option value="SOS">SOS</option>
+                            <option value="SCR">SCR</option>
+                            <option value="MUR">MUR</option>
+                            <option value="MGA">MGA</option>
+                            <option value="KMF">KMF</option>
+                            <option value="STD">STD</option>
+                        </select>
+                    </div>
+                    
+                    <div class="nav-item">
+                        <select class="language-select">
+                            <option value="en-za">🇿🇦 English (ZA)</option>
+                            <option value="af">🇿🇦 Afrikaans</option>
+                            <option value="zu">🇿🇦 isiZulu</option>
+                            <option value="xh">🇿🇦 isiXhosa</option>
+                            <option value="en-us">🇺🇸 English (US)</option>
+                            <option value="en-gb">🇬🇧 English (UK)</option>
+                            <option value="es">🇪🇸 Español</option>
+                            <option value="fr">🇫🇷 Français</option>
+                            <option value="de">🇩🇪 Deutsch</option>
+                            <option value="it">🇮🇹 Italiano</option>
+                            <option value="pt">🇵🇹 Português</option>
+                            <option value="nl">🇳🇱 Nederlands</option>
+                            <option value="sv">🇸🇪 Svenska</option>
+                            <option value="da">🇩🇰 Dansk</option>
+                            <option value="no">🇳🇴 Norsk</option>
+                            <option value="fi">🇫🇮 Suomi</option>
+                            <option value="pl">🇵🇱 Polski</option>
+                            <option value="cs">🇨🇿 Čeština</option>
+                            <option value="sk">🇸🇰 Slovenčina</option>
+                            <option value="hu">🇭🇺 Magyar</option>
+                            <option value="ro">🇷🇴 Română</option>
+                            <option value="bg">🇧🇬 Български</option>
+                            <option value="hr">🇭🇷 Hrvatski</option>
+                            <option value="sr">🇷🇸 Српски</option>
+                            <option value="sl">🇸🇮 Slovenščina</option>
+                            <option value="et">🇪🇪 Eesti</option>
+                            <option value="lv">🇱🇻 Latviešu</option>
+                            <option value="lt">🇱🇹 Lietuvių</option>
+                            <option value="ru">🇷🇺 Русский</option>
+                            <option value="uk">🇺🇦 Українська</option>
+                            <option value="be">🇧🇾 Беларуская</option>
+                            <option value="tr">🇹🇷 Türkçe</option>
+                            <option value="el">🇬🇷 Ελληνικά</option>
+                            <option value="ar">🇸🇦 العربية</option>
+                            <option value="he">🇮🇱 עברית</option>
+                            <option value="hi">🇮🇳 हिन्दी</option>
+                            <option value="bn">🇧🇩 বাংলা</option>
+                            <option value="ur">🇵🇰 اردو</option>
+                            <option value="fa">🇮🇷 فارسی</option>
+                            <option value="th">🇹🇭 ไทย</option>
+                            <option value="vi">🇻🇳 Tiếng Việt</option>
+                            <option value="zh-cn">🇨🇳 中文 (简体)</option>
+                            <option value="zh-tw">🇹🇼 中文 (繁體)</option>
+                            <option value="ja">🇯🇵 日本語</option>
+                            <option value="ko">🇰🇷 한국어</option>
+                            <option value="id">🇮🇩 Bahasa Indonesia</option>
+                            <option value="ms">🇲🇾 Bahasa Melayu</option>
+                            <option value="tl">🇵🇭 Filipino</option>
+                        </select>
+                    </div>
+                    
+                    <a href="#" class="nav-item">Customer service</a>
+                    <a href="#" class="nav-item">List your property</a>
+                    <button class="nav-button register">Register</button>
+                    <button class="nav-button">Sign in</button>
+                </div>
+            </div>
+            
+            <nav class="nav-tabs">
+                <a href="#" class="tab">Stays</a>
+                <a href="#" class="tab active">Flights</a>
+                <a href="#" class="tab">Car rentals</a>
+                <a href="#" class="tab">Attractions</a>
+                <a href="#" class="tab">Airport taxis</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="container">
+            <div class="nav-progress">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <span>Flight selection</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <span>Passenger details</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <span>Seat selection</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <span>Payment</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Summary -->
+    <section class="search-summary">
+        <div class="container">
+            <div class="summary-content">
+                <div class="route-info">
+                    <div class="route-segment">
+                        <span class="airport-code" id="from-code">JNB</span>
+                        <span class="city-name" id="from-city">Johannesburg</span>
+                    </div>
+                    <div class="route-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="route-segment">
+                        <span class="airport-code" id="to-code">LHR</span>
+                        <span class="city-name" id="to-city">London</span>
+                    </div>
+                </div>
+                <div class="trip-details">
+                    <span id="trip-date">Mon, 15 Jan</span>
+                    <span class="separator">•</span>
+                    <span id="passengers-summary">1 adult</span>
+                    <span class="separator">•</span>
+                    <span id="class-summary">Economy</span>
+                </div>
+                <button class="change-search" onclick="window.location.href='flight-search.html'">
+                    <i class="fas fa-edit"></i>
+                    Change search
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="flight-selection">
+        <div class="container">
+            <div class="selection-content">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <div class="filter-header">
+                        <h3>Filter by</h3>
+                        <button class="clear-filters" onclick="clearAllFilters()">Clear all</button>
+                    </div>
+                    <div class="filter-section">
+                        <h3 class="filter-title">Sort by</h3>
+                        <div class="sort-options">
+                            <label class="sort-option">
+                                <input type="radio" name="sort" value="price" checked>
+                                <span>Price (lowest first)</span>
+                            </label>
+                            <label class="sort-option">
+                                <input type="radio" name="sort" value="duration">
+                                <span>Duration (shortest first)</span>
+                            </label>
+                            <label class="sort-option">
+                                <input type="radio" name="sort" value="departure">
+                                <span>Departure time</span>
+                            </label>
+                        </div>
+                    </div>
+
+
+
+            <div class="filter-section">
+                <h3 class="filter-title">Price</h3>
+                <div class="price-range">
+                    <div class="price-inputs">
+                        <input type="number" class="price-input" placeholder="Min" id="min-price">
+                        <input type="number" class="price-input" placeholder="Max" id="max-price">
+                    </div>
+                    <input type="range" class="price-slider" min="5000" max="50000" value="25000" id="price-range">
+                </div>
+            </div>
+
+                    <div class="filter-section">
+                        <h3 class="filter-title">Airlines</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="emirates">
+                                <span>Emirates</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="british-airways">
+                                <span>British Airways</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="lufthansa">
+                                <span>Lufthansa</span>
+                            </label>
+                        </div>
+                    </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Stops</h3>
+                <div class="filter-checkboxes">
+                    <label class="checkbox-option">
+                        <input type="checkbox" value="direct" checked>
+                        Direct flights
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" value="1-stop" checked>
+                        1 stop
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" value="2-stops" checked>
+                        2+ stops
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+
+
+        <!-- Flight Results -->
+                <!-- Flights List -->
+                <main class="flights-list">
+                    <div class="flight-card">
+                        <div class="flight-header">
+                            <div class="airline-info">
+                                <img src="https://logos-world.net/wp-content/uploads/2020/03/Emirates-Logo.png" alt="Emirates" class="airline-logo">
+                                <span class="airline-name">Emirates</span>
+                            </div>
+                            <div class="flight-price">
+                                <div class="price-amount">R 12,450</div>
+                                <div class="price-per-person">per person</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flight-details">
+                            <div class="flight-time">
+                                <div class="time">14:30</div>
+                                <div class="airport">JNB</div>
+                            </div>
+                            <div class="flight-duration">
+                                <div>11h 25m</div>
+                                <div class="duration-line"></div>
+                                <div>Direct</div>
+                            </div>
+                            <div class="flight-time">
+                                <div class="time">20:55</div>
+                                <div class="airport">LHR</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flight-actions">
+                            <button class="flight-details-btn">Flight details</button>
+                            <button class="select-flight-btn" onclick="selectFlight('EK001')">Select</button>
+                        </div>
+                    </div>
+
+                    <div class="flight-card">
+                        <div class="flight-header">
+                            <div class="airline-info">
+                                <img src="https://logos-world.net/wp-content/uploads/2020/03/British-Airways-Logo.png" alt="British Airways" class="airline-logo">
+                                <span class="airline-name">British Airways</span>
+                            </div>
+                            <div class="flight-price">
+                                <div class="price-amount">R 11,890</div>
+                                <div class="price-per-person">per person</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flight-details">
+                            <div class="flight-time">
+                                <div class="time">16:45</div>
+                                <div class="airport">JNB</div>
+                            </div>
+                            <div class="flight-duration">
+                                <div>11h 10m</div>
+                                <div class="duration-line"></div>
+                                <div>Direct</div>
+                            </div>
+                            <div class="flight-time">
+                                <div class="time">22:55</div>
+                                <div class="airport">LHR</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flight-actions">
+                            <button class="flight-details-btn">Flight details</button>
+                            <button class="select-flight-btn" onclick="selectFlight('BA055')">Select</button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script src="flight-selection.js"></script>
+
+<script>
+function selectFlight(flightId) {
+    const flight = allFlights.find(f => f.id === flightId);
+    if (flight) {
+        // Store flight data in global state
+        if (typeof globalState !== 'undefined') {
+            globalState.setSelectedFlight(flight);
+        } else {
+            // Fallback to localStorage
+            localStorage.setItem('selectedFlight', JSON.stringify({
+                flight: flight,
+                passengers: { adults: 1, children: 0, infants: 0, class: 'economy' }
+            }));
+        }
+        
+        // Show loading and redirect to passenger details
+        showLoadingOverlay();
+        
+        setTimeout(() => {
+            window.location.href = 'passenger-details.html';
+        }, 1500);
+    }
+}
+
+function sortFlights(sortBy) {
+    switch (sortBy) {
+        case 'price':
+            filteredFlights.sort((a, b) => a.price - b.price);
+            break;
+        case 'duration':
+            filteredFlights.sort((a, b) => {
+                const aDuration = parseDuration(a.duration);
+                const bDuration = parseDuration(b.duration);
+                return aDuration - bDuration;
+            });
+            break;
+        case 'departure':
+            filteredFlights.sort((a, b) => {
+                const aTime = parseTime(a.departure.time);
+                const bTime = parseTime(b.departure.time);
+                return aTime - bTime;
+            });
+            break;
+        case 'recommended':
+        default:
+            // Sort by a combination of price and convenience
+            filteredFlights.sort((a, b) => {
+                const aScore = (a.price / 1000) + (a.stops * 2) + (parseDuration(a.duration) / 60);
+                const bScore = (b.price / 1000) + (b.stops * 2) + (parseDuration(b.duration) / 60);
+                return aScore - bScore;
+            });
+            break;
+    }
+    
+    displayFlights();
+}
+
+function filterByAirline(airlineCode) {
+    const checkbox = event.target;
+    if (checkbox.checked) {
+        if (!selectedFilters.airlines.includes(airlineCode)) {
+            selectedFilters.airlines.push(airlineCode);
+        }
+    } else {
+        selectedFilters.airlines = selectedFilters.airlines.filter(code => code !== airlineCode);
+    }
+    
+    applyFilters();
+}
+
+function filterByStops(stops) {
+    const checkbox = event.target;
+    if (checkbox.checked) {
+        if (!selectedFilters.stops.includes(stops)) {
+            selectedFilters.stops.push(stops);
+        }
+    } else {
+        selectedFilters.stops = selectedFilters.stops.filter(s => s !== stops);
+    }
+    
+    applyFilters();
+}
+
+function filterByTime(timeOfDay) {
+    const checkbox = event.target;
+    if (checkbox.checked) {
+        if (!selectedFilters.times.includes(timeOfDay)) {
+            selectedFilters.times.push(timeOfDay);
+        }
+    } else {
+        selectedFilters.times = selectedFilters.times.filter(t => t !== timeOfDay);
+    }
+    
+    applyFilters();
+}
+
+function filterByPrice() {
+    const minPrice = parseInt(document.getElementById('min-price').value) || 0;
+    const maxPrice = parseInt(document.getElementById('max-price').value) || 50000;
+    
+    selectedFilters.priceRange = { min: minPrice, max: maxPrice };
+    document.getElementById('price-slider').value = maxPrice;
+    
+    applyFilters();
+}
+
+function updatePriceRange() {
+    const slider = document.getElementById('price-slider');
+    const maxPrice = parseInt(slider.value);
+    
+    document.getElementById('max-price').value = maxPrice;
+    selectedFilters.priceRange.max = maxPrice;
+    
+    applyFilters();
+}
+
+function applyFilters() {
+    filteredFlights = allFlights.filter(flight => {
+        // Filter by airline
+        if (!selectedFilters.airlines.includes(flight.airline.code)) {
+            return false;
+        }
+        
+        // Filter by stops
+        if (!selectedFilters.stops.includes(flight.stops)) {
+            return false;
+        }
+        
+        // Filter by price
+        if (flight.price < selectedFilters.priceRange.min || flight.price > selectedFilters.priceRange.max) {
+            return false;
+        }
+        
+        // Filter by time
+        const departureHour = parseTime(flight.departure.time);
+        const timeOfDay = getTimeOfDay(departureHour);
+        if (!selectedFilters.times.includes(timeOfDay)) {
+            return false;
+        }
+        
+        return true;
+    });
+    
+    displayFlights();
+}
+
+function clearAllFilters() {
+    // Reset all checkboxes
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = true;
+    });
+    
+    // Reset price range
+    document.getElementById('min-price').value = 0;
+    document.getElementById('max-price').value = 50000;
+    document.getElementById('price-slider').value = 50000;
+    
+    // Reset sort to recommended
+    document.querySelector('input[name="sort"][value="recommended"]').checked = true;
+    
+    // Reset filters
+    selectedFilters = {
+        airlines: ['SA', 'BA', 'EK', 'QR'],
+        stops: [0, 1, 2],
+        times: ['morning', 'afternoon', 'evening', 'night'],
+        priceRange: { min: 0, max: 50000 }
+    };
+    
+    filteredFlights = [...allFlights];
+    sortFlights('recommended');
+}
+
+function initializePriceSlider() {
+    const slider = document.getElementById('price-slider');
+    const maxPriceInput = document.getElementById('max-price');
+    
+    slider.addEventListener('input', function() {
+        maxPriceInput.value = this.value;
+        updatePriceRange();
+    });
+}
+
+function initializeCurrencyDropdown() {
+    // Currency dropdown functionality (similar to flights.html)
+    window.toggleCurrencyDropdown = function() {
+        // Implementation for currency dropdown
+        console.log('Currency dropdown toggled');
+    };
+}
+
+function showLoadingOverlay() {
+    const overlay = document.querySelector('.loading-overlay');
+    if (overlay) {
+        overlay.style.display = 'flex';
+    }
+}
+
+function hideLoadingOverlay() {
+    const overlay = document.querySelector('.loading-overlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+}
+
+// Utility functions
+function parseDuration(duration) {
+    const parts = duration.match(/(\d+)h\s*(\d+)m/);
+    if (parts) {
+        return parseInt(parts[1]) * 60 + parseInt(parts[2]);
+    }
+    return 0;
+}
+
+function parseTime(timeStr) {
+    const [hours, minutes] = timeStr.replace('+1', '').split(':').map(Number);
+    return hours * 60 + minutes;
+}
+
+function getTimeOfDay(minutes) {
+    const hours = Math.floor(minutes / 60);
+    if (hours >= 6 && hours < 12) return 'morning';
+    if (hours >= 12 && hours < 18) return 'afternoon';
+    if (hours >= 18 && hours < 24) return 'evening';
+    return 'night';
+}
+
+function formatPrice(price, currency = 'ZAR') {
+    const formatter = new Intl.NumberFormat('en-ZA', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 0
+    });
+    return formatter.format(price);
+}
+</script>
+
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'BlinkMacSystemFont', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--booking-light-gray);
+            color: var(--booking-text);
+            line-height: 1.5;
+        }
+
+        /* Header Styles */
+
+        /* Header */
+        .header {
+            background: #003580;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-progress {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+
+        .progress-step.active {
+            color: white;
+        }
+
+        .progress-step.completed {
+    color: #4caf50;
+}
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .progress-step.active .step-number {
+            background: white;
+            color: #003580;
+        }
+
+        .progress-step.completed .step-number {
+    background: #4caf50;
+    color: white;
+}
+
+        .progress-line {
+            width: 40px;
+            height: 2px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .progress-line.completed {
+    background: #4caf50;
+}
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Booking.com Exact Color Scheme and Typography */
+        :root {
+            --booking-blue: #003580;
+            --booking-blue-dark: #002147;
+            --booking-blue-light: #0071c2;
+            --booking-orange: #ff8c00;
+            --booking-green: #008009;
+            --booking-red: #cc0000;
+            --booking-gray: #6b6b6b;
+            --booking-light-gray: #f5f5f5;
+            --booking-border: #e7e7e7;
+            --booking-white: #ffffff;
+            --booking-text: #262626;
+            --booking-text-light: #6b6b6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'BlinkMacSystemFont', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--booking-light-gray);
+            color: var(--booking-text);
+            line-height: 1.5;
+        }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header - Booking.com Style */
+.header {
+    background: #003580;
+    box-shadow: 0 2px 12px rgba(0, 53, 128, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar {
+    padding: 16px 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.logo-text {
+    color: white;
+}
+
+/* Progress Steps */
+.nav-progress {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.progress-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.progress-step.active {
+    color: white;
+    font-weight: 600;
+}
+
+.step-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    border: 2px solid transparent;
+}
+
+.progress-step.active .step-number {
+    background: white;
+    color: #003580;
+    border-color: white;
+}
+
+.progress-line {
+    width: 50px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 1px;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.currency-selector {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.currency-selector:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-help {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    padding: 10px 18px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.btn-help:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+}
+
+/* Search Summary */
+.search-summary {
+    background: white;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 24px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.summary-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.route-info {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.route-segment {
+    text-align: center;
+}
+
+.airport-code {
+    display: block;
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+.city-name {
+    display: block;
+    font-size: 14px;
+    color: #6b6b6b;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.route-arrow {
+    color: #0071c2;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.trip-details {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #6b6b6b;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.separator {
+    color: #d1d5db;
+    font-weight: 300;
+}
+
+.change-search {
+    background: transparent;
+    border: 2px solid #0071c2;
+    color: #0071c2;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.change-search:hover {
+    background: #0071c2;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Flight Selection */
+.flight-selection {
+    padding: 32px 0;
+}
+
+.selection-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 32px;
+}
+
+/* Filters Sidebar */
+.filters-sidebar {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    height: fit-content;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e7e7e7;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.filter-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.clear-filters {
+    background: none;
+    border: none;
+    color: #0071c2;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.filter-section {
+    margin-bottom: 32px;
+}
+
+.filter-section h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+}
+
+/* Sort Options */
+.sort-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sort-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.sort-option:hover {
+    background-color: #f8f9fa;
+}
+
+.sort-option input[type="radio"] {
+    margin-top: 2px;
+}
+
+.option-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.option-text strong {
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.option-text small {
+    font-size: 12px;
+    color: #6b6b6b;
+}
+
+/* Price Range */
+.price-range {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.price-inputs input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.price-inputs span {
+    color: #6b6b6b;
+    font-weight: 500;
+}
+
+#price-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #e7e7e7;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+#price-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0071c2;
+    cursor: pointer;
+}
+
+.price-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #6b6b6b;
+}
+
+/* Airline Filters */
+.airline-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.airline-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.airline-filter:hover {
+    background-color: #f8f9fa;
+}
+
+.airline-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.airline-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    object-fit: contain;
+    background: white;
+    border: 1px solid #e7e7e7;
+}
+
+.airline-name {
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+.flight-count {
+    font-size: 12px;
+    color: #6b6b6b;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+/* Flight Results */
+.flight-results {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.results-header {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-toggle {
+    display: flex;
+    gap: 8px;
+}
+
+.view-btn {
+    background: transparent;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.view-btn.active {
+    background: #003580;
+    border-color: #003580;
+    color: white;
+}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.results-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.results-count {
+    font-size: 14px;
+    color: #6b6b6b;
+}
+
+/* Flight Cards */
+.flights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.flight-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e7e7e7;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.flight-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.flight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.airline-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.airline-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: contain;
+    background: white;
+    border: 1px solid #e7e7e7;
+}
+
+.flight-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.airline-name {
+    font-weight: 600;
+    color: #1a1a1a;
+    font-size: 16px;
+}
+
+.flight-number {
+    font-size: 14px;
+    color: #6b6b6b;
+}
+
+.flight-price {
+    text-align: right;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    display: block;
+}
+
+.price-note {
+    font-size: 12px;
+    color: #6b6b6b;
+}
+
+/* Flight Route */
+.flight-route {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.route-segment {
+    text-align: center;
+}
+
+.route-segment .time {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.route-segment .airport {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b6b6b;
+    margin-top: 4px;
+}
+
+.route-segment .city {
+    font-size: 12px;
+    color: #999;
+}
+
+.route-info {
+    text-align: center;
+}
+
+.duration {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.route-line {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.line {
+    width: 100%;
+    height: 2px;
+    background: #e7e7e7;
+    position: relative;
+}
+
+.direct, .stops {
+    position: absolute;
+    background: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: 1px solid #e7e7e7;
+}
+
+.direct {
+    color: #10b981;
+    border-color: #10b981;
+}
+
+.stops {
+    color: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.stopover {
+    font-size: 12px;
+    color: #6b6b6b;
+}
+
+/* Flight Footer */
+.flight-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.flight-amenities {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.aircraft, .baggage {
+    font-size: 12px;
+    color: #6b6b6b;
+}
+
+.amenities {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.amenity {
+    font-size: 11px;
+    background: #f0f8ff;
+    color: #0071c2;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.select-flight-btn {
+    background: #0071c2;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.select-flight-btn:hover {
+    background: #005999;
+    transform: translateY(-1px);
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    text-align: center;
+}
+
+.loading-spinner i {
+    font-size: 48px;
+    color: #0071c2;
+    margin-bottom: 16px;
+}
+
+.loading-spinner p {
+    font-size: 18px;
+    color: #666;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .selection-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .nav-progress {
+        display: none;
+    }
+    
+    .summary-content {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .flight-route {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .flight-footer {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+}
+    </style>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Processing your selection...</p>
+        </div>
+    </div>
+</body>
+</html>

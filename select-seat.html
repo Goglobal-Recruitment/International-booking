@@ -1,104 +1,628 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Select Seats — Booking.com International</title>
-<link rel="stylesheet" href="css/booking.css">
-<style>
-body { font-family:'Segoe UI',sans-serif; background:#f5f7fa; margin:0; padding:0; color:#1a1a1a; }
-.main-container { max-width:1000px; margin:24px auto; padding:0 16px;}
-.card { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(0,0,0,0.05);}
-.card h2 { margin:0 0 16px 0; font-size:22px; font-weight:700;}
-.seat-map { display:grid; grid-template-columns: repeat(6, 50px); gap:8px; justify-content:center; margin:24px 0;}
-.seat { width:50px; height:50px; background:#e2e8f0; border-radius:6px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-weight:600; transition:all 0.2s ease;}
-.seat.selected { background:#0071c2; color:white; }
-.seat.occupied { background:#94a3b8; cursor:not-allowed; }
-.seat-label { text-align:center; margin-bottom:8px; font-size:14px; font-weight:600; }
-.select-btn { width:100%; background:linear-gradient(135deg,#0071c2 0%,#005999 100%); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer; font-size:16px; transition:all 0.3s ease;}
-.select-btn:hover { background:linear-gradient(135deg,#005999 0%,#004080 100%); transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,113,194,0.3);}
-.price-summary { text-align:right; font-weight:700; margin-top:16px; font-size:16px; }
-.back-link { display:inline-block; margin-bottom:16px; }
-@media(max-width:600px){ .seat-map { grid-template-columns: repeat(3, 50px); gap:6px;} }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seat - Booking.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="global-state.js"></script>
+    <style>
+        .seat-selection-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .progress-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #6b6b6b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step-number.active {
+            background: #0071c2;
+            color: white;
+        }
+
+        .step-number.completed {
+            background: #28a745;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 14px;
+            color: #6b6b6b;
+            text-align: center;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+
+        .flight-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .summary-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .flight-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .flight-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .airline-logo {
+            width: 48px;
+            height: 48px;
+            background: #0071c2;
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .flight-text h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .flight-route {
+            color: #6b6b6b;
+            font-size: 14px;
+        }
+
+        .seat-map-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .seat-map-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .seat-map-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .seat-legend {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .legend-seat {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid #ddd;
+        }
+
+        .legend-seat.available {
+            background: white;
+            border-color: #0071c2;
+        }
+
+        .legend-seat.occupied {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .legend-seat.selected {
+            background: #0071c2;
+            border-color: #0071c2;
+        }
+
+        .legend-seat.premium {
+            background: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .aircraft-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .aircraft-nose {
+            width: 60px;
+            height: 30px;
+            background: #0071c2;
+            border-radius: 30px 30px 0 0;
+            margin: 0 auto 20px;
+        }
+
+        .seat-map {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .seat-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .row-number {
+            width: 30px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b6b6b;
+        }
+
+        .seat-group {
+            display: flex;
+            gap: 4px;
+        }
+
+        .seat {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .seat:hover:not(.occupied) {
+            border-color: #0071c2;
+            transform: scale(1.1);
+        }
+
+        .seat.available {
+            border-color: #0071c2;
+        }
+
+        .seat.occupied {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .seat.selected {
+            background: #0071c2;
+            border-color: #0071c2;
+            color: white;
+        }
+
+        .seat.premium {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .seat.premium.selected {
+            background: #ffc107;
+            border-color: #ffc107;
+            color: #212529;
+        }
+
+        .aisle {
+            width: 20px;
+        }
+
+        .selected-seat-info {
+            margin-top: 24px;
+            padding: 16px;
+            background: #e8f4fd;
+            border-radius: 8px;
+            border-left: 4px solid #0071c2;
+        }
+
+        .selected-seat-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0071c2;
+        }
+
+        .seat-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .seat-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0071c2;
+        }
+
+        .continue-btn {
+            width: 100%;
+            background: #0071c2;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all 0.2s;
+        }
+
+        .continue-btn:hover {
+            background: #005999;
+        }
+
+        .continue-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .seat-legend {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+
+            .aircraft-container {
+                max-width: 100%;
+                padding: 16px;
+            }
+
+            .seat {
+                width: 28px;
+                height: 28px;
+                font-size: 9px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bed"></i>
+                    Booking.com
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-bed"></i>
+                        Stays
+                    </a>
+                    <a href="flights.html" class="nav-link active">
+                        <i class="fas fa-plane"></i>
+                        Flights
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-car"></i>
+                        Car rentals
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Attractions
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-taxi"></i>
+                        Airport taxis
+                    </a>
+                </div>
+                <div class="nav-actions">
+                    <a href="#" class="btn-secondary">List your property</a>
+                    <a href="#" class="btn-secondary">Register</a>
+                    <a href="#" class="btn-primary">Sign in</a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-<div class="main-container">
+    <!-- Main Content -->
+    <main class="seat-selection-container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-steps">
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="step-number completed">1</div>
+                    <div class="step-label">Search flights</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number completed">2</div>
+                    <div class="step-label">Select flight</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number active">3</div>
+                    <div class="step-label">Select seat</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Passenger details</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">5</div>
+                    <div class="step-label">Payment</div>
+                </div>
+            </div>
+        </div>
 
-  <a href="booking-confirmation.html" class="back-link">&larr; Back to summary</a>
+        <!-- Flight Summary -->
+        <div class="flight-summary">
+            <div class="summary-header">Your selected flight</div>
+            <div class="flight-info">
+                <div class="flight-details">
+                    <div class="airline-logo" id="airline-logo">SA</div>
+                    <div class="flight-text">
+                        <h3 id="flight-title">South African Airways SA235</h3>
+                        <div class="flight-route" id="flight-route">JNB → LHR • Mon 15 Jan • 11h 30m</div>
+                    </div>
+                </div>
+                <div class="flight-price" id="flight-price">R 8,999</div>
+            </div>
+        </div>
 
-  <div class="card">
-    <h2>Select Your Seats</h2>
-    <div id="seatLegend" style="margin-bottom:16px;">
-      <span style="display:inline-block;width:20px;height:20px;background:#e2e8f0;border-radius:4px;margin-right:4px;"></span> Available
-      <span style="display:inline-block;width:20px;height:20px;background:#0071c2;border-radius:4px;margin:0 4px 0 16px;"></span> Selected
-      <span style="display:inline-block;width:20px;height:20px;background:#94a3b8;border-radius:4px;margin:0 4px 0 16px;"></span> Occupied
-    </div>
+        <!-- Seat Map -->
+        <div class="seat-map-section">
+            <div class="seat-map-header">
+                <div class="seat-map-title">Choose your seat</div>
+                <div class="seat-legend">
+                    <div class="legend-item">
+                        <div class="legend-seat available"></div>
+                        <span>Available</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-seat occupied"></div>
+                        <span>Occupied</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-seat selected"></div>
+                        <span>Selected</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-seat premium"></div>
+                        <span>Premium (+R 500)</span>
+                    </div>
+                </div>
+            </div>
 
-    <div class="seat-map" id="seatMap">
-      <!-- Seats dynamically generated -->
-    </div>
+            <div class="aircraft-container">
+                <div class="aircraft-nose"></div>
+                <div class="seat-map" id="seat-map">
+                    <!-- Seats will be generated here -->
+                </div>
+            </div>
 
-    <div class="price-summary" id="totalPrice">Total: ZAR 0</div>
-    <button id="continueBtn" class="select-btn">Continue to Confirmation</button>
-  </div>
+            <div class="selected-seat-info" id="selected-seat-info" style="display: none;">
+                <h4>Selected Seat</h4>
+                <div class="seat-details">
+                    <div>
+                        <div>Seat <span id="selected-seat-number"></span></div>
+                        <div id="selected-seat-type"></div>
+                    </div>
+                    <div class="seat-price" id="selected-seat-price">+R 0</div>
+                </div>
+            </div>
 
-</div>
+            <button class="continue-btn" id="continue-btn" disabled onclick="proceedToPassengerDetails()">
+                Continue to passenger details
+            </button>
+        </div>
+    </main>
 
-<script>
-// Dummy seat map
-const seatRows = 10;
-const seatCols = 6;
-const seatPrice = 50; // per seat
-let selectedSeats = [];
-const occupiedSeats = ['1A','1B','2C','3D']; // dummy occupied
+    <script>
+        // Initialize global state
+        const globalState = new GlobalState();
+        let selectedSeat = null;
+        let selectedFlight = null;
 
-const seatMapContainer = document.getElementById('seatMap');
+        // Load flight data
+        function loadFlightData() {
+            selectedFlight = globalState.getSelectedFlight();
+            
+            if (selectedFlight) {
+                document.getElementById('airline-logo').textContent = getAirlineLogo(selectedFlight.airline);
+                document.getElementById('flight-title').textContent = `${selectedFlight.airline} ${selectedFlight.flightNumber}`;
+                document.getElementById('flight-route').textContent = `${selectedFlight.from.code} → ${selectedFlight.to.code} • ${selectedFlight.departure.date} • ${selectedFlight.duration}`;
+                document.getElementById('flight-price').textContent = `R ${selectedFlight.price.toLocaleString()}`;
+            }
+        }
 
-function generateSeats() {
-  const rows = 'ABCDEFGHIJ';
-  for (let r = 0; r < seatRows; r++) {
-    for (let c = 0; c < seatCols; c++) {
-      const seatId = `${r+1}${String.fromCharCode(65+c)}`;
-      const seatDiv = document.createElement('div');
-      seatDiv.className = 'seat';
-      seatDiv.textContent = seatId;
-      if (occupiedSeats.includes(seatId)) seatDiv.classList.add('occupied');
-      seatDiv.addEventListener('click', () => toggleSeat(seatId, seatDiv));
-      seatMapContainer.appendChild(seatDiv);
-    }
-  }
-}
+        // Get airline logo
+        function getAirlineLogo(airline) {
+            const logos = {
+                'South African Airways': 'SA',
+                'Emirates': 'EK',
+                'Qatar Airways': 'QR',
+                'British Airways': 'BA'
+            };
+            return logos[airline] || 'FL';
+        }
 
-function toggleSeat(seatId, seatDiv) {
-  if (seatDiv.classList.contains('occupied')) return;
-  if (seatDiv.classList.contains('selected')) {
-    seatDiv.classList.remove('selected');
-    selectedSeats = selectedSeats.filter(s => s!==seatId);
-  } else {
-    seatDiv.classList.add('selected');
-    selectedSeats.push(seatId);
-  }
-  updateTotal();
-}
+        // Generate seat map
+        function generateSeatMap() {
+            const seatMap = document.getElementById('seat-map');
+            const rows = 30; // 30 rows
+            const occupiedSeats = ['1A', '1B', '3F', '5C', '7A', '7B', '12E', '15F', '18A', '22C', '25B', '28F'];
+            const premiumRows = [1, 2, 3, 4, 5]; // First 5 rows are premium
 
-function updateTotal() {
-  const total = selectedSeats.length * seatPrice;
-  document.getElementById('totalPrice').textContent = `Total: ZAR ${total}`;
-}
+            for (let row = 1; row <= rows; row++) {
+                const seatRow = document.createElement('div');
+                seatRow.className = 'seat-row';
 
-document.getElementById('continueBtn').addEventListener('click', ()=>{
-  if(selectedSeats.length===0){
-    alert('Please select at least one seat.');
-    return;
-  }
-  localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
-  window.location.href = 'booking-confirmation.html';
-});
+                // Row number
+                const rowNumber = document.createElement('div');
+                rowNumber.className = 'row-number';
+                rowNumber.textContent = row;
+                seatRow.appendChild(rowNumber);
 
-generateSeats();
-</script>
+                // Left side seats (A, B, C)
+                const leftGroup = document.createElement('div');
+                leftGroup.className = 'seat-group';
+                ['A', 'B', 'C'].forEach(letter => {
+                    const seat = createSeat(row, letter, occupiedSeats, premiumRows);
+                    leftGroup.appendChild(seat);
+                });
+                seatRow.appendChild(leftGroup);
 
-</body>
-</html>
+                // Aisle
+                const aisle = document.createElement('div');
+                aisle.className = 'aisle';
+                seatRow.appendChild(aisle);
+
+                // Right side seats (D, E, F)
+                const rightGroup = document.createElement('div');
+                rightGroup.className = 'seat-group';
+                ['D', 'E', 'F'].forEach(letter => {
+                    const seat = createSeat(row, letter, occupiedSeats, premiumRows);
+                    rightGroup.appendChild(seat);
+                });
+                seatRow.appendChild(rightGroup);
+
+                seatMap.appendChild(seatRow);
+            }
+        }
+
+        // Create individual seat
+        function createSeat(row, letter, occupiedSeats, premiumRows) {
+            const seatId = `${row}${letter}`;
+            const seat = document.createElement('div');
+            seat.className = 'seat';
+            seat.dataset.seatId = seatId;
+            seat.textContent = letter;
+
+            // Check if seat is occupied
+            if (occupiedSeats.includes(seatId)) {
+                seat.classList.add('occupied');
+            } else {
+                seat.classList.add('available');
+                
+                // Check if premium seat
+                if (premiumRows.includes(row)) {
+                    seat.classList.add('premium');
+                }
+
+                // Add click handler
+                seat.addEventListener('click', () => selectSeat(seatId, seat));
+            }
+
+            return seat;
+        }
+
+        // Select seat
+        function selectSeat(seatId, seatElement) {
+            // Remove previous selection
+            document.querySelectorAll('.seat.selected').forEach(seat => {
+                seat.classList.remove('selected');
+            });
+
+            // Select new seat
+            seatElement.classList.add('selected');
+            selectedSeat = {
+                id: seatId,
+                isPremium: seatElement.classList.contains('premium'),
+                price: seatElement.classList.contains('premium') ? 500 : 0
+            };
+
+            // Update selected seat info
+            updateSelectedSeatInfo();
+            
+            // Enable continue button
+            document.getElementById('continue-btn').disabled = false;
+        }
+
+        // Update selected seat info
+        function updateSelectedSeatInfo() {
+            const seatInfo = document.getElementById('selected-seat-info');
+            const seatNumber = document.getElementById('selected-seat-number');
+            const seatType = document.getElementById('selected-seat-type');
+            const seatPrice = document.getElementById('selected-seat-price');
+
+            if (selectedSeat) {
+                seatNumber.textContent = selectedSeat.id;
+                seatType.textContent = selectedSeat.isPremium ? 'Premium Economy' : 'Standard Economy';
+                seatPrice.textContent = selectedSeat.price > 0 ? `+R ${selectedSeat.price}` : 'Included';
+                seatInfo.style.display = 'block';
+            } else {
+                seatInfo.style.display = 'none';
+            }
+        }
+
+        // Proceed to passenger details
+        function proceedToPassengerDetails() {
+            if (selectedSeat && selectedFlight) {
+                //

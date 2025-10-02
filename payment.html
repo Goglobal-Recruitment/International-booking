@@ -3,616 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete your booking - Booking.com</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <title>Payment - Booking.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="booking-unified.css">
     <script src="global-state.js"></script>
     <script src="page-init.js"></script>
-    <style>
-        /* Booking.com Payment Page Styles */
-        :root {
-            --booking-blue: #003580;
-            --booking-blue-dark: #002147;
-            --booking-blue-light: #0071c2;
-            --booking-yellow: #febb02;
-            --booking-green: #008009;
-            --booking-red: #cc0000;
-            --booking-gray-light: #f5f5f5;
-            --booking-gray-medium: #e7e7e7;
-            --booking-gray-dark: #6b6b6b;
-            --booking-border: #e7e7e7;
-        }
-
-        body {
-            font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            color: #262626;
-        }
-
-        /* Header */
-        .booking-header {
-            background: white;
-            border-bottom: 1px solid var(--booking-border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
-
-        .booking-logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--booking-blue);
-            text-decoration: none;
-        }
-
-        .progress-steps {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .progress-step {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--booking-gray-dark);
-        }
-
-        .progress-step.active {
-            color: var(--booking-blue);
-            font-weight: 600;
-        }
-
-        .progress-step.completed {
-            color: var(--booking-green);
-        }
-
-        .step-number {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            background: var(--booking-gray-medium);
-            color: white;
-        }
-
-        .step-number.active {
-            background: var(--booking-blue);
-        }
-
-        .step-number.completed {
-            background: var(--booking-green);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .currency-selector {
-            padding: 8px 12px;
-            border: 1px solid var(--booking-border);
-            border-radius: 4px;
-            background: white;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .help-button {
-            padding: 8px 16px;
-            background: var(--booking-blue);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        /* Main Content */
-        .payment-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px 16px;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 32px;
-        }
-
-        .payment-main {
-            background: white;
-            border-radius: 8px;
-            border: 1px solid var(--booking-border);
-            overflow: hidden;
-        }
-
-        .payment-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .section-header {
-            padding: 24px;
-            border-bottom: 1px solid var(--booking-border);
-            background: #fafafa;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--booking-blue-dark);
-            margin: 0;
-        }
-
-        .section-content {
-            padding: 24px;
-        }
-
-        /* Payment Methods */
-        .payment-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-
-        .payment-method {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            border: 2px solid var(--booking-border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .payment-method:hover {
-            border-color: var(--booking-blue-light);
-            background: #f8f9ff;
-        }
-
-        .payment-method.selected {
-            border-color: var(--booking-blue);
-            background: #f8f9ff;
-        }
-
-        .payment-method input[type="radio"] {
-            margin-right: 12px;
-            accent-color: var(--booking-blue);
-        }
-
-        .payment-method-icon {
-            width: 32px;
-            height: 32px;
-            margin-right: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .payment-method-info h4 {
-            margin: 0 0 4px 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .payment-method-info p {
-            margin: 0;
-            font-size: 14px;
-            color: var(--booking-gray-dark);
-        }
-
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--booking-blue-dark);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--booking-border);
-            border-radius: 4px;
-            font-size: 16px;
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--booking-blue);
-            box-shadow: 0 0 0 2px rgba(0, 53, 128, 0.1);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        /* Discount Section */
-        .discount-section {
-            background: #fff8e1;
-            border: 1px solid #ffcc02;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 24px;
-        }
-
-        .discount-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .discount-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-            color: #ff8c00;
-        }
-
-        .discount-input-group {
-            display: flex;
-            gap: 8px;
-        }
-
-        .discount-input {
-            flex: 1;
-        }
-
-        .apply-button {
-            padding: 12px 24px;
-            background: var(--booking-blue);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .apply-button:hover {
-            background: var(--booking-blue-dark);
-        }
-
-        /* Booking Summary */
-        .booking-summary {
-            background: white;
-            border: 1px solid var(--booking-border);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .summary-header {
-            padding: 20px;
-            background: #fafafa;
-            border-bottom: 1px solid var(--booking-border);
-        }
-
-        .summary-content {
-            padding: 20px;
-        }
-
-        .flight-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .airline-logo {
-            width: 40px;
-            height: 40px;
-            margin-right: 12px;
-            border-radius: 4px;
-            object-fit: contain;
-        }
-
-        .flight-details h4 {
-            margin: 0 0 4px 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .flight-route {
-            font-size: 14px;
-            color: var(--booking-gray-dark);
-            margin: 0;
-        }
-
-        .flight-schedule {
-            font-size: 14px;
-            color: var(--booking-gray-dark);
-            line-height: 1.4;
-        }
-
-        .price-breakdown {
-            border-top: 1px solid var(--booking-border);
-            padding-top: 16px;
-            margin-top: 16px;
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .price-row.total {
-            font-weight: 600;
-            font-size: 16px;
-            border-top: 1px solid var(--booking-border);
-            padding-top: 12px;
-            margin-top: 12px;
-        }
-
-        .price-row.discount {
-            color: var(--booking-green);
-        }
-
-        /* Security Notice */
-        .security-notice {
-            background: white;
-            border: 1px solid var(--booking-border);
-            border-radius: 8px;
-            padding: 16px;
-        }
-
-        .security-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            color: var(--booking-green);
-        }
-
-        .security-icon {
-            margin-right: 8px;
-        }
-
-        /* Complete Payment Button */
-        .complete-payment-btn {
-            width: 100%;
-            padding: 16px;
-            background: var(--booking-blue);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 24px;
-            transition: background-color 0.2s;
-        }
-
-        .complete-payment-btn:hover {
-            background: var(--booking-blue-dark);
-        }
-
-        .complete-payment-btn:disabled {
-            background: var(--booking-gray-medium);
-            cursor: not-allowed;
-        }
-
-        /* Terms Checkbox */
-        .terms-checkbox {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 24px;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-
-        .terms-checkbox input[type="checkbox"] {
-            margin-top: 2px;
-            accent-color: var(--booking-blue);
-        }
-
-        /* Success Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .success-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--booking-blue-dark);
-        }
-
-        .modal-text {
-            font-size: 16px;
-            color: var(--booking-gray-dark);
-            margin-bottom: 32px;
-            line-height: 1.5;
-        }
-
-        .modal-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .btn-primary {
-            padding: 12px 24px;
-            background: var(--booking-blue);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-secondary {
-            padding: 12px 24px;
-            background: white;
-            color: var(--booking-blue);
-            border: 2px solid var(--booking-blue);
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-ghost {
-            padding: 8px 16px;
-            background: none;
-            color: var(--booking-gray-dark);
-            border: none;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .payment-container {
-                grid-template-columns: 1fr;
-                gap: 16px;
-                padding: 16px;
-            }
-
-            .header-container {
-                padding: 0 16px;
-            }
-
-            .progress-steps {
-                display: none;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Alternative Payment Forms */
-        .alt-payment-form {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .alt-payment-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-        }
-
-        .alt-payment-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .alt-payment-description {
-            color: var(--booking-gray-dark);
-            margin-bottom: 32px;
-            line-height: 1.5;
-        }
-
-        .qr-code {
-            display: inline-block;
-            padding: 20px;
-            background: white;
-            border: 2px solid var(--booking-border);
-            border-radius: 8px;
-            margin-bottom: 16px;
-        }
-
-        .qr-placeholder {
-            width: 120px;
-            height: 120px;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: var(--booking-gray-dark);
-            border-radius: 4px;
-        }
-    </style>
+    
 </head>
 <body>
     <!-- Header -->
-    <header class="booking-header">
-        <div class="header-container">
-            <a href="index.html" class="booking-logo">Booking.com</a>
-            
-            <div class="progress-steps">
-                <div class="progress-step completed">
-                    <span class="step-number completed">1</span>
-                    <span>Select flight</span>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">Booking.com</div>
+                
+                <div class="nav-right">
+                    <div class="nav-item">
+                        <select class="currency-select">
+                            <option value="ZAR">ZAR</option>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="AUD">AUD</option>
+                            <option value="CAD">CAD</option>
+                            <option value="CHF">CHF</option>
+                            <option value="JPY">JPY</option>
+                            <option value="CNY">CNY</option>
+                            <option value="INR">INR</option>
+                            <option value="BRL">BRL</option>
+                            <option value="MXN">MXN</option>
+                            <option value="SGD">SGD</option>
+                            <option value="HKD">HKD</option>
+                            <option value="NZD">NZD</option>
+                            <option value="SEK">SEK</option>
+                            <option value="NOK">NOK</option>
+                            <option value="DKK">DKK</option>
+                            <option value="PLN">PLN</option>
+                            <option value="CZK">CZK</option>
+                            <option value="HUF">HUF</option>
+                            <option value="RON">RON</option>
+                            <option value="BGN">BGN</option>
+                            <option value="HRK">HRK</option>
+                            <option value="RSD">RSD</option>
+                            <option value="TRY">TRY</option>
+                            <option value="RUB">RUB</option>
+                            <option value="UAH">UAH</option>
+                            <option value="KRW">KRW</option>
+                            <option value="THB">THB</option>
+                            <option value="MYR">MYR</option>
+                            <option value="IDR">IDR</option>
+                            <option value="PHP">PHP</option>
+                            <option value="VND">VND</option>
+                            <option value="TWD">TWD</option>
+                            <option value="AED">AED</option>
+                            <option value="SAR">SAR</option>
+                            <option value="QAR">QAR</option>
+                            <option value="KWD">KWD</option>
+                            <option value="BHD">BHD</option>
+                            <option value="OMR">OMR</option>
+                            <option value="JOD">JOD</option>
+                            <option value="LBP">LBP</option>
+                            <option value="EGP">EGP</option>
+                            <option value="MAD">MAD</option>
+                            <option value="TND">TND</option>
+                            <option value="DZD">DZD</option>
+                            <option value="LYD">LYD</option>
+                            <option value="ETB">ETB</option>
+                            <option value="KES">KES</option>
+                            <option value="UGX">UGX</option>
+                            <option value="TZS">TZS</option>
+                            <option value="RWF">RWF</option>
+                            <option value="BWP">BWP</option>
+                            <option value="NAD">NAD</option>
+                            <option value="SZL">SZL</option>
+                            <option value="LSL">LSL</option>
+                            <option value="MWK">MWK</option>
+                            <option value="ZMW">ZMW</option>
+                            <option value="ZWL">ZWL</option>
+                            <option value="MZN">MZN</option>
+                            <option value="AOA">AOA</option>
+                            <option value="XAF">XAF</option>
+                            <option value="XOF">XOF</option>
+                            <option value="GHS">GHS</option>
+                            <option value="NGN">NGN</option>
+                            <option value="CFA">CFA</option>
+                            <option value="GMD">GMD</option>
+                            <option value="SLL">SLL</option>
+                            <option value="LRD">LRD</option>
+                            <option value="CVE">CVE</option>
+                            <option value="GNF">GNF</option>
+                            <option value="BIF">BIF</option>
+                            <option value="DJF">DJF</option>
+                            <option value="ERN">ERN</option>
+                            <option value="SOS">SOS</option>
+                            <option value="SCR">SCR</option>
+                            <option value="MUR">MUR</option>
+                            <option value="MGA">MGA</option>
+                            <option value="KMF">KMF</option>
+                            <option value="STD">STD</option>
+                        </select>
+                    </div>
+                    
+                    <div class="nav-item">
+                        <select class="language-select">
+                            <option value="en-za">🇿🇦 English (ZA)</option>
+                            <option value="af">🇿🇦 Afrikaans</option>
+                            <option value="zu">🇿🇦 isiZulu</option>
+                            <option value="xh">🇿🇦 isiXhosa</option>
+                            <option value="en-us">🇺🇸 English (US)</option>
+                            <option value="en-gb">🇬🇧 English (UK)</option>
+                            <option value="es">🇪🇸 Español</option>
+                            <option value="fr">🇫🇷 Français</option>
+                            <option value="de">🇩🇪 Deutsch</option>
+                            <option value="it">🇮🇹 Italiano</option>
+                            <option value="pt">🇵🇹 Português</option>
+                            <option value="nl">🇳🇱 Nederlands</option>
+                            <option value="sv">🇸🇪 Svenska</option>
+                            <option value="da">🇩🇰 Dansk</option>
+                            <option value="no">🇳🇴 Norsk</option>
+                            <option value="fi">🇫🇮 Suomi</option>
+                            <option value="pl">🇵🇱 Polski</option>
+                            <option value="cs">🇨🇿 Čeština</option>
+                            <option value="sk">🇸🇰 Slovenčina</option>
+                            <option value="hu">🇭🇺 Magyar</option>
+                            <option value="ro">🇷🇴 Română</option>
+                            <option value="bg">🇧🇬 Български</option>
+                            <option value="hr">🇭🇷 Hrvatski</option>
+                            <option value="sr">🇷🇸 Српски</option>
+                            <option value="sl">🇸🇮 Slovenščina</option>
+                            <option value="et">🇪🇪 Eesti</option>
+                            <option value="lv">🇱🇻 Latviešu</option>
+                            <option value="lt">🇱🇹 Lietuvių</option>
+                            <option value="ru">🇷🇺 Русский</option>
+                            <option value="uk">🇺🇦 Українська</option>
+                            <option value="be">🇧🇾 Беларуская</option>
+                            <option value="tr">🇹🇷 Türkçe</option>
+                            <option value="el">🇬🇷 Ελληνικά</option>
+                            <option value="ar">🇸🇦 العربية</option>
+                            <option value="he">🇮🇱 עברית</option>
+                            <option value="hi">🇮🇳 हिन्दी</option>
+                            <option value="bn">🇧🇩 বাংলা</option>
+                            <option value="ur">🇵🇰 اردو</option>
+                            <option value="fa">🇮🇷 فارسی</option>
+                            <option value="th">🇹🇭 ไทย</option>
+                            <option value="vi">🇻🇳 Tiếng Việt</option>
+                            <option value="zh-cn">🇨🇳 中文 (简体)</option>
+                            <option value="zh-tw">🇹🇼 中文 (繁體)</option>
+                            <option value="ja">🇯🇵 日本語</option>
+                            <option value="ko">🇰🇷 한국어</option>
+                            <option value="id">🇮🇩 Bahasa Indonesia</option>
+                            <option value="ms">🇲🇾 Bahasa Melayu</option>
+                            <option value="tl">🇵🇭 Filipino</option>
+                        </select>
+                    </div>
+                    
+                    <a href="#" class="nav-item">Customer service</a>
+                    <a href="#" class="nav-item">List your property</a>
+                    <button class="nav-button register">Register</button>
+                    <button class="nav-button">Sign in</button>
                 </div>
+            </div>
+            
+            <nav class="nav-tabs">
+                <a href="#" class="tab">Stays</a>
+                <a href="#" class="tab active">Flights</a>
+                <a href="#" class="tab">Car rentals</a>
+                <a href="#" class="tab">Attractions</a>
+                <a href="#" class="tab">Airport taxis</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="container">
+            <div class="nav-progress">
                 <div class="progress-step completed">
-                    <span class="step-number completed">2</span>
+                    <div class="step-number">1</div>
+                    <span>Flight selection</span>
+                </div>
+                <div class="progress-line completed"></div>
+                <div class="progress-step completed">
+                    <div class="step-number">2</div>
                     <span>Passenger details</span>
                 </div>
+                <div class="progress-line completed"></div>
                 <div class="progress-step completed">
-                    <span class="step-number completed">3</span>
+                    <div class="step-number">3</div>
                     <span>Seat selection</span>
                 </div>
+                <div class="progress-line completed"></div>
                 <div class="progress-step active">
-                    <span class="step-number active">4</span>
+                    <div class="step-number">4</div>
                     <span>Payment</span>
                 </div>
             </div>
-
-            <div class="header-actions">
-                <button class="currency-selector" id="currencySelector">
-                    <span id="currencyDisplay">ZAR</span>
-                </button>
-                <a href="customer-service.html" class="help-button">Help</a>
-            </div>
         </div>
-    </header>
+    </div>
 
     <!-- Main Content -->
     <div class="payment-container">
@@ -702,7 +289,7 @@
                     <div class="terms-checkbox">
                         <input type="checkbox" id="termsAccepted" required>
                         <label for="termsAccepted">
-                            By completing this booking I agree to the <a href="#" style="color: var(--booking-blue);">Terms & Conditions</a> and <a href="#" style="color: var(--booking-blue);">Privacy Policy</a>
+                            By completing this booking I agree to the <a href="#" class="terms-link">Terms & Conditions</a> and <a href="#" class="terms-link">Privacy Policy</a>
                         </label>
                     </div>
 
@@ -731,7 +318,30 @@
                     <h3 class="alt-payment-title">QR Code Payment</h3>
                     <p class="alt-payment-description">Scan the QR code below with your banking app to complete the payment.</p>
                     <div class="qr-code">
-                        <div class="qr-placeholder">QR Code<br>Placeholder</div>
+                        <div class="qr-code-container">
+                            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="120" height="120" fill="white"/>
+                                <rect x="10" y="10" width="20" height="20" fill="black"/>
+                                <rect x="40" y="10" width="10" height="10" fill="black"/>
+                                <rect x="60" y="10" width="10" height="10" fill="black"/>
+                                <rect x="80" y="10" width="20" height="20" fill="black"/>
+                                <rect x="10" y="40" width="10" height="10" fill="black"/>
+                                <rect x="30" y="40" width="10" height="10" fill="black"/>
+                                <rect x="50" y="40" width="20" height="20" fill="black"/>
+                                <rect x="80" y="40" width="10" height="10" fill="black"/>
+                                <rect x="100" y="40" width="10" height="10" fill="black"/>
+                                <rect x="10" y="60" width="10" height="10" fill="black"/>
+                                <rect x="30" y="60" width="20" height="20" fill="black"/>
+                                <rect x="60" y="60" width="10" height="10" fill="black"/>
+                                <rect x="80" y="60" width="10" height="10" fill="black"/>
+                                <rect x="100" y="60" width="10" height="10" fill="black"/>
+                                <rect x="10" y="80" width="20" height="20" fill="black"/>
+                                <rect x="40" y="80" width="10" height="10" fill="black"/>
+                                <rect x="60" y="80" width="20" height="20" fill="black"/>
+                                <rect x="90" y="80" width="20" height="20" fill="black"/>
+                            </svg>
+                            <p class="qr-instruction">Scan with your banking app</p>
+                        </div>
                     </div>
                     <p>Amount: <span id="currencySymbol">ZAR</span> <span id="qrAmount">1,049</span></p>
                 </div>
@@ -747,10 +357,10 @@
                 </div>
                 <div class="summary-content">
                     <div class="flight-info" id="flightInfo">
-                        <img src="https://via.placeholder.com/40x40?text=✈️" alt="Airline" class="airline-logo" id="airlineLogo">
+                        <img src="https://logos-world.net/wp-content/uploads/2023/01/South-African-Airways-Logo.png" alt="South African Airways" class="airline-logo" id="airlineLogo">
                         <div class="flight-details">
-                            <h4 id="flightNumber">Loading...</h4>
-                            <p class="flight-route" id="flightRoute">Loading route...</p>
+                            <h4 id="flightNumber">SA235</h4>
+                            <p class="flight-route" id="flightRoute">JNB → LHR</p>
                         </div>
                     </div>
 
@@ -770,7 +380,7 @@
                             <span>Taxes and fees</span>
                             <span id="taxesFees">ZAR 150</span>
                         </div>
-                        <div class="price-row discount" id="discountRow" style="display: none;">
+                        <div class="price-row discount" id="discountRow">
                             <span>Discount</span>
                             <span id="discountAmount">-ZAR 0</span>
                         </div>
@@ -1066,7 +676,7 @@
             document.getElementById('qrAmount').textContent = total;
         }
 
-        function processPayment() {
+        function processPayment(button) {
             // Validate form
             const termsAccepted = document.getElementById('termsAccepted').checked;
             if (!termsAccepted) {
@@ -1138,36 +748,6 @@
         }
     </script>
 
-    <style>
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            border-radius: 0.5rem;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .w-full {
-            width: 100%;
-        }
-    </style>
+    
 </body>
 </html>
