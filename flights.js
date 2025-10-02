@@ -158,6 +158,80 @@
     if(d){
       const msec = new Date(d).getTime() + 24*3600*1000;
       returnEl.setAttribute('min', new Date(msec).toISOString().slice(0,10));
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const tripButtons = document.querySelectorAll('.trip-btn');
+  const segments = document.querySelector('.segments');
+  const addSegmentBtn = document.querySelector('.add-segment');
+  const passengerCount = document.querySelector('.count');
+  let count = 1;
+
+  // Toggle trip type
+  tripButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tripButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const type = btn.dataset.type;
+
+      if(type === 'multi') {
+        addSegmentBtn.style.display = 'block';
+        document.querySelectorAll('.return-date').forEach(el=>el.style.display='none');
+      } else {
+        addSegmentBtn.style.display = 'none';
+        document.querySelectorAll('.segment .return-date').forEach(el => el.style.display = type==='round'?'block':'none');
+        document.querySelectorAll('.segment .remove-segment').forEach(el => el.style.display = 'none');
+        // Reset segments to 1
+        const originalSegment = segments.children[0].cloneNode(true);
+        segments.innerHTML = '';
+        segments.appendChild(originalSegment);
+        initializeDatePickers();
+      }
+    });
+  });
+
+  // Add new segment for multi-city
+  addSegmentBtn.addEventListener('click', () => {
+    const newSegment = segments.children[0].cloneNode(true);
+    newSegment.querySelector('.remove-segment').style.display = 'block';
+    newSegment.querySelectorAll('input').forEach(i => i.value = '');
+    segments.appendChild(newSegment);
+    initializeDatePickers();
+    newSegment.querySelector('.remove-segment').addEventListener('click', () => newSegment.remove());
+  });
+
+  // Passenger increment/decrement
+  document.querySelector('.increment').addEventListener('click', () => {
+    count++;
+    passengerCount.textContent = count;
+  });
+  document.querySelector('.decrement').addEventListener('click', () => {
+    if(count>1) count--;
+    passengerCount.textContent = count;
+  });
+
+  // Search button mock
+  document.querySelector('.search-btn').addEventListener('click', () => {
+    const tripType = document.querySelector('.trip-btn.active').textContent;
+    const directOnly = document.getElementById('direct').checked ? "Yes" : "No";
+    const passengers = passengerCount.textContent;
+    alert(`Trip Type: ${tripType}\nPassengers: ${passengers}\nDirect Only: ${directOnly}\nSearch triggered! (mock)`);
+  });
+
+  // Initialize date pickers
+  function initializeDatePickers(){
+    document.querySelectorAll('.date-picker').forEach(input => flatpickr(input, {
+      minDate: 'today',
+      dateFormat: 'Y-m-d'
+    }));
+  }
+
+  initializeDatePickers();
+});
+</script>
+
+    
     }
   });
 
