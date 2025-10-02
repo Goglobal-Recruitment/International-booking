@@ -1,52 +1,91 @@
-const flights = [
-  {from:"CPT", to:"JNB", airline:"South African Airways", stops:0, departure:"08:00", arrival:"10:00", duration:"2h", price:193},
-  {from:"CPT", to:"JNB", airline:"Emirates", stops:1, departure:"09:00", arrival:"11:45", duration:"2h 45m", price:183},
-  {from:"CPT", to:"JNB", airline:"British Airways", stops:0, departure:"07:30", arrival:"09:15", duration:"1h 45m", price:236},
-  {from:"CPT", to:"LHR", airline:"British Airways", stops:1, departure:"22:00", arrival:"10:00+1", duration:"12h", price:423},
-  {from:"CPT", to:"NYC", airline:"Emirates", stops:1, departure:"20:00", arrival:"06:00+1", duration:"15h", price:845},
-  {from:"CPT", to:"DXB", airline:"Emirates", stops:0, departure:"16:00", arrival:"00:00+1", duration:"8h", price:503}
-];
+// flights.js — client side UI glue
+const dataUrl = 'flights.json'; // produced by GitHub Actions or you can hand-drop
+const resultsList = document.getElementById('resultsList');
+const cardTemplate = document.getElementById('cardTemplate').content;
 
-function displayFlights(data) {
-  const container = document.querySelector(".flights-results");
-  container.innerHTML = "";
-  data.forEach(f => {
-    const card = document.createElement("div");
-    card.className = "flight-card";
-    card.innerHTML = `
-      <div class="flight-info">
-        <div class="airline">${f.airline}</div>
-        <div class="route">${f.from} → ${f.to}</div>
-        <div class="duration">${f.duration} | ${f.stops} stop(s)</div>
-      </div>
-      <div class="price">ZAR ${f.price}</div>
-      <button onclick="selectFlight('${f.airline}', '${f.from}', '${f.to}', '${f.price}')">Select</button>
-    `;
-    container.appendChild(card);
+async function loadData() {
+  try {
+    const res = await fetch(dataUrl + '?t=' + Date.now());
+    if (!res.ok) throw new Error('No data');
+    return await res.json();
+  } catch (e) {
+    // fallback: generate demo data
+    return demoFlights();
+  }
+}
+
+function demoFlights(){
+  const now = new Date();
+  return [...Array(8)].map((_,i)=>{
+    const dep = new Date(now.getTime()+ (i+1)*3600000*6);
+    const arr = new Date(dep.getTime()+3600000*10 + i*600000);
+    return {
+      id: 'GGL'+(1000+i),
+      airline: ['British Airways','Emirates','Cathay','Qatar Airways'][i%4],
+      depTime: dep.toISOString(),
+      arrTime: arr.toISOString(),
+      origin: 'JNB',
+      dest: 'LHR',
+      stops: i%2,
+      priceZAR: 125000 + i*2000,
+      durationMin: 10*60 + i*30
+    }
   });
 }
 
-function selectFlight(airline, from, to, price) {
-  // store selected flight in localStorage for next page
-  localStorage.setItem("selectedFlight", JSON.stringify({airline, from, to, price}));
-  window.location.href = "flight-details.html";
+function formatTime(iso){
+  const d = new Date(iso);
+  return d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
 }
 
-// Filters & sort
-document.querySelectorAll(".filters input, #sort").forEach(el => el.addEventListener("change", ()=>{
-  let filtered = flights.slice();
+function renderCards(flights){
+  resultsList.innerHTML = '';
+  flights.forEach(f=>{
+    const node = document.importNode(cardTemplate, true);
+    const root = node.querySelector('.flight-card');
+    root.querySelector('.airline').textContent = f.airline;
+    root.querySelector('.time-dep').textContent = formatTime(f.depTime);
+    root.querySelector('.time-arr').textContent = formatTime(f.arrTime);
+    root.querySelector('.route').textContent = `${f.origin} — ${f.dest} • ${Math.floor(f.durationMin/60)}h ${f.durationMin%60}m`;
+    root.querySelector('.price').textContent = `ZAR ${Number(f.priceZAR).toLocaleString()}`;
+    const btn = root.querySelector('.select');
+    btn.addEventListener('click', ()=> {
+      // create booking object in sessionStorage and navigate to seat selection
+      const booking = {
+        id: f.id,
+        airline: f.airline,
+        price: f.priceZAR,
+        origin: f.origin,
+        dest: f.dest,
+        depTime: f.depTime,
+        arrTime: f.arrTime
+      };
+      sessionStorage.setItem('gg_booking', JSON.stringify(booking));
+      window.location = 'seat-selection.html';
+    });
+    resultsList.appendChild(root);
+  });
+}
 
-  // Stops filter
-  const stops = Array.from(document.querySelectorAll(".filters input[type=checkbox]:checked")).map(c=>parseInt(c.value));
-  if(stops.length) filtered = filtered.filter(f=>stops.includes(f.stops));
+document.getElementById('searchForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const from = document.getElementById('from').value.trim();
+  const to = document.getElementById('to').value.trim();
+  const depart = document.getElementById('depart').value;
+  const ret = document.getElementById('return').value;
+  // basic UX: show "Searching..."
+  resultsList.innerHTML = '<div style="padding:20px;background:#fff;border-radius:10px">Searching flights…</div>';
+  let flights = await loadData();
+  // simple filter: match origin/dest strings
+  flights = flights.filter(f => (f.origin.toLowerCase().includes(from.toLowerCase()) || f.originName?.toLowerCase().includes(from.toLowerCase())) &&
+                                 (f.dest.toLowerCase().includes(to.toLowerCase()) || f.destName?.toLowerCase().includes(to.toLowerCase())));
+  // fallback if filter removed more than 75%
+  if (flights.length === 0) flights = await loadData();
+  renderCards(flights);
+});
 
-  // Sort
-  const sort = document.getElementById("sort").value;
-  if(sort==="price") filtered.sort((a,b)=>a.price-b.price);
-  if(sort==="duration") filtered.sort((a,b)=>parseInt(a.duration)-parseInt(b.duration));
-  
-  displayFlights(filtered);
-}));
-
-// Initial display
-displayFlights(flights);
+// initial render: show sample results
+(async ()=> {
+  const flights = await loadData();
+  renderCards(flights);
+})();
