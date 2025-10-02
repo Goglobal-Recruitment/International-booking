@@ -1,753 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment - Booking.com</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="booking-unified.css">
-    <script src="global-state.js"></script>
-    <script src="page-init.js"></script>
-    
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Payment — GoGlobal</title>
+<link rel="stylesheet" href="flights.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-top">
-                <div class="logo">Booking.com</div>
-                
-                <div class="nav-right">
-                    <div class="nav-item">
-                        <select class="currency-select">
-                            <option value="ZAR">ZAR</option>
-                            <option value="USD">USD</option>
-                            <option value="EUR">EUR</option>
-                            <option value="GBP">GBP</option>
-                            <option value="AUD">AUD</option>
-                            <option value="CAD">CAD</option>
-                            <option value="CHF">CHF</option>
-                            <option value="JPY">JPY</option>
-                            <option value="CNY">CNY</option>
-                            <option value="INR">INR</option>
-                            <option value="BRL">BRL</option>
-                            <option value="MXN">MXN</option>
-                            <option value="SGD">SGD</option>
-                            <option value="HKD">HKD</option>
-                            <option value="NZD">NZD</option>
-                            <option value="SEK">SEK</option>
-                            <option value="NOK">NOK</option>
-                            <option value="DKK">DKK</option>
-                            <option value="PLN">PLN</option>
-                            <option value="CZK">CZK</option>
-                            <option value="HUF">HUF</option>
-                            <option value="RON">RON</option>
-                            <option value="BGN">BGN</option>
-                            <option value="HRK">HRK</option>
-                            <option value="RSD">RSD</option>
-                            <option value="TRY">TRY</option>
-                            <option value="RUB">RUB</option>
-                            <option value="UAH">UAH</option>
-                            <option value="KRW">KRW</option>
-                            <option value="THB">THB</option>
-                            <option value="MYR">MYR</option>
-                            <option value="IDR">IDR</option>
-                            <option value="PHP">PHP</option>
-                            <option value="VND">VND</option>
-                            <option value="TWD">TWD</option>
-                            <option value="AED">AED</option>
-                            <option value="SAR">SAR</option>
-                            <option value="QAR">QAR</option>
-                            <option value="KWD">KWD</option>
-                            <option value="BHD">BHD</option>
-                            <option value="OMR">OMR</option>
-                            <option value="JOD">JOD</option>
-                            <option value="LBP">LBP</option>
-                            <option value="EGP">EGP</option>
-                            <option value="MAD">MAD</option>
-                            <option value="TND">TND</option>
-                            <option value="DZD">DZD</option>
-                            <option value="LYD">LYD</option>
-                            <option value="ETB">ETB</option>
-                            <option value="KES">KES</option>
-                            <option value="UGX">UGX</option>
-                            <option value="TZS">TZS</option>
-                            <option value="RWF">RWF</option>
-                            <option value="BWP">BWP</option>
-                            <option value="NAD">NAD</option>
-                            <option value="SZL">SZL</option>
-                            <option value="LSL">LSL</option>
-                            <option value="MWK">MWK</option>
-                            <option value="ZMW">ZMW</option>
-                            <option value="ZWL">ZWL</option>
-                            <option value="MZN">MZN</option>
-                            <option value="AOA">AOA</option>
-                            <option value="XAF">XAF</option>
-                            <option value="XOF">XOF</option>
-                            <option value="GHS">GHS</option>
-                            <option value="NGN">NGN</option>
-                            <option value="CFA">CFA</option>
-                            <option value="GMD">GMD</option>
-                            <option value="SLL">SLL</option>
-                            <option value="LRD">LRD</option>
-                            <option value="CVE">CVE</option>
-                            <option value="GNF">GNF</option>
-                            <option value="BIF">BIF</option>
-                            <option value="DJF">DJF</option>
-                            <option value="ERN">ERN</option>
-                            <option value="SOS">SOS</option>
-                            <option value="SCR">SCR</option>
-                            <option value="MUR">MUR</option>
-                            <option value="MGA">MGA</option>
-                            <option value="KMF">KMF</option>
-                            <option value="STD">STD</option>
-                        </select>
-                    </div>
-                    
-                    <div class="nav-item">
-                        <select class="language-select">
-                            <option value="en-za">🇿🇦 English (ZA)</option>
-                            <option value="af">🇿🇦 Afrikaans</option>
-                            <option value="zu">🇿🇦 isiZulu</option>
-                            <option value="xh">🇿🇦 isiXhosa</option>
-                            <option value="en-us">🇺🇸 English (US)</option>
-                            <option value="en-gb">🇬🇧 English (UK)</option>
-                            <option value="es">🇪🇸 Español</option>
-                            <option value="fr">🇫🇷 Français</option>
-                            <option value="de">🇩🇪 Deutsch</option>
-                            <option value="it">🇮🇹 Italiano</option>
-                            <option value="pt">🇵🇹 Português</option>
-                            <option value="nl">🇳🇱 Nederlands</option>
-                            <option value="sv">🇸🇪 Svenska</option>
-                            <option value="da">🇩🇰 Dansk</option>
-                            <option value="no">🇳🇴 Norsk</option>
-                            <option value="fi">🇫🇮 Suomi</option>
-                            <option value="pl">🇵🇱 Polski</option>
-                            <option value="cs">🇨🇿 Čeština</option>
-                            <option value="sk">🇸🇰 Slovenčina</option>
-                            <option value="hu">🇭🇺 Magyar</option>
-                            <option value="ro">🇷🇴 Română</option>
-                            <option value="bg">🇧🇬 Български</option>
-                            <option value="hr">🇭🇷 Hrvatski</option>
-                            <option value="sr">🇷🇸 Српски</option>
-                            <option value="sl">🇸🇮 Slovenščina</option>
-                            <option value="et">🇪🇪 Eesti</option>
-                            <option value="lv">🇱🇻 Latviešu</option>
-                            <option value="lt">🇱🇹 Lietuvių</option>
-                            <option value="ru">🇷🇺 Русский</option>
-                            <option value="uk">🇺🇦 Українська</option>
-                            <option value="be">🇧🇾 Беларуская</option>
-                            <option value="tr">🇹🇷 Türkçe</option>
-                            <option value="el">🇬🇷 Ελληνικά</option>
-                            <option value="ar">🇸🇦 العربية</option>
-                            <option value="he">🇮🇱 עברית</option>
-                            <option value="hi">🇮🇳 हिन्दी</option>
-                            <option value="bn">🇧🇩 বাংলা</option>
-                            <option value="ur">🇵🇰 اردو</option>
-                            <option value="fa">🇮🇷 فارسی</option>
-                            <option value="th">🇹🇭 ไทย</option>
-                            <option value="vi">🇻🇳 Tiếng Việt</option>
-                            <option value="zh-cn">🇨🇳 中文 (简体)</option>
-                            <option value="zh-tw">🇹🇼 中文 (繁體)</option>
-                            <option value="ja">🇯🇵 日本語</option>
-                            <option value="ko">🇰🇷 한국어</option>
-                            <option value="id">🇮🇩 Bahasa Indonesia</option>
-                            <option value="ms">🇲🇾 Bahasa Melayu</option>
-                            <option value="tl">🇵🇭 Filipino</option>
-                        </select>
-                    </div>
-                    
-                    <a href="#" class="nav-item">Customer service</a>
-                    <a href="#" class="nav-item">List your property</a>
-                    <button class="nav-button register">Register</button>
-                    <button class="nav-button">Sign in</button>
-                </div>
-            </div>
-            
-            <nav class="nav-tabs">
-                <a href="#" class="tab">Stays</a>
-                <a href="#" class="tab active">Flights</a>
-                <a href="#" class="tab">Car rentals</a>
-                <a href="#" class="tab">Attractions</a>
-                <a href="#" class="tab">Airport taxis</a>
-            </nav>
-        </div>
-    </header>
-    
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="container">
-            <div class="nav-progress">
-                <div class="progress-step completed">
-                    <div class="step-number">1</div>
-                    <span>Flight selection</span>
-                </div>
-                <div class="progress-line completed"></div>
-                <div class="progress-step completed">
-                    <div class="step-number">2</div>
-                    <span>Passenger details</span>
-                </div>
-                <div class="progress-line completed"></div>
-                <div class="progress-step completed">
-                    <div class="step-number">3</div>
-                    <span>Seat selection</span>
-                </div>
-                <div class="progress-line completed"></div>
-                <div class="progress-step active">
-                    <div class="step-number">4</div>
-                    <span>Payment</span>
-                </div>
-            </div>
-        </div>
+<header class="gg-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html">Go-Global Recruitment</a>
+  </div>
+</header>
+
+<main class="container" style="padding-top:28px">
+  <h2>Confirm & Pay</h2>
+  <div id="summary"></div>
+
+  <section style="margin-top:18px;background:#fff;padding:18px;border-radius:12px;border:1px solid #eef2f6">
+    <p><strong>Payment options</strong></p>
+    <p>This demo will generate a QR payment link. In production you connect a payment gateway (PayGate, PayU, Paystack)</p>
+    <div style="margin-top:10px">
+      <button id="generateQR" class="btn primary">Generate payment QR</button>
     </div>
 
-    <!-- Main Content -->
-    <div class="payment-container">
-        <!-- Payment Form -->
-        <div class="payment-main">
-            <div class="section-header">
-                <h1 class="section-title">Complete your booking</h1>
-            </div>
+    <div id="qrArea" style="margin-top:12px"></div>
 
-            <div class="section-content">
-                <!-- Payment Methods -->
-                <div class="payment-methods">
-                    <label class="payment-method selected" data-method="card">
-                        <input type="radio" name="paymentMethod" value="card" checked>
-                        <div class="payment-method-icon">💳</div>
-                        <div class="payment-method-info">
-                            <h4>Credit or debit card</h4>
-                            <p>Visa, Mastercard, American Express</p>
-                        </div>
-                    </label>
+    <div id="resultArea" style="margin-top:12px"></div>
+  </section>
+</main>
 
-                    <label class="payment-method" data-method="paystack">
-                        <input type="radio" name="paymentMethod" value="paystack">
-                        <div class="payment-method-icon">💰</div>
-                        <div class="payment-method-info">
-                            <h4>Paystack</h4>
-                            <p>Pay securely with Paystack</p>
-                        </div>
-                    </label>
+<script>
+const booking = JSON.parse(sessionStorage.getItem('gg_booking') || 'null');
+if(!booking){ alert('No booking in session'); location.href='flights.html'; }
+document.getElementById('summary').innerHTML = `<strong>${booking.airline}</strong> ${booking.origin} → ${booking.dest} • Seats: ${booking.seats?.join(',') || '—'} • Price: ZAR ${Number(booking.price).toLocaleString()}`;
 
-                    <label class="payment-method" data-method="googlepay">
-                        <input type="radio" name="paymentMethod" value="googlepay">
-                        <div class="payment-method-icon">📱</div>
-                        <div class="payment-method-info">
-                            <h4>Google Pay</h4>
-                            <p>Quick and secure mobile payment</p>
-                        </div>
-                    </label>
+function generateReference(){
+  const ref = 'GG-'+Math.random().toString(36).slice(2,9).toUpperCase();
+  return ref;
+}
 
-                    <label class="payment-method" data-method="qr">
-                        <input type="radio" name="paymentMethod" value="qr">
-                        <div class="payment-method-icon">📷</div>
-                        <div class="payment-method-info">
-                            <h4>QR Code Payment</h4>
-                            <p>Scan with your banking app</p>
-                        </div>
-                    </label>
-                </div>
+document.getElementById('generateQR').addEventListener('click',()=>{
+  const ref = generateReference();
+  booking.ref = ref;
+  sessionStorage.setItem('gg_booking', JSON.stringify(booking));
+  const qrArea = document.getElementById('qrArea');
+  qrArea.innerHTML = '';
+  // Simple QR placeholder using Google Chart API
+  const payLink = encodeURIComponent(`https://goglobal-pay.example/pay?ref=${ref}&amount=${booking.price}`);
+  const qrImg = document.createElement('img');
+  qrImg.src = `https://chart.googleapis.com/chart?cht=qr&chs=240x240&chl=${payLink}`;
+  qrImg.alt = 'QR code';
+  qrArea.appendChild(qrImg);
 
-                <!-- Card Payment Form -->
-                <div id="cardPaymentForm" class="payment-form">
-                    <div class="form-group">
-                        <label class="form-label">Cardholder name</label>
-                        <input type="text" class="form-input" placeholder="Name as it appears on your card" required>
-                    </div>
+  const btns = document.createElement('div');
+  btns.style.marginTop='10px';
+  btns.innerHTML = '<button id="paidBtn" class="btn">Simulate Paid</button> <button id="failBtn" class="btn">Simulate Decline</button>';
+  qrArea.appendChild(btns);
 
-                    <div class="form-group">
-                        <label class="form-label">Card number</label>
-                        <input type="text" class="form-input" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
-                    </div>
+  document.getElementById('paidBtn').onclick = ()=> finalize(true);
+  document.getElementById('failBtn').onclick = ()=> finalize(false);
+});
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Expiry date</label>
-                            <input type="text" class="form-input" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Security code</label>
-                            <input type="text" class="form-input" placeholder="CVV" maxlength="4" required>
-                        </div>
-                    </div>
-
-                    <!-- Discount Section -->
-                    <div class="discount-section">
-                        <div class="discount-header">
-                            <span class="discount-icon">🎫</span>
-                            <h4>Have a discount code?</h4>
-                        </div>
-                        <div class="discount-input-group">
-                            <input type="text" class="form-input discount-input" id="discountCode" placeholder="Enter your code">
-                            <button type="button" class="apply-button" onclick="applyDiscount()">Apply</button>
-                        </div>
-                        <div id="discountMessage" class="discount-message"></div>
-                    </div>
-
-                    <!-- Terms and Conditions -->
-                    <div class="terms-checkbox">
-                        <input type="checkbox" id="termsAccepted" required>
-                        <label for="termsAccepted">
-                            By completing this booking I agree to the <a href="#" class="terms-link">Terms & Conditions</a> and <a href="#" class="terms-link">Privacy Policy</a>
-                        </label>
-                    </div>
-
-                    <button type="button" class="complete-payment-btn" onclick="processPayment()">
-                        Complete booking
-                    </button>
-                </div>
-
-                <!-- Alternative Payment Forms -->
-                <div id="paystackForm" class="alt-payment-form">
-                    <div class="alt-payment-icon">💰</div>
-                    <h3 class="alt-payment-title">Paystack Payment</h3>
-                    <p class="alt-payment-description">You'll be redirected to Paystack to complete your payment securely.</p>
-                    <button class="btn-primary" onclick="redirectToPaystack()">Continue to Paystack</button>
-                </div>
-
-                <div id="googlePayForm" class="alt-payment-form">
-                    <div class="alt-payment-icon">📱</div>
-                    <h3 class="alt-payment-title">Google Pay</h3>
-                    <p class="alt-payment-description">Use Google Pay for a quick and secure payment experience.</p>
-                    <button class="btn-primary" onclick="initiateGooglePay()">Pay with Google Pay</button>
-                </div>
-
-                <div id="qrForm" class="alt-payment-form">
-                    <div class="alt-payment-icon">📷</div>
-                    <h3 class="alt-payment-title">QR Code Payment</h3>
-                    <p class="alt-payment-description">Scan the QR code below with your banking app to complete the payment.</p>
-                    <div class="qr-code">
-                        <div class="qr-code-container">
-                            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="120" height="120" fill="white"/>
-                                <rect x="10" y="10" width="20" height="20" fill="black"/>
-                                <rect x="40" y="10" width="10" height="10" fill="black"/>
-                                <rect x="60" y="10" width="10" height="10" fill="black"/>
-                                <rect x="80" y="10" width="20" height="20" fill="black"/>
-                                <rect x="10" y="40" width="10" height="10" fill="black"/>
-                                <rect x="30" y="40" width="10" height="10" fill="black"/>
-                                <rect x="50" y="40" width="20" height="20" fill="black"/>
-                                <rect x="80" y="40" width="10" height="10" fill="black"/>
-                                <rect x="100" y="40" width="10" height="10" fill="black"/>
-                                <rect x="10" y="60" width="10" height="10" fill="black"/>
-                                <rect x="30" y="60" width="20" height="20" fill="black"/>
-                                <rect x="60" y="60" width="10" height="10" fill="black"/>
-                                <rect x="80" y="60" width="10" height="10" fill="black"/>
-                                <rect x="100" y="60" width="10" height="10" fill="black"/>
-                                <rect x="10" y="80" width="20" height="20" fill="black"/>
-                                <rect x="40" y="80" width="10" height="10" fill="black"/>
-                                <rect x="60" y="80" width="20" height="20" fill="black"/>
-                                <rect x="90" y="80" width="20" height="20" fill="black"/>
-                            </svg>
-                            <p class="qr-instruction">Scan with your banking app</p>
-                        </div>
-                    </div>
-                    <p>Amount: <span id="currencySymbol">ZAR</span> <span id="qrAmount">1,049</span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Booking Summary Sidebar -->
-        <div class="payment-sidebar">
-            <!-- Booking Summary -->
-            <div class="booking-summary">
-                <div class="summary-header">
-                    <h3>Your booking</h3>
-                </div>
-                <div class="summary-content">
-                    <div class="flight-info" id="flightInfo">
-                        <img src="https://logos-world.net/wp-content/uploads/2023/01/South-African-Airways-Logo.png" alt="South African Airways" class="airline-logo" id="airlineLogo">
-                        <div class="flight-details">
-                            <h4 id="flightNumber">SA235</h4>
-                            <p class="flight-route" id="flightRoute">JNB → LHR</p>
-                        </div>
-                    </div>
-
-                    <div class="flight-schedule" id="flightSchedule">
-                        <div>Departure: <span id="departureInfo">Loading...</span></div>
-                        <div>Arrival: <span id="arrivalInfo">Loading...</span></div>
-                        <div>Duration: <span id="durationInfo">Loading...</span></div>
-                        <div>Passengers: <span id="passengerInfo">1 Adult</span></div>
-                    </div>
-
-                    <div class="price-breakdown">
-                        <div class="price-row">
-                            <span>Flight price</span>
-                            <span id="flightPrice">ZAR 899</span>
-                        </div>
-                        <div class="price-row">
-                            <span>Taxes and fees</span>
-                            <span id="taxesFees">ZAR 150</span>
-                        </div>
-                        <div class="price-row discount" id="discountRow">
-                            <span>Discount</span>
-                            <span id="discountAmount">-ZAR 0</span>
-                        </div>
-                        <div class="price-row total">
-                            <span>Total</span>
-                            <span id="totalAmount">ZAR 1,049</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Security Notice -->
-            <div class="security-notice">
-                <div class="security-header">
-                    <span class="security-icon">🔒</span>
-                    <strong>Secure payment</strong>
-                </div>
-                <p style="margin: 0; font-size: 14px; color: var(--booking-gray-dark);">
-                    Your payment information is protected with industry-standard SSL encryption.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Success Modal -->
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <div class="success-icon">✅</div>
-            <h2 class="modal-title">Booking confirmed!</h2>
-            <p class="modal-text">
-                Your flight has been booked successfully. You'll receive a confirmation email shortly with your e-ticket.
-            </p>
-            <div class="modal-actions">
-                <button class="btn-primary" onclick="downloadTicket()">Download e-ticket</button>
-                <button class="btn-secondary" onclick="goToBookings()">View my bookings</button>
-                <button class="btn-ghost" onclick="goHome()">Back to homepage</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Global variables
-        let currentDiscount = 0;
-        let baseFlightPrice = 899;
-        let baseTaxesFees = 150;
-        let baseTotal = baseFlightPrice + baseTaxesFees;
-
-        // Discount codes
-        const discountCodes = {
-            'SAVE10': { type: 'percentage', value: 10, description: '10% off your booking' },
-            'SAVE50': { type: 'fixed', value: 50, description: 'ZAR 50 off' },
-            'WELCOME20': { type: 'percentage', value: 20, description: '20% off for new customers' },
-            'FLIGHT15': { type: 'percentage', value: 15, description: '15% off flights' },
-            'STUDENT25': { type: 'percentage', value: 25, description: '25% student discount' }
-        };
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            initializePaymentPage();
-            setupEventListeners();
-            loadBookingData();
-        });
-
-        function initializePaymentPage() {
-            // Apply global state if available
-            if (window.globalState) {
-                const state = window.globalState.getState();
-                
-                // Update currency display
-                document.getElementById('currencyDisplay').textContent = state.currency;
-                document.getElementById('currencySymbol').textContent = state.currencySymbol;
-                
-                // Update prices based on currency
-                updatePricesForCurrency(state.currency, state.currencySymbol);
-            }
-        }
-
-        function loadBookingData() {
-            // Load selected flight data from global state
-            if (window.globalState) {
-                const selectedFlight = window.globalState.getState().selectedFlight;
-                const searchData = window.globalState.getState().searchData;
-                
-                if (selectedFlight) {
-                    updateFlightDisplay(selectedFlight);
-                }
-                
-                if (searchData) {
-                    updatePassengerInfo(searchData);
-                }
-            }
-        }
-
-        function updateFlightDisplay(flight) {
-            // Update flight information in the summary
-            document.getElementById('flightNumber').textContent = flight.flightNumber || 'Flight';
-            document.getElementById('flightRoute').textContent = `${flight.from} → ${flight.to}`;
-            
-            if (flight.departure && flight.arrival) {
-                document.getElementById('departureInfo').textContent = `${flight.departure.date} at ${flight.departure.time}`;
-                document.getElementById('arrivalInfo').textContent = `${flight.arrival.date} at ${flight.arrival.time}`;
-            }
-            
-            if (flight.duration) {
-                document.getElementById('durationInfo').textContent = flight.duration;
-            }
-            
-            if (flight.price) {
-                baseFlightPrice = flight.price;
-                baseTotal = baseFlightPrice + baseTaxesFees;
-                updatePriceDisplay();
-            }
-            
-            // Update airline logo if available
-            if (flight.airline && flight.airline.logo) {
-                document.getElementById('airlineLogo').src = flight.airline.logo;
-                document.getElementById('airlineLogo').alt = flight.airline.name;
-            }
-        }
-
-        function updatePassengerInfo(searchData) {
-            if (searchData.passengers) {
-                const adults = searchData.passengers.adults || 1;
-                const children = searchData.passengers.children || 0;
-                const infants = searchData.passengers.infants || 0;
-                
-                let passengerText = `${adults} Adult${adults > 1 ? 's' : ''}`;
-                if (children > 0) passengerText += `, ${children} Child${children > 1 ? 'ren' : ''}`;
-                if (infants > 0) passengerText += `, ${infants} Infant${infants > 1 ? 's' : ''}`;
-                
-                document.getElementById('passengerInfo').textContent = passengerText;
-            }
-        }
-
-        function updatePricesForCurrency(currency, symbol) {
-            // Convert prices based on currency (simplified conversion)
-            const rates = {
-                'ZAR': 1,
-                'USD': 0.054,
-                'EUR': 0.049,
-                'GBP': 0.043
-            };
-            
-            const rate = rates[currency] || 1;
-            const convertedFlightPrice = Math.round(baseFlightPrice * rate);
-            const convertedTaxes = Math.round(baseTaxesFees * rate);
-            
-            document.getElementById('flightPrice').textContent = `${symbol} ${convertedFlightPrice}`;
-            document.getElementById('taxesFees').textContent = `${symbol} ${convertedTaxes}`;
-            
-            updatePriceDisplay();
-        }
-
-        function setupEventListeners() {
-            // Payment method selection
-            document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
-                radio.addEventListener('change', function() {
-                    // Update visual selection
-                    document.querySelectorAll('.payment-method').forEach(method => {
-                        method.classList.remove('selected');
-                    });
-                    this.closest('.payment-method').classList.add('selected');
-                    
-                    // Show/hide payment forms
-                    showPaymentForm(this.value);
-                });
-            });
-
-            // Card number formatting
-            const cardNumberInput = document.getElementById('cardNumber');
-            if (cardNumberInput) {
-                cardNumberInput.addEventListener('input', function(e) {
-                    let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-                    let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-                    if (formattedValue.length <= 19) {
-                        e.target.value = formattedValue;
-                    }
-                });
-            }
-
-            // Expiry date formatting
-            const expiryInput = document.getElementById('expiryDate');
-            if (expiryInput) {
-                expiryInput.addEventListener('input', function(e) {
-                    let value = e.target.value.replace(/\D/g, '');
-                    if (value.length >= 2) {
-                        value = value.substring(0, 2) + '/' + value.substring(2, 4);
-                    }
-                    e.target.value = value;
-                });
-            }
-
-            // Currency selector
-            const currencySelector = document.getElementById('currencySelector');
-            if (currencySelector) {
-                currencySelector.addEventListener('click', function() {
-                    // Simple currency toggle for demo
-                    const currencies = [
-                        { code: 'ZAR', symbol: 'R' },
-                        { code: 'USD', symbol: '$' },
-                        { code: 'EUR', symbol: '€' },
-                        { code: 'GBP', symbol: '£' }
-                    ];
-                    
-                    const currentCurrency = document.getElementById('currencyDisplay').textContent;
-                    const currentIndex = currencies.findIndex(c => c.code === currentCurrency);
-                    const nextIndex = (currentIndex + 1) % currencies.length;
-                    const nextCurrency = currencies[nextIndex];
-                    
-                    // Update global state
-                    if (window.globalState) {
-                        window.globalState.setCurrency(nextCurrency.code, nextCurrency.symbol);
-                    }
-                    
-                    // Update display
-                    document.getElementById('currencyDisplay').textContent = nextCurrency.code;
-                    document.getElementById('currencySymbol').textContent = nextCurrency.symbol;
-                    updatePricesForCurrency(nextCurrency.code, nextCurrency.symbol);
-                });
-            }
-        }
-
-        function showPaymentForm(method) {
-            // Hide all forms
-            document.getElementById('cardPaymentForm').style.display = 'none';
-            document.getElementById('paystackForm').style.display = 'none';
-            document.getElementById('googlePayForm').style.display = 'none';
-            document.getElementById('qrForm').style.display = 'none';
-
-            // Show selected form
-            switch(method) {
-                case 'card':
-                    document.getElementById('cardPaymentForm').style.display = 'block';
-                    break;
-                case 'paystack':
-                    document.getElementById('paystackForm').style.display = 'block';
-                    break;
-                case 'googlepay':
-                    document.getElementById('googlePayForm').style.display = 'block';
-                    break;
-                case 'qr':
-                    document.getElementById('qrForm').style.display = 'block';
-                    updateQRAmount();
-                    break;
-            }
-        }
-
-        function applyDiscount() {
-            const code = document.getElementById('discountCode').value.toUpperCase().trim();
-            const messageDiv = document.getElementById('discountMessage');
-            
-            if (!code) {
-                messageDiv.innerHTML = '<div style="color: var(--booking-red); margin-top: 8px; font-size: 14px;">Please enter a discount code</div>';
-                return;
-            }
-            
-            if (discountCodes[code]) {
-                const discount = discountCodes[code];
-                let discountAmount = 0;
-                
-                if (discount.type === 'percentage') {
-                    discountAmount = Math.round(baseTotal * (discount.value / 100));
-                } else {
-                    discountAmount = discount.value;
-                }
-                
-                currentDiscount = discountAmount;
-                updatePriceDisplay();
-                
-                messageDiv.innerHTML = `<div style="color: var(--booking-green); margin-top: 8px; font-size: 14px;">✓ ${discount.description} applied successfully!</div>`;
-                
-                // Show discount row
-                document.getElementById('discountRow').style.display = 'flex';
-                const currency = document.getElementById('currencySymbol').textContent;
-                document.getElementById('discountAmount').textContent = `-${currency} ${discountAmount}`;
-            } else {
-                messageDiv.innerHTML = '<div style="color: var(--booking-red); margin-top: 8px; font-size: 14px;">✗ Invalid discount code</div>';
-                currentDiscount = 0;
-                updatePriceDisplay();
-                document.getElementById('discountRow').style.display = 'none';
-            }
-        }
-
-        function updatePriceDisplay() {
-            const newTotal = baseTotal - currentDiscount;
-            const currency = document.getElementById('currencySymbol').textContent;
-            document.getElementById('totalAmount').textContent = `${currency} ${newTotal}`;
-            updateQRAmount();
-        }
-
-        function updateQRAmount() {
-            const total = baseTotal - currentDiscount;
-            document.getElementById('qrAmount').textContent = total;
-        }
-
-        function processPayment(button) {
-            // Validate form
-            const termsAccepted = document.getElementById('termsAccepted').checked;
-            if (!termsAccepted) {
-                alert('Please accept the Terms & Conditions to continue.');
-                return;
-            }
-
-            // Simulate payment processing
-            const button = document.querySelector('.complete-payment-btn');
-            button.disabled = true;
-            button.textContent = 'Processing payment...';
-            
-            setTimeout(() => {
-                // Save booking data to global state
-                if (window.globalState) {
-                    const bookingData = {
-                        bookingId: 'BK' + Date.now(),
-                        status: 'confirmed',
-                        paymentMethod: 'card',
-                        totalAmount: baseTotal - currentDiscount,
-                        currency: document.getElementById('currencyDisplay').textContent,
-                        bookingDate: new Date().toISOString()
-                    };
-                    window.globalState.setBookingData(bookingData);
-                }
-                
-                document.getElementById('successModal').style.display = 'flex';
-                button.disabled = false;
-                button.textContent = 'Complete booking';
-            }, 2000);
-        }
-
-        function redirectToPaystack() {
-            // Simulate Paystack redirect
-            alert('Redirecting to Paystack payment gateway...');
-            setTimeout(() => {
-                document.getElementById('successModal').style.display = 'flex';
-            }, 1500);
-        }
-
-        function initiateGooglePay() {
-            // Simulate Google Pay
-            alert('Initiating Google Pay...');
-            setTimeout(() => {
-                document.getElementById('successModal').style.display = 'flex';
-            }, 1000);
-        }
-
-        function downloadTicket() {
-            // Simulate ticket download
-            alert('Downloading your e-ticket... (In a real app, this would download a PDF)');
-            window.location.href = 'ticket-confirmation.html';
-        }
-
-        function goToBookings() {
-            // Navigate to bookings page
-            window.location.href = 'index.html#bookings';
-        }
-
-        function goHome() {
-            window.location.href = 'index.html';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        }
-    </script>
-
-    
+function finalize(success){
+  const area = document.getElementById('resultArea');
+  if(success){
+    // lock booking: create a "receipt" and clear sensitive form data if any
+    const receipt = {
+      ref: booking.ref,
+      id: booking.id,
+      status: 'Paid',
+      paidAt: new Date().toISOString()
+    };
+    sessionStorage.setItem('gg_receipt', JSON.stringify(receipt));
+    area.innerHTML = `<div style="padding:12px;border-radius:8px;background:#eef9f1;border:1px solid #dff2e6"><strong>Payment successful</strong><div>Booking ref: ${receipt.ref}</div></div>
+    <div style="margin-top:10px"><a class="btn" href="confirmation.html">View confirmation</a></div>`;
+    // disable generate button
+    document.getElementById('generateQR').disabled = true;
+  } else {
+    area.innerHTML = `<div style="padding:12px;border-radius:8px;background:#fff6f6;border:1px solid #ffdede"><strong>Payment declined</strong><div>Please try again or contact support.</div></div>`;
+  }
+}
+</script>
 </body>
 </html>
