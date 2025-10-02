@@ -19,71 +19,127 @@
 </header>
 
 <main class="container">
-  <section class="search-hero">
-    <div class="search-left">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div>
-          <div style="font-size:13px;color:var(--muted)">Round-trip</div>
-          <div style="font-size:26px;font-weight:800">Book international flights</div>
+  <section class="hero">
+    <div class="search-card" role="region" aria-label="Flight search">
+      <div class="search-left">
+        <div class="tabs" role="tablist" aria-label="Trip type">
+          <button class="tab active" data-type="round" role="tab" aria-selected="true">Round-trip</button>
+          <button class="tab" data-type="oneway" role="tab" aria-selected="false">One-way</button>
+          <button class="tab" data-type="multi" role="tab" aria-selected="false">Multi-city</button>
         </div>
-        <div style="text-align:right;color:var(--muted)">Children travel free with special code</div>
+
+        <form id="searchForm" class="form-grid" action="results.html" method="get" autocomplete="off">
+          <div class="field">
+            <label for="from">From</label>
+            <input id="from" name="from" class="input" list="airports" placeholder="e.g. Johannesburg (JNB)" required aria-label="From airport"/>
+            <datalist id="airports">
+              <option value="Johannesburg (JNB)"></option>
+              <option value="Cape Town (CPT)"></option>
+              <option value="Durban (DUR)"></option>
+              <option value="Pretoria (PRY)"></option>
+              <option value="London (LHR)"></option>
+              <option value="Dubai (DXB)"></option>
+              <option value="Frankfurt (FRA)"></option>
+              <option value="Amsterdam (AMS)"></option>
+            </datalist>
+          </div>
+
+          <div class="field">
+            <label for="to">To</label>
+            <input id="to" name="to" class="input" placeholder="e.g. London (LHR)" required aria-label="To airport"/>
+          </div>
+
+          <div class="field">
+            <label for="depart">Depart</label>
+            <input id="depart" name="depart" class="input" type="date" required aria-label="Departure date"/>
+          </div>
+
+          <div class="field" id="returnWrap">
+            <label for="return">Return</label>
+            <input id="return" name="return" class="input" type="date" aria-label="Return date"/>
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center">
+            <div class="pax-toggle" style="position:relative">
+              <label class="hint" style="display:block;margin-bottom:6px">Passengers & class</label>
+              <button id="paxBtn" type="button" class="btn" aria-haspopup="true" aria-expanded="false">1 adult, Economy ▾</button>
+
+              <div id="paxMenu" class="pax-menu" role="dialog" aria-modal="false" aria-label="Passengers">
+                <div class="pax-row">
+                  <div><strong>Adults</strong><div class="hint">16+ years</div></div>
+                  <div class="counter">
+                    <button data-action="dec" data-target="adults">−</button>
+                    <div id="adultsCount">1</div>
+                    <button data-action="inc" data-target="adults">+</button>
+                  </div>
+                </div>
+                <div class="pax-row">
+                  <div><strong>Children</strong><div class="hint">2–15 years</div></div>
+                  <div class="counter">
+                    <button data-action="dec" data-target="children">−</button>
+                    <div id="childrenCount">0</div>
+                    <button data-action="inc" data-target="children">+</button>
+                  </div>
+                </div>
+                <div class="pax-row">
+                  <div><strong>Infants</strong><div class="hint">Under 2 years</div></div>
+                  <div class="counter">
+                    <button data-action="dec" data-target="infants">−</button>
+                    <div id="infantsCount">0</div>
+                    <button data-action="inc" data-target="infants">+</button>
+                  </div>
+                </div>
+                <hr/>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <div>
+                    <div class="hint">Cabin class</div>
+                    <div style="margin-top:6px">
+                      <select id="cabinClass" class="input" style="min-width:160px">
+                        <option>Economy</option>
+                        <option>Premium Economy</option>
+                        <option selected>Business</option>
+                        <option>First</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div style="text-align:right">
+                    <button id="paxApply" class="btn primary">Apply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="hint" style="display:block;margin-bottom:6px">&nbsp;</label>
+              <button type="submit" id="searchBtn" class="btn primary">Search flights</button>
+            </div>
+          </div>
+
+          <!-- hidden inputs to pass pax data -->
+          <input type="hidden" name="adults" id="adultsInput" value="1"/>
+          <input type="hidden" name="children" id="childrenInput" value="0"/>
+          <input type="hidden" name="infants" id="infantsInput" value="0"/>
+          <input type="hidden" name="class" id="classInput" value="Business"/>
+        </form>
+
+        <div class="quick-links">
+          <a class="btn ghost" href="results.html?from=Johannesburg (JNB)&to=London (LHR)">JNB → LHR</a>
+          <a class="btn ghost" href="results.html?from=Johannesburg (JNB)&to=Dubai (DXB)">JNB → DXB</a>
+          <a class="btn ghost" href="results.html?from=Cape Town (CPT)&to=Frankfurt (FRA)">CPT → FRA</a>
+        </div>
       </div>
 
-      <form id="searchForm" class="form-row" action="results.html" method="get">
-        <div class="field">
-          <label>From</label>
-          <input name="from" id="from" placeholder="Johannesburg (JNB)" required list="airports"/>
-          <datalist id="airports">
-            <option value="Johannesburg (JNB)"></option>
-            <option value="Cape Town (CPT)"></option>
-            <option value="Durban (DUR)"></option>
-            <option value="Pretoria (PRY)"></option>
-          </datalist>
+      <aside class="search-right">
+        <div style="background:var(--card);padding:12px;border-radius:12px;border:1px solid #eef2f6">
+          <div style="font-size:14px;font-weight:700">Need help?</div>
+          <div class="hint" style="margin-top:8px">Call our booking team or use Admin to upload flights data.</div>
+          <div style="margin-top:10px"><a class="btn ghost" href="admin.html">Open Admin</a></div>
         </div>
-        <div class="field">
-          <label>To</label>
-          <input name="to" id="to" placeholder="London (LHR)" required/>
-        </div>
-        <div class="field">
-          <label>Depart</label>
-          <input name="depart" id="depart" type="date" required/>
-        </div>
-        <div class="field">
-          <label>Return</label>
-          <input name="return" id="return" type="date"/>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <select name="passengers" class="field" style="min-width:140px;">
-            <option value="1">1 adult</option>
-            <option value="2">2 adults</option>
-            <option value="3">3 adults</option>
-          </select>
-          <button class="btn primary" type="submit">Search flights</button>
-        </div>
-      </form>
-    </div>
-
-    <aside class="search-right">
-      <div style="background:var(--card);padding:12px;border-radius:12px;border:1px solid #eef2f6">
-        <div style="font-size:14px;font-weight:700">Why book with Go-Global</div>
-        <ul style="margin:8px 0 0 18px;color:var(--muted)">
-          <li>Business-class only (>= ZAR 125,000)</li>
-          <li>Includes travel insurance and baggage fees</li>
-          <li>Trusted partner agents worldwide</li>
-        </ul>
-      </div>
-    </aside>
-  </section>
-
-  <section style="margin-top:18px">
-    <div class="section-title">Popular routes</div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap">
-      <a class="btn ghost" href="results.html?from=Johannesburg (JNB)&to=London (LHR)">JNB → LHR</a>
-      <a class="btn ghost" href="results.html?from=Johannesburg (JNB)&to=Dubai (DXB)">JNB → DXB</a>
-      <a class="btn ghost" href="results.html?from=Cape Town (CPT)&to=Frankfurt (FRA)">CPT → FRA</a>
-      <a class="btn ghost" href="results.html?from=Johannesburg (JNB)&to=Amsterdam (AMS)">JNB → AMS</a>
+      </aside>
     </div>
   </section>
 </main>
+
+<script src="flights.js"></script>
 </body>
 </html>
