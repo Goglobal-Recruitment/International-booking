@@ -1,285 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Booking.com Flight Search Mock</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f7f7f7;
-  display: flex;
-  justify-content: center;
-  padding: 50px 10px;
-}
-.flight-search {
-  background: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  width: 420px;
-}
-.flight-search h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 22px;
-  color: #0071c2;
-}
-.trip-type {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-.trip-type button {
-  flex: 1;
-  margin: 0 3px;
-  padding: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background: #f7f7f7;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
-}
-.trip-type button.active {
-  background: #0071c2;
-  color: #fff;
-  border-color: #0071c2;
-}
-.trip-type button:hover {
-  background: #e6f0fa;
-}
-.input-group {
-  margin-bottom: 15px;
-}
-.input-group label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-}
-.input-group select,
-.input-group input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  transition: 0.2s;
-}
-.input-group select:focus,
-.input-group input:focus {
-  outline: none;
-  border-color: #0071c2;
-  box-shadow: 0 0 5px rgba(0,113,194,0.3);
-}
-.passengers,
-.class-select {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-.passenger-count {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.passenger-count button {
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background: #f7f7f7;
-  cursor: pointer;
-  font-size: 14px;
-}
-.passenger-count button:hover {
-  background: #e6f0fa;
-}
-.checkbox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-.search-btn {
-  width: 100%;
-  padding: 12px;
-  background: #0071c2;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: 0.2s;
-}
-.search-btn:hover {
-  background: #005a99;
-}
-.segment {
-  border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  position: relative;
-  background: #f9f9f9;
-}
-.remove-segment {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  cursor: pointer;
-  color: red;
-  font-weight: bold;
-}
-.add-segment {
-  background: #0071c2;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom: 15px;
-  font-weight: bold;
-  transition: 0.2s;
-}
-.add-segment:hover {
-  background: #005a99;
-}
-@media(max-width:480px){
-  .flight-search { width: 100%; padding: 20px; }
-  .trip-type button { font-size: 12px; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flights - Booking.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css">
+    <link rel="stylesheet" href="booking-unified.css">
+    <script src="global-state.js"></script>
+    <link rel="icon" type="image/png" href="https://cf.bstatic.com/static/img/favicon/booking_logo_retina/favicon-32x32.png">
+    <style>
+        /* Header Styles - Exact match to index.html */
+        .header {
+            background: #003580;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #0071c2;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .nav-button {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-button:hover {
+            background: white;
+            color: #003580;
+        }
+
+        .nav-button.register {
+            background: white;
+            color: #003580;
+        }
+
+        .nav-button.register:hover {
+            background: #f0f0f0;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0;
+            padding: 0;
+        }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .tab.active {
+            border-bottom-color: #febb02;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            color: #262626;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 4px;
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown-item:hover {
+            background: #f8f9fa;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .language-dropdown {
+            min-width: 300px;
+        }
+
+        .dropdown-section-title {
+            padding: 12px 16px 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #6b6b6b;
+            border-bottom: 1px solid #e7e7e7;
+        }
+
+        .language-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .language-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .language-item:hover {
+            background: #f8f9fa;
+        }
+
+        .flag {
+            width: 16px;
+            height: 12px;
+        }
+
+        .flag-icon {
+            width: 16px;
+            height: 12px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">Booking.com</div>
+                <div class="nav-right">
+                    <div class="nav-item currency dropdown" onclick="toggleDropdown('currencyDropdown')">
+                        <span id="selectedCurrency">ZAR</span>
+                        <i class="fas fa-chevron-down" style="margin-left: 4px; font-size: 10px;"></i>
+                        <div id="currencyDropdown" class="dropdown-content">
+                            <div class="dropdown-item" onclick="selectCurrency('USD', '$')">USD - US Dollar</div>
+                            <div class="dropdown-item" onclick="selectCurrency('EUR', '€')">EUR - Euro</div>
+                            <div class="dropdown-item" onclick="selectCurrency('GBP', '£')">GBP - British Pound</div>
+                            <div class="dropdown-item" onclick="selectCurrency('ZAR', 'R')">ZAR - South African Rand</div>
+                        </div>
+                    </div>
+                    <div class="nav-item language dropdown" onclick="toggleDropdown('languageDropdown')">
+                        <span class="fi fi-za flag-icon"></span>
+                        <i class="fas fa-chevron-down" style="margin-left: 4px; font-size: 10px;"></i>
+                        <div id="languageDropdown" class="dropdown-content language-dropdown">
+                            <div class="dropdown-section">
+                                <div class="dropdown-section-title">Select your language</div>
+                                <div class="language-grid">
+                                    <div class="language-item" onclick="selectLanguage('us', 'English (US)')">
+                                        <span class="fi fi-us flag"></span>
+                                        <span>English (US)</span>
+                                    </div>
+                                    <div class="language-item" onclick="selectLanguage('gb', 'English (UK)')">
+                                        <span class="fi fi-gb flag"></span>
+                                        <span>English (UK)</span>
+                                    </div>
+                                    <div class="language-item" onclick="selectLanguage('za', 'English (ZA)')">
+                                        <span class="fi fi-za flag"></span>
+                                        <span>English (ZA)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-item help" onclick="window.open('customer-service.html', '_blank')">
+                        <i class="fas fa-question-circle"></i>
+                        Customer service
+                    </div>
+                    <div class="nav-item property" style="font-weight: bold;">List your property</div>
+                    <button class="nav-button register" onclick="openModal('registerModal')">Register</button>
+                    <button class="nav-button" onclick="openModal('loginModal')">Sign in</button>
+                </div>
+            </div>
+            
+            <div class="nav-tabs">
+                <div class="tab" onclick="window.location.href='index.html'">
+                    <i class="fas fa-bed"></i>
+                    Stays
+                </div>
+                <div class="tab active">
+                    <i class="fas fa-plane"></i>
+                    Flights
+                </div>
+                <div class="tab" onclick="navigateToCars()">
+                    <i class="fas fa-car"></i>
+                    Car rentals
+                </div>
+                <div class="tab" onclick="navigateToAttractions()">
+                    <i class="fas fa-umbrella-beach"></i>
+                    Attractions
+                </div>
+                <div class="tab" onclick="navigateToTaxis()">
+                    <i class="fas fa-taxi"></i>
+                    Airport taxis
+                </div>
+            </div>
+        </div>
+    </header>
 
-<div class="flight-search">
-  <h2>Search Flights</h2>
-  
-  <div class="trip-type">
-    <button class="trip-btn active" data-type="round">Round-trip</button>
-    <button class="trip-btn" data-type="oneway">One-way</button>
-    <button class="trip-btn" data-type="multi">Multi-city</button>
-  </div>
-  
-  <div class="segments">
-    <div class="segment">
-      <div class="input-group">
-        <label>From</label>
-        <select class="from-airport">
-          <option value="JFK">JFK</option>
-          <option value="LAX">LAX</option>
-          <option value="CDG">CDG</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label>To</label>
-        <select class="to-airport">
-          <option value="LHR">LHR</option>
-          <option value="DXB">DXB</option>
-          <option value="NRT">NRT</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label>Departure</label>
-        <input type="text" class="date-picker" placeholder="Select date">
-      </div>
-      <div class="input-group return-date">
-        <label>Return</label>
-        <input type="text" class="date-picker" placeholder="Select return date">
-      </div>
-      <span class="remove-segment" style="display:none;">✖</span>
-    </div>
-  </div>
-  
-  <button class="add-segment" style="display:none;">+ Add Another Flight</button>
-  
-  <div class="passengers">
-    <label>Passengers</label>
-    <div class="passenger-count">
-      <button class="decrement">-</button>
-      <span class="count">1</span>
-      <button class="increment">+</button>
-    </div>
-  </div>
-  
-  <div class="class-select">
-    <label>Class</label>
-    <select>
-      <option>Economy</option>
-      <option>Business</option>
-      <option>First</option>
-    </select>
-  </div>
-  
-  <div class="checkbox">
-    <input type="checkbox" id="direct">
-    <label for="direct">Direct flights only</label>
-  </div>
-  
-  <button class="search-btn">Explore</button>
-</div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Compare and book flights with ease</h1>
+                <p class="hero-subtitle">Discover your next dream destination</p>
+            </div>
+        </div>
+    </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
-<script>
-const tripButtons = document.querySelectorAll('.trip-btn');
-const segments = document.querySelector('.segments');
-const addSegmentBtn = document.querySelector('.add-segment');
-const passengerCount = document.querySelector('.count');
-let count = 1;
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <!-- Trip Type Tabs -->
+            <div class="search-tabs">
+                <button class="tab-btn active" data-type="return">
+                    <i class="fas fa-exchange-alt"></i>
+                    Return
+                </button>
+                <button class="tab-btn" data-type="one-way">
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                    One-way
+                </button>
+                <button class="tab-btn" data-type="multi-city">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Multi-city
+                </button>
+            </div>
 
-tripButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    tripButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const type = btn.dataset.type;
-    
-    if(type === 'multi') {
-      addSegmentBtn.style.display = 'block';
-      document.querySelectorAll('.return-date').forEach(el=>el.style.display='none');
-    } else {
-      addSegmentBtn.style.display = 'none';
-      document.querySelectorAll('.segment .return-date').forEach(el => el.style.display = type==='round'?'block':'none');
-      document.querySelectorAll('.segment .remove-segment').forEach(el => el.style.display = 'none');
-      segments.innerHTML = segments.children[0].outerHTML;
-      initializeDatePickers();
-    }
-  });
-});
+            <!-- Search Form -->
+            <form class="search-form" id="flightSearchForm">
+                <div class="search-row">
+                    <!-- From Field -->
+                    <div class="search-field">
+                        <label class="field-label">From</label>
+                        <div class="field-input-wrapper">
+                            <i class="fas fa-plane-departure field-icon"></i>
+                            <input type="text" class="field-input" id="fromInput" placeholder="Where from?" required>
+                            <div class="dropdown-results" id="fromDropdown"></div>
+                        </div>
+                    </div>
 
-addSegmentBtn.addEventListener('click', () => {
-  const newSegment = segments.children[0].cloneNode(true);
-  newSegment.querySelector('.remove-segment').style.display = 'block';
-  newSegment.querySelectorAll('input').forEach(i => i.value = '');
-  segments.appendChild(newSegment);
-  initializeDatePickers();
-  newSegment.querySelector('.remove-segment').addEventListener('click', () => newSegment.remove());
-});
+                    <!-- Swap Button -->
+                    <button type="button" class="swap-btn" onclick="swapLocations()">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
 
-document.querySelector('.increment').addEventListener('click', () => {
-  count++;
-  passengerCount.textContent = count;
-});
-document.querySelector('.decrement').addEventListener('click', () => {
-  if(count>1) count--;
-  passengerCount.textContent = count;
-});
+                    <!-- To Field -->
+                    <div class="search-field">
+                        <label class="field-label">To</label>
+                        <div class="field-input-wrapper">
+                            <i class="fas fa-plane-arrival field-icon"></i>
+                            <input type="text" class="field-input" id="toInput" placeholder="Where to?" required>
+                            <div class="dropdown-results" id="toDropdown"></div>
+                        </div>
+                    </div>
 
-document.querySelector('.search-btn').addEventListener('click', () => {
-  alert('Search triggered! This is a mock version.');
-});
+                    <!-- Departure Date -->
+                    <div class="search-field">
+                        <label class="field-label">Departure</label>
+                        <div class="field-input-wrapper">
+                            <i class="fas fa-calendar field-icon"></i>
+                            <input type="date" class="field-input" id="departureDate" required>
+                        </div>
+                    </div>
 
-function initializeDatePickers(){
-  document.querySelectorAll('.date-picker').forEach(input => flatpickr(input, { minDate: 'today', dateFormat: 'Y-m-d' }));
-}
+                    <!-- Return Date -->
+                    <div class="search-field" id="returnDateField">
+                        <label class="field-label">Return</label>
+                        <div class="field-input-wrapper">
+                            <i class="fas fa-calendar field-icon"></i>
+                            <input type="date" class="field-input" id="returnDate">
+                        </div>
+                    </div>
 
-initializeDatePickers();
-</script>
+                    <!-- Passengers -->
+                    <div class="search-field">
+                        <label class="field-label">Passengers</label>
+                        <div class="guest-dropdown">
+                            <button type="button" class="guest-selector" onclick="toggleGuestDropdown()">
+                                <span id="guestSummary">1 adult</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="guest-dropdown-content" id="guestDropdown">
+                                <div class="guest-row">
+                                    <div class="guest-info">
+                                        <h4>Adults</h4>
+                                        <p>Age 18+</p>
+                                    </div>
+                                    <div class="guest-controls">
+                                        <button type="button" class="guest-btn" onclick="changeGuests('adults', -1)">-</button>
+                                        <span class="guest-count" id="adultsCount">1</span>
+                                        <button type="button" class="guest-btn" onclick="changeGuests('adults', 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="guest-row">
+                                    <div class="guest-info">
+                                        <h4>Children</h4>
+                                        <p>Age 0-17</p>
+                                    </div>
+                                    <div class="guest-controls">
+                                        <button type="button" class="guest-btn" onclick="changeGuests('children', -1)">-</button>
+                                        <span class="guest-count" id="childrenCount">0</span>
+                                        <button type="button" class="guest-btn" onclick="changeGuests('children', 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Button -->
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script src="flight-search.js"></script>
+    <script>
+        // Dropdown functionality
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const allDropdowns = document.querySelectorAll('.dropdown-content');
+            
+            // Close all other dropdowns
+            allDropdowns.forEach(d => {
+                if (d.id !== dropdownId) {
+                    d.classList.remove('show');
+                }
+            });
+            
+            dropdown.classList.toggle('show');
+        }
+
+        function selectCurrency(code, symbol) {
+            document.getElementById('selectedCurrency').textContent = code;
+            document.getElementById('currencyDropdown').classList.remove('show');
+        }
+
+        function selectLanguage(code, name) {
+            const flagIcon = document.querySelector('.flag-icon');
+            flagIcon.className = `fi fi-${code} flag-icon`;
+            document.getElementById('languageDropdown').classList.remove('show');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+            }
+        });
+
+        function openModal(modalId) {
+            // Modal functionality would go here
+            console.log('Opening modal:', modalId);
+        }
+
+        function navigateToCars() {
+            console.log('Navigate to car rentals');
+        }
+
+        function navigateToAttractions() {
+            console.log('Navigate to attractions');
+        }
+
+        function navigateToTaxis() {
+            console.log('Navigate to airport taxis');
+        }
+    </script>
 </body>
 </html>
