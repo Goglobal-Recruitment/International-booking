@@ -1,98 +1,89 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Flights — GoGlobal</title>
-  <link rel="stylesheet" href="flights.css">
-  <!-- Google fonts (Booking-like feel) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Flights — GoGlobal Recruitment</title>
+<link rel="stylesheet" href="flights.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="gg-header">
-    <div class="container header-inner">
-      <a class="logo" href="index.html" aria-label="GoGlobal home">Go-Global Recruitment</a>
-      <nav class="header-nav">
-        <a href="index.html">Home</a>
-        <a class="active" href="flights.html">Flights</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
+<header class="gg-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html">Go-Global Recruitment</a>
+    <nav class="header-nav">
+      <a href="index.html">Home</a>
+      <a class="active" href="flights.html">Flights</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </div>
+</header>
 
-  <main>
-    <section class="hero container">
-      <form id="searchForm" class="search-card" autocomplete="off">
-        <div class="row">
-          <div class="field">
-            <label>From</label>
-            <input id="from" required placeholder="Johannesburg"/>
-          </div>
-          <div class="field">
-            <label>To</label>
-            <input id="to" required placeholder="London"/>
-          </div>
-          <div class="field">
-            <label>Depart</label>
-            <input id="depart" type="date" required/>
-          </div>
-          <div class="field">
-            <label>Return (optional)</label>
-            <input id="return" type="date"/>
-          </div>
-          <div class="field">
-            <label>Passengers</label>
-            <select id="passengers">
-              <option>1 adult</option>
-              <option>2 adults</option>
-              <option>3 adults</option>
-            </select>
-          </div>
-          <div class="field actions">
-            <button type="submit" class="btn primary">Search flights</button>
-          </div>
+<main class="container">
+  <section class="search-hero">
+    <div class="search-left">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:13px;color:var(--muted)">Round-trip</div>
+          <div style="font-size:26px;font-weight:800">Book international flights</div>
+        </div>
+        <div style="text-align:right;color:var(--muted)">Children travel free with special code</div>
+      </div>
+
+      <form id="searchForm" class="form-row" action="results.html" method="get">
+        <div class="field">
+          <label>From</label>
+          <input name="from" id="from" placeholder="Johannesburg (JNB)" required list="airports"/>
+          <datalist id="airports">
+            <option value="Johannesburg (JNB)"></option>
+            <option value="Cape Town (CPT)"></option>
+            <option value="Durban (DUR)"></option>
+            <option value="Pretoria (PRY)"></option>
+          </datalist>
+        </div>
+        <div class="field">
+          <label>To</label>
+          <input name="to" id="to" placeholder="London (LHR)" required/>
+        </div>
+        <div class="field">
+          <label>Depart</label>
+          <input name="depart" id="depart" type="date" required/>
+        </div>
+        <div class="field">
+          <label>Return</label>
+          <input name="return" id="return" type="date"/>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <select name="passengers" class="field" style="min-width:140px;">
+            <option value="1">1 adult</option>
+            <option value="2">2 adults</option>
+            <option value="3">3 adults</option>
+          </select>
+          <button class="btn primary" type="submit">Search flights</button>
         </div>
       </form>
-    </section>
+    </div>
 
-    <section class="results container" id="resultsSection" aria-live="polite">
-      <aside class="filters">
-        <h4>Filters</h4>
-        <div>
-          <label>Stops</label>
-          <select id="stopsFilter"><option value="any">Any</option><option value="0">Non-stop</option><option value="1">1 stop</option></select>
-        </div>
-        <div>
-          <label>Sort by</label>
-          <select id="sortBy"><option value="price">Price</option><option value="duration">Duration</option></select>
-        </div>
-      </aside>
-
-      <div class="list" id="resultsList">
-        <!-- JS will inject flight cards here -->
+    <aside class="search-right">
+      <div style="background:var(--card);padding:12px;border-radius:12px;border:1px solid #eef2f6">
+        <div style="font-size:14px;font-weight:700">Why book with Go-Global</div>
+        <ul style="margin:8px 0 0 18px;color:var(--muted)">
+          <li>Business-class only (>= ZAR 125,000)</li>
+          <li>Includes travel insurance and baggage fees</li>
+          <li>Trusted partner agents worldwide</li>
+        </ul>
       </div>
-    </section>
-  </main>
+    </aside>
+  </section>
 
-  <template id="cardTemplate">
-    <article class="flight-card">
-      <div class="flight-top">
-        <div class="airline">AIRLINE</div>
-        <div class="times">
-          <div class="time-dep">DEP_TIME</div>
-          <div class="route">DEP — ARR</div>
-          <div class="time-arr">ARR_TIME</div>
-        </div>
-      </div>
-      <div class="flight-bottom">
-        <div class="price">ZAR 0</div>
-        <div class="cta">
-          <button class="btn select">Select</button>
-        </div>
-      </div>
-    </article>
-  </template>
-
-  <script src="flights.js"></script>
+  <section style="margin-top:18px">
+    <div class="section-title">Popular routes</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn ghost" href="results.html?from=Johannesburg (JNB)&to=London (LHR)">JNB → LHR</a>
+      <a class="btn ghost" href="results.html?from=Johannesburg (JNB)&to=Dubai (DXB)">JNB → DXB</a>
+      <a class="btn ghost" href="results.html?from=Cape Town (CPT)&to=Frankfurt (FRA)">CPT → FRA</a>
+      <a class="btn ghost" href="results.html?from=Johannesburg (JNB)&to=Amsterdam (AMS)">JNB → AMS</a>
+    </div>
+  </section>
+</main>
 </body>
 </html>
