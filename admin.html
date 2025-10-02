@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Admin — Flights Data</title>
+<link rel="stylesheet" href="flights.css"></head>
+<body>
+<header class="gg-header"><div class="container header-inner"><a class="logo" href="index.html">Go-Global Recruitment</a></div></header>
+<main class="container" style="padding-top:20px">
+  <h2 style="margin:0 0 12px 0">Admin — upload flights.json (local override)</h2>
+  <div style="background:var(--card);padding:14px;border-radius:12px;border:1px solid #eef2f6">
+    <label><strong>Paste JSON array</strong></label>
+    <textarea id="pasteArea" style="width:100%;height:260px;margin-top:8px;padding:10px"></textarea>
+    <div style="margin-top:8px">
+      <button id="savePaste" class="btn primary">Save to browser override</button>
+      <button id="clear" class="btn">Clear override</button>
+    </div>
+    <hr style="margin:12px 0"/>
+    <label><strong>Or upload flights.json file</strong></label>
+    <input id="fileInput" type="file" accept=".json" />
+    <div style="margin-top:8px"><button id="uploadBtn" class="btn">Upload file</button></div>
+    <p id="status" style="margin-top:12px;color:var(--muted)"></p>
+  </div>
+  <p style="margin-top:12px;color:var(--muted)">After saving, open <a href="results.html">Results</a> and refresh to see changes.</p>
+</main>
+<script>
+function setStatus(t){ document.getElementById('status').textContent = t; }
+document.getElementById('savePaste').addEventListener('click', ()=>{
+  const t = document.getElementById('pasteArea').value.trim();
+  if(!t){ setStatus('Paste valid JSON first.'); return; }
+  try{ const p=JSON.parse(t); if(!Array.isArray(p) && !(p && Array.isArray(p.flights))){ setStatus('JSON must be an array or object with "flights" array'); return; }
+    localStorage.setItem('gg_flights_override', t); setStatus('Saved override to browser storage.'); }
+  catch(e){ setStatus('Invalid JSON: '+e.message); }
+});
+document.getElementById('uploadBtn').addEventListener('click', ()=>{
+  const f=document.getElementById('fileInput').files[0]; if(!f){ setStatus('Choose a file'); return; }
+  const r=new FileReader(); r.onload= e => { try{ const p=JSON.parse(e.target.result); if(!Array.isArray(p) && !(p && Array.isArray(p.flights))){ setStatus('JSON must be an array or object with "flights" array'); return; } localStorage.setItem('gg_flights_override', e.target.result); setStatus('Saved override to browser storage.'); } catch(err){ setStatus('Invalid JSON: '+err.message); } }; r.readAsText(f);
+});
+document.getElementById('clear').addEventListener('click', ()=> { localStorage.removeItem('gg_flights_override'); setStatus('Override cleared.'); });
+</script>
+</body>
+</html>
