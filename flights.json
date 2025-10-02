@@ -1,0 +1,30 @@
+[
+  {
+    "id": "GGL1001",
+    "airline": "British Airways",
+    "airlineLogo": "",
+    "depTime": "2026-01-10T08:30:00Z",
+    "arrTime": "2026-01-10T18:30:00Z",
+    "origin": "JNB",
+    "originName": "Johannesburg",
+    "dest": "LHR",
+    "destName": "London",
+    "stops": 0,
+    "priceZAR": 125000,
+    "durationMin": 600
+  },
+  {
+    "id": "GGL1002",
+    "airline": "Emirates",
+    "airlineLogo": "",
+    "depTime": "2026-01-11T07:20:00Z",
+    "arrTime": "2026-01-11T19:30:00Z",
+    "origin": "JNB",
+    "originName": "Johannesburg",
+    "dest": "DXB",
+    "destName": "Dubai",
+    "stops": 0,
+    "priceZAR": 132000,
+    "durationMin": 780
+  }
+]
