@@ -1,66 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>International Booking — Flights</title>
-<link rel="stylesheet" href="flights.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flights — GoGlobal</title>
+  <link rel="stylesheet" href="flights.css">
+  <!-- Google fonts (Booking-like feel) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<header class="header">
-  <div class="container header-container">
-    <div class="logo">International Booking</div>
-    <nav class="header-nav">
-      <a href="#">Sign in</a>
-      <a href="#">Register</a>
-    </nav>
-  </div>
-</header>
-
-<main class="container">
-  <section class="search-summary">
-    <div class="search-info">
-      <strong>CPT → JNB</strong>
-      <span>Mon 30 Sep – Tue 01 Oct | 1 adult, Economy</span>
+  <header class="gg-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" aria-label="GoGlobal home">Go-Global Recruitment</a>
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a class="active" href="flights.html">Flights</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
-    <button class="change-search">Change search</button>
-  </section>
+  </header>
 
-  <section class="filters">
-    <div class="filter-group">
-      <h4>Stops</h4>
-      <label><input type="checkbox" class="stops-filter" value="0"> Non-stop</label>
-      <label><input type="checkbox" class="stops-filter" value="1"> 1 Stop</label>
-      <label><input type="checkbox" class="stops-filter" value="2"> 2+ Stops</label>
-    </div>
-    <div class="filter-group">
-      <h4>Airlines</h4>
-      <label><input type="checkbox" class="airline-filter" value="South African Airways"> South African Airways</label>
-      <label><input type="checkbox" class="airline-filter" value="Emirates"> Emirates</label>
-      <label><input type="checkbox" class="airline-filter" value="British Airways"> British Airways</label>
-    </div>
-    <div class="filter-group">
-      <h4>Sort by</h4>
-      <select id="sort">
-        <option value="price">Price</option>
-        <option value="duration">Duration</option>
-        <option value="departure">Departure</option>
-      </select>
-    </div>
-  </section>
+  <main>
+    <section class="hero container">
+      <form id="searchForm" class="search-card" autocomplete="off">
+        <div class="row">
+          <div class="field">
+            <label>From</label>
+            <input id="from" required placeholder="Johannesburg"/>
+          </div>
+          <div class="field">
+            <label>To</label>
+            <input id="to" required placeholder="London"/>
+          </div>
+          <div class="field">
+            <label>Depart</label>
+            <input id="depart" type="date" required/>
+          </div>
+          <div class="field">
+            <label>Return (optional)</label>
+            <input id="return" type="date"/>
+          </div>
+          <div class="field">
+            <label>Passengers</label>
+            <select id="passengers">
+              <option>1 adult</option>
+              <option>2 adults</option>
+              <option>3 adults</option>
+            </select>
+          </div>
+          <div class="field actions">
+            <button type="submit" class="btn primary">Search flights</button>
+          </div>
+        </div>
+      </form>
+    </section>
 
-  <section class="flights-results">
-    <!-- Flight cards dynamically inserted here -->
-  </section>
-</main>
+    <section class="results container" id="resultsSection" aria-live="polite">
+      <aside class="filters">
+        <h4>Filters</h4>
+        <div>
+          <label>Stops</label>
+          <select id="stopsFilter"><option value="any">Any</option><option value="0">Non-stop</option><option value="1">1 stop</option></select>
+        </div>
+        <div>
+          <label>Sort by</label>
+          <select id="sortBy"><option value="price">Price</option><option value="duration">Duration</option></select>
+        </div>
+      </aside>
 
-<footer>
-  <div class="container footer-container">
-    <p>© 2025 International Booking</p>
-  </div>
-</footer>
+      <div class="list" id="resultsList">
+        <!-- JS will inject flight cards here -->
+      </div>
+    </section>
+  </main>
 
-<script src="flights.js"></script>
+  <template id="cardTemplate">
+    <article class="flight-card">
+      <div class="flight-top">
+        <div class="airline">AIRLINE</div>
+        <div class="times">
+          <div class="time-dep">DEP_TIME</div>
+          <div class="route">DEP — ARR</div>
+          <div class="time-arr">ARR_TIME</div>
+        </div>
+      </div>
+      <div class="flight-bottom">
+        <div class="price">ZAR 0</div>
+        <div class="cta">
+          <button class="btn select">Select</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="flights.js"></script>
 </body>
 </html>
